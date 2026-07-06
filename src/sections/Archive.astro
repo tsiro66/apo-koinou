@@ -1,21 +1,38 @@
 ---
 import { getCollection } from 'astro:content';
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
-import PlayCard from '../components/PlayCard.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
+// Keep productions that have any photos (thumbnail or gallery).
 const plays = (
   await getCollection('parastaseis', ({ data }) => !data.draft)
 )
-  .filter((p) => p.data.gallery.length > 0 || p.data.streamId || p.data.thumbnail)
+  .filter((p) => p.data.gallery.length > 0 || !!p.data.thumbnail)
   .sort((a, b) => b.data.year - a.data.year);
 
 const home = localizedPath('/', locale);
+const photoWord = t('common.photo');
+
+// For each play, collect all its photos (thumbnail first, then gallery).
+const groups = plays.map((play) => {
+  const photos: ImageMetadata[] = [];
+  if (play.data.thumbnail) photos.push(play.data.thumbnail);
+  photos.push(...play.data.gallery);
+  return {
+    href: localizedPath(`/parastaseis/${play.id}`, locale),
+    title: play.data.title,
+    year: play.data.year,
+    director: play.data.director,
+    photos,
+  };
+});
 ---
 
 <BaseLayout title={t('page.syllogi.title')} canonicalPath="/syllogi">
@@ -25,9 +42,55 @@ const home = localizedPath('/', locale);
       <SectionTitle eyebrow={t('page.syllogi.eyebrow')} title={t('page.syllogi.heading')} />
     </div>
     {
-      plays.length > 0 ? (
-        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {plays.map((play) => <PlayCard play={play} />)}
+      groups.length > 0 ? (
+        <div class="mt-12 space-y-12">
+          {groups.map((g) => (
+            <section>
+              <header class="mb-4 flex items-baseline justify-between gap-4">
+                <div>
+                  <h2 class="font-serif text-2xl text-ink">
+                    <a
+                      href={g.href}
+                      aria-label={g.title}
+                      class="hover:text-curtain"
+                    >
+                      {g.title}
+                    </a>
+                  </h2>
+                  <p class="mt-1 text-sm text-mute">
+                    {g.year}{g.director ? ` — ${g.director}` : ''}
+                  </p>
+                </div>
+                <a
+                  href={g.href}
+                  class="whitespace-nowrap text-sm text-curtain hover:underline"
+                >
+                  →
+                </a>
+              </header>
+              <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                {g.photos.map((src, i) => (
+                  <li>
+                    <a
+                      href={src.src}
+                      target="_blank"
+                      class="block overflow-hidden rounded-md border border-ink/10"
+                    >
+                      <Image
+                        src={src}
+                        alt={`${g.title} — ${photoWord} ${i + 1}`}
+                        widths={[240, 480, 640]}
+                        sizes="(min-width:1024px) 25vw,(min-width:640px) 33vw,50vw"
+                        width={480}
+                        height={480}
+                        class="aspect-square w-full object-cover transition hover:scale-105"
+                      />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </section>
+          ))}
         </div>
       ) : (
         <p class="mt-10 text-mute">{t('empty.syllogi')}</p>

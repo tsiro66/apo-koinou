@@ -1,51 +1,16 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { NAV_LINKS, BRAND } from '../consts';
-import {
-  getLocaleFromUrl,
-  useTranslations,
-  localizedPath,
-} from '../i18n/utils';
+import { BRAND } from '../consts';
+import { getLocaleFromUrl, useTranslations } from '../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const brand = BRAND[locale];
-const canonicalPath = '/';
 ---
 
 <BaseLayout
   title={t('page.home.title')}
   description={brand.description}
-  canonicalPath={canonicalPath}
+  canonicalPath="/"
 >
-  <section class="mx-auto max-w-6xl">
-    <div class="max-w-3xl">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-[0.2em] text-gold">
-        {t('page.home.eyebrow')}
-      </p>
-      <h1 class="font-serif text-4xl leading-tight text-ink sm:text-5xl">
-        {t('page.home.heading')}
-      </h1>
-      <p class="mt-6 text-lg leading-relaxed text-ink/80">
-        {t('page.home.body')}
-      </p>
-    </div>
-
-    <ul class="mt-12 grid grid-cols-2 gap-3 sm:grid-cols-4">
-      {
-        NAV_LINKS.filter((l) => l.href !== '/').map((link) => (
-          <li>
-            <a
-              href={localizedPath(link.href, locale)}
-              class="block rounded-lg border border-ink/10 p-4 transition hover:border-curtain hover:bg-ink/5"
-            >
-              <span class="font-serif text-lg text-ink group-hover:text-curtain">
-                {t(link.labelKey)}
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
 </BaseLayout>
