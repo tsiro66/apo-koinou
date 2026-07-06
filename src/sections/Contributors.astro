@@ -1,0 +1,33 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import ContributorCard from '../components/ContributorCard.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const contributors = (await getCollection('synteleistes')).sort((a, b) =>
+  (a.data.order ?? 0) - (b.data.order ?? 0) || a.data.name.localeCompare(b.data.name, 'el')
+);
+---
+
+<BaseLayout title={t('page.synteleistes.title')} canonicalPath="/synteleistes">
+  <div class="mx-auto max-w-6xl">
+    <Breadcrumbs crumbs={[{ label: t('nav.home'), href: localizedPath('/', locale) }, { label: t('page.synteleistes.title') }]} />
+    <div class="mt-6">
+      <SectionTitle eyebrow={t('page.synteleistes.eyebrow')} title={t('page.synteleistes.title')} />
+    </div>
+    {
+      contributors.length > 0 ? (
+        <div class="mt-10 grid gap-8 sm:grid-cols-3 lg:grid-cols-4">
+          {contributors.map((c) => <ContributorCard contributor={c} />)}
+        </div>
+      ) : (
+        <p class="mt-10 text-mute">{t('empty.synteleistes')}</p>
+      )
+    }
+  </div>
+</BaseLayout>

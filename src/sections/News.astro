@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const posts = (
+  await getCollection('nea', ({ data }) => !data.draft)
+).sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+---
+
+<BaseLayout title={t('page.nea.title')} canonicalPath="/nea">
+  <div class="mx-auto max-w-6xl">
+    <Breadcrumbs crumbs={[{ label: t('nav.home'), href: localizedPath('/', locale) }, { label: t('page.nea.title') }]} />
+    <div class="mt-6"><SectionTitle eyebrow={t('page.nea.eyebrow')} title={t('page.nea.title')} /></div>
+    {
+      posts.length > 0 ? (
+        <ul class="mt-10 divide-y divide-ink/10">
+          {posts.map((post) => (
+            <li class="py-5">
+              <a href={localizedPath(`/nea/${post.id}`, locale)} class="group block">
+                <p class="text-xs uppercase tracking-wider text-mute">
+                  {fmt(post.data.publishDate)}
+                </p>
+                <h2 class="mt-1 font-serif text-2xl text-ink group-hover:text-curtain">
+                  {post.data.title}
+                </h2>
+                {post.data.excerpt && (
+                  <p class="mt-2 text-ink/70">{post.data.excerpt}</p>
+                )}
+              </a>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-10 text-mute">{t('empty.nea')}</p>
+      )
+    }
+  </div>
+</BaseLayout>

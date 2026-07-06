@@ -1,0 +1,37 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import PlayCard from '../components/PlayCard.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const plays = (
+  await getCollection('parastaseis', ({ data }) => !data.draft)
+)
+  .filter((p) => p.data.gallery.length > 0 || p.data.streamId || p.data.thumbnail)
+  .sort((a, b) => b.data.year - a.data.year);
+
+const home = localizedPath('/', locale);
+---
+
+<BaseLayout title={t('page.syllogi.title')} canonicalPath="/syllogi">
+  <div class="mx-auto max-w-6xl">
+    <Breadcrumbs crumbs={[{ label: t('nav.home'), href: home }, { label: t('page.syllogi.title') }]} />
+    <div class="mt-6">
+      <SectionTitle eyebrow={t('page.syllogi.eyebrow')} title={t('page.syllogi.heading')} />
+    </div>
+    {
+      plays.length > 0 ? (
+        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {plays.map((play) => <PlayCard play={play} />)}
+        </div>
+      ) : (
+        <p class="mt-10 text-mute">{t('empty.syllogi')}</p>
+      )
+    }
+  </div>
+</BaseLayout>

@@ -1,0 +1,42 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getLocaleFromUrl, useTranslations, localizedPath, format } from '../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+// Current season programme. Add events by locale as the season takes shape.
+const season = '2025–2026';
+const events: Record<'el' | 'en', { date: string; title: string; place: string }[]> = {
+  el: [],
+  en: [],
+};
+const items = events[locale];
+const heading = format(t('page.programma.heading'), { season });
+---
+
+<BaseLayout title={t('page.programma.title')} canonicalPath="/programma">
+  <div class="mx-auto max-w-6xl">
+    <Breadcrumbs crumbs={[{ label: t('nav.home'), href: localizedPath('/', locale) }, { label: t('page.programma.title') }]} />
+    <div class="mt-6">
+      <SectionTitle eyebrow={t('page.programma.eyebrow')} title={heading} />
+    </div>
+    {
+      items.length > 0 ? (
+        <ul class="mt-10 divide-y divide-ink/10">
+          {items.map((ev) => (
+            <li class="py-5">
+              <p class="text-xs uppercase tracking-wider text-gold">{ev.date}</p>
+              <h2 class="mt-1 font-serif text-2xl text-ink">{ev.title}</h2>
+              <p class="mt-1 text-sm text-mute">{ev.place}</p>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p class="mt-10 text-mute">{t('page.programma.soon')}</p>
+      )
+    }
+  </div>
+</BaseLayout>

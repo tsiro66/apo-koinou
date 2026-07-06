@@ -1,0 +1,65 @@
+---
+import { SITE } from '../consts';
+import { BRAND } from '../consts';
+import { getLocaleFromUrl } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description?: string;
+  image?: string;
+  /** Locale-neutral path; SEO prefixes it for the EN canonical & alternates. */
+  canonicalPath?: string;
+  type?: 'website' | 'article';
+}
+
+const {
+  title,
+  description,
+  image,
+  canonicalPath = '/',
+  type = 'website',
+} = Astro.props;
+
+const locale = getLocaleFromUrl(Astro.url);
+const brand = BRAND[locale];
+
+// hreflang alternates. el = default (no prefix), en = /en prefix.
+// canonicalPath is locale-neutral; prefix with /en for the EN variant.
+const base = canonicalPath === '/' ? '' : canonicalPath.replace(/\/$/, '');
+const alternates = [
+  { code: 'el', path: base || '/' },
+  { code: 'en', path: base === '' ? '/en' : `/en${base}` },
+];
+
+const selfPath = locale === 'en' ? alternates[1].path : alternates[0].path;
+const canonical = new URL(selfPath, SITE.site).href;
+const ogImage = image
+  ? new URL(image, SITE.site).href
+  : new URL('/og-default.svg', SITE.site).href;
+const fullTitle = title === brand.title ? title : `${title} — ${brand.title}`;
+const desc = description ?? brand.description;
+---
+
+<!-- Primary meta -->
+<title>{fullTitle}</title>
+<meta name="description" content={desc} />
+<link rel="canonical" href={canonical} />
+
+<!-- Open Graph -->
+<meta property="og:type" content={type} />
+<meta property="og:site_name" content={brand.title} />
+<meta property="og:title" content={fullTitle} />
+<meta property="og:description" content={desc} />
+<meta property="og:url" content={canonical} />
+<meta property="og:image" content={ogImage} />
+<meta property="og:locale" content={locale === 'en' ? 'en_US' : 'el_GR'} />
+{alternates.map((alt) => (
+  <link rel="alternate" hreflang={alt.code} href={new URL(alt.path, SITE.site).href} />
+))}
+<link rel="alternate" hreflang="x-default" href={new URL(alternates[0].path, SITE.site).href} />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content={fullTitle} />
+<meta name="twitter:description" content={desc} />
+<meta name="twitter:image" content={ogImage} />

@@ -1,0 +1,86 @@
+---
+import { NAV_LINKS } from '../consts';
+import { Image } from 'astro:assets';
+import LocaleSwitcher from './LocaleSwitcher.astro';
+import { getLocaleFromUrl, useTranslations, localizedPath, neutralPath } from '../i18n/utils';
+import { BRAND } from '../consts';
+import logo from '../assets/logos/logo.jpg';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const brand = BRAND[locale];
+
+// Active-link check uses the locale-neutral path so it works under /en too.
+const neutral = neutralPath(Astro.url);
+const isActive = (href: string) =>
+  href === '/' ? neutral === '/' : neutral.startsWith(href);
+---
+
+<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur">
+  <nav class="grid grid-cols-3 items-center">
+    <!-- Logo (left column) -->
+    <a
+      href={localizedPath('/', locale)}
+      class="flex items-center justify-self-start"
+      aria-label={brand.title}
+    >
+      <Image
+        src={logo}
+        alt={brand.title}
+        widths={[192, 288, 384]}
+        sizes="384px"
+        height={96}
+        class="h-full w-auto max-h-30"
+      />
+    </a>
+
+    <!-- Desktop nav (centered middle column) -->
+    <ul class="hidden items-center justify-center gap-7 md:flex">
+      {
+        NAV_LINKS.map((link) => (
+          <li>
+            <a
+              href={localizedPath(link.href, locale)}
+              aria-current={isActive(link.href) ? 'page' : undefined}
+              class="text-[0.95rem] uppercase tracking-[0.08em] text-ink/80 transition hover:text-curtain aria-[current=page]:text-curtain aria-[current=page]:font-semibold"
+            >
+              {t(link.labelKey)}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <!-- Right column: locale switcher + mobile toggle -->
+    <div class="flex items-center justify-self-end gap-3">
+      <LocaleSwitcher />
+
+      <!-- Mobile toggle: pure-CSS via <details>, no JS -->
+      <details class="relative md:hidden">
+        <summary
+          class="cursor-pointer list-none rounded p-2 text-ink/80 hover:text-curtain"
+          aria-label={t('common.open_menu')}
+        >
+          ☰
+        </summary>
+        <ul
+          class="absolute right-0 mt-2 w-56 rounded-md border border-ink/10 bg-paper p-2 shadow-lg"
+        >
+          {
+            NAV_LINKS.map((link) => (
+              <li>
+                <a
+                  href={localizedPath(link.href, locale)}
+                  aria-current={isActive(link.href) ? 'page' : undefined}
+                  class="block rounded px-3 py-2 text-sm uppercase tracking-[0.08em] text-ink/80 hover:bg-ink/5 hover:text-curtain aria-[current=page]:text-curtain aria-[current=page]:font-semibold"
+                >
+                  {t(link.labelKey)}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </details>
+    </div>
+  </nav>
+</header>

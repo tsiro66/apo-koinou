@@ -1,0 +1,61 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { Image } from 'astro:assets';
+import { BRAND } from '../consts';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+
+interface Props {
+  contributor: CollectionEntry<'synteleistes'>;
+}
+const { contributor } = Astro.props;
+const { Content } = await render(contributor);
+const d = contributor.data;
+const name = d.name;
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const brand = BRAND[locale];
+---
+
+<BaseLayout
+  title={name}
+  description={d.bio ?? brand.description}
+  canonicalPath={`/synteleistes/${contributor.id}`}
+  type="article"
+>
+  <article class="mx-auto max-w-6xl">
+    <Breadcrumbs
+      crumbs={[
+        { label: t('nav.home'), href: localizedPath('/', locale) },
+        { label: t('page.synteleistes.title'), href: localizedPath('/synteleistes', locale) },
+        { label: name },
+      ]}
+    />
+    <div class="mt-6 flex items-center gap-6">
+      {
+        d.photo && (
+          <Image
+            src={d.photo}
+            alt={name}
+            widths={[128, 160, 320]}
+            sizes="128px"
+            width={320}
+            height={320}
+            class="h-32 w-32 rounded-full object-cover"
+          />
+        )
+      }
+      <div>
+        <h1 class="font-serif text-4xl text-ink">{name}</h1>
+        {d.role && <p class="mt-1 text-sm uppercase tracking-wider text-mute">{d.role}</p>}
+      </div>
+    </div>
+    {d.bio && <p class="mt-6 text-lg text-ink/80">{d.bio}</p>}
+    <div class="prose mt-8 max-w-none">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

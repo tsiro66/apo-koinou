@@ -1,0 +1,34 @@
+@import 'tailwindcss';
+
+/* Theme tokens — strict black & white. No color accents.
+   Tailwind v4 reads CSS variables via @theme. */
+@theme {
+  --color-ink: #000000;
+  --color-paper: #ffffff;
+  --color-curtain: #000000;
+  --color-gold: #f0ad6a;
+  --color-mute: #525252;
+
+  --font-serif: 'Geom', 'Georgia', 'Times New Roman', serif;
+  --font-sans: 'Google Sans', system-ui, sans-serif;
+}
+
+:root {
+  color-scheme: light;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-paper);
+  color: var(--color-ink);
+}
+
+/* Focus ring for accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-gold);
+  outline-offset: 2px;
+}

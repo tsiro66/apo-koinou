@@ -1,0 +1,127 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StreamPlayer from '../components/StreamPlayer.astro';
+import Gallery from '../components/Gallery.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BRAND } from '../consts';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+
+interface Props {
+  play: CollectionEntry<'parastaseis'>;
+}
+const { play } = Astro.props;
+const { Content } = await render(play);
+const d = play.data;
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const brand = BRAND[locale];
+const canonicalPath = `/parastaseis/${play.id}`;
+
+const premiere = d.premiereDate
+  ? d.premiereDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    })
+  : String(d.year);
+
+const youtubeId = d.youtubeTrailer?.startsWith('http')
+  ? d.youtubeTrailer.split('v=')[1]?.split('&')[0]
+  : d.youtubeTrailer;
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.seoDescription ?? d.summary ?? brand.description}
+  image={(d.seoImage ?? d.thumbnail)?.src}
+  canonicalPath={canonicalPath}
+  type="article"
+>
+  <article class="mx-auto max-w-6xl">
+    <Breadcrumbs
+      crumbs={[
+        { label: t('nav.home'), href: localizedPath('/', locale) },
+        { label: t('page.parastaseis.title'), href: localizedPath('/parastaseis', locale) },
+        { label: d.title },
+      ]}
+    />
+
+    <header class="mt-6">
+      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-gold">
+        {d.year}
+      </p>
+      <h1 class="mt-2 font-serif text-4xl text-ink">{d.title}</h1>
+      <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-2 text-sm text-mute sm:grid-cols-2">
+        {d.premiereDate && (<><dt class="font-semibold text-ink">{t('prod.premiere')}</dt><dd>{premiere}</dd></>)}
+        {d.director && (<><dt class="font-semibold text-ink">{t('prod.director')}</dt><dd>{d.director}</dd></>)}
+        {d.writer && (<><dt class="font-semibold text-ink">{t('prod.writer')}</dt><dd>{d.writer}</dd></>)}
+        {d.duration && (<><dt class="font-semibold text-ink">{t('prod.duration')}</dt><dd>{d.duration}</dd></>)}
+        {d.genre && (<><dt class="font-semibold text-ink">{t('prod.genre')}</dt><dd>{d.genre}</dd></>)}
+        <dt class="font-semibold text-ink">{t('prod.language')}</dt><dd>{d.language}</dd>
+      </dl>
+    </header>
+
+    {d.summary && (
+      <p class="mt-6 text-lg leading-relaxed text-ink/80">{d.summary}</p>
+    )}
+
+    {d.streamId && (
+      <section class="mt-10">
+        <h2 class="font-serif text-2xl text-ink">{t('prod.stream_section')}</h2>
+        <div class="mt-4">
+          <StreamPlayer streamId={d.streamId} title={d.title} />
+        </div>
+      </section>
+    )}
+
+    {youtubeId && (
+      <section class="mt-10">
+        <h2 class="font-serif text-2xl text-ink">{t('prod.trailer_section')}</h2>
+        <div class="mt-4 overflow-hidden rounded-lg border border-ink/10 bg-black shadow-md">
+          <iframe
+            src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+            title={`${t('prod.trailer_section')} — ${d.title}`}
+            allow="accelerometer; autoplay; encrypted-media; fullscreen"
+            allowfullscreen
+            class="aspect-video w-full"
+            loading="lazy"
+          ></iframe>
+        </div>
+      </section>
+    )}
+
+    {d.cast.length > 0 && (
+      <section class="mt-10">
+        <h2 class="font-serif text-2xl text-ink">{t('prod.cast_section')}</h2>
+        <ul class="mt-4 list-disc ps-5 text-ink/80">
+          {d.cast.map((member) => <li>{member}</li>)}
+        </ul>
+      </section>
+    )}
+
+    {d.crew.length > 0 && (
+      <section class="mt-10">
+        <h2 class="font-serif text-2xl text-ink">{t('prod.crew_section')}</h2>
+        <dl class="mt-4 grid grid-cols-1 gap-x-8 gap-y-1 text-ink/80 sm:grid-cols-2">
+          {d.crew.map((c) => (
+            <><dt class="font-semibold text-ink">{c.role}</dt><dd>{c.name}</dd></>
+          ))}
+        </dl>
+      </section>
+    )}
+
+    {d.gallery.length > 0 && (
+      <section class="mt-10">
+        <h2 class="font-serif text-2xl text-ink">{t('prod.gallery_section')}</h2>
+        <div class="mt-4"><Gallery images={d.gallery} alt={d.title} /></div>
+      </section>
+    )}
+
+    <div class="prose mt-10 max-w-none">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

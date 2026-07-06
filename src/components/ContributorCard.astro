@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getLocaleFromUrl, localizedPath } from '../i18n/utils';
+
+interface Props {
+  contributor: CollectionEntry<'synteleistes'>;
+}
+const { contributor } = Astro.props;
+const d = contributor.data;
+const locale = getLocaleFromUrl(Astro.url);
+const href = localizedPath(`/synteleistes/${contributor.id}`, locale);
+---
+
+<article class="group flex flex-col items-center text-center">
+  <a href={href} class="block">
+    {
+      d.photo ? (
+        <Image
+          src={d.photo}
+          alt={d.name}
+          widths={[160, 320]}
+          sizes="160px"
+          width={320}
+          height={320}
+          class="h-40 w-40 rounded-full object-cover grayscale transition group-hover:grayscale-0"
+        />
+      ) : (
+        <div class="flex h-40 w-40 items-center justify-center rounded-full bg-ink/10 font-serif text-3xl text-ink/40">
+          {d.name.charAt(0)}
+        </div>
+      )
+    }
+  </a>
+  <h3 class="mt-4 font-serif text-lg text-ink">
+    <a href={href} class="hover:text-curtain">{d.name}</a>
+  </h3>
+  {d.role && <p class="text-sm text-mute">{d.role}</p>}
+</article>

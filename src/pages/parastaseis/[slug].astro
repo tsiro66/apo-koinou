@@ -1,0 +1,16 @@
+---
+import { getCollection } from 'astro:content';
+import ProductionDetail from '../../sections/ProductionDetail.astro';
+
+export async function getStaticPaths() {
+  const plays = await getCollection('parastaseis', ({ data }) => !data.draft);
+  return plays.map((play) => ({
+    params: { slug: play.id },
+    props: { play },
+  }));
+}
+
+const { play } = Astro.props;
+---
+
+<ProductionDetail play={play} />

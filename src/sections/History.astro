@@ -1,0 +1,33 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionTitle from '../components/SectionTitle.astro';
+import Timeline from '../components/Timeline.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+// Historical milestones. Empty for now — add entries by locale as the
+// narrative grows. Kept locale-keyed so each language can tell its own story.
+const milestones: Record<'el' | 'en', { year: string; title: string; text?: string }[]> = {
+  el: [],
+  en: [],
+};
+const items = milestones[locale];
+---
+
+<BaseLayout title={t('page.istoria.title')} canonicalPath="/istoria">
+  <div class="mx-auto max-w-6xl">
+    <Breadcrumbs crumbs={[{ label: t('nav.home'), href: localizedPath('/', locale) }, { label: t('page.istoria.title') }]} />
+    <div class="mt-6">
+      <SectionTitle eyebrow={t('page.istoria.eyebrow')} title={t('page.istoria.heading')} />
+    </div>
+    <p class="mt-6 text-lg leading-relaxed text-ink/80">
+      {t('page.istoria.intro')}
+    </p>
+    <div class="mt-10">
+      {items.length > 0 ? <Timeline items={items} /> : <p class="text-mute">{t('page.istoria.empty')}</p>}
+    </div>
+  </div>
+</BaseLayout>

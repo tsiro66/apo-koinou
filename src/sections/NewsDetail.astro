@@ -1,0 +1,51 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { BRAND } from '../consts';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+
+interface Props {
+  post: CollectionEntry<'nea'>;
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const brand = BRAND[locale];
+
+const pub = d.publishDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.seoDescription ?? d.excerpt ?? brand.description}
+  image={(d.seoImage ?? d.thumbnail)?.src}
+  canonicalPath={`/nea/${post.id}`}
+  type="article"
+>
+  <article class="mx-auto max-w-6xl">
+    <Breadcrumbs
+      crumbs={[
+        { label: t('nav.home'), href: localizedPath('/', locale) },
+        { label: t('page.nea.title'), href: localizedPath('/nea', locale) },
+        { label: d.title },
+      ]}
+    />
+    <header class="mt-6">
+      <p class="text-xs uppercase tracking-wider text-mute">{pub}</p>
+      <h1 class="mt-2 font-serif text-4xl text-ink">{d.title}</h1>
+    </header>
+    {d.excerpt && <p class="mt-4 text-lg text-ink/80">{d.excerpt}</p>}
+    <div class="prose mt-8 max-w-none">
+      <Content />
+    </div>
+  </article>
+</BaseLayout>

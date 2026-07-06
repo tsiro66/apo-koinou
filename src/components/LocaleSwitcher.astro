@@ -1,0 +1,39 @@
+---
+// Locale switcher wired to Astro i18n routing.
+// el = default (no prefix). en = /en/* prefixed.
+// Computes the equivalent path in each locale from the current URL so the
+// ClientRouter transitions between localized routes cleanly.
+import { getLocaleFromUrl, neutralPath, localizedPath } from '../i18n/utils';
+
+const locale = getLocaleFromUrl(Astro.url);
+const base = neutralPath(Astro.url);
+
+const locales = [
+  { code: 'el' as const, label: 'ΕΛ', href: localizedPath(base, 'el') },
+  { code: 'en' as const, label: 'EN', href: localizedPath(base, 'en') },
+];
+---
+
+<div class="flex items-center gap-1 text-xs font-medium text-ink/60">
+  {
+    locales.map((loc, i) => (
+      <>
+        {i > 0 && <span aria-hidden="true" class="text-ink/30">·</span>}
+        <a
+          href={loc.href}
+          hreflang={loc.code}
+          lang={loc.code}
+          aria-current={loc.code === locale ? 'true' : undefined}
+          class:list={[
+            'rounded px-1.5 py-0.5 transition',
+            loc.code === locale
+              ? 'text-curtain font-semibold'
+              : 'hover:text-curtain',
+          ]}
+        >
+          {loc.label}
+        </a>
+      </>
+    ))
+  }
+</div>
