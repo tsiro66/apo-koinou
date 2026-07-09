@@ -26,14 +26,14 @@ const href = localizedPath(`/synteleistes/${contributor.id}`, locale);
           class="h-40 w-40 rounded-full object-cover grayscale transition group-hover:grayscale-0"
         />
       ) : (
-        <div class="flex h-40 w-40 items-center justify-center rounded-full bg-ink/10 font-serif text-3xl text-ink/40">
+        <div class="flex h-40 w-40 items-center justify-center rounded-full bg-zinc-950/10 font-serif text-3xl text-zinc-950/40">
           {d.name.charAt(0)}
         </div>
       )
     }
   </a>
-  <h3 class="mt-4 font-serif text-lg text-ink">
-    <a href={href} class="hover:text-curtain">{d.name}</a>
+  <h3 class="mt-4 font-serif text-lg text-zinc-950">
+    <a href={href} class="hover:text-zinc-950">{d.name}</a>
   </h3>
-  {d.role && <p class="text-sm text-mute">{d.role}</p>}
+  {d.role && <p class="text-sm text-zinc-600">{d.role}</p>}
 </article>

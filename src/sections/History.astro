@@ -23,11 +23,11 @@ const items = milestones[locale];
     <div class="mt-6">
       <SectionTitle eyebrow={t('page.istoria.eyebrow')} title={t('page.istoria.heading')} />
     </div>
-    <p class="mt-6 text-lg leading-relaxed text-ink/80">
+    <p class="mt-6 text-lg leading-relaxed text-zinc-950/80">
       {t('page.istoria.intro')}
     </p>
     <div class="mt-10">
-      {items.length > 0 ? <Timeline items={items} /> : <p class="text-mute">{t('page.istoria.empty')}</p>}
+      {items.length > 0 ? <Timeline items={items} /> : <p class="text-zinc-600">{t('page.istoria.empty')}</p>}
     </div>
   </div>
 </BaseLayout>

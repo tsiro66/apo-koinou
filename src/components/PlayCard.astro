@@ -12,7 +12,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const href = localizedPath(`/parastaseis/${play.id}`, locale);
 ---
 
-<article class="group overflow-hidden rounded-lg border border-ink/10 bg-paper shadow-sm transition hover:shadow-md">
+<article class="group overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-50 shadow-sm transition hover:shadow-md">
   <a href={href} class="block">
     {
       d.thumbnail ? (
@@ -26,18 +26,18 @@ const href = localizedPath(`/parastaseis/${play.id}`, locale);
           class="aspect-video w-full object-cover"
         />
       ) : (
-        <div class="flex aspect-video w-full items-center justify-center bg-ink/5 font-serif text-2xl text-ink/40">
+        <div class="flex aspect-video w-full items-center justify-center bg-zinc-950/5 font-serif text-2xl text-zinc-950/40">
           {d.title}
         </div>
       )
     }
     <div class="p-4">
-      <h3 class="font-serif text-xl text-ink group-hover:text-curtain">
+      <h3 class="font-serif text-xl text-zinc-950 group-hover:text-zinc-950">
         {d.title}
       </h3>
-      <p class="mt-1 text-sm text-mute">{d.year}{d.director ? ` — ${d.director}` : ''}</p>
+      <p class="mt-1 text-sm text-zinc-600">{d.year}{d.director ? ` — ${d.director}` : ''}</p>
       {d.summary && (
-        <p class="mt-3 line-clamp-2 text-sm text-ink/70">{d.summary}</p>
+        <p class="mt-3 line-clamp-2 text-sm text-zinc-950/70">{d.summary}</p>
       )}
     </div>
   </a>

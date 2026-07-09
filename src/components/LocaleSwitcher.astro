@@ -14,11 +14,11 @@ const locales = [
 ];
 ---
 
-<div class="flex items-center gap-1 text-xs font-medium text-ink/60">
+<div class="flex items-center gap-1 text-xs font-medium text-zinc-950/60">
   {
     locales.map((loc, i) => (
       <>
-        {i > 0 && <span aria-hidden="true" class="text-ink/30">·</span>}
+        {i > 0 && <span aria-hidden="true" class="text-zinc-950/30">·</span>}
         <a
           href={loc.href}
           hreflang={loc.code}
@@ -27,8 +27,8 @@ const locales = [
           class:list={[
             'rounded px-1.5 py-0.5 transition',
             loc.code === locale
-              ? 'text-curtain font-semibold'
-              : 'hover:text-curtain',
+              ? 'text-zinc-950 font-semibold'
+              : 'hover:text-zinc-950',
           ]}
         >
           {loc.label}

@@ -16,7 +16,7 @@ const isActive = (href: string) =>
   href === '/' ? neutral === '/' : neutral.startsWith(href);
 ---
 
-<header class="sticky top-0 z-50 bg-paper/85 backdrop-blur">
+<header class="sticky top-0 z-50 bg-zinc-50/85 backdrop-blur">
   <nav class="grid grid-cols-3 items-center">
     <!-- Logo (left column) -->
     <a
@@ -42,7 +42,7 @@ const isActive = (href: string) =>
             <a
               href={localizedPath(link.href, locale)}
               aria-current={isActive(link.href) ? 'page' : undefined}
-              class="text-xs uppercase tracking-[0.08em] text-ink/80 transition hover:text-curtain aria-[current=page]:text-curtain aria-[current=page]:font-semibold"
+              class="text-xs uppercase tracking-[0.08em] text-zinc-950/80 transition hover:text-zinc-950 aria-[current=page]:text-zinc-950 aria-[current=page]:font-semibold"
             >
               {t(link.labelKey)}
             </a>
@@ -60,13 +60,13 @@ const isActive = (href: string) =>
       <!-- Mobile toggle: pure-CSS via <details>, no JS -->
       <details class="relative md:hidden">
         <summary
-          class="cursor-pointer list-none rounded p-2 text-ink/80 hover:text-curtain"
+          class="cursor-pointer list-none rounded p-2 text-zinc-950/80 hover:text-zinc-950"
           aria-label={t('common.open_menu')}
         >
           ☰
         </summary>
         <ul
-          class="absolute right-0 mt-2 w-56 rounded-md border border-ink/10 bg-paper p-2 shadow-lg"
+          class="absolute right-0 mt-2 w-56 rounded-md border border-zinc-950/10 bg-zinc-50 p-2 shadow-lg"
         >
           {
             NAV_LINKS.map((link) => (
@@ -74,7 +74,7 @@ const isActive = (href: string) =>
                 <a
                   href={localizedPath(link.href, locale)}
                   aria-current={isActive(link.href) ? 'page' : undefined}
-                  class="block rounded px-3 py-2 text-sm uppercase tracking-[0.08em] text-ink/80 hover:bg-ink/5 hover:text-curtain aria-[current=page]:text-curtain aria-[current=page]:font-semibold"
+                  class="block rounded px-3 py-2 text-sm uppercase tracking-[0.08em] text-zinc-950/80 hover:bg-zinc-950/5 hover:text-zinc-950 aria-[current=page]:text-zinc-950 aria-[current=page]:font-semibold"
                 >
                   {t(link.labelKey)}
                 </a>

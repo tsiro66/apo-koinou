@@ -13,7 +13,7 @@ const streamTitle = title ?? useTranslations(getLocaleFromUrl(Astro.url))('prod.
 const src = `https://customer.${streamId}.cloudflarestream.com/${streamId}/iframe`;
 ---
 
-<div class="overflow-hidden rounded-lg border border-ink/10 bg-black shadow-md">
+<div class="overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-950 shadow-md">
   <iframe
     src={src}
     title={streamTitle}

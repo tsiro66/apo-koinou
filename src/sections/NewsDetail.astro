@@ -40,10 +40,10 @@ const pub = d.publishDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR'
       ]}
     />
     <header class="mt-6">
-      <p class="text-xs uppercase tracking-wider text-mute">{pub}</p>
-      <h1 class="mt-2 font-serif text-4xl text-ink">{d.title}</h1>
+      <p class="text-xs uppercase tracking-wider text-zinc-600">{pub}</p>
+      <h1 class="mt-2 font-serif text-4xl text-zinc-950">{d.title}</h1>
     </header>
-    {d.excerpt && <p class="mt-4 text-lg text-ink/80">{d.excerpt}</p>}
+    {d.excerpt && <p class="mt-4 text-lg text-zinc-950/80">{d.excerpt}</p>}
     <div class="prose mt-8 max-w-none">
       <Content />
     </div>

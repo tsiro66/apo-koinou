@@ -26,7 +26,7 @@ const contributors = (await getCollection('synteleistes')).sort((a, b) =>
           {contributors.map((c) => <ContributorCard contributor={c} />)}
         </div>
       ) : (
-        <p class="mt-10 text-mute">{t('empty.synteleistes')}</p>
+        <p class="mt-10 text-zinc-600">{t('empty.synteleistes')}</p>
       )
     }
   </div>

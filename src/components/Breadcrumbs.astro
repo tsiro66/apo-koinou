@@ -9,7 +9,7 @@ interface Props {
 const { crumbs } = Astro.props;
 ---
 
-<nav aria-label="Breadcrumb" class="text-sm text-mute">
+<nav aria-label="Breadcrumb" class="text-sm text-zinc-600">
   <ol class="flex flex-wrap items-center gap-1">
     {
       crumbs.map((crumb, i) => {
@@ -17,15 +17,15 @@ const { crumbs } = Astro.props;
         return (
           <li class="flex items-center gap-1">
             {crumb.href && !last ? (
-              <a href={crumb.href} class="hover:text-curtain">
+              <a href={crumb.href} class="hover:text-zinc-950">
                 {crumb.label}
               </a>
             ) : (
-              <span aria-current={last ? 'page' : undefined} class={last ? 'text-ink' : ''}>
+              <span aria-current={last ? 'page' : undefined} class={last ? 'text-zinc-950' : ''}>
                 {crumb.label}
               </span>
             )}
-            {!last && <span aria-hidden="true" class="text-mute/60">/</span>}
+            {!last && <span aria-hidden="true" class="text-zinc-600/60">/</span>}
           </li>
         );
       })

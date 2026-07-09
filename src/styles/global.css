@@ -1,13 +1,10 @@
 @import 'tailwindcss';
 
-/* Theme tokens — strict black & white. No color accents.
-   Tailwind v4 reads CSS variables via @theme. */
+/* Single custom color: the orange accent.
+   Everything else uses Tailwind's built-in zinc scale
+   (zinc-950 near-black, zinc-50 near-white, zinc-600 mute). */
 @theme {
-  --color-ink: #000000;
-  --color-paper: #ffffff;
-  --color-curtain: #000000;
   --color-gold: #f0ad6a;
-  --color-mute: #525252;
 
   --font-serif: 'Geom', 'Georgia', 'Times New Roman', serif;
   --font-sans: 'Google Sans', system-ui, sans-serif;
@@ -23,11 +20,9 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background-color: var(--color-paper);
-  color: var(--color-ink);
 }
 
-/* Focus ring for accessibility */
+/* Focus ring for accessibility (single custom accent) */
 :focus-visible {
   outline: 2px solid var(--color-gold);
   outline-offset: 2px;

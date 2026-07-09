@@ -10,14 +10,14 @@ interface Props {
 const { items } = Astro.props;
 ---
 
-<ol class="relative border-s border-ink/20 ps-6">
+<ol class="relative border-s border-zinc-950/20 ps-6">
   {
     items.map((item) => (
       <li class="mb-8 last:mb-0">
         <span class="absolute -start-[7px] mt-2 h-3 w-3 rounded-full bg-gold" />
-        <p class="font-serif text-lg text-curtain">{item.year}</p>
-        <h3 class="text-lg font-semibold text-ink">{item.title}</h3>
-        {item.text && <p class="mt-1 text-sm text-ink/70">{item.text}</p>}
+        <p class="font-serif text-lg text-zinc-950">{item.year}</p>
+        <h3 class="text-lg font-semibold text-zinc-950">{item.title}</h3>
+        {item.text && <p class="mt-1 text-sm text-zinc-950/70">{item.text}</p>}
       </li>
     ))
   }

@@ -48,22 +48,22 @@ const groups = plays.map((play) => {
             <section>
               <header class="mb-4 flex items-baseline justify-between gap-4">
                 <div>
-                  <h2 class="font-serif text-2xl text-ink">
+                  <h2 class="font-serif text-2xl text-zinc-950">
                     <a
                       href={g.href}
                       aria-label={g.title}
-                      class="hover:text-curtain"
+                      class="hover:text-zinc-950"
                     >
                       {g.title}
                     </a>
                   </h2>
-                  <p class="mt-1 text-sm text-mute">
+                  <p class="mt-1 text-sm text-zinc-600">
                     {g.year}{g.director ? ` — ${g.director}` : ''}
                   </p>
                 </div>
                 <a
                   href={g.href}
-                  class="whitespace-nowrap text-sm text-curtain hover:underline"
+                  class="whitespace-nowrap text-sm text-zinc-950 hover:underline"
                 >
                   →
                 </a>
@@ -74,7 +74,7 @@ const groups = plays.map((play) => {
                     <a
                       href={src.src}
                       target="_blank"
-                      class="block overflow-hidden rounded-md border border-ink/10"
+                      class="block overflow-hidden rounded-md border border-zinc-950/10"
                     >
                       <Image
                         src={src}
@@ -93,7 +93,7 @@ const groups = plays.map((play) => {
           ))}
         </div>
       ) : (
-        <p class="mt-10 text-mute">{t('empty.syllogi')}</p>
+        <p class="mt-10 text-zinc-600">{t('empty.syllogi')}</p>
       )
     }
   </div>

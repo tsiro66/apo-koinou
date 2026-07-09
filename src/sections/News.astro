@@ -26,25 +26,25 @@ const fmt = (d: Date) =>
     <div class="mt-6"><SectionTitle eyebrow={t('page.nea.eyebrow')} title={t('page.nea.title')} /></div>
     {
       posts.length > 0 ? (
-        <ul class="mt-10 divide-y divide-ink/10">
+        <ul class="mt-10 divide-y divide-zinc-950/10">
           {posts.map((post) => (
             <li class="py-5">
               <a href={localizedPath(`/nea/${post.id}`, locale)} class="group block">
-                <p class="text-xs uppercase tracking-wider text-mute">
+                <p class="text-xs uppercase tracking-wider text-zinc-600">
                   {fmt(post.data.publishDate)}
                 </p>
-                <h2 class="mt-1 font-serif text-2xl text-ink group-hover:text-curtain">
+                <h2 class="mt-1 font-serif text-2xl text-zinc-950 group-hover:text-zinc-950">
                   {post.data.title}
                 </h2>
                 {post.data.excerpt && (
-                  <p class="mt-2 text-ink/70">{post.data.excerpt}</p>
+                  <p class="mt-2 text-zinc-950/70">{post.data.excerpt}</p>
                 )}
               </a>
             </li>
           ))}
         </ul>
       ) : (
-        <p class="mt-10 text-mute">{t('empty.nea')}</p>
+        <p class="mt-10 text-zinc-600">{t('empty.nea')}</p>
       )
     }
   </div>

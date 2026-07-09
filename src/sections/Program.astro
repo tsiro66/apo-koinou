@@ -25,17 +25,17 @@ const heading = format(t('page.programma.heading'), { season });
     </div>
     {
       items.length > 0 ? (
-        <ul class="mt-10 divide-y divide-ink/10">
+        <ul class="mt-10 divide-y divide-zinc-950/10">
           {items.map((ev) => (
             <li class="py-5">
               <p class="text-xs uppercase tracking-wider text-gold">{ev.date}</p>
-              <h2 class="mt-1 font-serif text-2xl text-ink">{ev.title}</h2>
-              <p class="mt-1 text-sm text-mute">{ev.place}</p>
+              <h2 class="mt-1 font-serif text-2xl text-zinc-950">{ev.title}</h2>
+              <p class="mt-1 text-sm text-zinc-600">{ev.place}</p>
             </li>
           ))}
         </ul>
       ) : (
-        <p class="mt-10 text-mute">{t('page.programma.soon')}</p>
+        <p class="mt-10 text-zinc-600">{t('page.programma.soon')}</p>
       )
     }
   </div>
