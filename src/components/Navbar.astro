@@ -151,19 +151,23 @@ const navId = 'nav-menu';
     background-color: var(--color-zinc-50, #fafafa);
     transition: transform 0.3s ease, opacity 0.2s ease;
   }
+  .bar1,
+  .bar2 {
+    top: 50%;
+  }
   .bar1 {
-    top: calc(50% - 7px);
+    transform: translateY(calc(-50% - 7px));
   }
   .bar2 {
-    top: calc(50% + 7px);
+    transform: translateY(calc(-50% + 7px));
   }
 
   /* Open: rotate both to center -> X */
   :global(#nav-menu[data-open='true']) .bar1 {
-    transform: translateY(7px) rotate(45deg);
+    transform: translateY(0) rotate(45deg);
   }
   :global(#nav-menu[data-open='true']) .bar2 {
-    transform: translateY(-7px) rotate(-45deg);
+    transform: translateY(0) rotate(-45deg);
   }
 
   /* Overlay hidden by default */
