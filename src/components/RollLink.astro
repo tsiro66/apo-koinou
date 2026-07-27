@@ -1,0 +1,48 @@
+---
+/**
+ * RollLink — text link with a "roll" hover effect.
+ * On hover/focus the label rolls upward and a duplicate rolls in from below.
+ * Pure CSS; the duplicate is aria-hidden so screen readers announce it once.
+ *
+ * `rollClass` styles only the incoming (second) copy — use it to reveal the
+ * hover color as part of the roll, e.g. rollClass="text-orange".
+ */
+interface Props {
+  href: string;
+  label: string;
+  class?: string;
+  rollClass?: string;
+  [key: string]: unknown;
+}
+const { href, label, class: className, rollClass, ...rest } = Astro.props;
+---
+
+<a href={href} class:list={['roll-link', className]} {...rest}>
+  <span class="roll-link-inner">
+    <span>{label}</span>
+    <span class={rollClass} aria-hidden="true">{label}</span>
+  </span>
+</a>
+
+<style>
+  .roll-link {
+    display: inline-block;
+    overflow: hidden;
+    height: 1.2em; /* fallback for browsers without `lh` support */
+    height: 1lh;
+  }
+  .roll-link-inner {
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .roll-link:hover .roll-link-inner,
+  .roll-link:focus-visible .roll-link-inner {
+    transform: translateY(-50%);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .roll-link-inner {
+      transition: none;
+    }
+  }
+</style>

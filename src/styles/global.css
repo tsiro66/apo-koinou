@@ -1,3 +1,4 @@
+@import '@fontsource-variable/manrope';
 @import 'tailwindcss';
 
 /* Single custom color: the orange accent.
@@ -6,8 +7,7 @@
 @theme {
   --color-orange: #F28C28;
 
-  --font-serif: 'Geom', 'Georgia', 'Times New Roman', serif;
-  --font-sans: 'Google Sans', system-ui, sans-serif;
+  --font-sans: 'Manrope Variable', system-ui, sans-serif;
 }
 
 :root {

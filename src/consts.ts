@@ -38,8 +38,8 @@ export const NAV_LINKS = [
   { href: '/parastaseis', labelKey: 'nav.parastaseis' },
   { href: '/nea', labelKey: 'nav.nea' },
   { href: '/programma', labelKey: 'nav.programma' },
-  { href: '/synteleistes', labelKey: 'nav.synteleistes' },
   { href: '/syllogi', labelKey: 'nav.syllogi' },
+  { href: '/synteleistes', labelKey: 'nav.synteleistes' },
   { href: '/istoria', labelKey: 'nav.istoria' },
   { href: '/epikoinonia', labelKey: 'nav.epikoinonia' },
 ] as const;

@@ -1,10 +1,16 @@
 ---
-import { NAV_LINKS } from '../consts';
-import { Image } from 'astro:assets';
-import LocaleSwitcher from './LocaleSwitcher.astro';
-import { getLocaleFromUrl, useTranslations, localizedPath, neutralPath } from '../i18n/utils';
-import { BRAND, SITE } from '../consts';
-import logo from '../assets/logos/logo1.png';
+import { NAV_LINKS } from "../consts";
+import { Image } from "astro:assets";
+import LocaleSwitcher from "./LocaleSwitcher.astro";
+import RollLink from "./RollLink.astro";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+  neutralPath,
+} from "../i18n/utils";
+import { BRAND, SITE } from "../consts";
+import logo from "../assets/logos/logo1.png";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -13,10 +19,10 @@ const brand = BRAND[locale];
 // Active-link check uses the locale-neutral path so it works under /en too.
 const neutral = neutralPath(Astro.url);
 const isActive = (href: string) =>
-  href === '/' ? neutral === '/' : neutral.startsWith(href);
+  href === "/" ? neutral === "/" : neutral.startsWith(href);
 
 // Unique root id (only one navbar, but be safe).
-const navId = 'nav-menu';
+const navId = "nav-menu";
 ---
 
 <div id={navId} class="contents" data-open="false">
@@ -29,7 +35,7 @@ const navId = 'nav-menu';
 
       <!-- Center: logo -->
       <a
-        href={localizedPath('/', locale)}
+        href={localizedPath("/", locale)}
         class="flex items-center gap-3 justify-self-center"
         aria-label={brand.title}
       >
@@ -41,9 +47,9 @@ const navId = 'nav-menu';
           height={96}
           class="h-full w-auto max-h-14"
         />
-        <span class="text-lg tracking-[0.12em] text-zinc-50">
-          Απο κοινου
-        </span>
+        <!-- <span class="text-2xl leading-none text-zinc-50">
+          <strong class="font-bold">από</strong><br />κοινού
+        </span> -->
       </a>
 
       <!-- Right: menu toggle (2 lines -> X) -->
@@ -51,7 +57,7 @@ const navId = 'nav-menu';
         type="button"
         id="nav-toggle"
         class="nav-toggle relative flex h-10 w-12 cursor-pointer items-center justify-self-end"
-        aria-label={t('common.open_menu')}
+        aria-label={t("common.open_menu")}
         aria-expanded="false"
         aria-controls="nav-overlay"
       >
@@ -67,18 +73,18 @@ const navId = 'nav-menu';
     class="overlay fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 px-6 bg-orange"
   >
     <div
-      class="flex flex-col items-center gap-6 sm:grid sm:grid-cols-2 sm:content-center sm:justify-items-start sm:gap-x-16 sm:gap-y-6 sm:w-full sm:max-w-4xl sm:px-16"
+      class="flex flex-col items-center gap-6 sm:grid sm:grid-cols-2 sm:content-center sm:justify-items-start sm:gap-x-24 sm:gap-y-3 sm:w-full sm:max-w-5xl sm:px-16 sm:-translate-x-10"
     >
       {
         NAV_LINKS.map((link) => (
-          <a
+          <RollLink
             href={localizedPath(link.href, locale)}
-            aria-current={isActive(link.href) ? 'page' : undefined}
+            label={t(link.labelKey)}
+            aria-current={isActive(link.href) ? "page" : undefined}
             data-navlink
-            class="justify-self-center text-xl tracking-[0.12em] text-zinc-50/85 transition hover:text-zinc-50 aria-[current=page]:text-zinc-50 aria-[current=page]:font-semibold sm:justify-self-start sm:text-5xl"
-          >
-            {t(link.labelKey)}
-          </a>
+            class="justify-self-center text-xl text-zinc-50/85 aria-[current=page]:text-zinc-50 aria-[current=page]:font-semibold sm:justify-self-start sm:text-7xl"
+            rollClass="text-zinc-50"
+          />
         ))
       }
     </div>
@@ -97,45 +103,63 @@ const navId = 'nav-menu';
         {SITE.email}
       </a>
       <div class="flex items-center gap-4">
-        {SITE.social.facebook && (
-          <a
-            href={SITE.social.facebook}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Facebook"
-            class="text-zinc-50/85 transition hover:text-zinc-50"
-          >
-            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current" aria-hidden="true">
-              <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.76 8.43-4.92 8.43-9.94Z" />
-            </svg>
-          </a>
-        )}
-        {SITE.social.instagram && (
-          <a
-            href={SITE.social.instagram}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="Instagram"
-            class="text-zinc-50/85 transition hover:text-zinc-50"
-          >
-            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current" aria-hidden="true">
-              <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.4a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z" />
-            </svg>
-          </a>
-        )}
-        {SITE.social.youtube && (
-          <a
-            href={SITE.social.youtube}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="YouTube"
-            class="text-zinc-50/85 transition hover:text-zinc-50"
-          >
-            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current" aria-hidden="true">
-              <path d="M23.5 6.2a3 3 0 0 0-2.12-2.12C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.58A3 3 0 0 0 .5 6.2C0 8.07 0 12 0 12s0 3.93.5 5.8a3 3 0 0 0 2.12 2.12C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.58a3 3 0 0 0 2.12-2.12c.5-1.87.5-5.8.5-5.8s0-3.93-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
-            </svg>
-          </a>
-        )}
+        {
+          SITE.social.facebook && (
+            <a
+              href={SITE.social.facebook}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              class="text-zinc-50/85 transition hover:text-zinc-50"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="h-6 w-6 fill-current"
+                aria-hidden="true"
+              >
+                <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.76 8.43-4.92 8.43-9.94Z" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          SITE.social.instagram && (
+            <a
+              href={SITE.social.instagram}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              class="text-zinc-50/85 transition hover:text-zinc-50"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="h-6 w-6 fill-current"
+                aria-hidden="true"
+              >
+                <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.4a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z" />
+              </svg>
+            </a>
+          )
+        }
+        {
+          SITE.social.youtube && (
+            <a
+              href={SITE.social.youtube}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="YouTube"
+              class="text-zinc-50/85 transition hover:text-zinc-50"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                class="h-6 w-6 fill-current"
+                aria-hidden="true"
+              >
+                <path d="M23.5 6.2a3 3 0 0 0-2.12-2.12C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.58A3 3 0 0 0 .5 6.2C0 8.07 0 12 0 12s0 3.93.5 5.8a3 3 0 0 0 2.12 2.12C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.58a3 3 0 0 0 2.12-2.12c.5-1.87.5-5.8.5-5.8s0-3.93-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
+              </svg>
+            </a>
+          )
+        }
       </div>
     </div>
   </div>
@@ -149,7 +173,9 @@ const navId = 'nav-menu';
     height: 0.125rem;
     width: 2.5rem;
     background-color: var(--color-zinc-50, #fafafa);
-    transition: transform 0.3s ease, opacity 0.2s ease;
+    transition:
+      transform 0.3s ease,
+      opacity 0.2s ease;
   }
   .bar1,
   .bar2 {
@@ -163,10 +189,10 @@ const navId = 'nav-menu';
   }
 
   /* Open: rotate both to center -> X */
-  :global(#nav-menu[data-open='true']) .bar1 {
+  :global(#nav-menu[data-open="true"]) .bar1 {
     transform: translateY(0) rotate(45deg);
   }
-  :global(#nav-menu[data-open='true']) .bar2 {
+  :global(#nav-menu[data-open="true"]) .bar2 {
     transform: translateY(0) rotate(-45deg);
   }
 
@@ -176,7 +202,7 @@ const navId = 'nav-menu';
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
-  :global(#nav-menu[data-open='true']) .overlay {
+  :global(#nav-menu[data-open="true"]) .overlay {
     opacity: 1;
     pointer-events: auto;
   }
@@ -185,29 +211,29 @@ const navId = 'nav-menu';
 <script>
   function init(root: HTMLElement) {
     // Skip if this DOM instance already bound.
-    if (root.dataset.bound === 'true') return;
-    root.dataset.bound = 'true';
+    if (root.dataset.bound === "true") return;
+    root.dataset.bound = "true";
 
-    const toggle = root.querySelector('#nav-toggle');
-    const overlay = root.querySelector('#nav-overlay');
+    const toggle = root.querySelector("#nav-toggle");
+    const overlay = root.querySelector("#nav-overlay");
     const set = (open: boolean) => {
       root.dataset.open = String(open);
-      toggle?.setAttribute('aria-expanded', String(open));
+      toggle?.setAttribute("aria-expanded", String(open));
     };
-    toggle?.addEventListener('click', () => set(root.dataset.open !== 'true'));
+    toggle?.addEventListener("click", () => set(root.dataset.open !== "true"));
     // Close on Escape
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && root.dataset.open === 'true') set(false);
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && root.dataset.open === "true") set(false);
     });
     // Close after navigating via a link
-    overlay?.querySelectorAll('[data-navlink]').forEach((a) =>
-      a.addEventListener('click', () => set(false)),
-    );
+    overlay
+      ?.querySelectorAll("[data-navlink]")
+      .forEach((a) => a.addEventListener("click", () => set(false)));
   }
 
   // astro:page-load fires on initial load AND after every ClientRouter nav.
-  document.addEventListener('astro:page-load', () => {
-    const r = document.getElementById('nav-menu') as HTMLElement | null;
+  document.addEventListener("astro:page-load", () => {
+    const r = document.getElementById("nav-menu") as HTMLElement | null;
     if (r) init(r);
   });
 </script>

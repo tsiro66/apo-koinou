@@ -2,6 +2,7 @@
 import { SITE, NAV_LINKS, BRAND } from '../consts';
 import { Image } from 'astro:assets';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import RollLink from './RollLink.astro';
 import logo from '../assets/logos/logo.png';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -25,9 +26,12 @@ const year = new Date().getFullYear();
         {
           NAV_LINKS.map((link) => (
             <li>
-              <a href={localizedPath(link.href, locale)} class="text-zinc-50/80 hover:text-orange">
-                {t(link.labelKey)}
-              </a>
+              <RollLink
+                href={localizedPath(link.href, locale)}
+                label={t(link.labelKey)}
+                class="text-zinc-50/80"
+                rollClass="text-orange"
+              />
             </li>
           ))
         }
