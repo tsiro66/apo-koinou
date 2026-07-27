@@ -2,7 +2,7 @@
 import { SITE, NAV_LINKS, BRAND } from '../consts';
 import { Image } from 'astro:assets';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import logo from '../assets/logos/logo.jpg';
+import logo from '../assets/logos/logo.png';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const brand = BRAND[locale];
@@ -15,9 +15,6 @@ const year = new Date().getFullYear();
       <Image
         src={logo}
         alt={brand.title}
-        widths={[96, 144, 192]}
-        sizes="192px"
-        height={64}
         class="h-30 w-auto"
       />
       <p class="mt-3 text-sm text-zinc-50/70">{brand.tagline}</p>
@@ -28,7 +25,7 @@ const year = new Date().getFullYear();
         {
           NAV_LINKS.map((link) => (
             <li>
-              <a href={localizedPath(link.href, locale)} class="text-zinc-50/80 hover:text-gold">
+              <a href={localizedPath(link.href, locale)} class="text-zinc-50/80 hover:text-orange">
                 {t(link.labelKey)}
               </a>
             </li>
@@ -38,7 +35,7 @@ const year = new Date().getFullYear();
     </nav>
 
     <div class="text-sm text-zinc-50/70">
-      <a href={`mailto:${SITE.email}`} class="hover:text-gold">
+      <a href={`mailto:${SITE.email}`} class="hover:text-orange">
         {SITE.email}
       </a>
       <p class="mt-3">© {year} {brand.title}. {t('footer.rights')}</p>

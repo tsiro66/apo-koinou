@@ -14,7 +14,7 @@ const { items } = Astro.props;
   {
     items.map((item) => (
       <li class="mb-8 last:mb-0">
-        <span class="absolute -start-[7px] mt-2 h-3 w-3 rounded-full bg-gold" />
+        <span class="absolute -start-[7px] mt-2 h-3 w-3 rounded-full bg-orange" />
         <p class="font-serif text-lg text-zinc-950">{item.year}</p>
         <h3 class="text-lg font-semibold text-zinc-950">{item.title}</h3>
         {item.text && <p class="mt-1 text-sm text-zinc-950/70">{item.text}</p>}

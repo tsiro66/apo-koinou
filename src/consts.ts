@@ -7,8 +7,8 @@ export const SITE = {
   site: 'https://apo-koinou.gr',
   email: 'info@apo-koinou.gr',
   social: {
-    youtube: '',
-    facebook: '',
+    youtube: 'https://www.youtube.com/@θεατρικήομάδααπόκοινού',
+    facebook: 'https://www.facebook.com/theatrikiomadaapokoinouelmeach?locale=el_GR',
     instagram: '',
   },
 } as const;

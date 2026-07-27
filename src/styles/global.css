@@ -4,7 +4,7 @@
    Everything else uses Tailwind's built-in zinc scale
    (zinc-950 near-black, zinc-50 near-white, zinc-600 mute). */
 @theme {
-  --color-gold: #f0ad6a;
+  --color-orange: #F28C28;
 
   --font-serif: 'Geom', 'Georgia', 'Times New Roman', serif;
   --font-sans: 'Google Sans', system-ui, sans-serif;
@@ -24,6 +24,6 @@ body {
 
 /* Focus ring for accessibility (single custom accent) */
 :focus-visible {
-  outline: 2px solid var(--color-gold);
+  outline: 2px solid var(--color-orange);
   outline-offset: 2px;
 }

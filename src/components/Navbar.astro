@@ -3,8 +3,8 @@ import { NAV_LINKS } from '../consts';
 import { Image } from 'astro:assets';
 import LocaleSwitcher from './LocaleSwitcher.astro';
 import { getLocaleFromUrl, useTranslations, localizedPath, neutralPath } from '../i18n/utils';
-import { BRAND } from '../consts';
-import logo from '../assets/logos/logo.png';
+import { BRAND, SITE } from '../consts';
+import logo from '../assets/logos/logo1.png';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -14,75 +14,196 @@ const brand = BRAND[locale];
 const neutral = neutralPath(Astro.url);
 const isActive = (href: string) =>
   href === '/' ? neutral === '/' : neutral.startsWith(href);
+
+// Unique root id (only one navbar, but be safe).
+const navId = 'nav-menu';
 ---
 
-<header class="sticky top-0 z-50 bg-zinc-50/85 backdrop-blur">
-  <nav class="grid grid-cols-3 items-center">
-    <!-- Logo (left column) -->
-    <a
-      href={localizedPath('/', locale)}
-      class="flex items-center justify-self-start"
-      aria-label={brand.title}
-    >
-      <Image
-        src={logo}
-        alt={brand.title}
-        widths={[192, 288, 384]}
-        sizes="384px"
-        height={96}
-        class="h-full w-auto max-h-14 pl-1"
-      />
-    </a>
-
-    <!-- Desktop nav (centered middle column) -->
-    <ul class="hidden items-center justify-center gap-5 md:flex">
-      {
-        NAV_LINKS.map((link) => (
-          <li>
-            <a
-              href={localizedPath(link.href, locale)}
-              aria-current={isActive(link.href) ? 'page' : undefined}
-              class="text-xs uppercase tracking-[0.08em] text-zinc-950/80 transition hover:text-zinc-950 aria-[current=page]:text-zinc-950 aria-[current=page]:font-semibold"
-            >
-              {t(link.labelKey)}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-
-    <!-- Right column: locale switcher + mobile toggle -->
-    <div class="flex items-center justify-self-end gap-3">
-      <div class="pr-2">
+<div id={navId} class="contents" data-open="false">
+  <header class="sticky top-0 z-50 bg-orange">
+    <nav class="grid grid-cols-3 items-center px-4 py-3">
+      <!-- Left: language picker -->
+      <div class="flex justify-self-start">
         <LocaleSwitcher />
       </div>
 
-      <!-- Mobile toggle: pure-CSS via <details>, no JS -->
-      <details class="relative md:hidden">
-        <summary
-          class="cursor-pointer list-none rounded p-2 text-zinc-950/80 hover:text-zinc-950"
-          aria-label={t('common.open_menu')}
-        >
-          ☰
-        </summary>
-        <ul
-          class="absolute right-0 mt-2 w-56 rounded-md border border-zinc-950/10 bg-zinc-50 p-2 shadow-lg"
-        >
-          {
-            NAV_LINKS.map((link) => (
-              <li>
-                <a
-                  href={localizedPath(link.href, locale)}
-                  aria-current={isActive(link.href) ? 'page' : undefined}
-                  class="block rounded px-3 py-2 text-sm uppercase tracking-[0.08em] text-zinc-950/80 hover:bg-zinc-950/5 hover:text-zinc-950 aria-[current=page]:text-zinc-950 aria-[current=page]:font-semibold"
-                >
-                  {t(link.labelKey)}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
-      </details>
+      <!-- Center: logo -->
+      <a
+        href={localizedPath('/', locale)}
+        class="flex items-center gap-3 justify-self-center"
+        aria-label={brand.title}
+      >
+        <Image
+          src={logo}
+          alt={brand.title}
+          widths={[192, 288, 384]}
+          sizes="384px"
+          height={96}
+          class="h-full w-auto max-h-14"
+        />
+        <span class="text-lg tracking-[0.12em] text-zinc-50">
+          Απο κοινου
+        </span>
+      </a>
+
+      <!-- Right: menu toggle (2 lines -> X) -->
+      <button
+        type="button"
+        id="nav-toggle"
+        class="nav-toggle relative flex h-10 w-12 cursor-pointer items-center justify-self-end"
+        aria-label={t('common.open_menu')}
+        aria-expanded="false"
+        aria-controls="nav-overlay"
+      >
+        <span class="bar bar1"></span>
+        <span class="bar bar2"></span>
+      </button>
+    </nav>
+  </header>
+
+  <!-- Fullscreen menu overlay -->
+  <div
+    id="nav-overlay"
+    class="overlay fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 px-6 bg-orange"
+  >
+    <div
+      class="flex flex-col items-center gap-6 sm:grid sm:grid-cols-2 sm:content-center sm:justify-items-start sm:gap-x-16 sm:gap-y-6 sm:w-full sm:max-w-4xl sm:px-16"
+    >
+      {
+        NAV_LINKS.map((link) => (
+          <a
+            href={localizedPath(link.href, locale)}
+            aria-current={isActive(link.href) ? 'page' : undefined}
+            data-navlink
+            class="justify-self-center text-xl tracking-[0.12em] text-zinc-50/85 transition hover:text-zinc-50 aria-[current=page]:text-zinc-50 aria-[current=page]:font-semibold sm:justify-self-start sm:text-5xl"
+          >
+            {t(link.labelKey)}
+          </a>
+        ))
+      }
     </div>
-  </nav>
-</header>
+
+    <!-- Footer: tagline + contact + socials -->
+    <div
+      class="absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 px-6 pb-8 sm:bottom-6 sm:max-w-4xl sm:mx-auto sm:px-16"
+    >
+      <p class="max-w-md text-center text-sm text-zinc-50/70">
+        {brand.tagline}
+      </p>
+      <a
+        href={`mailto:${SITE.email}`}
+        class="text-sm text-zinc-50/85 underline-offset-2 hover:text-zinc-50 hover:underline"
+      >
+        {SITE.email}
+      </a>
+      <div class="flex items-center gap-4">
+        {SITE.social.facebook && (
+          <a
+            href={SITE.social.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+            class="text-zinc-50/85 transition hover:text-zinc-50"
+          >
+            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current" aria-hidden="true">
+              <path d="M22 12.06C22 6.5 17.52 2 12 2S2 6.5 2 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.9v-2.91h2.54V9.85c0-2.5 1.5-3.89 3.78-3.89 1.1 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.88h2.78l-.45 2.91h-2.33V22c4.78-.76 8.43-4.92 8.43-9.94Z" />
+            </svg>
+          </a>
+        )}
+        {SITE.social.instagram && (
+          <a
+            href={SITE.social.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+            class="text-zinc-50/85 transition hover:text-zinc-50"
+          >
+            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current" aria-hidden="true">
+              <path d="M12 2.16c3.2 0 3.58.01 4.85.07 1.17.05 1.8.25 2.23.41.56.22.96.48 1.38.9.42.42.68.82.9 1.38.16.42.36 1.06.41 2.23.06 1.27.07 1.65.07 4.85s-.01 3.58-.07 4.85c-.05 1.17-.25 1.8-.41 2.23-.22.56-.48.96-.9 1.38-.42.42-.82.68-1.38.9-.42.16-1.06.36-2.23.41-1.27.06-1.65.07-4.85.07s-3.58-.01-4.85-.07c-1.17-.05-1.8-.25-2.23-.41-.56-.22-.96-.48-1.38-.9-.42-.42-.68-.82-.9-1.38-.16-.42-.36-1.06-.41-2.23-.06-1.27-.07-1.65-.07-4.85s.01-3.58.07-4.85c.05-1.17.25-1.8.41-2.23.22-.56.48-.96.9-1.38.42-.42.82-.68 1.38-.9.42-.16 1.06-.36 2.23-.41C8.42 2.17 8.8 2.16 12 2.16Zm0 3.68a6.16 6.16 0 1 0 0 12.32 6.16 6.16 0 0 0 0-12.32Zm0 10.16a4 4 0 1 1 0-8 4 4 0 0 1 0 8Zm6.41-10.4a1.44 1.44 0 1 0 0 2.88 1.44 1.44 0 0 0 0-2.88Z" />
+            </svg>
+          </a>
+        )}
+        {SITE.social.youtube && (
+          <a
+            href={SITE.social.youtube}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+            class="text-zinc-50/85 transition hover:text-zinc-50"
+          >
+            <svg viewBox="0 0 24 24" class="h-6 w-6 fill-current" aria-hidden="true">
+              <path d="M23.5 6.2a3 3 0 0 0-2.12-2.12C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.38.58A3 3 0 0 0 .5 6.2C0 8.07 0 12 0 12s0 3.93.5 5.8a3 3 0 0 0 2.12 2.12C4.5 20.5 12 20.5 12 20.5s7.5 0 9.38-.58a3 3 0 0 0 2.12-2.12c.5-1.87.5-5.8.5-5.8s0-3.93-.5-5.8ZM9.6 15.6V8.4l6.2 3.6-6.2 3.6Z" />
+            </svg>
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  /* Hamburger lines */
+  .bar {
+    position: absolute;
+    left: 0.25rem;
+    height: 0.125rem;
+    width: 2.5rem;
+    background-color: var(--color-zinc-50, #fafafa);
+    transition: transform 0.3s ease, opacity 0.2s ease;
+  }
+  .bar1 {
+    top: calc(50% - 7px);
+  }
+  .bar2 {
+    top: calc(50% + 7px);
+  }
+
+  /* Open: rotate both to center -> X */
+  :global(#nav-menu[data-open='true']) .bar1 {
+    transform: translateY(7px) rotate(45deg);
+  }
+  :global(#nav-menu[data-open='true']) .bar2 {
+    transform: translateY(-7px) rotate(-45deg);
+  }
+
+  /* Overlay hidden by default */
+  .overlay {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  :global(#nav-menu[data-open='true']) .overlay {
+    opacity: 1;
+    pointer-events: auto;
+  }
+</style>
+
+<script>
+  function init(root: HTMLElement) {
+    // Skip if this DOM instance already bound.
+    if (root.dataset.bound === 'true') return;
+    root.dataset.bound = 'true';
+
+    const toggle = root.querySelector('#nav-toggle');
+    const overlay = root.querySelector('#nav-overlay');
+    const set = (open: boolean) => {
+      root.dataset.open = String(open);
+      toggle?.setAttribute('aria-expanded', String(open));
+    };
+    toggle?.addEventListener('click', () => set(root.dataset.open !== 'true'));
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && root.dataset.open === 'true') set(false);
+    });
+    // Close after navigating via a link
+    overlay?.querySelectorAll('[data-navlink]').forEach((a) =>
+      a.addEventListener('click', () => set(false)),
+    );
+  }
+
+  // astro:page-load fires on initial load AND after every ClientRouter nav.
+  document.addEventListener('astro:page-load', () => {
+    const r = document.getElementById('nav-menu') as HTMLElement | null;
+    if (r) init(r);
+  });
+</script>
