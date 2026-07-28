@@ -25,16 +25,24 @@ const { href, label, class: className, rollClass, ...rest } = Astro.props;
 </a>
 
 <style>
+  /* Extra room below the line box for Greek descenders (γ ρ φ ψ χ ζ η).
+     Each copy gets the same padding-bottom, so the roll distance (-50%)
+     still lands exactly on the second copy, and the outgoing copy's
+     tails stay inside its own box — no bleed into the visible window. */
   .roll-link {
     display: inline-block;
     overflow: hidden;
-    height: 1.2em; /* fallback for browsers without `lh` support */
-    height: 1lh;
+    height: calc(1.2em + 0.25em); /* fallback for browsers without `lh` support */
+    height: calc(1lh + 0.25em);
+    margin-bottom: -0.25em; /* keep the link's layout footprint unchanged */
   }
   .roll-link-inner {
     display: flex;
     flex-direction: column;
     transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+  }
+  .roll-link-inner > span {
+    padding-bottom: 0.25em;
   }
   .roll-link:hover .roll-link-inner,
   .roll-link:focus-visible .roll-link-inner {
