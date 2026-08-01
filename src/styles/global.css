@@ -5,7 +5,7 @@
    Everything else uses Tailwind's built-in zinc scale
    (zinc-950 near-black, zinc-50 near-white, zinc-600 mute). */
 @theme {
-  --color-orange: #F28C28;
+  --color-orange: #FFA33B;
 
   --font-sans: 'Manrope Variable', system-ui, sans-serif;
 }

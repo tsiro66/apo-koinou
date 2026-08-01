@@ -15,15 +15,24 @@ const parastaseisCollection = defineCollection({
       title: z.string(),
       slug: z.string().optional(),
       year: z.number().int(),
+      // Subtitle under the title, e.g. "Κεντρική Σκηνή (Παιδική Σκηνή)".
+      stage: z.string().optional(),
       premiereDate: z.coerce.date().optional(),
       director: z.string().optional(),
       writer: z.string().optional(),
       duration: z.string().optional(),
       genre: z.string().optional(),
       language: z.string().default('Ελληνικά'),
-      cast: z.array(z.string()).default([]),
+      // Διανομή: actor name + optional role.
+      cast: z
+        .array(z.object({ name: z.string(), role: z.string().optional() }))
+        .default([]),
       crew: z
         .array(z.object({ role: z.string(), name: z.string() }))
+        .default([]),
+      // Τόπος & χρόνος: one row per performance.
+      performances: z
+        .array(z.object({ date: z.coerce.date(), venue: z.string() }))
         .default([]),
       summary: z.string().optional(),
       // Cloudflare Stream video id for the full recorded performance.
@@ -31,6 +40,9 @@ const parastaseisCollection = defineCollection({
       youtubeTrailer: z.string().optional(),
       thumbnail: image().optional(),
       gallery: z.array(image()).default([]),
+      // Αφίσα (poster) and Πρόγραμμα scans for the Υλικό page.
+      poster: image().optional(),
+      program: z.array(image()).default([]),
       seoDescription: z.string().optional(),
       seoImage: image().optional(),
       draft: z.boolean().default(false),

@@ -3,8 +3,10 @@ import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StreamPlayer from '../components/StreamPlayer.astro';
-import Gallery from '../components/Gallery.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import ProductionHeader from '../components/ProductionHeader.astro';
+import ProductionSection from '../components/ProductionSection.astro';
+import ProductionFacts from '../components/ProductionFacts.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
 
@@ -19,18 +21,61 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const brand = BRAND[locale];
 const canonicalPath = `/parastaseis/${play.id}`;
+const ylikoPath = localizedPath(`${canonicalPath}/yliko`, locale);
 
-const premiere = d.premiereDate
-  ? d.premiereDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-    })
-  : String(d.year);
+const formatDate = (date: Date) =>
+  date.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
 
-const youtubeId = d.youtubeTrailer?.startsWith('http')
-  ? d.youtubeTrailer.split('v=')[1]?.split('&')[0]
-  : d.youtubeTrailer;
+// Section visibility: render a section (and its button) only when it has data.
+const hasCrew = d.crew.length > 0;
+const hasCast = d.cast.length > 0;
+const hasPlaceTime = d.performances.length > 0 || !!d.premiereDate;
+
+const buttons = [
+  { href: '#theatriko-ergo', label: t('prod.section.play') },
+  ...(hasCrew ? [{ href: '#syntelestes', label: t('prod.crew_section') }] : []),
+  ...(hasCast ? [{ href: '#dianomi', label: t('prod.section.cast') }] : []),
+  ...(hasPlaceTime ? [{ href: '#topos-chronos', label: t('prod.section.place_time') }] : []),
+];
+
+// Top-right stats menu: one entry per available Υλικό subsection.
+const stats = [
+  ...(d.gallery.length > 0
+    ? [{ href: `${ylikoPath}#fotografies`, label: t('prod.gallery_section'), count: d.gallery.length }]
+    : []),
+  ...(d.youtubeTrailer
+    ? [{ href: `${ylikoPath}#treiler`, label: t('prod.trailer_section'), count: 1 }]
+    : []),
+  ...(d.program.length > 0
+    ? [{ href: `${ylikoPath}#programma`, label: t('prod.program'), count: d.program.length }]
+    : []),
+  ...(d.poster ? [{ href: `${ylikoPath}#afisa`, label: t('prod.poster'), count: 1 }] : []),
+];
+
+// Alternating full-bleed bands, in render order.
+const orderedSections = [
+  'theatriko-ergo',
+  ...(hasCrew ? ['syntelestes'] : []),
+  ...(hasCast ? ['dianomi'] : []),
+  ...(hasPlaceTime ? ['topos-chronos'] : []),
+  ...(d.streamId ? ['parastasi'] : []),
+];
+const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
+
+const playFacts = [
+  { label: t('prod.field.title'), value: d.title },
+  ...(d.writer ? [{ label: t('prod.writer'), value: d.writer }] : []),
+];
+
+const placeTimeFacts = d.performances.length > 0
+  ? d.performances.map((p) => ({ label: formatDate(p.date), value: p.venue }))
+  : d.premiereDate
+    ? [{ label: t('prod.premiere'), value: formatDate(d.premiereDate) }]
+    : [];
 ---
 
 <BaseLayout
@@ -40,88 +85,69 @@ const youtubeId = d.youtubeTrailer?.startsWith('http')
   canonicalPath={canonicalPath}
   type="article"
 >
-  <article class="mx-auto max-w-6xl">
-    <Breadcrumbs
-      crumbs={[
-        { label: t('nav.home'), href: localizedPath('/', locale) },
-        { label: t('page.parastaseis.title'), href: localizedPath('/parastaseis', locale) },
-        { label: d.title },
-      ]}
-    />
+  <article>
+    <div class="mx-auto max-w-6xl">
+      <Breadcrumbs
+        crumbs={[
+          { label: t('nav.home'), href: localizedPath('/', locale) },
+          { label: t('page.parastaseis.title'), href: localizedPath('/parastaseis', locale) },
+          { label: d.title },
+        ]}
+      />
+      <ProductionHeader
+        play={play}
+        buttons={buttons}
+        stats={stats}
+        watchNowHref={d.streamId ? '#parastasi' : undefined}
+      />
+    </div>
 
-    <header class="mt-6">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
-        {d.year}
-      </p>
-      <h1 class="mt-2 text-4xl text-zinc-950">{d.title}</h1>
-      <dl class="mt-6 grid grid-cols-1 gap-x-8 gap-y-2 text-sm text-zinc-600 sm:grid-cols-2">
-        {d.premiereDate && (<><dt class="font-semibold text-zinc-950">{t('prod.premiere')}</dt><dd>{premiere}</dd></>)}
-        {d.director && (<><dt class="font-semibold text-zinc-950">{t('prod.director')}</dt><dd>{d.director}</dd></>)}
-        {d.writer && (<><dt class="font-semibold text-zinc-950">{t('prod.writer')}</dt><dd>{d.writer}</dd></>)}
-        {d.duration && (<><dt class="font-semibold text-zinc-950">{t('prod.duration')}</dt><dd>{d.duration}</dd></>)}
-        {d.genre && (<><dt class="font-semibold text-zinc-950">{t('prod.genre')}</dt><dd>{d.genre}</dd></>)}
-        <dt class="font-semibold text-zinc-950">{t('prod.language')}</dt><dd>{d.language}</dd>
-      </dl>
-    </header>
+    <div class="mt-10">
+      <ProductionSection id="theatriko-ergo" title={t('prod.section.play')} band={band('theatriko-ergo')}>
+        <ProductionFacts facts={playFacts} />
+        {d.summary && <p class="mt-6 leading-relaxed text-zinc-950/80">{d.summary}</p>}
+        {
+          play.body?.trim() && (
+            <div class="prose mt-6 max-w-none">
+              <Content />
+            </div>
+          )
+        }
+      </ProductionSection>
 
-    {d.summary && (
-      <p class="mt-6 text-lg leading-relaxed text-zinc-950/80">{d.summary}</p>
-    )}
+      {
+        hasCrew && (
+          <ProductionSection id="syntelestes" title={t('prod.crew_section')} band={band('syntelestes')}>
+            <ProductionFacts facts={d.crew.map((c) => ({ label: c.role, value: c.name }))} />
+          </ProductionSection>
+        )
+      }
 
-    {d.streamId && (
-      <section class="mt-10">
-        <h2 class="text-2xl text-zinc-950">{t('prod.stream_section')}</h2>
-        <div class="mt-4">
-          <StreamPlayer streamId={d.streamId} title={d.title} />
-        </div>
-      </section>
-    )}
+      {
+        hasCast && (
+          <ProductionSection id="dianomi" title={t('prod.section.cast')} band={band('dianomi')}>
+            <ProductionFacts
+              facts={d.cast.map((c) => ({ label: c.role ?? '', value: c.name }))}
+            />
+          </ProductionSection>
+        )
+      }
 
-    {youtubeId && (
-      <section class="mt-10">
-        <h2 class="text-2xl text-zinc-950">{t('prod.trailer_section')}</h2>
-        <div class="mt-4 overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-950 shadow-md">
-          <iframe
-            src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
-            title={`${t('prod.trailer_section')} — ${d.title}`}
-            allow="accelerometer; autoplay; encrypted-media; fullscreen"
-            allowfullscreen
-            class="aspect-video w-full"
-            loading="lazy"
-          ></iframe>
-        </div>
-      </section>
-    )}
+      {
+        hasPlaceTime && (
+          <ProductionSection id="topos-chronos" title={t('prod.section.place_time')} band={band('topos-chronos')}>
+            <ProductionFacts facts={placeTimeFacts} />
+          </ProductionSection>
+        )
+      }
 
-    {d.cast.length > 0 && (
-      <section class="mt-10">
-        <h2 class="text-2xl text-zinc-950">{t('prod.cast_section')}</h2>
-        <ul class="mt-4 list-disc ps-5 text-zinc-950/80">
-          {d.cast.map((member) => <li>{member}</li>)}
-        </ul>
-      </section>
-    )}
-
-    {d.crew.length > 0 && (
-      <section class="mt-10">
-        <h2 class="text-2xl text-zinc-950">{t('prod.crew_section')}</h2>
-        <dl class="mt-4 grid grid-cols-1 gap-x-8 gap-y-1 text-zinc-950/80 sm:grid-cols-2">
-          {d.crew.map((c) => (
-            <><dt class="font-semibold text-zinc-950">{c.role}</dt><dd>{c.name}</dd></>
-          ))}
-        </dl>
-      </section>
-    )}
-
-    {d.gallery.length > 0 && (
-      <section class="mt-10">
-        <h2 class="text-2xl text-zinc-950">{t('prod.gallery_section')}</h2>
-        <div class="mt-4"><Gallery images={d.gallery} alt={d.title} /></div>
-      </section>
-    )}
-
-    <div class="prose mt-10 max-w-none">
-      <Content />
+      {
+        d.streamId && (
+          <ProductionSection id="parastasi" title={t('prod.stream_section')} band={band('parastasi')}>
+            <StreamPlayer streamId={d.streamId} title={d.title} />
+          </ProductionSection>
+        )
+      }
     </div>
   </article>
 </BaseLayout>

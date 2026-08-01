@@ -1,0 +1,28 @@
+---
+// Two-column section used by the production pages: section title with an
+// accent bar on the left, content on the right. `band` paints a full-bleed
+// zinc-100 background (alternating bands, like the reference design).
+interface Props {
+  id: string;
+  title: string;
+  count?: number;
+  band?: boolean;
+}
+const { id, title, count, band = false } = Astro.props;
+---
+
+<section
+  id={id}
+  class:list={['-mx-4 scroll-mt-28 px-4 py-10', band ? 'bg-zinc-100' : 'bg-transparent']}
+>
+  <div class="mx-auto grid max-w-6xl gap-6 sm:grid-cols-[11rem_1fr] sm:gap-10">
+    <h2 class="text-2xl leading-snug text-zinc-950">
+      {title}
+      {count !== undefined && <span class="text-orange"> {count}</span>}
+      <span class="mt-2 block h-0.5 w-10 bg-orange" aria-hidden="true"></span>
+    </h2>
+    <div class="min-w-0">
+      <slot />
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+---
+// Label/value rows in the style "Label: value" used by the production
+// sections (Θεατρικό έργο, Συντελεστές, Διανομή, Τόπος & Χρόνος).
+// Rows with an empty label render just the value (e.g. cast without roles).
+interface Fact {
+  label: string;
+  value: string;
+}
+interface Props {
+  facts: Fact[];
+}
+const { facts } = Astro.props;
+---
+
+<dl class="space-y-4">
+  {
+    facts.map((f) => (
+      <div>
+        {f.label && (
+          <>
+            <dt class="inline font-semibold text-zinc-950">{f.label}:</dt>{' '}
+          </>
+        )}
+        <dd class="inline text-orange">{f.value}</dd>
+      </div>
+    ))
+  }
+</dl>
