@@ -1,33 +1,42 @@
 ---
+import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
-import Timeline from '../components/Timeline.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Historical milestones. Empty for now — add entries by locale as the
-// narrative grows. Kept locale-keyed so each language can tell its own story.
-const milestones: Record<'el' | 'en', { year: string; title: string; text?: string }[]> = {
-  el: [],
-  en: [],
-};
-const items = milestones[locale];
+// Long-form history content lives in the `selides` collection, one Markdown
+// entry per locale: src/content/selides/<locale>/istoria.md
+const entry = await getEntry('selides', `${locale}/istoria`);
+const Content = entry ? (await render(entry)).Content : null;
 ---
 
-<BaseLayout title={t('page.istoria.title')} canonicalPath="/istoria">
+<BaseLayout
+  title={t('page.istoria.title')}
+  description={entry?.data.seoDescription ?? t('page.istoria.intro')}
+  canonicalPath="/istoria"
+>
   <div class="mx-auto max-w-6xl">
     <Breadcrumbs crumbs={[{ label: t('nav.home'), href: localizedPath('/', locale) }, { label: t('page.istoria.title') }]} />
     <div class="mt-6">
-      <SectionTitle eyebrow={t('page.istoria.eyebrow')} title={t('page.istoria.heading')} />
+      <SectionTitle eyebrow={t('page.istoria.eyebrow')} title={t('page.istoria.heading')} as="h1" />
     </div>
-    <p class="mt-6 text-lg leading-relaxed text-zinc-950/80">
+    <p class="mt-6 max-w-3xl text-lg leading-relaxed text-zinc-950/80">
       {t('page.istoria.intro')}
     </p>
     <div class="mt-10">
-      {items.length > 0 ? <Timeline items={items} /> : <p class="text-zinc-600">{t('page.istoria.empty')}</p>}
+      {
+        Content ? (
+          <div class="prose max-w-3xl">
+            <Content />
+          </div>
+        ) : (
+          <p class="text-zinc-600">{t('page.istoria.empty')}</p>
+        )
+      }
     </div>
   </div>
 </BaseLayout>

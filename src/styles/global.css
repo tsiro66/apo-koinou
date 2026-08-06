@@ -5,7 +5,7 @@
    Everything else uses Tailwind's built-in zinc scale
    (zinc-950 near-black, zinc-50 near-white, zinc-600 mute). */
 @theme {
-  --color-orange: #FFA33B;
+  --color-orange: #C25908;
 
   --font-sans: 'Manrope Variable', system-ui, sans-serif;
 }
@@ -26,4 +26,90 @@ body {
 :focus-visible {
   outline: 2px solid var(--color-orange);
   outline-offset: 2px;
+}
+
+/* Markdown body (content collections).
+   Hand-rolled typography so rendered Markdown matches the site's voice
+   without pulling in the @tailwindcss/typography dependency. */
+.prose {
+  color: var(--color-zinc-700);
+  line-height: 1.75;
+}
+
+.prose > * + * {
+  margin-top: 1em;
+}
+
+.prose h2,
+.prose h3 {
+  color: var(--color-zinc-950);
+  line-height: 1.3;
+}
+
+.prose h2 {
+  margin-top: 2.25em;
+  font-size: 1.5rem;
+}
+
+/* Orange accent bar under h2, echoing the section-title motif. */
+.prose h2::after {
+  content: '';
+  display: block;
+  margin-top: 0.5rem;
+  height: 2px;
+  width: 2.5rem;
+  background: var(--color-orange);
+}
+
+.prose h3 {
+  margin-top: 1.75em;
+  font-size: 1.125rem;
+  font-weight: 600;
+}
+
+.prose ul,
+.prose ol {
+  padding-left: 1.5em;
+}
+
+.prose ul {
+  list-style: disc;
+}
+
+.prose ol {
+  list-style: decimal;
+}
+
+.prose li + li {
+  margin-top: 0.5em;
+}
+
+.prose li::marker {
+  color: var(--color-orange);
+}
+
+.prose li > p + p {
+  margin-top: 0.5em;
+}
+
+.prose strong {
+  color: var(--color-zinc-950);
+  font-weight: 600;
+}
+
+.prose a {
+  color: var(--color-zinc-950);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.prose a:hover {
+  color: var(--color-orange);
+}
+
+.prose blockquote {
+  border-left: 2px solid var(--color-orange);
+  padding-left: 1em;
+  font-style: italic;
 }

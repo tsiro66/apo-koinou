@@ -1,34 +1,37 @@
 ---
-title: 'Το πανηγύρι'
+title: "Το πανηγύρι"
 year: 2016
+# PLACEHOLDER — replace with a real Cloudflare Stream video UID and set
+# STREAM_CUSTOMER_CODE in src/consts.ts. Added only to preview the button.
+streamId: "a32324d2c165e7723b701cc902da8005"
 premiereDate: 2016-04-09
-writer: 'Δ. Κεχαΐδης'
-director: 'Φώτης Λάζαρης'
-thumbnail: '../../assets/parastaseis/panigyri/01.jpg'
-poster: '../../assets/parastaseis/panigyri/poster.jpg'
+writer: "Δ. Κεχαΐδης"
+director: "Φώτης Λάζαρης"
+thumbnail: "../../assets/parastaseis/panigyri/01.jpg"
+poster: "../../assets/parastaseis/panigyri/poster.jpg"
 program:
-  - '../../assets/parastaseis/panigyri/invitation-front.jpg'
-  - '../../assets/parastaseis/panigyri/invitation-back.jpg'
+  - "../../assets/parastaseis/panigyri/invitation-front.jpg"
+  - "../../assets/parastaseis/panigyri/invitation-back.jpg"
 gallery:
-  - '../../assets/parastaseis/panigyri/02.jpg'
-  - '../../assets/parastaseis/panigyri/03.jpg'
-  - '../../assets/parastaseis/panigyri/04.jpg'
-  - '../../assets/parastaseis/panigyri/05.jpg'
-  - '../../assets/parastaseis/panigyri/06.jpg'
-  - '../../assets/parastaseis/panigyri/07.jpg'
-  - '../../assets/parastaseis/panigyri/08.jpg'
-  - '../../assets/parastaseis/panigyri/09.jpg'
-  - '../../assets/parastaseis/panigyri/10.jpg'
+  - "../../assets/parastaseis/panigyri/02.jpg"
+  - "../../assets/parastaseis/panigyri/03.jpg"
+  - "../../assets/parastaseis/panigyri/04.jpg"
+  - "../../assets/parastaseis/panigyri/05.jpg"
+  - "../../assets/parastaseis/panigyri/06.jpg"
+  - "../../assets/parastaseis/panigyri/07.jpg"
+  - "../../assets/parastaseis/panigyri/08.jpg"
+  - "../../assets/parastaseis/panigyri/09.jpg"
+  - "../../assets/parastaseis/panigyri/10.jpg"
 crew:
-  - role: 'Σκηνοθεσία'
-    name: 'Φώτης Λάζαρης'
-  - role: 'Μουσική σύνθεση'
-    name: 'Ευγένιος Βούλγαρης'
+  - role: "Σκηνοθεσία"
+    name: "Φώτης Λάζαρης"
+  - role: "Μουσική σύνθεση"
+    name: "Ευγένιος Βούλγαρης"
 performances:
   - date: 2016-04-09
-    venue: 'Θέατρο Σχολικού Συγκροτήματος Κουκούλι'
+    venue: "Θέατρο Σχολικού Συγκροτήματος Κουκούλι"
   - date: 2016-05-18
-    venue: 'Δημοτικό θέατρο Απόλλων'
+    venue: "Δημοτικό θέατρο Απόλλων"
   - date: 2016-05-24
-    venue: 'Συνεδριακό & Πολιτιστικό Κέντρο Πανεπιστημίου Πατρών'
+    venue: "Συνεδριακό & Πολιτιστικό Κέντρο Πανεπιστημίου Πατρών"
 ---

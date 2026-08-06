@@ -1,6 +1,7 @@
 ---
 // Embeds a Cloudflare Stream video. The Stream ID lives only in frontmatter,
 // never hardcoded in pages. Uses the official iframe embed.
+import { STREAM_CUSTOMER_CODE } from '../consts';
 import { getLocaleFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -9,8 +10,10 @@ interface Props {
 }
 const { streamId, title } = Astro.props;
 const streamTitle = title ?? useTranslations(getLocaleFromUrl(Astro.url))('prod.stream_default');
-// Cloudflare Stream iframe syntax: https://customer.<id>.cloudflarestream.com/<videoId>/iframe
-const src = `https://customer.${streamId}.cloudflarestream.com/${streamId}/iframe`;
+// Cloudflare Stream iframe syntax:
+// https://customer-<account-code>.cloudflarestream.com/<videoId>/iframe
+// The account code is site-wide (consts.ts); streamId is the per-video UID.
+const src = `https://customer-${STREAM_CUSTOMER_CODE}.cloudflarestream.com/${streamId}/iframe`;
 ---
 
 <div class="overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-950 shadow-md">

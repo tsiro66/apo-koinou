@@ -7,6 +7,12 @@ import sitemap from '@astrojs/sitemap';
 export default defineConfig({
   site: 'https://apo-koinou.gr',
   integrations: [sitemap()],
+  // Fetch internal pages before the click so ClientRouter swaps instantly.
+  // All links are few and pages are small static HTML, so viewport is safe.
+  prefetch: {
+    prefetchAll: true,
+    defaultStrategy: 'viewport',
+  },
   i18n: {
     defaultLocale: 'el',
     locales: ['el', 'en'],

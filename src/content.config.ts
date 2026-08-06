@@ -69,23 +69,20 @@ const neaCollection = defineCollection({
 });
 
 // ───────────────────────────────────────────────────────────────────────────
-// Συντελεστές (Contributors: actors, directors, technicians)
+// Σελίδες (long-form static pages, one Markdown file per locale)
+// src/content/selides/<locale>/<page>.md — rendered by the matching section
+// (e.g. sections/History.astro renders selides/<locale>/istoria).
 // ───────────────────────────────────────────────────────────────────────────
-const synteleistesCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/synteleistes' }),
-  schema: ({ image }) =>
-    z.object({
-      name: z.string(),
-      slug: z.string().optional(),
-      role: z.string().optional(),
-      bio: z.string().optional(),
-      photo: image().optional(),
-      order: z.number().optional(),
-    }),
+const selidesCollection = defineCollection({
+  loader: glob({ pattern: '**/*.md', base: './src/content/selides' }),
+  schema: z.object({
+    title: z.string(),
+    seoDescription: z.string().optional(),
+  }),
 });
 
 export const collections = {
   parastaseis: parastaseisCollection,
   nea: neaCollection,
-  synteleistes: synteleistesCollection,
+  selides: selidesCollection,
 };

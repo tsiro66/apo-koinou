@@ -21,12 +21,13 @@ export const ui = {
     'nav.parastaseis': 'Παραστάσεις',
     'nav.nea': 'Νέα',
     'nav.programma': 'Πρόγραμμα',
-    'nav.synteleistes': 'Συντελεστές',
     'nav.syllogi': 'Συλλογή',
     'nav.istoria': 'Ιστορία',
     'nav.epikoinonia': 'Επικοινωνία',
+    'nav.main_aria': 'Κύρια πλοήγηση',
 
     'common.open_menu': 'Άνοιγμα μενού',
+    'common.close_menu': 'Κλείσιμο μενού',
     'common.back_home': 'Επιστροφή στην αρχική',
     'common.photo': 'φωτογραφία',
     'common.skip_to_content': 'Παράλειψη στο περιεχόμενο',
@@ -44,8 +45,6 @@ export const ui = {
     'page.parastaseis.eyebrow': 'Αρχείο',
     'page.nea.title': 'Νέα',
     'page.nea.eyebrow': 'Ανακοινώσεις',
-    'page.synteleistes.title': 'Συντελεστές',
-    'page.synteleistes.eyebrow': 'Ομάδα',
     'page.syllogi.title': 'Συλλογή',
     'page.syllogi.eyebrow': 'Αρχείο',
     'page.syllogi.heading': 'Συλλογή παραγωγών',
@@ -55,10 +54,10 @@ export const ui = {
     'page.programma.soon':
       'Λεπτομέρειες για εισιτήρια και χώρους θα ανακοινωθούν σύντομα.',
     'page.istoria.title': 'Ιστορία',
-    'page.istoria.eyebrow': 'Χρονικό',
+    'page.istoria.eyebrow': 'Η ομάδα',
     'page.istoria.heading': 'Η ιστορία μας',
     'page.istoria.intro':
-      'Η πορεία της θεατρικής ομάδας «Από Κοινού» μέσα στον χρόνο.',
+      'Από το 2015 μέχρι σήμερα — πώς γεννήθηκε η ομάδα, πώς λειτουργεί και τι έχει ανεβάσει.',
     'page.istoria.empty': 'Δεν υπάρχουν καταχωρημένα ορόσημα.',
     'page.epikoinonia.title': 'Επικοινωνία',
     'page.epikoinonia.eyebrow': 'Επικοινωνία',
@@ -68,7 +67,6 @@ export const ui = {
 
     'empty.parastaseis': 'Δεν υπάρχουν καταχωρημένες παραστάσεις.',
     'empty.nea': 'Δεν υπάρχουν ανακοινώσεις.',
-    'empty.synteleistes': 'Δεν υπάρχουν καταχωρημένοι συντελεστές.',
     'empty.syllogi': 'Δεν υπάρχουν διαθέσιμα πολυμέσα.',
 
     'prod.premiere': 'Πρεμιέρα',
@@ -112,12 +110,13 @@ export const ui = {
     'nav.parastaseis': 'Productions',
     'nav.nea': 'News',
     'nav.programma': 'Programme',
-    'nav.synteleistes': 'Contributors',
     'nav.syllogi': 'Archive',
     'nav.istoria': 'History',
     'nav.epikoinonia': 'Contact',
+    'nav.main_aria': 'Main navigation',
 
     'common.open_menu': 'Open menu',
+    'common.close_menu': 'Close menu',
     'common.back_home': 'Back to home',
     'common.photo': 'photo',
     'common.skip_to_content': 'Skip to content',
@@ -135,8 +134,6 @@ export const ui = {
     'page.parastaseis.eyebrow': 'Archive',
     'page.nea.title': 'News',
     'page.nea.eyebrow': 'Announcements',
-    'page.synteleistes.title': 'Contributors',
-    'page.synteleistes.eyebrow': 'The group',
     'page.syllogi.title': 'Archive',
     'page.syllogi.eyebrow': 'Archive',
     'page.syllogi.heading': 'Productions archive',
@@ -146,10 +143,10 @@ export const ui = {
     'page.programma.soon':
       'Details about tickets and venues will be announced soon.',
     'page.istoria.title': 'History',
-    'page.istoria.eyebrow': 'Timeline',
+    'page.istoria.eyebrow': 'The group',
     'page.istoria.heading': 'Our story',
     'page.istoria.intro':
-      'The journey of the «Από Κοινού» theater group over time.',
+      'From 2015 to today — how the group was born, how it works, and what it has staged.',
     'page.istoria.empty': 'No milestones recorded yet.',
     'page.epikoinonia.title': 'Contact',
     'page.epikoinonia.eyebrow': 'Contact',
@@ -159,7 +156,6 @@ export const ui = {
 
     'empty.parastaseis': 'No productions listed yet.',
     'empty.nea': 'No announcements yet.',
-    'empty.synteleistes': 'No contributors listed yet.',
     'empty.syllogi': 'No media available yet.',
 
     'prod.premiere': 'Premiere',

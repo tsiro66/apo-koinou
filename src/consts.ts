@@ -13,6 +13,12 @@ export const SITE = {
   },
 } as const;
 
+// Cloudflare Stream account subdomain code — the `customer-<code>` part of
+// every Stream embed URL. Account-level and shared by all videos; individual
+// video IDs live in each play's `streamId` frontmatter field.
+// Find it in the Cloudflare dashboard → Stream → any video → Embed code.
+export const STREAM_CUSTOMER_CODE = 'xxvtzesb6od682a5';
+
 // Per-locale brand strings. Keys mirror src/i18n/ui.ts entries.
 export const BRAND: Record<Locale, { title: string; tagline: string; description: string }> = {
   el: {
@@ -39,7 +45,6 @@ export const NAV_LINKS = [
   { href: '/nea', labelKey: 'nav.nea' },
   { href: '/programma', labelKey: 'nav.programma' },
   { href: '/syllogi', labelKey: 'nav.syllogi' },
-  { href: '/synteleistes', labelKey: 'nav.synteleistes' },
   { href: '/istoria', labelKey: 'nav.istoria' },
   { href: '/epikoinonia', labelKey: 'nav.epikoinonia' },
 ] as const;

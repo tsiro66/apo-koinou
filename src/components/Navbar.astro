@@ -20,16 +20,17 @@ const brand = BRAND[locale];
 const neutral = neutralPath(Astro.url);
 const isActive = (href: string) =>
   href === "/" ? neutral === "/" : neutral.startsWith(href);
-
-// Unique root id (only one navbar, but be safe).
-const navId = "nav-menu";
 ---
 
-<div id={navId} class="contents" data-open="false">
+<div id="nav-menu" class="contents" data-open="false">
   <header
-    class="sticky top-0 z-50 border-b-4 border-orange bg-zinc-50 text-zinc-950"
+    data-scrolled="false"
+    class="sticky top-0 z-50 bg-zinc-50 text-zinc-950 transition-[background-color,box-shadow] duration-300 data-[scrolled=true]:bg-zinc-50/85 data-[scrolled=true]:shadow-[0_1px_16px_rgb(9_9_11/0.08)] data-[scrolled=true]:backdrop-blur-md"
   >
-    <nav class="flex items-center justify-between gap-4 px-4 py-3">
+    <nav
+      aria-label={t("nav.main_aria")}
+      class="flex items-center justify-between gap-4 px-4 py-3"
+    >
       <!-- Left: logo -->
       <a
         href={localizedPath("/", locale)}
@@ -39,27 +40,29 @@ const navId = "nav-menu";
         <Image
           src={logo}
           alt={brand.title}
-          widths={[192, 288, 384]}
-          sizes="384px"
+          widths={[128, 256, 384]}
+          sizes="125px"
           height={96}
-          class="h-full w-auto max-h-14"
+          class="h-12 w-auto sm:h-14"
         />
       </a>
 
       <!-- Center: inline links (desktop only) -->
-      <div class="hidden items-center gap-6 lg:flex">
+      <ul class="hidden items-center gap-6 lg:flex xl:gap-8">
         {
           NAV_LINKS.map((link) => (
-            <RollLink
-              href={localizedPath(link.href, locale)}
-              label={t(link.labelKey)}
-              aria-current={isActive(link.href) ? "page" : undefined}
-              class="text-base uppercase  text-zinc-950 aria-[current=page]:text-orange aria-[current=page]:font-bold"
-              rollClass="text-orange"
-            />
+            <li>
+              <RollLink
+                href={localizedPath(link.href, locale)}
+                label={t(link.labelKey)}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                class="text-sm uppercase tracking-wider text-zinc-950 aria-[current=page]:shadow-[inset_0_-2px_0_0_var(--color-orange)]"
+                rollClass="text-orange"
+              />
+            </li>
           ))
         }
-      </div>
+      </ul>
 
       <!-- Right: language picker + menu toggle (mobile/tablet only) -->
       <div class="flex items-center gap-3">
@@ -69,6 +72,8 @@ const navId = "nav-menu";
           id="nav-toggle"
           class="nav-toggle relative flex h-10 w-12 cursor-pointer items-center justify-center lg:hidden"
           aria-label={t("common.open_menu")}
+          data-label-open={t("common.open_menu")}
+          data-label-close={t("common.close_menu")}
           aria-expanded="false"
           aria-controls="nav-overlay"
         >
@@ -79,31 +84,40 @@ const navId = "nav-menu";
     </nav>
   </header>
 
-  <!-- Fullscreen menu overlay (mobile/tablet only) -->
+  <!-- Fullscreen menu overlay (mobile/tablet only). `inert` keeps it out of
+       the tab order and accessibility tree while closed; JS toggles it. -->
   <div
     id="nav-overlay"
-    class="overlay fixed inset-0 z-40 flex flex-col items-center justify-center gap-6 px-6 bg-zinc-50 lg:hidden"
+    inert
+    class="overlay fixed inset-0 z-40 flex flex-col overflow-y-auto bg-zinc-50 px-6 pt-20 sm:pt-24 lg:hidden"
   >
-    <div
-      class="flex flex-col items-center gap-6 sm:grid sm:grid-cols-2 sm:content-center sm:justify-items-start sm:gap-x-24 sm:gap-y-3 sm:w-full sm:max-w-5xl sm:px-16 sm:-translate-x-10"
+    <nav
+      aria-label={t("nav.main_aria")}
+      class="flex flex-1 items-center justify-center py-8"
     >
-      {
-        NAV_LINKS.map((link) => (
-          <RollLink
-            href={localizedPath(link.href, locale)}
-            label={t(link.labelKey)}
-            aria-current={isActive(link.href) ? "page" : undefined}
-            data-navlink
-            class="justify-self-center text-xl text-zinc-950/85 aria-[current=page]:text-zinc-950 aria-[current=page]:font-semibold sm:justify-self-start sm:text-7xl"
-            rollClass="text-orange"
-          />
-        ))
-      }
-    </div>
+      <ul
+        class="flex flex-col items-center gap-6 text-center sm:grid sm:grid-cols-2 sm:justify-items-center sm:gap-x-12 sm:gap-y-8 md:gap-x-16"
+      >
+        {
+          NAV_LINKS.map((link) => (
+            <li>
+              <RollLink
+                href={localizedPath(link.href, locale)}
+                label={t(link.labelKey)}
+                aria-current={isActive(link.href) ? "page" : undefined}
+                data-navlink
+                class="text-3xl text-zinc-950/85 aria-[current=page]:font-semibold aria-[current=page]:text-orange sm:text-4xl md:text-5xl"
+                rollClass="text-orange"
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
 
     <!-- Footer: tagline + contact + socials -->
     <div
-      class="absolute inset-x-0 bottom-0 flex flex-col items-center gap-3 px-6 pb-8 sm:bottom-6 sm:max-w-4xl sm:mx-auto sm:px-16"
+      class="flex w-full flex-col items-center gap-3 border-t border-zinc-950/10 pt-6 pb-[max(2rem,env(safe-area-inset-bottom))]"
     >
       <p class="max-w-md text-center text-sm text-zinc-600">
         {brand.tagline}
@@ -202,50 +216,138 @@ const navId = "nav-menu";
 
   /* Open: rotate both to center -> X */
   :global(#nav-menu[data-open="true"]) .bar1 {
-    transform: translateY(0) rotate(45deg);
+    transform: translateY(-50%) rotate(45deg);
   }
   :global(#nav-menu[data-open="true"]) .bar2 {
-    transform: translateY(0) rotate(-45deg);
+    transform: translateY(-50%) rotate(-45deg);
   }
 
-  /* Overlay hidden by default */
+  /* Overlay hidden by default. `visibility` is delayed on close so the
+     opacity fade finishes before the element leaves the hit/focus order. */
   .overlay {
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-    transition: opacity 0.3s ease;
+    transition:
+      opacity 0.3s ease,
+      visibility 0s linear 0.3s;
   }
   :global(#nav-menu[data-open="true"]) .overlay {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
+    transition: opacity 0.3s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .bar,
+    .overlay {
+      transition: none;
+    }
   }
 </style>
 
 <script>
-  function init(root: HTMLElement) {
-    // Skip if this DOM instance already bound.
+  // State lives on #nav-menu (data-open). Element-level listeners die with
+  // the DOM node on ClientRouter swaps; the astro:page-load listener is
+  // registered once per document and always queries the live DOM, so no
+  // stale closures survive navigations.
+  function parts(root: HTMLElement) {
+    return {
+      toggle: root.querySelector<HTMLButtonElement>("#nav-toggle"),
+      overlay: root.querySelector<HTMLElement>("#nav-overlay"),
+    };
+  }
+
+  function setOpen(root: HTMLElement, open: boolean) {
+    const { toggle, overlay } = parts(root);
+    if (!toggle || !overlay) return;
+
+    root.dataset.open = String(open);
+    toggle.setAttribute("aria-expanded", String(open));
+    toggle.setAttribute(
+      "aria-label",
+      open
+        ? (toggle.dataset.labelClose ?? "")
+        : (toggle.dataset.labelOpen ?? ""),
+    );
+    overlay.inert = !open;
+
+    // Scroll lock + compensate for the disappearing scrollbar.
+    document.documentElement.style.overflow = open ? "hidden" : "";
+    document.documentElement.style.paddingRight = open
+      ? `${window.innerWidth - document.documentElement.clientWidth}px`
+      : "";
+
+    if (open) {
+      overlay.querySelector<HTMLElement>("[data-navlink]")?.focus();
+    } else if (overlay.contains(document.activeElement)) {
+      toggle.focus();
+    }
+  }
+
+  function setup(root: HTMLElement) {
     if (root.dataset.bound === "true") return;
     root.dataset.bound = "true";
 
-    const toggle = root.querySelector("#nav-toggle");
-    const overlay = root.querySelector("#nav-overlay");
-    const set = (open: boolean) => {
-      root.dataset.open = String(open);
-      toggle?.setAttribute("aria-expanded", String(open));
-    };
-    toggle?.addEventListener("click", () => set(root.dataset.open !== "true"));
-    // Close on Escape
-    document.addEventListener("keydown", (e) => {
-      if (e.key === "Escape" && root.dataset.open === "true") set(false);
-    });
-    // Close after navigating via a link
+    const { toggle, overlay } = parts(root);
+    if (!toggle || !overlay) return;
+
+    toggle.addEventListener("click", () =>
+      setOpen(root, root.dataset.open !== "true"),
+    );
+    // Close after navigating via a link.
     overlay
-      ?.querySelectorAll("[data-navlink]")
-      .forEach((a) => a.addEventListener("click", () => set(false)));
+      .querySelectorAll("[data-navlink]")
+      .forEach((a) => a.addEventListener("click", () => setOpen(root, false)));
+
+    root.addEventListener("keydown", (e) => {
+      if (root.dataset.open !== "true") return;
+      if (e.key === "Escape") {
+        setOpen(root, false);
+        return;
+      }
+      // Focus trap: cycle Tab through [toggle, ...overlay focusables].
+      if (e.key !== "Tab") return;
+      const focusables = [
+        toggle,
+        ...overlay.querySelectorAll<HTMLElement>("a[href], button"),
+      ];
+      const first = focusables[0];
+      const last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
   }
 
-  // astro:page-load fires on initial load AND after every ClientRouter nav.
-  document.addEventListener("astro:page-load", () => {
-    const r = document.getElementById("nav-menu") as HTMLElement | null;
-    if (r) init(r);
-  });
+  // Scrolled state: translucent blurred bg + soft shadow once past the top.
+  // Queries the live DOM so it stays correct after ClientRouter swaps.
+  function onScroll() {
+    const header = document.querySelector<HTMLElement>("#nav-menu > header");
+    if (header) header.dataset.scrolled = String(window.scrollY > 8);
+  }
+
+  function bind() {
+    const root = document.getElementById("nav-menu");
+    if (root) setup(root);
+    onScroll();
+  }
+
+  bind();
+  if (!(window as any).__navGlobalBound) {
+    (window as any).__navGlobalBound = true;
+    document.addEventListener("astro:page-load", bind);
+    window.addEventListener("scroll", onScroll, { passive: true });
+    // Close if the viewport grows to desktop while the menu is open.
+    window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => {
+      if (!e.matches) return;
+      const root = document.getElementById("nav-menu");
+      if (root?.dataset.open === "true") setOpen(root, false);
+    });
+  }
 </script>
