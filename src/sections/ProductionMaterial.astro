@@ -6,6 +6,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Gallery from '../components/Gallery.astro';
 import ProductionHeader from '../components/ProductionHeader.astro';
 import ProductionSection from '../components/ProductionSection.astro';
+import Reviews from '../components/Reviews.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
 import { getThumbnail, getPhotos } from '../utils/media';
@@ -32,12 +33,14 @@ const hasPhotos = photos.length > 0;
 const hasTrailer = !!youtubeId;
 const hasProgram = d.program.length > 0;
 const hasPoster = !!d.poster;
+const hasReviews = d.kritikes.length > 0;
 
 const buttons = [
   ...(hasPhotos ? [{ href: '#fotografies', label: t('prod.gallery_section') }] : []),
   ...(hasTrailer ? [{ href: '#treiler', label: t('prod.trailer_section') }] : []),
   ...(hasProgram ? [{ href: '#programma', label: t('prod.program') }] : []),
   ...(hasPoster ? [{ href: '#afisa', label: t('prod.poster') }] : []),
+  ...(hasReviews ? [{ href: '#kritikes', label: t('prod.reviews') }] : []),
 ];
 
 // Alternating full-bleed bands, in render order.
@@ -46,6 +49,7 @@ const orderedSections = [
   ...(hasTrailer ? ['treiler'] : []),
   ...(hasProgram ? ['programma'] : []),
   ...(hasPoster ? ['afisa'] : []),
+  ...(hasReviews ? ['kritikes'] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 ---
@@ -68,6 +72,13 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
         ]}
       />
       <ProductionHeader play={play} buttons={buttons} />
+      <a
+        href={localizedPath(playPath, locale)}
+        class="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-zinc-600 transition hover:text-orange"
+      >
+        <span aria-hidden="true">←</span>
+        {t('prod.back_to_play')}
+      </a>
     </div>
 
     <div class="mt-10">
@@ -149,6 +160,19 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
                 class="h-auto w-full"
               />
             </a>
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasReviews && (
+          <ProductionSection
+            id="kritikes"
+            title={t('prod.reviews')}
+            count={d.kritikes.length}
+            band={band('kritikes')}
+          >
+            <Reviews reviews={d.kritikes} />
           </ProductionSection>
         )
       }

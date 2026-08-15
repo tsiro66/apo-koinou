@@ -41,6 +41,10 @@ const parastaseisCollection = defineCollection({
       // Αφίσα (poster) and Πρόγραμμα scans for the Υλικό page.
       poster: image().optional(),
       program: z.array(image()).default([]),
+      // Κριτικές: review quotes with source attribution.
+      kritikes: z
+        .array(z.object({ source: z.string(), text: z.string() }))
+        .default([]),
       seoDescription: z.string().optional(),
       seoImage: image().optional(),
       draft: z.boolean().default(false),

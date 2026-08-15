@@ -1,0 +1,23 @@
+---
+// Review quotes with source attribution, rendered as a vertical list of
+// blockquotes with an orange accent bar.
+interface Props {
+  reviews: { source: string; text: string }[];
+}
+const { reviews } = Astro.props;
+---
+
+<ul class="space-y-6">
+  {
+    reviews.map((r) => (
+      <li>
+        <blockquote class="border-l-2 border-orange pl-4">
+          <p class="text-lg leading-relaxed text-zinc-950/80">{r.text}</p>
+          <footer class="mt-2 text-sm font-semibold text-zinc-600">
+            — {r.source}
+          </footer>
+        </blockquote>
+      </li>
+    ))
+  }
+</ul>

@@ -56,6 +56,9 @@ const stats = [
     ? [{ href: `${ylikoPath}#programma`, label: t('prod.program'), count: d.program.length }]
     : []),
   ...(d.poster ? [{ href: `${ylikoPath}#afisa`, label: t('prod.poster'), count: 1 }] : []),
+  ...(d.kritikes.length > 0
+    ? [{ href: `${ylikoPath}#kritikes`, label: t('prod.reviews'), count: d.kritikes.length }]
+    : []),
 ];
 
 // Alternating full-bleed bands, in render order.

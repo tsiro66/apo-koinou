@@ -149,6 +149,22 @@ content:
         options:
           media: parastaseis-media
           multiple: true
+      - name: kritikes
+        label: Κριτικές
+        type: object
+        description: Κριτικές από οργανισμούς, ΜΜΕ, κοινό κ.λπ.
+        list:
+          collapsible: true
+          collapsed: true
+        fields:
+          - name: source
+            label: Πηγή
+            type: string
+            required: true
+          - name: text
+            label: Κείμενο κριτικής
+            type: text
+            required: true
       - name: seoDescription
         label: SEO Περιγραφή
         type: text
