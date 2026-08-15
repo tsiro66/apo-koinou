@@ -52,8 +52,6 @@ content:
       - name: premiereDate
         label: Πρεμιέρα
         type: date
-        options:
-          format: dd/MM/yyyy
       - name: director
         label: Σκηνοθέτης
         type: string
@@ -113,8 +111,6 @@ content:
             label: Ημερομηνία
             type: date
             required: true
-            options:
-              format: dd/MM/yyyy
           - name: venue
             label: Χώρος
             type: string
@@ -212,8 +208,6 @@ content:
         label: Ημερομηνία δημοσίευσης
         type: date
         required: true
-        options:
-          format: dd/MM/yyyy
       - name: excerpt
         label: Απόσπασμα
         type: text

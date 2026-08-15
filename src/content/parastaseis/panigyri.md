@@ -2,7 +2,7 @@
 title: Το πανηγύρι
 slug: panigyri
 year: 2016
-premiereDate: 15/08/2026
+premiereDate: 2016-04-09
 director: Φώτης Λάζαρης
 writer: Δ. Κεχαΐδης
 language: Ελληνικά
@@ -12,11 +12,11 @@ crew:
   - role: Μουσική σύνθεση
     name: Ευγένιος Βούλγαρης
 performances:
-  - date: 15/08/2026
+  - date: 2016-04-09
     venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
-  - date: 15/08/2026
+  - date: 2016-05-18
     venue: Δημοτικό θέατρο Απόλλων
-  - date: 15/08/2026
+  - date: 2016-05-24
     venue: Συνεδριακό & Πολιτιστικό Κέντρο Πανεπιστημίου Πατρών
 streamId: a32324d2c165e7723b701cc902da8005
 thumbnail: ../../assets/parastaseis/panigyri/01.jpg
@@ -36,6 +36,3 @@ program:
   - ../../assets/parastaseis/panigyri/invitation-back.jpg
 draft: false
 ---
-# test
-
-test
