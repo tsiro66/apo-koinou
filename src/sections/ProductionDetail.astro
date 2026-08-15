@@ -9,6 +9,7 @@ import ProductionSection from '../components/ProductionSection.astro';
 import ProductionFacts from '../components/ProductionFacts.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import { getThumbnail } from '../utils/media';
 
 interface Props {
   play: CollectionEntry<'parastaseis'>;
@@ -81,7 +82,7 @@ const placeTimeFacts = d.performances.length > 0
 <BaseLayout
   title={d.title}
   description={d.seoDescription ?? d.summary ?? brand.description}
-  image={(d.seoImage ?? d.thumbnail)?.src}
+  image={(d.seoImage ?? getThumbnail(d))?.src}
   canonicalPath={canonicalPath}
   type="article"
 >

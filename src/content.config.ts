@@ -15,8 +15,6 @@ const parastaseisCollection = defineCollection({
       title: z.string(),
       slug: z.string().optional(),
       year: z.number().int(),
-      // Subtitle under the title, e.g. "Κεντρική Σκηνή (Παιδική Σκηνή)".
-      stage: z.string().optional(),
       premiereDate: z.coerce.date().optional(),
       director: z.string().optional(),
       writer: z.string().optional(),

@@ -49,10 +49,6 @@ content:
         label: Έτος
         type: number
         required: true
-      - name: stage
-        label: Σκηνή
-        type: string
-        description: 'Π.χ. Κεντρική Σκηνή (Παιδική Σκηνή)'
       - name: premiereDate
         label: Πρεμιέρα
         type: date

@@ -6,6 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import { getThumbnail } from '../utils/media';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -23,8 +24,9 @@ const photoWord = t('common.photo');
 // For each play, collect all its photos (thumbnail first, then gallery).
 const groups = plays.map((play) => {
   const photos: ImageMetadata[] = [];
-  if (play.data.thumbnail) photos.push(play.data.thumbnail);
-  photos.push(...play.data.gallery);
+  const thumb = getThumbnail(play.data);
+  if (thumb) photos.push(thumb);
+  photos.push(...play.data.gallery.filter((p) => p !== thumb));
   return {
     href: localizedPath(`/parastaseis/${play.id}`, locale),
     title: play.data.title,

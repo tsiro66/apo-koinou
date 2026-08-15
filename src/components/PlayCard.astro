@@ -2,12 +2,14 @@
 import type { CollectionEntry } from 'astro:content';
 import { Image } from 'astro:assets';
 import { getLocaleFromUrl, localizedPath } from '../i18n/utils';
+import { getThumbnail } from '../utils/media';
 
 interface Props {
   play: CollectionEntry<'parastaseis'>;
 }
 const { play } = Astro.props;
 const d = play.data;
+const thumb = getThumbnail(d);
 const locale = getLocaleFromUrl(Astro.url);
 const href = localizedPath(`/parastaseis/${play.id}`, locale);
 ---
@@ -15,9 +17,9 @@ const href = localizedPath(`/parastaseis/${play.id}`, locale);
 <article class="group overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-50 shadow-sm transition hover:shadow-md">
   <a href={href} class="block">
     {
-      d.thumbnail ? (
+      thumb ? (
         <Image
-          src={d.thumbnail}
+          src={thumb}
           alt={d.title}
           widths={[240, 480, 640]}
           sizes="(min-width:1024px) 33vw,(min-width:640px) 50vw,100vw"
