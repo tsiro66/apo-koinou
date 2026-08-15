@@ -34,5 +34,8 @@ gallery:
 program:
   - ../../assets/parastaseis/panigyri/invitation-front.jpg
   - ../../assets/parastaseis/panigyri/invitation-back.jpg
+kritikes:
+  - source: test
+    text: test
 draft: false
 ---
