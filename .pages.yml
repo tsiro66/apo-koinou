@@ -1,0 +1,253 @@
+# Pages CMS configuration — https://pages.cms
+# Repo: tsiro66/apo-koinou (branch: master)
+#
+# Entries live in Astro Content Collections (src/content/*) and images in
+# src/assets/* (astro:assets). Frontmatter image paths are stored relative
+# to the entry .md file, hence output values like `../../assets/...`.
+
+media:
+  - name: parastaseis-media
+    label: Εικόνες παραστάσεων
+    input: src/assets/parastaseis
+    # Entries live at src/content/parastaseis/*.md → two levels up.
+    output: ../../assets/parastaseis
+  - name: nea-media
+    label: Εικόνες νέων
+    input: src/assets/nea
+    output: ../../assets/nea
+  - name: logos-media
+    label: Λογότυπα
+    input: src/assets/logos
+    output: ../../assets/logos
+
+content:
+  # ── Παραστάσεις ──────────────────────────────────────────────────────
+  - name: parastaseis
+    label: Παραστάσεις
+    path: src/content/parastaseis
+    type: collection
+    filename: '{fields.slug}.md'
+    view:
+      fields: [thumbnail, title, year, draft]
+      primary: title
+      sort: [year]
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: slug
+        label: Slug (URL)
+        type: string
+        required: true
+        description: Μόνο λατινικοί χαρακτήρες και παύλες, π.χ. panigyri. Χρησιμοποιείται ως όνομα αρχείου και URL.
+        pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+      - name: year
+        label: Έτος
+        type: number
+        required: true
+      - name: stage
+        label: Σκηνή
+        type: string
+        description: 'Π.χ. Κεντρική Σκηνή (Παιδική Σκηνή)'
+      - name: premiereDate
+        label: Πρεμιέρα
+        type: date
+        options:
+          format: DD/MM/yyyy
+      - name: director
+        label: Σκηνοθέτης
+        type: string
+      - name: writer
+        label: Συγγραφέας
+        type: string
+      - name: duration
+        label: Διάρκεια
+        type: string
+      - name: genre
+        label: Είδος
+        type: string
+      - name: language
+        label: Γλώσσα
+        type: string
+        default: 'Ελληνικά'
+      - name: summary
+        label: Περίληψη
+        type: text
+      - name: cast
+        label: Διανομή
+        type: object
+        list:
+          collapsible: true
+          collapsed: true
+        fields:
+          - name: name
+            label: Όνομα ηθοποιού
+            type: string
+            required: true
+          - name: role
+            label: Ρόλος
+            type: string
+      - name: crew
+        label: Συντελεστές
+        type: object
+        list:
+          collapsible: true
+          collapsed: true
+        fields:
+          - name: role
+            label: Ρόλος
+            type: string
+            required: true
+          - name: name
+            label: Όνομα
+            type: string
+            required: true
+      - name: performances
+        label: Παραστάσεις (τόπος & χρόνος)
+        type: object
+        list:
+          collapsible: true
+          collapsed: true
+        fields:
+          - name: date
+            label: Ημερομηνία
+            type: date
+            required: true
+            options:
+              format: DD/MM/yyyy
+          - name: venue
+            label: Χώρος
+            type: string
+            required: true
+      - name: streamId
+        label: Cloudflare Stream ID
+        type: string
+        description: ID βίντεο από το Cloudflare Stream (πλήρη μαγνητοσκοπημένη παράσταση).
+      - name: youtubeTrailer
+        label: YouTube Trailer ID
+        type: string
+        description: Μόνο το ID του βίντεο, π.χ. dQw4w9WgXcQ
+      - name: thumbnail
+        label: Μικρογραφία
+        type: image
+        options:
+          media: parastaseis-media
+      - name: poster
+        label: Αφίσα
+        type: image
+        options:
+          media: parastaseis-media
+      - name: gallery
+        label: Φωτογραφίες
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+      - name: program
+        label: Προσκλήσεις / Πρόγραμμα
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+      - name: seoDescription
+        label: SEO Περιγραφή
+        type: text
+      - name: seoImage
+        label: SEO Εικόνα
+        type: image
+        options:
+          media: parastaseis-media
+      - name: draft
+        label: Πρόχειρο (να μην δημοσιευτεί)
+        type: boolean
+        default: false
+      - name: order
+        label: Σειρά εμφάνισης
+        type: number
+      - name: body
+        label: Κείμενο
+        type: rich-text
+
+  # ── Νέα ─────────────────────────────────────────────────────────────
+  - name: nea
+    label: Νέα
+    path: src/content/nea
+    type: collection
+    filename: '{fields.slug}.md'
+    view:
+      fields: [thumbnail, title, publishDate, draft]
+      primary: title
+      sort: [publishDate]
+      default:
+        sort: publishDate
+        order: desc
+    fields:
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: slug
+        label: Slug (URL)
+        type: string
+        required: true
+        description: Μόνο λατινικοί χαρακτήρες και παύλες. Χρησιμοποιείται ως όνομα αρχείου και URL.
+        pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+      - name: publishDate
+        label: Ημερομηνία δημοσίευσης
+        type: date
+        required: true
+        options:
+          format: DD/MM/yyyy
+      - name: excerpt
+        label: Απόσπασμα
+        type: text
+      - name: thumbnail
+        label: Μικρογραφία
+        type: image
+        options:
+          media: nea-media
+      - name: seoDescription
+        label: SEO Περιγραφή
+        type: text
+      - name: seoImage
+        label: SEO Εικόνα
+        type: image
+        options:
+          media: nea-media
+      - name: draft
+        label: Πρόχειρο (να μην δημοσιευτεί)
+        type: boolean
+        default: false
+      - name: body
+        label: Κείμενο
+        type: rich-text
+
+  # ── Σελίδες (ιστορία κ.λπ.) ──────────────────────────────────────────
+  # Editing allowed; creating/renaming/deleting disabled — filenames map
+  # to locale pages rendered by src/sections.
+  - name: selides
+    label: Σελίδες
+    path: src/content/selides
+    type: collection
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      layout: tree
+      primary: title
+    fields:
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: seoDescription
+        label: SEO Περιγραφή
+        type: text
+      - name: body
+        label: Κείμενο
+        type: rich-text
