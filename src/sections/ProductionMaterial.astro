@@ -8,7 +8,7 @@ import ProductionHeader from '../components/ProductionHeader.astro';
 import ProductionSection from '../components/ProductionSection.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail } from '../utils/media';
+import { getThumbnail, getPhotos } from '../utils/media';
 
 interface Props {
   play: CollectionEntry<'parastaseis'>;
@@ -27,7 +27,8 @@ const youtubeId = d.youtubeTrailer?.startsWith('http')
   : d.youtubeTrailer;
 
 // Section visibility: render a section (and its button) only when it has data.
-const hasPhotos = d.gallery.length > 0;
+const photos = getPhotos(d);
+const hasPhotos = photos.length > 0;
 const hasTrailer = !!youtubeId;
 const hasProgram = d.program.length > 0;
 const hasPoster = !!d.poster;
@@ -75,10 +76,10 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
           <ProductionSection
             id="fotografies"
             title={t('prod.gallery_section')}
-            count={d.gallery.length}
+            count={photos.length}
             band={band('fotografies')}
           >
-            <Gallery images={d.gallery} alt={d.title} />
+            <Gallery images={photos} alt={d.title} />
           </ProductionSection>
         )
       }

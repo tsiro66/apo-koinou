@@ -9,7 +9,7 @@ import ProductionSection from '../components/ProductionSection.astro';
 import ProductionFacts from '../components/ProductionFacts.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail } from '../utils/media';
+import { getThumbnail, getPhotos } from '../utils/media';
 
 interface Props {
   play: CollectionEntry<'parastaseis'>;
@@ -44,9 +44,10 @@ const buttons = [
 ];
 
 // Top-right stats menu: one entry per available Υλικό subsection.
+const photos = getPhotos(d);
 const stats = [
-  ...(d.gallery.length > 0
-    ? [{ href: `${ylikoPath}#fotografies`, label: t('prod.gallery_section'), count: d.gallery.length }]
+  ...(photos.length > 0
+    ? [{ href: `${ylikoPath}#fotografies`, label: t('prod.gallery_section'), count: photos.length }]
     : []),
   ...(d.youtubeTrailer
     ? [{ href: `${ylikoPath}#treiler`, label: t('prod.trailer_section'), count: 1 }]

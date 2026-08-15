@@ -10,3 +10,17 @@ import type { ImageMetadata } from 'astro';
 export const getThumbnail = (
   d: CollectionEntry<'parastaseis'>['data'],
 ): ImageMetadata | undefined => d.thumbnail ?? d.gallery[0];
+
+/**
+ * All photos of a production — the effective thumbnail first, then the
+ * gallery (minus the thumbnail, so it is never shown twice).
+ */
+export const getPhotos = (
+  d: CollectionEntry<'parastaseis'>['data'],
+): ImageMetadata[] => {
+  const thumb = getThumbnail(d);
+  const seen = new Set<string>(thumb ? [thumb.src] : []);
+  return [thumb, ...d.gallery.filter((p) => !seen.has(p.src))].filter(
+    (p): p is ImageMetadata => !!p,
+  );
+};
