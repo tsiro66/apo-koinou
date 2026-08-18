@@ -33,8 +33,8 @@ const parastaseisCollection = defineCollection({
         .array(z.object({ date: z.coerce.date(), venue: z.string() }))
         .default([]),
       summary: z.string().optional(),
-      // Cloudflare Stream video id for the full recorded performance.
-      streamId: z.string().optional(),
+      // Bunny Stream video ID (GUID) for the full recorded performance.
+      videoId: z.string().optional(),
       youtubeTrailer: z.string().optional(),
       thumbnail: image().optional(),
       gallery: z.array(image()).default([]),

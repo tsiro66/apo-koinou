@@ -18,7 +18,9 @@ performances:
     venue: Δημοτικό θέατρο Απόλλων
   - date: 2016-05-24
     venue: Συνεδριακό & Πολιτιστικό Κέντρο Πανεπιστημίου Πατρών
-streamId: a32324d2c165e7723b701cc902da8005
+# Bunny Stream video GUID — from Bunny dashboard → Stream → video (Embed).
+# Old Cloudflare ID removed during migration: a32324d2c165e7723b701cc902da8005
+videoId: 22279b7d-56b3-4628-98f5-b773282dfbeb
 thumbnail: ../../assets/parastaseis/panigyri/01.jpg
 poster: ../../assets/parastaseis/panigyri/poster.jpg
 gallery:

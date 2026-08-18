@@ -13,11 +13,11 @@ export const SITE = {
   },
 } as const;
 
-// Cloudflare Stream account subdomain code — the `customer-<code>` part of
-// every Stream embed URL. Account-level and shared by all videos; individual
-// video IDs live in each play's `streamId` frontmatter field.
-// Find it in the Cloudflare dashboard → Stream → any video → Embed code.
-export const STREAM_CUSTOMER_CODE = 'xxvtzesb6od682a5';
+// Bunny Stream library ID — shared by every video embed URL. Individual
+// video IDs live in each play's `videoId` frontmatter field.
+// Find it in the Bunny dashboard → Stream → your library → Settings → API
+// ("Library ID", numeric).
+export const BUNNY_LIBRARY_ID = '730197'; // TODO: replace with your Bunny Stream library ID
 
 // Per-locale brand strings. Keys mirror src/i18n/ui.ts entries.
 export const BRAND: Record<Locale, { title: string; tagline: string; description: string }> = {

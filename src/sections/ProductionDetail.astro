@@ -67,7 +67,7 @@ const orderedSections = [
   ...(hasCrew ? ['syntelestes'] : []),
   ...(hasCast ? ['dianomi'] : []),
   ...(hasPlaceTime ? ['topos-chronos'] : []),
-  ...(d.streamId ? ['parastasi'] : []),
+  ...(d.videoId ? ['parastasi'] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 
@@ -103,7 +103,7 @@ const placeTimeFacts = d.performances.length > 0
         play={play}
         buttons={buttons}
         stats={stats}
-        watchNowHref={d.streamId ? '#parastasi' : undefined}
+        watchNowHref={d.videoId ? '#parastasi' : undefined}
       />
     </div>
 
@@ -147,9 +147,9 @@ const placeTimeFacts = d.performances.length > 0
       }
 
       {
-        d.streamId && (
+        d.videoId && (
           <ProductionSection id="parastasi" title={t('prod.stream_section')} band={band('parastasi')}>
-            <StreamPlayer streamId={d.streamId} title={d.title} />
+            <StreamPlayer videoId={d.videoId} title={d.title} />
           </ProductionSection>
         )
       }

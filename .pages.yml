@@ -75,8 +75,8 @@ content:
         label: Διανομή
         type: object
         list:
-          collapsible: true
-          collapsed: true
+          collapsible:
+            collapsed: true
         fields:
           - name: name
             label: Όνομα ηθοποιού
@@ -89,8 +89,8 @@ content:
         label: Συντελεστές
         type: object
         list:
-          collapsible: true
-          collapsed: true
+          collapsible:
+            collapsed: true
         fields:
           - name: role
             label: Ρόλος
@@ -104,8 +104,8 @@ content:
         label: Παραστάσεις (τόπος & χρόνος)
         type: object
         list:
-          collapsible: true
-          collapsed: true
+          collapsible:
+            collapsed: true
         fields:
           - name: date
             label: Ημερομηνία
@@ -115,10 +115,10 @@ content:
             label: Χώρος
             type: string
             required: true
-      - name: streamId
-        label: Cloudflare Stream ID
+      - name: videoId
+        label: Bunny Stream Video ID
         type: string
-        description: ID βίντεο από το Cloudflare Stream (πλήρη μαγνητοσκοπημένη παράσταση).
+        description: GUID βίντεο από το Bunny Stream dashboard (πλήρη μαγνητοσκοπημένη παράσταση), π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb.
       - name: youtubeTrailer
         label: YouTube Trailer ID
         type: string
@@ -150,8 +150,8 @@ content:
         type: object
         description: Κριτικές από οργανισμούς, ΜΜΕ, κοινό κ.λπ.
         list:
-          collapsible: true
-          collapsed: true
+          collapsible:
+            collapsed: true
         fields:
           - name: source
             label: Πηγή
