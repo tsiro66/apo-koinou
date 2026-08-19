@@ -1,14 +1,9 @@
 ---
-title: "Ήταν όλοι τους παιδιά μου"
+title: Ήταν όλοι τους παιδιά μου
 slug: itan-oloi-tous-paidia-mou
 year: 2019
-writer: "Άρθουρ Μίλλερ"
-language: 'Ελληνικά'
-summary: ""
-crew: []
-performances: []
-# Bunny Stream video GUID — αντικαταστήστε το TODO από το Bunny dashboard.
-videoId: TODO
+writer: Άρθουρ Μίλλερ
+videoId: 69380c77-a3b5-4cb6-9b5c-428eb1a494b0
 thumbnail: ../../assets/parastaseis/itan-oloi-tous-paidia-mou/01.jpg
 poster: ../../assets/parastaseis/itan-oloi-tous-paidia-mou/poster.jpg
 gallery:
@@ -27,7 +22,6 @@ invitation:
 program:
   - ../../assets/parastaseis/itan-oloi-tous-paidia-mou/program-front.jpg
   - ../../assets/parastaseis/itan-oloi-tous-paidia-mou/program-back.jpg
-kritikes: []
 order: 10
 draft: false
 ---
