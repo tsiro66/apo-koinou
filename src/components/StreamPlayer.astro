@@ -13,7 +13,9 @@ const videoTitle = title ?? useTranslations(getLocaleFromUrl(Astro.url))('prod.s
 // Bunny Stream iframe syntax:
 // https://iframe.mediadelivery.net/embed/<libraryId>/<videoId>
 // The library ID is site-wide (consts.ts); videoId is the per-video GUID.
-const src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoId}`;
+// ?autoplay=false strips the autoplay attribute from the player's <video>
+// tag — without it Bunny autoplays (muted) regardless of the iframe allow list.
+const src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoId}?autoplay=false`;
 ---
 
 <div class="overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-950 shadow-md">
