@@ -8,9 +8,9 @@ import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils'
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-const posts = (
-  await getCollection('nea', ({ data }) => !data.draft)
-).sort((a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime());
+const posts = (await getCollection('nea')).sort(
+  (a, b) => b.data.publishDate.getTime() - a.data.publishDate.getTime(),
+);
 
 const fmt = (d: Date) =>
   d.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
@@ -36,9 +36,6 @@ const fmt = (d: Date) =>
                 <h2 class="mt-1 text-2xl text-zinc-950 group-hover:text-zinc-950">
                   {post.data.title}
                 </h2>
-                {post.data.excerpt && (
-                  <p class="mt-2 text-zinc-950/70">{post.data.excerpt}</p>
-                )}
               </a>
             </li>
           ))}

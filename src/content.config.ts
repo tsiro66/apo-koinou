@@ -55,6 +55,8 @@ const parastaseisCollection = defineCollection({
 
 // ───────────────────────────────────────────────────────────────────────────
 // Νέα (Announcements / news posts)
+// Minimal entry: title + image + markdown body. Pages CMS auto-fills
+// publishDate with today's date on creation.
 // ───────────────────────────────────────────────────────────────────────────
 const neaCollection = defineCollection({
   loader: glob({ pattern: '**/*.md', base: './src/content/nea' }),
@@ -63,11 +65,7 @@ const neaCollection = defineCollection({
       title: z.string(),
       slug: z.string().optional(),
       publishDate: z.coerce.date(),
-      excerpt: z.string().optional(),
       thumbnail: image().optional(),
-      seoDescription: z.string().optional(),
-      seoImage: image().optional(),
-      draft: z.boolean().default(false),
     }),
 });
 

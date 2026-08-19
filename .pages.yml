@@ -150,7 +150,7 @@ content:
     type: collection
     filename: '{fields.slug}.md'
     view:
-      fields: [thumbnail, title, publishDate, draft]
+      fields: [thumbnail, title, publishDate]
       primary: title
       sort: [publishDate]
       default:
@@ -171,26 +171,12 @@ content:
         label: Ημερομηνία δημοσίευσης
         type: date
         required: true
-      - name: excerpt
-        label: Απόσπασμα
-        type: text
+        description: Γεμίζει αυτόματα με τη σημερινή ημερομηνία — συνήθως δεν χρειάζεται αλλαγή.
       - name: thumbnail
-        label: Μικρογραφία
+        label: Εικόνα
         type: image
         options:
           media: nea-media
-      - name: seoDescription
-        label: SEO Περιγραφή
-        type: text
-      - name: seoImage
-        label: SEO Εικόνα
-        type: image
-        options:
-          media: nea-media
-      - name: draft
-        label: Πρόχειρο (να μην δημοσιευτεί)
-        type: boolean
-        default: false
       - name: body
         label: Κείμενο
         type: rich-text

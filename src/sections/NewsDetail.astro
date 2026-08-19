@@ -1,6 +1,7 @@
 ---
 import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
+import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { BRAND } from '../consts';
@@ -26,8 +27,8 @@ const pub = d.publishDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR'
 
 <BaseLayout
   title={d.title}
-  description={d.seoDescription ?? d.excerpt ?? brand.description}
-  image={(d.seoImage ?? d.thumbnail)?.src}
+  description={brand.description}
+  image={d.thumbnail?.src}
   canonicalPath={`/nea/${post.id}`}
   type="article"
 >
@@ -43,7 +44,9 @@ const pub = d.publishDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR'
       <p class="text-xs uppercase tracking-wider text-zinc-600">{pub}</p>
       <h1 class="mt-2 text-4xl text-zinc-950">{d.title}</h1>
     </header>
-    {d.excerpt && <p class="mt-4 text-lg text-zinc-950/80">{d.excerpt}</p>}
+    {d.thumbnail && (
+      <Image src={d.thumbnail} alt={d.title} widths={[480, 768, 1024]} sizes="(min-width:768px) 768px, 100vw" class="mt-6 h-auto w-full rounded-lg border border-zinc-950/10" loading="eager" />
+    )}
     <div class="prose mt-8 max-w-none">
       <Content />
     </div>
