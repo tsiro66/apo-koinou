@@ -6,5 +6,5 @@ summary: Θέατρο-ντοκουμέντο βασισμένο σε μαρτυ�
   Πολυτεχνείου.
 videoId: 1d2f4d88-6864-4a89-b2b4-5a587458e359
 order: 2
-draft: true
+draft: false
 ---
