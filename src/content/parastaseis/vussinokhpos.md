@@ -1,14 +1,9 @@
 ---
-title: "Ο βυσσινόκηπος"
+title: Ο βυσσινόκηπος
 slug: vussinokhpos
 year: 2017
-writer: "Άντον Τσέχοφ"
-language: 'Ελληνικά'
-summary: ""
-crew: []
-performances: []
-# Bunny Stream video GUID — αντικαταστήστε το TODO από το Bunny dashboard.
-videoId: TODO
+writer: Άντον Τσέχοφ
+videoId: a70fa1cb-3df1-4dcc-9cb4-449f6174626f
 thumbnail: ../../assets/parastaseis/vussinokhpos/01.jpg
 poster: ../../assets/parastaseis/vussinokhpos/poster.jpg
 gallery:
@@ -24,8 +19,6 @@ gallery:
 invitation:
   - ../../assets/parastaseis/vussinokhpos/invitation-front.jpg
   - ../../assets/parastaseis/vussinokhpos/invitation-back.jpg
-program: []
-kritikes: []
 order: 12
 draft: false
 ---
