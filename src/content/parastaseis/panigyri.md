@@ -6,6 +6,7 @@ premiereDate: 2016-04-09
 director: Φώτης Λάζαρης
 writer: Δ. Κεχαΐδης
 language: Ελληνικά
+summary: ""
 crew:
   - role: Σκηνοθεσία
     name: Φώτης Λάζαρης
@@ -33,11 +34,13 @@ gallery:
   - ../../assets/parastaseis/panigyri/08.jpg
   - ../../assets/parastaseis/panigyri/09.jpg
   - ../../assets/parastaseis/panigyri/10.jpg
-program:
+invitation:
   - ../../assets/parastaseis/panigyri/invitation-front.jpg
   - ../../assets/parastaseis/panigyri/invitation-back.jpg
+program: []
 kritikes:
   - source: test
     text: test
+order: 13
 draft: false
 ---

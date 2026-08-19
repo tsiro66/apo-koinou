@@ -32,12 +32,14 @@ const photos = getPhotos(d);
 const hasPhotos = photos.length > 0;
 const hasTrailer = !!youtubeId;
 const hasProgram = d.program.length > 0;
+const hasInvitation = d.invitation.length > 0;
 const hasPoster = !!d.poster;
 const hasReviews = d.kritikes.length > 0;
 
 const buttons = [
   ...(hasPhotos ? [{ href: '#fotografies', label: t('prod.gallery_section') }] : []),
   ...(hasTrailer ? [{ href: '#treiler', label: t('prod.trailer_section') }] : []),
+  ...(hasInvitation ? [{ href: '#prosklisi', label: t('prod.invitation') }] : []),
   ...(hasProgram ? [{ href: '#programma', label: t('prod.program') }] : []),
   ...(hasPoster ? [{ href: '#afisa', label: t('prod.poster') }] : []),
   ...(hasReviews ? [{ href: '#kritikes', label: t('prod.reviews') }] : []),
@@ -47,6 +49,7 @@ const buttons = [
 const orderedSections = [
   ...(hasPhotos ? ['fotografies'] : []),
   ...(hasTrailer ? ['treiler'] : []),
+  ...(hasInvitation ? ['prosklisi'] : []),
   ...(hasProgram ? ['programma'] : []),
   ...(hasPoster ? ['afisa'] : []),
   ...(hasReviews ? ['kritikes'] : []),
@@ -107,6 +110,38 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
                 class="aspect-video w-full"
                 loading="lazy"></iframe>
             </div>
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasInvitation && (
+          <ProductionSection
+            id="prosklisi"
+            title={t('prod.invitation')}
+            count={d.invitation.length}
+            band={band('prosklisi')}
+          >
+            <ul class="grid gap-4 sm:grid-cols-2">
+              {d.invitation.map((src, i) => (
+                <li>
+                  <a
+                    href={src.src}
+                    target="_blank"
+                    class="block overflow-hidden rounded-md border border-zinc-950/10"
+                  >
+                    <Image
+                      src={src}
+                      alt={`${d.title} — ${t('prod.invitation')} ${i + 1}`}
+                      widths={[480, 720]}
+                      sizes="(min-width:640px) 50vw, 100vw"
+                      width={720}
+                      class="h-auto w-full"
+                    />
+                  </a>
+                </li>
+              ))}
+            </ul>
           </ProductionSection>
         )
       }

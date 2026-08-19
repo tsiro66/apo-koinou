@@ -49,44 +49,15 @@ content:
         label: Έτος
         type: number
         required: true
-      - name: premiereDate
-        label: Πρεμιέρα
-        type: date
-      - name: director
-        label: Σκηνοθέτης
-        type: string
       - name: writer
         label: Συγγραφέας
         type: string
-      - name: duration
-        label: Διάρκεια
-        type: string
-      - name: genre
-        label: Είδος
-        type: string
-      - name: language
-        label: Γλώσσα
-        type: string
-        default: 'Ελληνικά'
       - name: summary
         label: Περίληψη
         type: text
-      - name: cast
-        label: Διανομή
-        type: object
-        list:
-          collapsible:
-            collapsed: true
-        fields:
-          - name: name
-            label: Όνομα ηθοποιού
-            type: string
-            required: true
-          - name: role
-            label: Ρόλος
-            type: string
       - name: crew
         label: Συντελεστές
+        description: Ρόλος + όνομα, π.χ. Σκηνοθεσία — Φώτης Λάζαρης.
         type: object
         list:
           collapsible:
@@ -107,24 +78,20 @@ content:
           collapsible:
             collapsed: true
         fields:
-          - name: date
-            label: Ημερομηνία
-            type: date
-            required: true
           - name: venue
-            label: Χώρος
+            label: Τόπος / Χώρος
             type: string
+            required: true
+          - name: date
+            label: Χρόνος / Ημερομηνία
+            type: date
             required: true
       - name: videoId
         label: Bunny Stream Video ID
         type: string
-        description: GUID βίντεο από το Bunny Stream dashboard (πλήρη μαγνητοσκοπημένη παράσταση), π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb.
-      - name: youtubeTrailer
-        label: YouTube Trailer ID
-        type: string
-        description: Μόνο το ID του βίντεο, π.χ. dQw4w9WgXcQ
+        description: GUID βίντεο από το Bunny Stream dashboard (πλήρη μαγνητοσκοπημένη παράσταση), π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb. Αν είναι TODO, αντικαταστήστε το.
       - name: thumbnail
-        label: Μικρογραφία
+        label: Εικόνα εξωφύλλου
         type: image
         options:
           media: parastaseis-media
@@ -139,8 +106,14 @@ content:
         options:
           media: parastaseis-media
           multiple: true
+      - name: invitation
+        label: Πρόσκληση
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
       - name: program
-        label: Προσκλήσεις / Πρόγραμμα
+        label: Πρόγραμμα
         type: image
         options:
           media: parastaseis-media
@@ -161,24 +134,14 @@ content:
             label: Κείμενο κριτικής
             type: text
             required: true
-      - name: seoDescription
-        label: SEO Περιγραφή
-        type: text
-      - name: seoImage
-        label: SEO Εικόνα
-        type: image
-        options:
-          media: parastaseis-media
+      - name: order
+        label: Σειρά εμφάνισης
+        type: number
+        description: Μικρότερος αριθμός = πιο ψηλά στη λίστα.
       - name: draft
         label: Πρόχειρο (να μην δημοσιευτεί)
         type: boolean
         default: false
-      - name: order
-        label: Σειρά εμφάνισης
-        type: number
-      - name: body
-        label: Κείμενο
-        type: rich-text
 
   # ── Νέα ─────────────────────────────────────────────────────────────
   - name: nea

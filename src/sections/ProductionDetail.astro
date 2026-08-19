@@ -43,6 +43,10 @@ const buttons = [
   ...(hasPlaceTime ? [{ href: '#topos-chronos', label: t('prod.section.place_time') }] : []),
 ];
 
+// Placeholder Bunny IDs ("TODO") must not render a broken video player.
+const videoId =
+  d.videoId && !d.videoId.trim().toUpperCase().startsWith('TODO') ? d.videoId : undefined;
+
 // Top-right stats menu: one entry per available Υλικό subsection.
 const photos = getPhotos(d);
 const stats = [
@@ -51,6 +55,9 @@ const stats = [
     : []),
   ...(d.youtubeTrailer
     ? [{ href: `${ylikoPath}#treiler`, label: t('prod.trailer_section'), count: 1 }]
+    : []),
+  ...(d.invitation.length > 0
+    ? [{ href: `${ylikoPath}#prosklisi`, label: t('prod.invitation'), count: d.invitation.length }]
     : []),
   ...(d.program.length > 0
     ? [{ href: `${ylikoPath}#programma`, label: t('prod.program'), count: d.program.length }]
@@ -67,7 +74,7 @@ const orderedSections = [
   ...(hasCrew ? ['syntelestes'] : []),
   ...(hasCast ? ['dianomi'] : []),
   ...(hasPlaceTime ? ['topos-chronos'] : []),
-  ...(d.videoId ? ['parastasi'] : []),
+  ...(videoId ? ['parastasi'] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 
@@ -103,7 +110,7 @@ const placeTimeFacts = d.performances.length > 0
         play={play}
         buttons={buttons}
         stats={stats}
-        watchNowHref={d.videoId ? '#parastasi' : undefined}
+        watchNowHref={videoId ? '#parastasi' : undefined}
       />
     </div>
 
@@ -147,9 +154,9 @@ const placeTimeFacts = d.performances.length > 0
       }
 
       {
-        d.videoId && (
+        videoId && (
           <ProductionSection id="parastasi" title={t('prod.stream_section')} band={band('parastasi')}>
-            <StreamPlayer videoId={d.videoId} title={d.title} />
+            <StreamPlayer videoId={videoId} title={d.title} />
           </ProductionSection>
         )
       }
