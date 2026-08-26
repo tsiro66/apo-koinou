@@ -2,25 +2,21 @@
 title: Το πανηγύρι
 slug: panigyri
 year: 2016
-premiereDate: 2016-04-09
-director: Φώτης Λάζαρης
 writer: Δ. Κεχαΐδης
-language: Ελληνικά
-summary: ""
 crew:
   - role: Σκηνοθεσία
     name: Φώτης Λάζαρης
   - role: Μουσική σύνθεση
     name: Ευγένιος Βούλγαρης
+  - role: Ηθοποιος
+    name: Θοδωρης Τσιρωνης
 performances:
-  - date: 2016-04-09
-    venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
-  - date: 2016-05-18
-    venue: Δημοτικό θέατρο Απόλλων
-  - date: 2016-05-24
-    venue: Συνεδριακό & Πολιτιστικό Κέντρο Πανεπιστημίου Πατρών
-# Bunny Stream video GUID — from Bunny dashboard → Stream → video (Embed).
-# Old Cloudflare ID removed during migration: a32324d2c165e7723b701cc902da8005
+  - venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
+    date: 2016-04-09
+  - venue: Δημοτικό θέατρο Απόλλων
+    date: 2016-05-18
+  - venue: Συνεδριακό & Πολιτιστικό Κέντρο Πανεπιστημίου Πατρών
+    date: 2016-05-24
 videoId: 22279b7d-56b3-4628-98f5-b773282dfbeb
 thumbnail: ../../assets/parastaseis/panigyri/01.jpg
 poster: ../../assets/parastaseis/panigyri/poster.jpg
@@ -37,7 +33,6 @@ gallery:
 invitation:
   - ../../assets/parastaseis/panigyri/invitation-front.jpg
   - ../../assets/parastaseis/panigyri/invitation-back.jpg
-program: []
 kritikes:
   - source: test
     text: test
