@@ -18,7 +18,7 @@ const videoTitle = title ?? useTranslations(getLocaleFromUrl(Astro.url))('prod.s
 const src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoId}?autoplay=false`;
 ---
 
-<div class="overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-950 shadow-md">
+<div class="overflow-hidden border border-zinc-950/10 bg-zinc-950 shadow-md">
   <iframe
     src={src}
     title={videoTitle}

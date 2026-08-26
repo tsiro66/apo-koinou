@@ -42,10 +42,10 @@ const pub = d.publishDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR'
     />
     <header class="mt-6">
       <p class="text-xs uppercase tracking-wider text-zinc-600">{pub}</p>
-      <h1 class="mt-2 text-4xl text-zinc-950">{d.title}</h1>
+      <h1 class="mt-2 font-display text-4xl text-zinc-950">{d.title}</h1>
     </header>
     {d.thumbnail && (
-      <Image src={d.thumbnail} alt={d.title} widths={[480, 768, 1024]} sizes="(min-width:768px) 768px, 100vw" class="mt-6 h-auto w-full rounded-lg border border-zinc-950/10" loading="eager" />
+      <Image src={d.thumbnail} alt={d.title} widths={[480, 768, 1024]} sizes="(min-width:768px) 768px, 100vw" class="mt-6 h-auto w-full border border-zinc-950/10" loading="eager" />
     )}
     <div class="prose mt-8 max-w-none">
       <Content />

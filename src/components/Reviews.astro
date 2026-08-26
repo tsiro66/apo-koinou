@@ -12,7 +12,7 @@ const { reviews } = Astro.props;
     reviews.map((r) => (
       <li>
         <blockquote class="border-l-2 border-orange pl-4">
-          <p class="text-lg leading-relaxed text-zinc-950/80">{r.text}</p>
+          <p class="font-display text-xl italic leading-relaxed text-zinc-950/80">{r.text}</p>
           <footer class="mt-2 text-sm font-semibold text-zinc-600">
             — {r.source}
           </footer>

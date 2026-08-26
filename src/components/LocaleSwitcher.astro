@@ -14,7 +14,7 @@ const locales = [
 ];
 ---
 
-<div class="flex items-center gap-1 text-xs font-medium text-zinc-950 sm:text-base">
+<div class="flex items-center gap-1 font-sans text-sm font-semibold tracking-[0.15em] text-zinc-950">
   {
     locales.map((loc, i) => (
       <>
@@ -25,9 +25,9 @@ const locales = [
           lang={loc.code}
           aria-current={loc.code === locale ? 'true' : undefined}
           class:list={[
-            'px-1.5 py-0.5 transition sm:px-2.5 sm:py-1 border-b-2',
+            'px-1.5 py-0.5 transition border-b-2',
             loc.code === locale
-              ? 'text-zinc-950 font-semibold border-orange'
+              ? 'text-zinc-950 border-orange'
               : 'text-zinc-950/60 border-transparent hover:text-zinc-950',
           ]}
         >

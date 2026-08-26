@@ -13,7 +13,7 @@ export const defaultLocale: Locale = 'el';
 export const ui = {
   el: {
     'site.title': 'Από Κοινού',
-    'site.tagline': 'Θεατρική ομάδα της ελληνικής παροικίας',
+    'site.tagline': 'Θεατρική ομάδα της Α΄ ΕΛΜΕ Αχαΐας',
     'site.description':
       'Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού». Παραστάσεις, βίντεο, φωτογραφία, πρόγραμμα, ιστορία και τρόποι επικοινωνίας.',
 
@@ -41,6 +41,13 @@ export const ui = {
     'page.home.body':
       'Παραστάσεις, βίντεο, φωτογραφία, πρόγραμμα, ιστορία και τρόποι επικοινωνίας.',
 
+    'home.hero.alt': 'Σκηνή θεάτρου φωτισμένη μόνο από κεριά στο σκοτάδι.',
+    'home.featured.eyebrow': 'Από το αρχείο',
+    'home.featured.heading': 'Πρόσφατες παραστάσεις',
+    'home.featured.all': 'Όλες οι παραστάσεις',
+    'home.news.all': 'Όλα τα νέα',
+    'home.program.cta': 'Δείτε το πρόγραμμα',
+
     'page.parastaseis.title': 'Παραστάσεις',
     'page.parastaseis.eyebrow': 'Αρχείο',
     'page.nea.title': 'Νέα',
@@ -58,16 +65,35 @@ export const ui = {
     'page.istoria.heading': 'Η ιστορία μας',
     'page.istoria.intro':
       'Από το 2015 μέχρι σήμερα — πώς γεννήθηκε η ομάδα, πώς λειτουργεί και τι έχει ανεβάσει.',
+    'page.istoria.image_alt': 'Το σύνολο της θεατρικής ομάδας «Από Κοινού» στη σκηνή.',
+    'page.istoria.caption': 'Το σύνολο της ομάδας στη σκηνή.',
+    'page.istoria.toc': 'Σε αυτή τη σελίδα',
     'page.istoria.empty': 'Δεν υπάρχουν καταχωρημένα ορόσημα.',
     'page.epikoinonia.title': 'Επικοινωνία',
     'page.epikoinonia.eyebrow': 'Επικοινωνία',
     'page.epikoinonia.heading': 'Επικοινωνήστε μαζί μας',
     'page.epikoinonia.body':
-      'Για πληροφορίες, συνεργασίες και προσκλήσεις σε παραστάσεις, επικοινωνήστε μέσω email.',
+      'Για πληροφορίες και συνεργασίες επικοινωνήστε μέσω email.',
 
     'empty.parastaseis': 'Δεν υπάρχουν καταχωρημένες παραστάσεις.',
     'empty.nea': 'Δεν υπάρχουν ανακοινώσεις.',
     'empty.syllogi': 'Δεν υπάρχουν διαθέσιμα πολυμέσα.',
+
+    'filter.aria': 'Φιλτράρισμα παραστάσεων',
+    'filter.search': 'Αναζήτηση',
+    'filter.search_placeholder': 'Τίτλος, συγγραφέας ή σύνοψη…',
+    'filter.year': 'Χρονιά',
+    'filter.year_all': 'Όλες οι χρονιές',
+    'filter.writer': 'Συγγραφέας',
+    'filter.writer_all': 'Όλοι οι συγγραφείς',
+    'filter.sort': 'Ταξινόμηση',
+    'filter.sort_newest': 'Νεότερες πρώτες',
+    'filter.sort_oldest': 'Παλαιότερες πρώτες',
+    'filter.sort_title': 'Αλφαβητικά',
+    'filter.clear': 'Καθαρισμός φίλτρων',
+    'filter.results_one': '1 παράσταση',
+    'filter.results_many': '{count} παραστάσεις',
+    'filter.empty': 'Καμία παράσταση δεν ταιριάζει στα επιλεγμένα φίλτρα.',
 
     'prod.premiere': 'Πρεμιέρα',
     'prod.director': 'Σκηνοθεσία',
@@ -105,7 +131,7 @@ export const ui = {
   },
   en: {
     'site.title': 'Από Κοινού',
-    'site.tagline': 'Greek community theater group',
+    'site.tagline': 'Theater group of Α΄ ΕΛΜΕ Αχαΐας',
     'site.description':
       'Digital archive of the «Από Κοινού» theater group. Productions, video, photography, programme, history, and contact.',
 
@@ -133,6 +159,13 @@ export const ui = {
     'page.home.body':
       'Productions, video, photography, programme, history, and ways to reach us.',
 
+    'home.hero.alt': 'A theater stage lit only by candles in the dark.',
+    'home.featured.eyebrow': 'From the archive',
+    'home.featured.heading': 'Recent productions',
+    'home.featured.all': 'All productions',
+    'home.news.all': 'All news',
+    'home.program.cta': 'View the programme',
+
     'page.parastaseis.title': 'Productions',
     'page.parastaseis.eyebrow': 'Archive',
     'page.nea.title': 'News',
@@ -150,16 +183,35 @@ export const ui = {
     'page.istoria.heading': 'Our story',
     'page.istoria.intro':
       'From 2015 to today — how the group was born, how it works, and what it has staged.',
+    'page.istoria.image_alt': 'The full «Από Κοινού» theater company on stage.',
+    'page.istoria.caption': 'The full company on stage.',
+    'page.istoria.toc': 'On this page',
     'page.istoria.empty': 'No milestones recorded yet.',
     'page.epikoinonia.title': 'Contact',
     'page.epikoinonia.eyebrow': 'Contact',
     'page.epikoinonia.heading': 'Get in touch',
     'page.epikoinonia.body':
-      'For information, collaborations, and performance invitations, contact us by email.',
+      'For information and collaborations contact us by email.',
 
     'empty.parastaseis': 'No productions listed yet.',
     'empty.nea': 'No announcements yet.',
     'empty.syllogi': 'No media available yet.',
+
+    'filter.aria': 'Filter productions',
+    'filter.search': 'Search',
+    'filter.search_placeholder': 'Title, writer, or synopsis…',
+    'filter.year': 'Year',
+    'filter.year_all': 'All years',
+    'filter.writer': 'Writer',
+    'filter.writer_all': 'All writers',
+    'filter.sort': 'Sort by',
+    'filter.sort_newest': 'Newest first',
+    'filter.sort_oldest': 'Oldest first',
+    'filter.sort_title': 'Alphabetical',
+    'filter.clear': 'Clear filters',
+    'filter.results_one': '1 production',
+    'filter.results_many': '{count} productions',
+    'filter.empty': 'No productions match the selected filters.',
 
     'prod.premiere': 'Premiere',
     'prod.director': 'Direction',

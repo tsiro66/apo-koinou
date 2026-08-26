@@ -13,8 +13,10 @@ interface Props {
   /** Locale-neutral path; prefixed with /en automatically for the EN variant. */
   canonicalPath?: string;
   type?: 'website' | 'article';
+  /** Page manages its own vertical padding (full-bleed hero/bands). */
+  flush?: boolean;
 }
-const { title, description, image, canonicalPath, type } = Astro.props;
+const { title, description, image, canonicalPath, type, flush } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
@@ -39,12 +41,15 @@ const t = useTranslations(locale);
   <body class="flex min-h-screen flex-col bg-zinc-50 text-zinc-950">
     <a
       href="#main"
-      class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[60] focus:rounded focus:bg-zinc-950 focus:px-3 focus:py-1 focus:text-zinc-50"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[60] focus:bg-zinc-950 focus:px-3 focus:py-1 focus:text-zinc-50"
     >
       {t('common.skip_to_content')}
     </a>
     <Navbar />
-    <main id="main" class="flex-1 px-4 py-12">
+    <main
+      id="main"
+      class:list={['flex-1 px-4', flush ? 'py-0' : 'py-12']}
+    >
       <slot />
     </main>
     <Footer />

@@ -14,33 +14,42 @@ const locale = getLocaleFromUrl(Astro.url);
 const href = localizedPath(`/parastaseis/${play.id}`, locale);
 ---
 
-<article class="group overflow-hidden rounded-lg border border-zinc-950/10 bg-zinc-50 shadow-sm transition hover:shadow-md">
+<!-- Editorial, image-led card: flat — no box, no border, no shadow.
+     Photo at its native 3:2, year as orange eyebrow, serif title. -->
+<article class="group">
   <a href={href} class="block">
     {
       thumb ? (
-        <Image
-          src={thumb}
-          alt={d.title}
-          widths={[240, 480, 640]}
-          sizes="(min-width:1024px) 33vw,(min-width:640px) 50vw,100vw"
-          width={640}
-          height={360}
-          class="aspect-video w-full object-cover"
-        />
+        <div class="overflow-hidden">
+          <Image
+            src={thumb}
+            alt={d.title}
+            widths={[240, 480, 640]}
+            sizes="(min-width:1024px) 33vw,(min-width:640px) 50vw,100vw"
+            width={640}
+            height={427}
+            class="aspect-[3/2] w-full object-cover transition duration-500 group-hover:scale-[1.03] motion-reduce:transition-none"
+          />
+        </div>
       ) : (
-        <div class="flex aspect-video w-full items-center justify-center bg-zinc-950/5 text-2xl text-zinc-950/40">
+        <div class="flex aspect-[3/2] w-full items-center justify-center bg-zinc-950/5 px-4 text-center font-display text-2xl text-zinc-950/40">
           {d.title}
         </div>
       )
     }
-    <div class="p-4">
-      <h3 class="text-xl text-zinc-950 group-hover:text-zinc-950">
-        {d.title}
-      </h3>
-      <p class="mt-1 text-sm text-zinc-600">{d.year}{d.director ? ` — ${d.director}` : ''}</p>
-      {d.summary && (
-        <p class="mt-3 line-clamp-2 text-sm text-zinc-950/70">{d.summary}</p>
-      )}
-    </div>
+    <p class="mt-4 text-xs font-semibold uppercase tracking-[0.15em] text-orange">
+      {d.year}
+    </p>
+    <h3 class="mt-1 font-display text-2xl leading-snug text-zinc-950 transition group-hover:text-orange">
+      {d.title}
+    </h3>
+    {d.director && <p class="mt-1 text-sm text-zinc-600">{d.director}</p>}
+    {
+      d.summary && (
+        <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-950/70">
+          {d.summary}
+        </p>
+      )
+    }
   </a>
 </article>

@@ -1,4 +1,8 @@
 @import '@fontsource-variable/manrope';
+@import '@fontsource-variable/brygada-1918';
+/* Italic axis for the display serif (review quotes). Same family, declared
+   with font-style: italic — files load only where italic text appears. */
+@import '@fontsource-variable/brygada-1918/wght-italic.css';
 @import 'tailwindcss';
 
 /* Single custom color: the orange accent.
@@ -8,6 +12,7 @@
   --color-orange: #C25908;
 
   --font-sans: 'Manrope Variable', system-ui, sans-serif;
+  --font-display: 'Brygada 1918 Variable', Georgia, serif;
 }
 
 :root {
@@ -49,6 +54,8 @@ body {
 .prose h2 {
   margin-top: 2.25em;
   font-size: 1.5rem;
+  /* Anchored headings clear the sticky navbar when jumped to. */
+  scroll-margin-top: 5.5rem;
 }
 
 /* Orange accent bar under h2, echoing the section-title motif. */

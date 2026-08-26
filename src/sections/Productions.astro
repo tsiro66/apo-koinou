@@ -3,8 +3,10 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import PlayCard from '../components/PlayCard.astro';
+import PlayFilters from '../components/PlayFilters.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import { normalizeText } from '../utils/text';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -12,6 +14,14 @@ const t = useTranslations(locale);
 const plays = (
   await getCollection('parastaseis', ({ data }) => !data.draft)
 ).sort((a, b) => b.data.year - a.data.year);
+
+// Filter facets derived from the collection — never hardcoded.
+const years = [...new Set(plays.map((p) => p.data.year))].sort((a, b) => b - a);
+const writers = [
+  ...new Set(
+    plays.map((p) => p.data.writer).filter((w): w is string => Boolean(w)),
+  ),
+].sort((a, b) => a.localeCompare(b, 'el'));
 
 const home = localizedPath('/', locale);
 ---
@@ -24,9 +34,29 @@ const home = localizedPath('/', locale);
     </div>
     {
       plays.length > 0 ? (
-        <div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {plays.map((play) => <PlayCard play={play} />)}
-        </div>
+        <>
+          <div class="mt-10">
+            <PlayFilters years={years} writers={writers} total={plays.length} />
+          </div>
+          <div data-plays-grid class="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+            {plays.map((play) => (
+              <div
+                data-play
+                data-year={play.data.year}
+                data-writer={play.data.writer ?? ''}
+                data-title={normalizeText(play.data.title)}
+                data-search={normalizeText(
+                  [play.data.title, play.data.writer ?? '', play.data.summary ?? ''].join(' '),
+                )}
+              >
+                <PlayCard play={play} />
+              </div>
+            ))}
+          </div>
+          <p data-plays-empty hidden class="mt-10 text-zinc-600">
+            {t('filter.empty')}
+          </p>
+        </>
       ) : (
         <p class="mt-10 text-zinc-600">{t('empty.parastaseis')}</p>
       )

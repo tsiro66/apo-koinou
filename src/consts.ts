@@ -13,6 +13,9 @@ export const SITE = {
   },
 } as const;
 
+// Current season label, shown on the programme page and homepage band.
+export const SEASON = '2025–2026';
+
 // Bunny Stream library ID — shared by every video embed URL. Individual
 // video IDs live in each play's `videoId` frontmatter field.
 // Find it in the Bunny dashboard → Stream → your library → Settings → API

@@ -17,56 +17,60 @@ const t = useTranslations(locale);
 const brand = BRAND[locale];
 
 // Active-link check uses the locale-neutral path so it works under /en too.
+// Navbar hides home (the brand lockup already links there) and syllogi.
+// NAV_LINKS itself stays intact for the footer.
+const NAV_HIDDEN = new Set<string>(["/", "/syllogi"]);
+const navLinks = NAV_LINKS.filter((l) => !NAV_HIDDEN.has(l.href));
+
 const neutral = neutralPath(Astro.url);
 const isActive = (href: string) =>
   href === "/" ? neutral === "/" : neutral.startsWith(href);
 ---
 
 <div id="nav-menu" class="contents" data-open="false">
-  <header
-    data-scrolled="false"
-    class="sticky top-0 z-50 bg-zinc-50 text-zinc-950 transition-[background-color,box-shadow] duration-300 data-[scrolled=true]:bg-zinc-50/85 data-[scrolled=true]:shadow-[0_1px_16px_rgb(9_9_11/0.08)] data-[scrolled=true]:backdrop-blur-md"
-  >
+  <header class="sticky top-0 z-50 bg-zinc-50 text-zinc-950">
     <nav
       aria-label={t("nav.main_aria")}
-      class="flex items-center justify-between gap-4 px-4 py-3"
+      class="mx-auto flex max-w-6xl items-center justify-between gap-x-8 px-6 py-2 sm:px-10"
     >
-      <!-- Left: logo -->
-      <a
-        href={localizedPath("/", locale)}
-        class="flex items-center gap-3"
-        aria-label={brand.title}
-      >
-        <Image
-          src={logo}
-          alt={brand.title}
-          widths={[128, 256, 384]}
-          sizes="125px"
-          height={96}
-          class="h-12 w-auto sm:h-14"
-        />
-      </a>
+      <!-- Left: brand lockup with primary links grouped beside it -->
+      <div class="flex items-center gap-8 xl:gap-12">
+        <!-- Brand: full logo lockup (masks + wordmark). -->
+        <a
+          href={localizedPath("/", locale)}
+          class="flex items-center"
+          aria-label={brand.title}
+        >
+          <Image
+            src={logo}
+            alt={brand.title}
+            widths={[128, 256, 384]}
+            sizes="(min-width: 640px) 90px, 80px"
+            class="h-9 w-auto sm:h-10"
+          />
+        </a>
+        <ul class="hidden items-center gap-6 font-sans lg:flex xl:gap-10">
+          {
+            navLinks.map((link) => (
+              <li class="relative">
+                <RollLink
+                  href={localizedPath(link.href, locale)}
+                  label={t(link.labelKey)}
+                  aria-current={isActive(link.href) ? "page" : undefined}
+                  class="text-sm font-semibold tracking-[0.15em] uppercase text-zinc-950 aria-[current=page]:text-orange"
+                  rollClass="text-orange"
+                />
+              </li>
+            ))
+          }
+        </ul>
+      </div>
 
-      <!-- Center: inline links (desktop only) -->
-      <ul class="hidden items-center gap-6 lg:flex xl:gap-8">
-        {
-          NAV_LINKS.map((link) => (
-            <li>
-              <RollLink
-                href={localizedPath(link.href, locale)}
-                label={t(link.labelKey)}
-                aria-current={isActive(link.href) ? "page" : undefined}
-                class="text-sm uppercase tracking-wider text-zinc-950 aria-[current=page]:shadow-[inset_0_-2px_0_0_var(--color-orange)]"
-                rollClass="text-orange"
-              />
-            </li>
-          ))
-        }
-      </ul>
-
-      <!-- Right: language picker + menu toggle (mobile/tablet only) -->
-      <div class="flex items-center gap-3">
-        <LocaleSwitcher />
+      <!-- Right: language picker + menu toggle (mobile/tablet) -->
+      <div class="flex items-center gap-6 sm:gap-8">
+        <div class="lg:pl-6 xl:pl-8">
+          <LocaleSwitcher />
+        </div>
         <button
           type="button"
           id="nav-toggle"
@@ -99,8 +103,8 @@ const isActive = (href: string) =>
         class="flex flex-col items-center gap-6 text-center sm:grid sm:grid-cols-2 sm:justify-items-center sm:gap-x-12 sm:gap-y-8 md:gap-x-16"
       >
         {
-          NAV_LINKS.map((link) => (
-            <li>
+          navLinks.map((link) => (
+            <li class="relative">
               <RollLink
                 href={localizedPath(link.href, locale)}
                 label={t(link.labelKey)}
@@ -198,7 +202,7 @@ const isActive = (href: string) =>
     left: 0.25rem;
     height: 0.125rem;
     width: 2.5rem;
-    background-color: var(--color-zinc-950, #09090b);
+    background-color: currentColor;
     transition:
       transform 0.3s ease,
       opacity 0.2s ease;
@@ -237,6 +241,23 @@ const isActive = (href: string) =>
     visibility: visible;
     pointer-events: auto;
     transition: opacity 0.3s ease;
+  }
+
+  /* Active-page marker: orange underline under the link. Lives on the <li>
+     because .roll-link is overflow-hidden. Tight under the caps in the
+     navbar; a touch lower in the overlay so large-text descenders clear. */
+  li:has(> a[aria-current="page"])::after {
+    content: "";
+    position: absolute;
+    bottom: 0.125rem;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: var(--color-orange);
+  }
+
+  :global(#nav-overlay) li:has(> a[aria-current="page"])::after {
+    bottom: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -325,24 +346,15 @@ const isActive = (href: string) =>
     });
   }
 
-  // Scrolled state: translucent blurred bg + soft shadow once past the top.
-  // Queries the live DOM so it stays correct after ClientRouter swaps.
-  function onScroll() {
-    const header = document.querySelector<HTMLElement>("#nav-menu > header");
-    if (header) header.dataset.scrolled = String(window.scrollY > 8);
-  }
-
   function bind() {
     const root = document.getElementById("nav-menu");
     if (root) setup(root);
-    onScroll();
   }
 
   bind();
   if (!(window as any).__navGlobalBound) {
     (window as any).__navGlobalBound = true;
     document.addEventListener("astro:page-load", bind);
-    window.addEventListener("scroll", onScroll, { passive: true });
     // Close if the viewport grows to desktop while the menu is open.
     window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => {
       if (!e.matches) return;

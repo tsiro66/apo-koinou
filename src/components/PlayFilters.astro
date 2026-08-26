@@ -1,0 +1,247 @@
+---
+import { getLocaleFromUrl, useTranslations, format } from '../i18n/utils';
+
+interface Props {
+  /** Distinct production years, descending. */
+  years: number[];
+  /** Distinct writers, alphabetically sorted. */
+  writers: string[];
+  /** Total productions shown before filtering (for the initial status line). */
+  total: number;
+}
+const { years, writers, total } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const initialStatus =
+  total === 1
+    ? t('filter.results_one')
+    : format(t('filter.results_many'), { count: total });
+
+const fieldClass =
+  'w-full appearance-none border-b border-zinc-950/20 bg-transparent py-2 text-sm text-zinc-950 transition hover:border-zinc-950/40 focus:border-orange focus:outline-none';
+const labelClass =
+  'mb-1 block text-xs font-semibold uppercase tracking-[0.15em] text-zinc-600';
+---
+
+<section aria-label={t('filter.aria')} data-play-filters>
+  <div class="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_auto_auto_auto]">
+    <div class="sm:col-span-2 lg:col-span-1">
+      <label for="play-filter-search" class={labelClass}>{t('filter.search')}</label>
+      <div class="relative">
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class="pointer-events-none absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-950/40"
+        >
+          <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5" />
+          <path d="m10.5 10.5 3 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <input
+          id="play-filter-search"
+          type="search"
+          autocomplete="off"
+          data-filter-search
+          placeholder={t('filter.search_placeholder')}
+          class={`${fieldClass} pl-7 pr-3 placeholder:text-zinc-950/40`}
+        />
+      </div>
+    </div>
+
+    <div>
+      <label for="play-filter-year" class={labelClass}>{t('filter.year')}</label>
+      <div class="relative">
+        <select id="play-filter-year" data-filter-year class={`${fieldClass} pr-8`}>
+          <option value="">{t('filter.year_all')}</option>
+          {years.map((y) => <option value={y}>{y}</option>)}
+        </select>
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-950/40"
+        >
+          <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <label for="play-filter-writer" class={labelClass}>{t('filter.writer')}</label>
+      <div class="relative">
+        <select id="play-filter-writer" data-filter-writer class={`${fieldClass} pr-8`}>
+          <option value="">{t('filter.writer_all')}</option>
+          {writers.map((w) => <option value={w}>{w}</option>)}
+        </select>
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-950/40"
+        >
+          <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <label for="play-filter-sort" class={labelClass}>{t('filter.sort')}</label>
+      <div class="relative">
+        <select id="play-filter-sort" data-filter-sort class={`${fieldClass} pr-8`}>
+          <option value="newest">{t('filter.sort_newest')}</option>
+          <option value="oldest">{t('filter.sort_oldest')}</option>
+          <option value="title">{t('filter.sort_title')}</option>
+        </select>
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class="pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-950/40"
+        >
+          <path d="m4 6 4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-950/10 pt-3">
+    <p
+      role="status"
+      data-filter-status
+      data-results-one={t('filter.results_one')}
+      data-results-many={t('filter.results_many')}
+      class="text-sm text-zinc-600"
+    >
+      {initialStatus}
+    </p>
+    <button
+      type="button"
+      data-filter-clear
+      hidden
+      class="cursor-pointer text-sm font-semibold text-zinc-600 underline underline-offset-2 transition hover:text-orange"
+    >
+      {t('filter.clear')}
+    </button>
+  </div>
+</section>
+
+<script>
+  import { normalizeText } from '../utils/text';
+
+  // Filters the [data-play] cards inside [data-plays-grid]. Sort is applied
+  // by re-appending DOM nodes, visibility via the `hidden` attribute, and
+  // state is mirrored to the URL (?q=&year=&writer=&sort=) so filtered
+  // views are shareable and survive ClientRouter navigation.
+  type SortKey = 'newest' | 'oldest' | 'title';
+
+  function setup(root: HTMLElement) {
+    const grid = document.querySelector<HTMLElement>('[data-plays-grid]');
+    const empty = document.querySelector<HTMLElement>('[data-plays-empty]');
+    const search = root.querySelector<HTMLInputElement>('[data-filter-search]');
+    const year = root.querySelector<HTMLSelectElement>('[data-filter-year]');
+    const writer = root.querySelector<HTMLSelectElement>('[data-filter-writer]');
+    const sort = root.querySelector<HTMLSelectElement>('[data-filter-sort]');
+    const status = root.querySelector<HTMLElement>('[data-filter-status]');
+    const clear = root.querySelector<HTMLButtonElement>('[data-filter-clear]');
+    if (!grid || !search || !year || !writer || !sort) return;
+    // Alias after the guard: TS narrowing is not preserved inside the
+    // closures below otherwise.
+    const gridEl = grid;
+    const searchEl = search;
+    const yearEl = year;
+    const writerEl = writer;
+    const sortEl = sort;
+
+    const items = Array.from(gridEl.querySelectorAll<HTMLElement>('[data-play]'));
+
+    function currentSort(): SortKey {
+      const v = sortEl.value;
+      return v === 'oldest' || v === 'title' ? v : 'newest';
+    }
+
+    function apply(syncUrl = true) {
+      const q = normalizeText(searchEl.value);
+      const y = yearEl.value;
+      const w = writerEl.value;
+      const s = currentSort();
+
+      const ordered = [...items].sort((a, b) => {
+        if (s === 'oldest') return Number(a.dataset.year) - Number(b.dataset.year);
+        if (s === 'title')
+          return (a.dataset.title ?? '').localeCompare(b.dataset.title ?? '', 'el');
+        // 'newest' matches the server-rendered order (year desc); Array.sort
+        // is stable, so untouched pages don't reshuffle on load.
+        return Number(b.dataset.year) - Number(a.dataset.year);
+      });
+      for (const el of ordered) gridEl.appendChild(el);
+
+      let visible = 0;
+      for (const el of ordered) {
+        const show =
+          (!q || (el.dataset.search ?? '').includes(q)) &&
+          (!y || el.dataset.year === y) &&
+          (!w || (el.dataset.writer ?? '') === w);
+        el.hidden = !show;
+        if (show) visible++;
+      }
+
+      if (status) {
+        const tpl =
+          visible === 1
+            ? (status.dataset.resultsOne ?? '')
+            : (status.dataset.resultsMany ?? '');
+        status.textContent = tpl.replace('{count}', String(visible));
+      }
+      if (empty) empty.hidden = visible !== 0;
+      if (clear) clear.hidden = !q && !y && !w && s === 'newest';
+
+      if (syncUrl) {
+        const params = new URLSearchParams();
+        if (q) params.set('q', searchEl.value.trim());
+        if (y) params.set('year', y);
+        if (w) params.set('writer', w);
+        if (s !== 'newest') params.set('sort', s);
+        const qs = params.toString();
+        history.replaceState(null, '', `${location.pathname}${qs ? `?${qs}` : ''}`);
+      }
+    }
+
+    // Restore state from the URL (deep links, back/forward navigation).
+    const params = new URLSearchParams(location.search);
+    searchEl.value = params.get('q') ?? '';
+    yearEl.value = params.get('year') ?? '';
+    writerEl.value = params.get('writer') ?? '';
+    sortEl.value = params.get('sort') ?? 'newest';
+    apply(false);
+
+    searchEl.addEventListener('input', () => apply());
+    yearEl.addEventListener('change', () => apply());
+    writerEl.addEventListener('change', () => apply());
+    sortEl.addEventListener('change', () => apply());
+    clear?.addEventListener('click', () => {
+      searchEl.value = '';
+      yearEl.value = '';
+      writerEl.value = '';
+      sortEl.value = 'newest';
+      apply();
+      searchEl.focus();
+    });
+  }
+
+  // Same lifecycle pattern as the Navbar: element listeners are bound once
+  // per DOM node (data-bound), the astro:page-load hook is registered once
+  // per document and always queries the live DOM after ClientRouter swaps.
+  function bind() {
+    const root = document.querySelector<HTMLElement>('[data-play-filters]');
+    if (!root || root.dataset.bound === 'true') return;
+    root.dataset.bound = 'true';
+    setup(root);
+  }
+
+  bind();
+  if (!(window as any).__playFiltersBound) {
+    (window as any).__playFiltersBound = true;
+    document.addEventListener('astro:page-load', bind);
+  }
+</script>
