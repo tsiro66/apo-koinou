@@ -11,10 +11,15 @@ import {
 } from "../i18n/utils";
 import { BRAND, SITE } from "../consts";
 import logo from "../assets/logos/logo1.png";
+import logoWhite from "../assets/logos/logo.png";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const brand = BRAND[locale];
+
+// The homepage hero runs underneath a transparent navbar (overlay mode).
+// The server-rendered default avoids a solid→transparent flash on load;
+// the scroll handler below flips it as the hero exits.
 
 // Active-link check uses the locale-neutral path so it works under /en too.
 // Navbar hides home (the brand lockup already links there) and syllogi.
@@ -23,12 +28,16 @@ const NAV_HIDDEN = new Set<string>(["/", "/syllogi"]);
 const navLinks = NAV_LINKS.filter((l) => !NAV_HIDDEN.has(l.href));
 
 const neutral = neutralPath(Astro.url);
+const isHome = neutral === "/";
 const isActive = (href: string) =>
   href === "/" ? neutral === "/" : neutral.startsWith(href);
 ---
 
 <div id="nav-menu" class="contents" data-open="false">
-  <header class="sticky top-0 z-50 bg-zinc-50 text-zinc-950">
+  <header
+    data-mode={isHome ? "overlay" : "solid"}
+    class="sticky top-0 z-50 bg-zinc-50"
+  >
     <nav
       aria-label={t("nav.main_aria")}
       class="mx-auto flex max-w-6xl items-center justify-between gap-x-8 px-6 py-2 sm:px-10"
@@ -46,7 +55,14 @@ const isActive = (href: string) =>
             alt={brand.title}
             widths={[128, 256, 384]}
             sizes="(min-width: 640px) 90px, 80px"
-            class="h-9 w-auto sm:h-10"
+            class="logo-dark h-9 w-auto sm:h-10"
+          />
+          <Image
+            src={logoWhite}
+            alt={brand.title}
+            widths={[128, 256, 384]}
+            sizes="(min-width: 640px) 90px, 80px"
+            class="logo-light h-9 w-auto sm:h-10"
           />
         </a>
         <ul class="hidden items-center gap-6 font-sans lg:flex xl:gap-10">
@@ -57,7 +73,7 @@ const isActive = (href: string) =>
                   href={localizedPath(link.href, locale)}
                   label={t(link.labelKey)}
                   aria-current={isActive(link.href) ? "page" : undefined}
-                  class="text-sm font-semibold tracking-[0.15em] uppercase text-zinc-950 aria-[current=page]:text-orange"
+                  class="text-sm font-semibold tracking-[0.15em] uppercase text-(--nav-fg) transition-colors duration-300 aria-[current=page]:text-orange"
                   rollClass="text-orange"
                 />
               </li>
@@ -74,7 +90,7 @@ const isActive = (href: string) =>
         <button
           type="button"
           id="nav-toggle"
-          class="nav-toggle relative flex h-10 w-12 cursor-pointer items-center justify-center lg:hidden"
+          class="nav-toggle relative flex h-10 w-12 cursor-pointer items-center justify-center text-(--nav-fg) transition-colors duration-300 lg:hidden"
           aria-label={t("common.open_menu")}
           data-label-open={t("common.open_menu")}
           data-label-close={t("common.close_menu")}
@@ -196,6 +212,49 @@ const isActive = (href: string) =>
 </div>
 
 <style>
+  /* Navbar color modes. Solid (default): zinc-50 bar, dark ink. Overlay
+     (over the home hero): transparent bar, light ink. Components read the
+     --nav-fg* variables so the whole flip lives in one place. */
+  header {
+    --nav-fg: var(--color-zinc-950);
+    --nav-fg-muted: rgb(9 9 11 / 0.6);
+    --nav-fg-faint: rgb(9 9 11 / 0.3);
+    color: var(--nav-fg);
+    transition: background-color 0.3s ease;
+  }
+  header[data-mode='overlay'] {
+    --nav-fg: var(--color-zinc-50);
+    --nav-fg-muted: rgb(250 250 250 / 0.6);
+    --nav-fg-faint: rgb(250 250 250 / 0.3);
+    background-color: transparent;
+  }
+  /* The fullscreen menu panel is zinc-50: force the solid look while it is
+     open, whatever the scroll position. */
+  #nav-menu[data-open='true'] header {
+    --nav-fg: var(--color-zinc-950);
+    --nav-fg-muted: rgb(9 9 11 / 0.6);
+    --nav-fg-faint: rgb(9 9 11 / 0.3);
+    background-color: var(--color-zinc-50);
+  }
+
+  /* Brand logo: dark variant on the solid bar, white knockout over the
+     hero. Exactly one is displayed at a time (same box, no layout shift). */
+  .logo-light {
+    display: none;
+  }
+  header[data-mode='overlay'] .logo-dark {
+    display: none;
+  }
+  header[data-mode='overlay'] .logo-light {
+    display: block;
+  }
+  #nav-menu[data-open='true'] .logo-dark {
+    display: block;
+  }
+  #nav-menu[data-open='true'] .logo-light {
+    display: none;
+  }
+
   /* Hamburger lines */
   .bar {
     position: absolute;
@@ -262,7 +321,8 @@ const isActive = (href: string) =>
 
   @media (prefers-reduced-motion: reduce) {
     .bar,
-    .overlay {
+    .overlay,
+    header {
       transition: none;
     }
   }
@@ -346,15 +406,34 @@ const isActive = (href: string) =>
     });
   }
 
+  // Navbar mode: overlay (transparent, light ink) while the home hero is
+  // still under the bar; solid (zinc-50, dark ink) once it exits. Pages
+  // declare a hero with [data-hero]; the flip point is the hero's bottom
+  // edge minus the bar height, so the transition lands exactly as the
+  // photo leaves.
+  function updateMode() {
+    const header = document.querySelector<HTMLElement>("#nav-menu > header");
+    if (!header) return;
+    const hero = document.querySelector<HTMLElement>("[data-hero]");
+    let mode = "solid";
+    if (hero && window.scrollY < hero.offsetHeight - header.offsetHeight) {
+      mode = "overlay";
+    }
+    if (header.dataset.mode !== mode) header.dataset.mode = mode;
+  }
+
   function bind() {
     const root = document.getElementById("nav-menu");
     if (root) setup(root);
+    updateMode();
   }
 
   bind();
   if (!(window as any).__navGlobalBound) {
     (window as any).__navGlobalBound = true;
     document.addEventListener("astro:page-load", bind);
+    window.addEventListener("scroll", updateMode, { passive: true });
+    window.addEventListener("resize", updateMode, { passive: true });
     // Close if the viewport grows to desktop while the menu is open.
     window.matchMedia("(min-width: 1024px)").addEventListener("change", (e) => {
       if (!e.matches) return;

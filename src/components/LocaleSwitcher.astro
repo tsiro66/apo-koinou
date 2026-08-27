@@ -14,21 +14,21 @@ const locales = [
 ];
 ---
 
-<div class="flex items-center gap-1 font-sans text-sm font-semibold tracking-[0.15em] text-zinc-950">
+<div class="flex items-center gap-1 font-sans text-sm font-semibold tracking-[0.15em] text-(--nav-fg)">
   {
     locales.map((loc, i) => (
       <>
-        {i > 0 && <span aria-hidden="true" class="text-zinc-950/30">·</span>}
+        {i > 0 && <span aria-hidden="true" class="text-(--nav-fg-faint)">·</span>}
         <a
           href={loc.href}
           hreflang={loc.code}
           lang={loc.code}
           aria-current={loc.code === locale ? 'true' : undefined}
           class:list={[
-            'px-1.5 py-0.5 transition border-b-2',
+            'px-1.5 py-0.5 transition border-b-2 transition-colors duration-300',
             loc.code === locale
-              ? 'text-zinc-950 border-orange'
-              : 'text-zinc-950/60 border-transparent hover:text-zinc-950',
+              ? 'text-(--nav-fg) border-orange'
+              : 'text-(--nav-fg-muted) border-transparent hover:text-(--nav-fg)',
           ]}
         >
           {loc.label}

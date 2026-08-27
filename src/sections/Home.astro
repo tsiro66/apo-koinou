@@ -49,9 +49,15 @@ const fmtDate = (d: Date) =>
   flush
 >
   <!-- Hero: full-bleed stage photograph, content anchored bottom-left.
-       Eager + high fetch priority: this is the LCP element. -->
+       Runs the full viewport height; the navbar overlays it in overlay
+       mode and flips to solid as the hero exits. Eager + high fetch
+       priority: this is the LCP element.
+       The negative top margin pulls the photo up under the transparent
+       navbar (sticky headers occupy flow space). It must match the
+       resting bar height exactly: nav py-2 + h-10 content = 3.5rem. -->
   <section
-    class="relative -mx-4 flex min-h-[clamp(520px,74svh,860px)] items-end overflow-hidden bg-zinc-950"
+    data-hero
+    class="relative -mx-4 -mt-14 flex min-h-svh items-end overflow-hidden bg-zinc-950"
   >
     <Image
       src={heroBg}
@@ -69,7 +75,12 @@ const fmtDate = (d: Date) =>
       class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/35 to-zinc-950/10"
     >
     </div>
-    <div class="relative mx-auto w-full max-w-6xl px-4 pt-48 pb-16 sm:pb-20">
+    <div
+      aria-hidden="true"
+      class="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-zinc-950/60 to-transparent"
+    >
+    </div>
+    <div class="relative mx-auto w-full max-w-6xl px-4 pt-48 pb-24 sm:pb-28">
       <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
         {t('page.home.eyebrow')}
       </p>
@@ -95,6 +106,20 @@ const fmtDate = (d: Date) =>
           {t('nav.programma')}
         </a>
       </div>
+    </div>
+    <!-- Scroll cue: the fold hides everything below the photo. -->
+    <div
+      aria-hidden="true"
+      class="absolute bottom-5 left-1/2 -translate-x-1/2 text-zinc-50/70"
+    >
+      <svg viewBox="0 0 16 16" fill="none" class="scroll-cue h-5 w-5">
+        <path
+          d="m4 6 4 4 4-4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
     </div>
   </section>
 
@@ -205,3 +230,24 @@ const fmtDate = (d: Date) =>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  /* Gentle bob on the hero scroll cue. Reduced motion: static. */
+  .scroll-cue {
+    animation: cue-bob 2.4s ease-in-out infinite;
+  }
+  @keyframes cue-bob {
+    0%,
+    100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(6px);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .scroll-cue {
+      animation: none;
+    }
+  }
+</style>
