@@ -31,6 +31,13 @@ const neutral = neutralPath(Astro.url);
 const isHome = neutral === "/";
 const isActive = (href: string) =>
   href === "/" ? neutral === "/" : neutral.startsWith(href);
+
+// Active-page marker: the exact same primitive as the locale switcher —
+// a border-b-2 on the anchor itself (aria-current), so both underlines
+// always render identically. The RollLink box is fixed-height with
+// box-sizing: border-box, so the border eats into the descender padding
+// (Greek caps have none) instead of shifting the layout.
+const activeLinkMarker = "aria-[current=page]:border-b-2 aria-[current=page]:border-orange";
 ---
 
 <div id="nav-menu" class="contents" data-open="false">
@@ -73,7 +80,10 @@ const isActive = (href: string) =>
                   href={localizedPath(link.href, locale)}
                   label={t(link.labelKey)}
                   aria-current={isActive(link.href) ? "page" : undefined}
-                  class="text-sm font-semibold tracking-[0.15em] uppercase text-(--nav-fg) transition-colors duration-300 aria-[current=page]:text-orange"
+                  class:list={[
+                    "text-sm font-semibold tracking-[0.15em] uppercase text-(--nav-fg) transition-colors duration-300 aria-[current=page]:text-orange",
+                    activeLinkMarker,
+                  ]}
                   rollClass="text-orange"
                 />
               </li>
@@ -126,7 +136,10 @@ const isActive = (href: string) =>
                 label={t(link.labelKey)}
                 aria-current={isActive(link.href) ? "page" : undefined}
                 data-navlink
-                class="text-3xl text-zinc-950/85 aria-[current=page]:font-semibold aria-[current=page]:text-orange sm:text-4xl md:text-5xl"
+                class:list={[
+                  "text-3xl text-zinc-950/85 aria-[current=page]:font-semibold aria-[current=page]:text-orange sm:text-4xl md:text-5xl",
+                  activeLinkMarker,
+                ]}
                 rollClass="text-orange"
               />
             </li>
@@ -300,23 +313,6 @@ const isActive = (href: string) =>
     visibility: visible;
     pointer-events: auto;
     transition: opacity 0.3s ease;
-  }
-
-  /* Active-page marker: orange underline under the link. Lives on the <li>
-     because .roll-link is overflow-hidden. Tight under the caps in the
-     navbar; a touch lower in the overlay so large-text descenders clear. */
-  li:has(> a[aria-current="page"])::after {
-    content: "";
-    position: absolute;
-    bottom: 0.125rem;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: var(--color-orange);
-  }
-
-  :global(#nav-overlay) li:has(> a[aria-current="page"])::after {
-    bottom: 0;
   }
 
   @media (prefers-reduced-motion: reduce) {

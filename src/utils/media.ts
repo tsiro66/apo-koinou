@@ -12,6 +12,18 @@ export const getThumbnail = (
 ): ImageMetadata | undefined => d.thumbnail ?? d.gallery[0];
 
 /**
+ * Streamable video ID for a production, if a real one is set. Placeholder
+ * values ("TODO…") count as no video — they must not render a player
+ * or a Watch-now button.
+ */
+export const getVideoId = (
+  d: CollectionEntry<'parastaseis'>['data'],
+): string | undefined =>
+  d.videoId && !d.videoId.trim().toUpperCase().startsWith('TODO')
+    ? d.videoId
+    : undefined;
+
+/**
  * All photos of a production — the effective thumbnail first, then the
  * gallery (minus the thumbnail, so it is never shown twice).
  */

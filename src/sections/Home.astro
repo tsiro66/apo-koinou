@@ -1,11 +1,13 @@
 ---
 import { getCollection } from 'astro:content';
 import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import PlayCard from '../components/PlayCard.astro';
 import heroBg from '../assets/bg.jpg';
 import { BRAND, SEASON } from '../consts';
+import { getThumbnail, getVideoId } from '../utils/media';
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -21,12 +23,23 @@ const parastaseisHref = localizedPath('/parastaseis', locale);
 const programmaHref = localizedPath('/programma', locale);
 const neaHref = localizedPath('/nea', locale);
 
-// Latest three productions (year desc — same order as the archive page).
-const featuredPlays = (
-  await getCollection('parastaseis', ({ data }) => !data.draft)
-)
-  .sort((a, b) => b.data.year - a.data.year)
-  .slice(0, 3);
+// All published productions, newest first (same order as the archive page).
+const plays = (await getCollection('parastaseis', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.year - a.data.year);
+
+// Hero carousel: the five most recent productions with a usable photo
+// (explicit thumbnail, else first gallery shot). Plays without any image
+// are skipped and the next one takes their place.
+const heroSlides = plays
+  .map((play) => ({ play, thumb: getThumbnail(play.data) }))
+  .filter(
+    (s): s is { play: (typeof plays)[number]; thumb: ImageMetadata } =>
+      !!s.thumb,
+  )
+  .slice(0, 5);
+
+// Latest three productions for the featured section.
+const featuredPlays = plays.slice(0, 3);
 
 // Three most recent announcements.
 const latestNews = (await getCollection('nea'))
@@ -48,28 +61,74 @@ const fmtDate = (d: Date) =>
   image={heroBg.src}
   flush
 >
-  <!-- Hero: full-bleed stage photograph, content anchored bottom-left.
-       Runs the full viewport height; the navbar overlays it in overlay
-       mode and flips to solid as the hero exits. Eager + high fetch
-       priority: this is the LCP element.
-       The negative top margin pulls the photo up under the transparent
-       navbar (sticky headers occupy flow space). It must match the
-       resting bar height exactly: nav py-2 + h-10 content = 3.5rem. -->
+  <!-- Hero: full-bleed photo carousel of the five most recent productions
+       that have a photo (newest first — same order as the archive).
+       No visible heading: the photography carries the hero, with only the
+       current production's name bottom-right. Runs the full viewport
+       height; the navbar overlays it in overlay mode and flips to solid
+       as the hero exits. The first slide is eager + high fetch priority: it is the
+       LCP element. The negative top margin pulls the photos up under the
+       transparent navbar (sticky headers occupy flow space). It must
+       match the resting bar height exactly: nav py-2 + h-10 = 3.5rem. -->
   <section
     data-hero
+    data-carousel
     class="relative -mx-4 -mt-14 flex min-h-svh items-end overflow-hidden bg-zinc-950"
   >
-    <Image
-      src={heroBg}
-      alt={t('home.hero.alt')}
-      widths={[768, 1280, 1920, 2560]}
-      sizes="100vw"
-      width={1920}
-      height={1280}
-      loading="eager"
-      fetchpriority="high"
-      class="absolute inset-0 h-full w-full object-cover"
-    />
+    {
+      heroSlides.length > 0 ? (
+        // z-0 gives the slides their own stacking context: their z-index
+        // juggling stays below the gradients and hero content.
+        <div
+          class="absolute inset-0 z-0"
+          role="region"
+          aria-roledescription="carousel"
+          aria-label={t('home.hero.carousel_aria')}
+        >
+          {heroSlides.map(({ play, thumb }, i) => (
+            <div
+              data-slide
+              role="group"
+              aria-roledescription="slide"
+              aria-label={format(t('home.hero.slide_label'), {
+                index: i + 1,
+                total: heroSlides.length,
+              })}
+              aria-hidden={i !== 0}
+              class:list={[
+                'hero-slide absolute inset-0',
+                { 'is-active': i === 0 },
+              ]}
+            >
+              <Image
+                src={thumb}
+                alt={play.data.title}
+                widths={[768, 1280, 1920, 2560]}
+                sizes="100vw"
+                width={1920}
+                height={1280}
+                loading={i === 0 ? 'eager' : 'lazy'}
+                fetchpriority={i === 0 ? 'high' : 'auto'}
+                class="h-full w-full object-cover"
+              />
+            </div>
+          ))}
+        </div>
+      ) : (
+        // No production photos yet: static fallback shot.
+        <Image
+          src={heroBg}
+          alt=""
+          widths={[768, 1280, 1920, 2560]}
+          sizes="100vw"
+          width={1920}
+          height={1280}
+          loading="eager"
+          fetchpriority="high"
+          class="absolute inset-0 h-full w-full object-cover"
+        />
+      )
+    }
     <div
       aria-hidden="true"
       class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/35 to-zinc-950/10"
@@ -80,34 +139,127 @@ const fmtDate = (d: Date) =>
       class="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-zinc-950/60 to-transparent"
     >
     </div>
-    <div class="relative mx-auto w-full max-w-6xl px-4 pt-48 pb-24 sm:pb-28">
-      <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
-        {t('page.home.eyebrow')}
-      </p>
-      <h1
-        class="mt-3 font-display text-5xl leading-[1.05] text-zinc-50 sm:text-6xl lg:text-7xl"
-      >
-        {t('site.title')}
-      </h1>
-      <p class="mt-4 max-w-xl text-lg text-zinc-50/85 sm:text-xl">
-        {t('site.tagline')}
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a
-          href={parastaseisHref}
-          class="bg-orange px-6 py-3 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
-        >
-          {t('nav.parastaseis')}
-        </a>
-        <a
-          href={programmaHref}
-          class="border border-zinc-50/50 px-6 py-3 text-sm font-semibold text-zinc-50 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950"
-        >
-          {t('nav.programma')}
-        </a>
-      </div>
-    </div>
-    <!-- Scroll cue: the fold hides everything below the photo. -->
+    <!-- The site title stays as a screen-reader h1: the page keeps its
+         document outline (and SEO signal) without covering the photos. -->
+    <h1 class="sr-only">{t('site.title')}</h1>
+    <!-- Carousel chrome: the current production's name (linked to its
+         page) plus slide indicators, bottom-right; prev/next arrows sit
+         at the screen edges. Hidden entirely when there is nothing to show. -->
+    {
+      heroSlides.length > 0 && (
+        <div class="absolute right-4 bottom-6 z-10 flex max-w-72 flex-col items-end gap-4 text-right sm:right-6 sm:bottom-8 sm:max-w-md">
+          <div class="grid w-full justify-items-end">
+            {heroSlides.map(({ play }, i) => (
+              <div
+                data-caption
+                aria-hidden={i !== 0}
+                class:list={[
+                  'hero-caption col-start-1 row-start-1 flex flex-col items-end gap-4 text-right',
+                  { 'is-active': i === 0 },
+                ]}
+              >
+                <a
+                  href={localizedPath(`/parastaseis/${play.id}`, locale)}
+                  tabindex={i === 0 ? undefined : -1}
+                  class="font-display text-2xl leading-tight text-balance text-zinc-50 underline-offset-4 hover:underline sm:text-4xl"
+                >
+                  {play.data.title}
+                </a>
+                <div class="flex flex-wrap justify-end gap-2">
+                  <a
+                    href={localizedPath(`/parastaseis/${play.id}`, locale)}
+                    tabindex={i === 0 ? undefined : -1}
+                    class="border border-zinc-50/50 px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950"
+                  >
+                    {t('home.hero.view_play')}
+                  </a>
+                  {getVideoId(play.data) && (
+                    <a
+                      href={`${localizedPath(`/parastaseis/${play.id}`, locale)}#parastasi`}
+                      tabindex={i === 0 ? undefined : -1}
+                      class="bg-orange px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
+                    >
+                      {t('prod.watch_now')}
+                    </a>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+          {heroSlides.length > 1 && (
+            <div
+              class="flex gap-2"
+              role="group"
+              aria-label={t('home.hero.dots_aria')}
+            >
+              {heroSlides.map(({ play }, i) => (
+                <button
+                  data-dot
+                  type="button"
+                  aria-label={format(t('home.hero.dot_aria'), {
+                    title: play.data.title,
+                  })}
+                  aria-current={i === 0 ? 'true' : undefined}
+                  class:list={[
+                    'h-1 w-6 transition-colors',
+                    i === 0 ? 'bg-orange' : 'bg-zinc-50/40 hover:bg-zinc-50/70',
+                  ]}
+                />
+              ))}
+            </div>
+          )}
+        </div>
+      )
+    }
+    {
+      heroSlides.length > 1 && (
+        <>
+          <button
+            data-prev
+            type="button"
+            aria-label={t('home.hero.prev')}
+            class="absolute top-1/2 left-3 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-zinc-50/40 text-zinc-50/80 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 sm:left-6"
+          >
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+              class="h-5 w-5"
+            >
+              <path
+                d="m10 4-4 4 4 4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+          <button
+            data-next
+            type="button"
+            aria-label={t('home.hero.next')}
+            class="absolute top-1/2 right-3 z-10 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-zinc-50/40 text-zinc-50/80 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 sm:right-6"
+          >
+            <svg
+              viewBox="0 0 16 16"
+              fill="none"
+              aria-hidden="true"
+              class="h-5 w-5"
+            >
+              <path
+                d="m6 4 4 4-4 4"
+                stroke="currentColor"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </button>
+        </>
+      )
+    }
+    <!-- Scroll cue: the fold hides everything below the photos. -->
     <div
       aria-hidden="true"
       class="absolute bottom-5 left-1/2 -translate-x-1/2 text-zinc-50/70"
@@ -231,7 +383,174 @@ const fmtDate = (d: Date) =>
   </section>
 </BaseLayout>
 
+<script>
+  // Hero carousel: cross-fades the production photos on a timer.
+  // Module scripts run only once under the ClientRouter, so re-binding
+  // happens through astro:page-load (same pattern as the navbar).
+  const HERO_INTERVAL_MS = 7000;
+  const HERO_FADE_MS = 1000;
+
+  const heroCleanups: Array<() => void> = [];
+  const prefersReducedMotion = () =>
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  function bindHeroCarousel() {
+    document
+      .querySelectorAll<HTMLElement>("[data-carousel]")
+      .forEach((root) => {
+        if (root.dataset.bound) return;
+        root.dataset.bound = "true";
+
+        const slides = [...root.querySelectorAll<HTMLElement>("[data-slide]")];
+        if (slides.length < 2) return; // Single photo: nothing to rotate.
+        const captions = [
+          ...root.querySelectorAll<HTMLElement>("[data-caption]"),
+        ];
+        const dots = [
+          ...root.querySelectorAll<HTMLButtonElement>("[data-dot]"),
+        ];
+        const prevBtn = root.querySelector<HTMLButtonElement>("[data-prev]");
+        const nextBtn = root.querySelector<HTMLButtonElement>("[data-next]");
+
+        const ac = new AbortController();
+        const { signal } = ac;
+        let index = 0;
+        let timer: number | undefined;
+
+        // Keep captions, indicators and screen-reader visibility on the
+        // active slide. Captions cross-fade through the same is-active
+        // class as the slides — without toggling it here the first
+        // caption would stay visible forever.
+        function sync(i: number) {
+          slides.forEach((s, k) => s.setAttribute("aria-hidden", String(k !== i)));
+          captions.forEach((c, k) => {
+            c.classList.toggle("is-active", k === i);
+            c.setAttribute("aria-hidden", String(k !== i));
+            // Every link inside the caption (name + buttons) follows its
+            // focusability, so hidden slides never trap the keyboard.
+            c.querySelectorAll("a").forEach((a) => {
+              if (k === i) a.removeAttribute("tabindex");
+              else a.setAttribute("tabindex", "-1");
+            });
+          });
+          dots.forEach((d, k) => {
+            d.classList.toggle("bg-orange", k === i);
+            d.classList.toggle("bg-zinc-50/40", k !== i);
+            if (k === i) d.setAttribute("aria-current", "true");
+            else d.removeAttribute("aria-current");
+          });
+        }
+
+        // The incoming slide fades in on top while the outgoing one stays
+        // fully opaque underneath until the fade completes (no dip to black).
+        function show(i: number) {
+          const next = (i + slides.length) % slides.length;
+          if (next === index) return;
+          const prev = slides[index];
+          index = next;
+          slides.forEach((s) => s.classList.remove("is-under"));
+          prev.classList.replace("is-active", "is-under");
+          slides[next].classList.add("is-active");
+          window.setTimeout(
+            () => prev.classList.remove("is-under"),
+            HERO_FADE_MS + 50,
+          );
+          sync(next);
+        }
+
+        function pause() {
+          window.clearInterval(timer);
+          timer = undefined;
+        }
+        function play() {
+          // No autoplay when the OS asks for reduced motion.
+          if (timer !== undefined || prefersReducedMotion()) return;
+          timer = window.setInterval(() => show(index + 1), HERO_INTERVAL_MS);
+        }
+
+        // Autoplay pauses on hover, keyboard focus and hidden tabs.
+        root.addEventListener("mouseenter", pause, { signal });
+        root.addEventListener("mouseleave", play, { signal });
+        root.addEventListener("focusin", pause, { signal });
+        root.addEventListener("focusout", play, { signal });
+        document.addEventListener(
+          "visibilitychange",
+          () => (document.hidden ? pause() : play()),
+          { signal },
+        );
+        window
+          .matchMedia("(prefers-reduced-motion: reduce)")
+          .addEventListener(
+            "change",
+            () => (prefersReducedMotion() ? pause() : play()),
+            { signal },
+          );
+        // Manual navigation: jump and reset the autoplay timer.
+        const go = (i: number) => {
+          show(i);
+          pause();
+          play();
+        };
+        prevBtn?.addEventListener("click", () => go(index - 1), { signal });
+        nextBtn?.addEventListener("click", () => go(index + 1), { signal });
+        dots.forEach((dot, k) =>
+          dot.addEventListener("click", () => go(k), { signal }),
+        );
+
+        play();
+        heroCleanups.push(() => {
+          ac.abort();
+          pause();
+        });
+      });
+  }
+
+  bindHeroCarousel();
+  if (!(window as any).__heroCarouselBound) {
+    (window as any).__heroCarouselBound = true;
+    document.addEventListener("astro:page-load", bindHeroCarousel);
+    // Drop the outgoing page's timers and listeners before a swap.
+    document.addEventListener("astro:before-swap", () => {
+      heroCleanups.forEach((fn) => fn());
+      heroCleanups.length = 0;
+    });
+  }
+</script>
+
 <style>
+  /* Hero carousel: the incoming slide (.is-active) fades in on top of the
+     previous one (.is-under, kept fully opaque) so the photo cross-fades
+     without dipping to the dark background. Reduced motion: instant swap. */
+  .hero-slide {
+    opacity: 0;
+    transition: opacity 1s ease-in-out;
+  }
+  .hero-slide.is-under {
+    z-index: 1;
+    opacity: 1;
+  }
+  .hero-slide.is-active {
+    z-index: 2;
+    opacity: 1;
+  }
+  /* Captions share one grid cell; only the active one is visible and
+     interactive (stacked links must not catch clicks or focus). */
+  .hero-caption {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease-in-out;
+  }
+  .hero-caption.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .hero-slide,
+    .hero-caption {
+      transition: none;
+    }
+  }
+
   /* Gentle bob on the hero scroll cue. Reduced motion: static. */
   .scroll-cue {
     animation: cue-bob 2.4s ease-in-out infinite;

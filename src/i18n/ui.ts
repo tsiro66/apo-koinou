@@ -41,7 +41,13 @@ export const ui = {
     'page.home.body':
       'Παραστάσεις, βίντεο, φωτογραφία, πρόγραμμα, ιστορία και τρόποι επικοινωνίας.',
 
-    'home.hero.alt': 'Σκηνή θεάτρου φωτισμένη μόνο από κεριά στο σκοτάδι.',
+    'home.hero.carousel_aria': 'Πρόσφατες παραστάσεις',
+    'home.hero.slide_label': 'Διαφάνεια {index} από {total}',
+    'home.hero.dot_aria': 'Εμφάνιση παράστασης: {title}',
+    'home.hero.dots_aria': 'Επιλογή παράστασης',
+    'home.hero.view_play': 'Δείτε λεπτομέρειες',
+    'home.hero.prev': 'Προηγούμενη παράσταση',
+    'home.hero.next': 'Επόμενη παράσταση',
     'home.featured.eyebrow': 'Από το αρχείο',
     'home.featured.heading': 'Πρόσφατες παραστάσεις',
     'home.featured.all': 'Όλες οι παραστάσεις',
@@ -159,7 +165,13 @@ export const ui = {
     'page.home.body':
       'Productions, video, photography, programme, history, and ways to reach us.',
 
-    'home.hero.alt': 'A theater stage lit only by candles in the dark.',
+    'home.hero.carousel_aria': 'Recent productions',
+    'home.hero.slide_label': 'Slide {index} of {total}',
+    'home.hero.dot_aria': 'Show production: {title}',
+    'home.hero.dots_aria': 'Choose production',
+    'home.hero.view_play': 'View details',
+    'home.hero.prev': 'Previous production',
+    'home.hero.next': 'Next production',
     'home.featured.eyebrow': 'From the archive',
     'home.featured.heading': 'Recent productions',
     'home.featured.all': 'All productions',
