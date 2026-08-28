@@ -9,6 +9,5 @@ program:
   - ../../assets/parastaseis/o-kalos-anthrwpos/program2.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program3.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program4.jpg
-order: 5
 draft: false
 ---

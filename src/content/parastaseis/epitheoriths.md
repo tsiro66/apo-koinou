@@ -19,6 +19,5 @@ gallery:
 invitation:
   - ../../assets/parastaseis/epitheoriths/invitation-front.jpg
   - ../../assets/parastaseis/epitheoriths/invitation-back.jpg
-order: 11
 draft: false
 ---

@@ -17,6 +17,5 @@ gallery:
   - ../../assets/parastaseis/arkas/08.jpg
   - ../../assets/parastaseis/arkas/09.jpg
   - ../../assets/parastaseis/arkas/10.jpg
-order: 3
 draft: false
 ---

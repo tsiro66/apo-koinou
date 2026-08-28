@@ -90,6 +90,10 @@ content:
         label: Bunny Stream Video ID
         type: string
         description: GUID βίντεο από το Bunny Stream dashboard (πλήρη μαγνητοσκοπημένη παράσταση), π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb. Αν είναι TODO, αντικαταστήστε το.
+      - name: youtubeTrailer
+        label: Τρέιλερ (YouTube)
+        type: string
+        description: Το ID του βίντεο YouTube (π.χ. dQw4w9WgXcQ) ή ολόκληρο το link. Εμφανίζεται στη σελίδα Υλικό της παράστασης.
       - name: thumbnail
         label: Εικόνα εξωφύλλου
         type: image
@@ -134,10 +138,11 @@ content:
             label: Κείμενο κριτικής
             type: text
             required: true
-      - name: order
-        label: Σειρά εμφάνισης
-        type: number
-        description: Μικρότερος αριθμός = πιο ψηλά στη λίστα.
+      - name: carousel
+        label: Καρουζέλ αρχικής σελίδας
+        type: boolean
+        default: false
+        description: Εμφάνιση της παράστασης στο καρουζέλ της αρχικής σελίδας (χρειάζεται εικόνα εξωφύλλου ή φωτογραφίες). Εμφανίζονται έως 5, οι πιο πρόσφατες πρώτα. Αν καμία δεν επιλεχθεί, μπαίνουν αυτόματα οι 5 πιο πρόσφατες.
       - name: draft
         label: Πρόχειρο (να μην δημοσιευτεί)
         type: boolean

@@ -16,6 +16,5 @@ gallery:
   - ../../assets/parastaseis/autoxeiras/08.jpg
   - ../../assets/parastaseis/autoxeiras/09.jpg
   - ../../assets/parastaseis/autoxeiras/10.jpg
-order: 4
 draft: false
 ---

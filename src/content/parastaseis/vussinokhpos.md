@@ -19,6 +19,5 @@ gallery:
 invitation:
   - ../../assets/parastaseis/vussinokhpos/invitation-front.jpg
   - ../../assets/parastaseis/vussinokhpos/invitation-back.jpg
-order: 12
 draft: false
 ---

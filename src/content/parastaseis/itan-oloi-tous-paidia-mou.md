@@ -22,6 +22,5 @@ invitation:
 program:
   - ../../assets/parastaseis/itan-oloi-tous-paidia-mou/program-front.jpg
   - ../../assets/parastaseis/itan-oloi-tous-paidia-mou/program-back.jpg
-order: 10
 draft: false
 ---

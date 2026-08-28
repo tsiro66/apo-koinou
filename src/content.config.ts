@@ -49,7 +49,9 @@ const parastaseisCollection = defineCollection({
       seoDescription: z.string().optional(),
       seoImage: image().optional(),
       draft: z.boolean().default(false),
-      order: z.number().optional(),
+      // Editors pick the front-page hero carousel slides with this flag
+      // (Home.astro falls back to the five most recent plays if none).
+      carousel: z.boolean().default(false),
     }),
 });
 

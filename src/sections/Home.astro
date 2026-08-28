@@ -27,16 +27,19 @@ const neaHref = localizedPath('/nea', locale);
 const plays = (await getCollection('parastaseis', ({ data }) => !data.draft))
   .sort((a, b) => b.data.year - a.data.year);
 
-// Hero carousel: the five most recent productions with a usable photo
-// (explicit thumbnail, else first gallery shot). Plays without any image
-// are skipped and the next one takes their place.
-const heroSlides = plays
+// Hero carousel: productions the editors flagged for the front page
+// (carousel: true), newest first, max five. A slide needs a usable photo
+// (explicit thumbnail, else first gallery shot), so flagged plays without
+// any image are skipped. If no play is flagged, fall back to the five
+// most recent productions with a photo — the hero never renders empty.
+const withPhoto = plays
   .map((play) => ({ play, thumb: getThumbnail(play.data) }))
   .filter(
     (s): s is { play: (typeof plays)[number]; thumb: ImageMetadata } =>
       !!s.thumb,
-  )
-  .slice(0, 5);
+  );
+const picked = withPhoto.filter((s) => s.play.data.carousel);
+const heroSlides = (picked.length > 0 ? picked : withPhoto).slice(0, 5);
 
 // Latest three productions for the featured section.
 const featuredPlays = plays.slice(0, 3);
@@ -61,8 +64,9 @@ const fmtDate = (d: Date) =>
   image={heroBg.src}
   flush
 >
-  <!-- Hero: full-bleed photo carousel of the five most recent productions
-       that have a photo (newest first — same order as the archive).
+  <!-- Hero: full-bleed photo carousel of the productions picked for the
+       front page (newest first, max five; falls back to the most recent
+       productions when none are picked).
        No visible heading: the photography carries the hero, with only the
        current production's name bottom-right. Runs the full viewport
        height; the navbar overlays it in overlay mode and flips to solid
@@ -355,26 +359,27 @@ const fmtDate = (d: Date) =>
     )
   }
 
-  <!-- Programme band: the site's one dark moment below the hero; runs
-       flush into the orange footer (flush layout has no bottom padding). -->
-  <section class="-mx-4 mt-16 bg-zinc-950 sm:mt-24">
+  <!-- Programme band: the orange bookend against the dark footer. Its
+       negative bottom margin cancels the footer's mt-16 so the two run
+       flush together (flush layout has no bottom padding of its own). -->
+  <section class="-mx-4 -mb-16 mt-16 bg-orange text-zinc-50 sm:mt-24">
     <div
       class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-14 sm:flex-row sm:items-center sm:justify-between sm:gap-10"
     >
       <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-50/80">
           {t('page.programma.eyebrow')}
         </p>
-        <h2 class="mt-2 font-display text-3xl leading-tight text-zinc-50 sm:text-4xl">
+        <h2 class="mt-2 font-display text-3xl leading-tight sm:text-4xl">
           {format(t('page.programma.heading'), { season: SEASON })}
         </h2>
-        <p class="mt-3 max-w-xl text-sm text-zinc-50/70">
+        <p class="mt-3 max-w-xl text-sm text-zinc-50/80">
           {t('page.programma.soon')}
         </p>
       </div>
       <a
         href={programmaHref}
-        class="inline-flex shrink-0 items-center gap-2 self-start border border-zinc-50/50 px-6 py-3 text-sm font-semibold text-zinc-50 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 sm:self-auto"
+        class="inline-flex shrink-0 items-center gap-2 self-start border border-zinc-50/50 px-6 py-3 text-sm font-semibold transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 sm:self-auto"
       >
         {t('home.program.cta')}
         <span aria-hidden="true">→</span>

@@ -36,6 +36,5 @@ invitation:
 kritikes:
   - source: test
     text: test
-order: 13
 draft: false
 ---
