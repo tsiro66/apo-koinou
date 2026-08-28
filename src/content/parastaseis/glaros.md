@@ -4,6 +4,7 @@ slug: glaros
 year: 2022
 writer: Άντον Τσέχοφ
 videoId: 2626fb3e-c765-4271-9979-bce928fe441d
+youtubeTrailer: https://www.youtube.com/watch?v=rtlxTbT56l0
 thumbnail: ../../assets/parastaseis/glaros/01.jpg
 poster: ../../assets/parastaseis/glaros/poster.jpg
 gallery:
@@ -16,5 +17,6 @@ gallery:
   - ../../assets/parastaseis/glaros/08.jpg
   - ../../assets/parastaseis/glaros/09.jpg
   - ../../assets/parastaseis/glaros/10.jpg
+carousel: false
 draft: false
 ---
