@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Gallery from '../components/Gallery.astro';
+import Lightbox from '../components/Lightbox.astro';
 import ProductionHeader from '../components/ProductionHeader.astro';
 import ProductionSection from '../components/ProductionSection.astro';
 import Reviews from '../components/Reviews.astro';
@@ -83,6 +84,7 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
       </a>
       <ProductionHeader play={play} buttons={buttons} />
     </div>
+    <Lightbox />
 
     <div class="mt-10">
       {
@@ -93,7 +95,7 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
             count={photos.length}
             band={band('fotografies')}
           >
-            <Gallery images={photos} alt={d.title} />
+            <Gallery images={photos} alt={d.title} group={`${play.id}-fotografies`} />
           </ProductionSection>
         )
       }
@@ -125,10 +127,12 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
             <ul class="grid gap-4 sm:grid-cols-2">
               {d.invitation.map((src, i) => (
                 <li>
-                  <a
-                    href={src.src}
-                    target="_blank"
-                    class="block overflow-hidden border border-zinc-950/10"
+                  <button
+                    type="button"
+                    data-lightbox={`${play.id}-prosklisi`}
+                    data-lightbox-src={src.src}
+                    aria-label={`${d.title} — ${t('prod.invitation')} ${i + 1}`}
+                    class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                   >
                     <Image
                       src={src}
@@ -138,7 +142,7 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
                       width={720}
                       class="h-auto w-full"
                     />
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -157,10 +161,12 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
             <ul class="grid gap-4 sm:grid-cols-2">
               {d.program.map((src, i) => (
                 <li>
-                  <a
-                    href={src.src}
-                    target="_blank"
-                    class="block overflow-hidden border border-zinc-950/10"
+                  <button
+                    type="button"
+                    data-lightbox={`${play.id}-programma`}
+                    data-lightbox-src={src.src}
+                    aria-label={`${d.title} — ${t('prod.program')} ${i + 1}`}
+                    class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                   >
                     <Image
                       src={src}
@@ -170,7 +176,7 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
                       width={720}
                       class="h-auto w-full"
                     />
-                  </a>
+                  </button>
                 </li>
               ))}
             </ul>
@@ -181,10 +187,12 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
       {
         hasPoster && d.poster && (
           <ProductionSection id="afisa" title={t('prod.poster')} band={band('afisa')}>
-            <a
-              href={d.poster.src}
-              target="_blank"
-              class="block max-w-md overflow-hidden border border-zinc-950/10"
+            <button
+              type="button"
+              data-lightbox={`${play.id}-afisa`}
+              data-lightbox-src={d.poster.src}
+              aria-label={`${d.title} — ${t('prod.poster')}`}
+              class="block max-w-md cursor-zoom-in overflow-hidden border border-zinc-950/10"
             >
               <Image
                 src={d.poster}
@@ -194,7 +202,7 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
                 width={768}
                 class="h-auto w-full"
               />
-            </a>
+            </button>
           </ProductionSection>
         )
       }

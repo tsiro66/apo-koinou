@@ -43,13 +43,6 @@ const href = localizedPath(`/parastaseis/${play.id}`, locale);
     <h3 class="mt-1 font-display text-2xl leading-snug text-zinc-950 transition group-hover:text-orange">
       {d.title}
     </h3>
-    {d.director && <p class="mt-1 text-sm text-zinc-600">{d.director}</p>}
-    {
-      d.summary && (
-        <p class="mt-2 line-clamp-2 text-sm leading-relaxed text-zinc-950/70">
-          {d.summary}
-        </p>
-      )
-    }
+    {d.writer && <p class="mt-1 text-sm text-zinc-600">{d.writer}</p>}
   </a>
 </article>

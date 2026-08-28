@@ -1,0 +1,177 @@
+---
+import { getLocaleFromUrl, useTranslations } from '../i18n/utils';
+
+// Shared photo lightbox: a modal <dialog> wired to every [data-lightbox-src]
+// trigger on the page. Triggers carry data-lightbox-src (full-size URL) and
+// data-lightbox (group name); triggers sharing a group form a browsable set
+// with prev/next arrows and ←/→/Esc keys. The dialog lives once per page and
+// is reused by all groups (play gallery, invitation, program, /syllogi grids).
+const t = useTranslations(getLocaleFromUrl(Astro.url));
+---
+
+<dialog
+  data-lightbox-dialog
+  aria-label={t('common.photo')}
+  class="fixed inset-0 z-[70] m-0 h-full max-h-none w-full max-w-none bg-zinc-950/95 p-0 backdrop:bg-transparent"
+>
+  <div class="relative flex h-full w-full items-center justify-center">
+    <img
+      data-lightbox-img
+      src=""
+      alt=""
+      class="max-h-full max-w-full object-contain select-none"
+    />
+
+    <!-- Close, top-right. -->
+    <button
+      data-lightbox-close
+      type="button"
+      aria-label={t('lightbox.close')}
+      class="absolute top-4 right-4 flex h-11 w-11 items-center justify-center border border-zinc-50/40 text-zinc-50/80 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950"
+    >
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="h-5 w-5">
+        <path
+          d="m4 4 8 8m0-8-8 8"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"></path>
+      </svg>
+    </button>
+
+    <!-- Prev/next, screen edges (hidden for single-photo sets). -->
+    <button
+      data-lightbox-prev
+      type="button"
+      aria-label={t('lightbox.prev')}
+      class="absolute top-1/2 left-3 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-zinc-50/40 text-zinc-50/80 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 sm:left-6"
+    >
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="h-5 w-5">
+        <path
+          d="m10 4-4 4 4 4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+    <button
+      data-lightbox-next
+      type="button"
+      aria-label={t('lightbox.next')}
+      class="absolute top-1/2 right-3 flex h-11 w-11 -translate-y-1/2 items-center justify-center border border-zinc-50/40 text-zinc-50/80 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 sm:right-6"
+    >
+      <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" class="h-5 w-5">
+        <path
+          d="m6 4 4 4-4 4"
+          stroke="currentColor"
+          stroke-width="1.5"
+          stroke-linecap="round"
+          stroke-linejoin="round"></path>
+      </svg>
+    </button>
+  </div>
+</dialog>
+
+<script>
+  // The dialog is re-created on each ClientRouter navigation, so listeners
+  // are bound to the live element on every page load (data-bound guards
+  // against double-binding when the script re-runs without a swap).
+  function bindLightbox() {
+    const dialog = document.querySelector<HTMLDialogElement>(
+      "[data-lightbox-dialog]",
+    );
+    if (!dialog || dialog.dataset.bound) return;
+    dialog.dataset.bound = "true";
+
+    const img = dialog.querySelector<HTMLImageElement>("[data-lightbox-img]")!;
+    const prevBtn =
+      dialog.querySelector<HTMLButtonElement>("[data-lightbox-prev]")!;
+    const nextBtn =
+      dialog.querySelector<HTMLButtonElement>("[data-lightbox-next]")!;
+
+    let items: HTMLElement[] = [];
+    let index = 0;
+
+    function render() {
+      const el = items[index];
+      if (!el) return;
+      img.src = el.dataset.lightboxSrc ?? "";
+      img.alt = el.getAttribute("aria-label") ?? "";
+      const single = items.length < 2;
+      prevBtn.classList.toggle("hidden", single);
+      nextBtn.classList.toggle("hidden", single);
+    }
+
+    function step(delta: number) {
+      index = (index + delta + items.length) % items.length;
+      render();
+    }
+
+    function close() {
+      dialog.close();
+    }
+
+    // One delegated listener covers every trigger on the page, including
+    // content swapped in later. A trigger's set is its siblings carrying
+    // the same data-lightbox attribute value (group name). Torn down on
+    // page swap so re-bound dialogs don't stack duplicate listeners.
+    const ac = new AbortController();
+    document.addEventListener("astro:before-swap", () => ac.abort(), {
+      once: true,
+    });
+    document.addEventListener("click", (e) => {
+      const trigger = (e.target as HTMLElement).closest<HTMLElement>(
+        "[data-lightbox-src]",
+      );
+      if (!trigger || !dialog.isConnected) return;
+      const group = trigger.dataset.lightbox ?? "";
+      // Filter in JS rather than an attribute selector: group names are
+      // play titles (Greek, spaces) that would need escaping otherwise.
+      items = [
+        ...document.querySelectorAll<HTMLElement>("[data-lightbox-src]"),
+      ].filter((el) => (el.dataset.lightbox ?? "") === group);
+      index = Math.max(0, items.indexOf(trigger));
+      render();
+      dialog.showModal();
+      prevBtn.focus();
+    }, { signal: ac.signal });
+
+    prevBtn.addEventListener("click", () => step(-1));
+    nextBtn.addEventListener("click", () => step(1));
+    dialog
+      .querySelector("[data-lightbox-close]")
+      ?.addEventListener("click", close);
+    // Click on the dark backdrop (the dialog element itself) closes.
+    dialog.addEventListener("click", (e) => {
+      if (e.target === dialog) close();
+    });
+    // Esc is native to <dialog>; arrows browse.
+    dialog.addEventListener("keydown", (e) => {
+      if (items.length < 2) return;
+      if (e.key === "ArrowLeft") {
+        e.preventDefault();
+        step(-1);
+      } else if (e.key === "ArrowRight") {
+        e.preventDefault();
+        step(1);
+      }
+    });
+  }
+
+  bindLightbox();
+  if (!(window as any).__lightboxBound) {
+    (window as any).__lightboxBound = true;
+    document.addEventListener("astro:page-load", bindLightbox);
+  }
+</script>
+
+<style>
+  dialog[data-lightbox-dialog] {
+    /* Native dialogs get a UA margin/border; strip both for full-bleed. */
+    margin: 0;
+    border: none;
+  }
+  dialog[data-lightbox-dialog]:not([open]) {
+    display: none;
+  }
+</style>

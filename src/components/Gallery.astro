@@ -6,8 +6,10 @@ import { getLocaleFromUrl, useTranslations } from '../i18n/utils';
 interface Props {
   images: ImageMetadata[];
   alt: string;
+  /** Groups triggers into one browsable lightbox set (defaults to alt). */
+  group?: string;
 }
-const { images, alt } = Astro.props;
+const { images, alt, group = alt } = Astro.props;
 const t = useTranslations(getLocaleFromUrl(Astro.url));
 const photoWord = t('common.photo');
 ---
@@ -17,10 +19,12 @@ const photoWord = t('common.photo');
     <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
       {images.map((src, i) => (
         <li>
-          <a
-            href={src.src}
-            target="_blank"
-            class="block overflow-hidden border border-zinc-950/10"
+          <button
+            type="button"
+            data-lightbox={group}
+            data-lightbox-src={src.src}
+            aria-label={`${alt} — ${photoWord} ${i + 1}`}
+            class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
           >
             <Image
               src={src}
@@ -31,7 +35,7 @@ const photoWord = t('common.photo');
               height={480}
               class="aspect-square w-full object-cover transition hover:scale-105"
             />
-          </a>
+          </button>
         </li>
       ))}
     </ul>

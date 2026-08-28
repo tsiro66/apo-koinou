@@ -31,6 +31,9 @@ export const ui = {
     'common.back_home': 'Επιστροφή στην αρχική',
     'common.photo': 'φωτογραφία',
     'common.skip_to_content': 'Παράλειψη στο περιεχόμενο',
+    'lightbox.close': 'Κλείσιμο',
+    'lightbox.prev': 'Προηγούμενη φωτογραφία',
+    'lightbox.next': 'Επόμενη φωτογραφία',
 
     'footer.nav_aria': 'Υποσέλιδο',
     'footer.rights': 'Με επιφύλαξη κάθε δικαιώματος.',
@@ -155,6 +158,9 @@ export const ui = {
     'common.back_home': 'Back to home',
     'common.photo': 'photo',
     'common.skip_to_content': 'Skip to content',
+    'lightbox.close': 'Close',
+    'lightbox.prev': 'Previous photo',
+    'lightbox.next': 'Next photo',
 
     'footer.nav_aria': 'Footer',
     'footer.rights': 'All rights reserved.',

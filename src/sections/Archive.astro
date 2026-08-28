@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SectionTitle from '../components/SectionTitle.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import Lightbox from '../components/Lightbox.astro';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
 import { getThumbnail, getPhotos } from '../utils/media';
 
@@ -66,10 +67,12 @@ const groups = plays.map((play) => ({
               <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
                 {g.photos.map((src, i) => (
                   <li>
-                    <a
-                      href={src.src}
-                      target="_blank"
-                      class="block overflow-hidden border border-zinc-950/10"
+                    <button
+                      type="button"
+                      data-lightbox={`syllogi-${g.title}`}
+                      data-lightbox-src={src.src}
+                      aria-label={`${g.title} — ${photoWord} ${i + 1}`}
+                      class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                     >
                       <Image
                         src={src}
@@ -80,7 +83,7 @@ const groups = plays.map((play) => ({
                         height={480}
                         class="aspect-square w-full object-cover transition hover:scale-105"
                       />
-                    </a>
+                    </button>
                   </li>
                 ))}
               </ul>
@@ -91,5 +94,6 @@ const groups = plays.map((play) => ({
         <p class="mt-10 text-zinc-600">{t('empty.syllogi')}</p>
       )
     }
+    <Lightbox />
   </div>
 </BaseLayout>
