@@ -5,6 +5,7 @@ year: 2024
 writer: Νικολάι Έρντμαν
 summary: Διασκευή του έργου «Ο Αυτόχειρ» του Νικολάι Έρντμαν.
 videoId: 65dbd3fb-5716-40a7-9136-ac50b291244b
+youtubeTrailer: https://www.youtube.com/watch?v=yokv1HIO6CY
 thumbnail: ../../assets/parastaseis/autoxeiras/01.jpg
 gallery:
   - ../../assets/parastaseis/autoxeiras/02.jpg
@@ -16,5 +17,6 @@ gallery:
   - ../../assets/parastaseis/autoxeiras/08.jpg
   - ../../assets/parastaseis/autoxeiras/09.jpg
   - ../../assets/parastaseis/autoxeiras/10.jpg
+carousel: false
 draft: false
 ---
