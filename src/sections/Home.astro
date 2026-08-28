@@ -263,20 +263,6 @@ const fmtDate = (d: Date) =>
         </>
       )
     }
-    <!-- Scroll cue: the fold hides everything below the photos. -->
-    <div
-      aria-hidden="true"
-      class="absolute bottom-5 left-1/2 -translate-x-1/2 text-zinc-50/70"
-    >
-      <svg viewBox="0 0 16 16" fill="none" class="scroll-cue h-5 w-5">
-        <path
-          d="m4 6 4 4 4-4"
-          stroke="currentColor"
-          stroke-width="1.5"
-          stroke-linecap="round"
-          stroke-linejoin="round"></path>
-      </svg>
-    </div>
   </section>
 
   {
@@ -556,22 +542,4 @@ const fmtDate = (d: Date) =>
     }
   }
 
-  /* Gentle bob on the hero scroll cue. Reduced motion: static. */
-  .scroll-cue {
-    animation: cue-bob 2.4s ease-in-out infinite;
-  }
-  @keyframes cue-bob {
-    0%,
-    100% {
-      transform: translateY(0);
-    }
-    50% {
-      transform: translateY(6px);
-    }
-  }
-  @media (prefers-reduced-motion: reduce) {
-    .scroll-cue {
-      animation: none;
-    }
-  }
 </style>

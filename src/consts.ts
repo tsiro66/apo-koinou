@@ -5,7 +5,8 @@ import type { Locale } from './i18n/ui';
 export const SITE = {
   // Brand name kept identical in both locales (proper noun).
   site: 'https://apo-koinou.gr',
-  email: 'info@apo-koinou.gr',
+  email: 'lazaris.fotis.thea@gmail.com',
+  phone: '6974991255',
   social: {
     youtube: 'https://www.youtube.com/@θεατρικήομάδααπόκοινού',
     facebook: 'https://www.facebook.com/theatrikiomadaapokoinouelmeach?locale=el_GR',
@@ -45,9 +46,9 @@ export const BRAND: Record<Locale, { title: string; tagline: string; description
 export const NAV_LINKS = [
   { href: '/', labelKey: 'nav.home' },
   { href: '/parastaseis', labelKey: 'nav.parastaseis' },
-  { href: '/nea', labelKey: 'nav.nea' },
   { href: '/programma', labelKey: 'nav.programma' },
-  { href: '/syllogi', labelKey: 'nav.syllogi' },
+  { href: '/nea', labelKey: 'nav.nea' },
   { href: '/istoria', labelKey: 'nav.istoria' },
+  { href: '/syllogi', labelKey: 'nav.syllogi' },
   { href: '/epikoinonia', labelKey: 'nav.epikoinonia' },
 ] as const;

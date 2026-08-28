@@ -45,6 +45,12 @@ const year = new Date().getFullYear();
       >
         {SITE.email}
       </a>
+      <a
+        href={`tel:${SITE.phone}`}
+        class="mt-1 block text-zinc-50 underline-offset-2 transition hover:text-orange"
+      >
+        {SITE.phone}
+      </a>
       <p class="mt-3">© {year} {brand.title}. {t('footer.rights')}</p>
     </div>
   </div>

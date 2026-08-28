@@ -24,7 +24,7 @@ const brand = BRAND[locale];
 // Active-link check uses the locale-neutral path so it works under /en too.
 // Navbar hides home (the brand lockup already links there) and syllogi.
 // NAV_LINKS itself stays intact for the footer.
-const NAV_HIDDEN = new Set<string>(["/", "/syllogi"]);
+const NAV_HIDDEN = new Set<string>(["/"]);
 const navLinks = NAV_LINKS.filter((l) => !NAV_HIDDEN.has(l.href));
 
 const neutral = neutralPath(Astro.url);
@@ -160,6 +160,12 @@ const activeLinkMarker = "aria-[current=page]:border-b-2 aria-[current=page]:bor
         class="text-sm text-zinc-600 underline-offset-2 hover:text-zinc-950 hover:underline"
       >
         {SITE.email}
+      </a>
+      <a
+        href={`tel:${SITE.phone}`}
+        class="text-sm text-zinc-600 underline-offset-2 hover:text-zinc-950 hover:underline"
+      >
+        {SITE.phone}
       </a>
       <div class="flex items-center gap-4">
         {
