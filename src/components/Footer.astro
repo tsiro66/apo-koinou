@@ -3,7 +3,7 @@ import { SITE, NAV_LINKS, BRAND } from '../consts';
 import { Image } from 'astro:assets';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
 import RollLink from './RollLink.astro';
-import logo from '../assets/logos/logo.png';
+import logo from '../assets/logos/logo-white.png';
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const brand = BRAND[locale];

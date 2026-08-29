@@ -35,7 +35,7 @@ const selfPath = locale === 'en' ? alternates[1].path : alternates[0].path;
 const canonical = new URL(selfPath, SITE.site).href;
 const ogImage = image
   ? new URL(image, SITE.site).href
-  : new URL('/og-default.svg', SITE.site).href;
+  : new URL('/og-default.png', SITE.site).href;
 const fullTitle = title === brand.title ? title : `${title} — ${brand.title}`;
 const desc = description ?? brand.description;
 ---

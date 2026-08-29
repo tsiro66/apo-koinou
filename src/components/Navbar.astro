@@ -10,8 +10,8 @@ import {
   neutralPath,
 } from "../i18n/utils";
 import { BRAND, SITE } from "../consts";
-import logo from "../assets/logos/logo1.png";
-import logoWhite from "../assets/logos/logo.png";
+import logo from "../assets/logos/logo-black.png";
+import logoWhite from "../assets/logos/logo-white.png";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -61,14 +61,12 @@ const activeLinkMarker = "aria-[current=page]:border-b-2 aria-[current=page]:bor
             src={logo}
             alt={brand.title}
             widths={[128, 256, 384]}
-            sizes="(min-width: 640px) 90px, 80px"
             class="logo-dark h-9 w-auto sm:h-10"
           />
           <Image
             src={logoWhite}
             alt={brand.title}
             widths={[128, 256, 384]}
-            sizes="(min-width: 640px) 90px, 80px"
             class="logo-light h-9 w-auto sm:h-10"
           />
         </a>
