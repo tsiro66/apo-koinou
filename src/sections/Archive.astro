@@ -6,7 +6,7 @@ import SectionTitle from '../components/SectionTitle.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import Lightbox from '../components/Lightbox.astro';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail, getPhotos } from '../utils/media';
+import { getThumbnail, getPhotos, lightboxSrc } from '../utils/media';
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -21,14 +21,22 @@ const plays = (
 const home = localizedPath('/', locale);
 const photoWord = t('common.photo');
 
-// For each play, collect all its photos (effective thumbnail first, then gallery).
-const groups = plays.map((play) => ({
-  href: localizedPath(`/parastaseis/${play.id}`, locale),
-  title: play.data.title,
-  year: play.data.year,
-  director: play.data.director,
-  photos: getPhotos(play.data),
-}));
+// For each play, collect all its photos (effective thumbnail first, then
+// gallery) paired with an optimized lightbox URL (see lightboxSrc).
+const groups = await Promise.all(
+  plays.map(async (play) => ({
+    href: localizedPath(`/parastaseis/${play.id}`, locale),
+    title: play.data.title,
+    year: play.data.year,
+    director: play.data.director,
+    photos: await Promise.all(
+      getPhotos(play.data).map(async (src) => ({
+        src,
+        full: await lightboxSrc(src),
+      })),
+    ),
+  })),
+);
 ---
 
 <BaseLayout title={t('page.syllogi.title')} canonicalPath="/syllogi">
@@ -65,12 +73,12 @@ const groups = plays.map((play) => ({
                 </a>
               </header>
               <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-                {g.photos.map((src, i) => (
+                {g.photos.map(({ src, full }, i) => (
                   <li>
                     <button
                       type="button"
                       data-lightbox={`syllogi-${g.title}`}
-                      data-lightbox-src={src.src}
+                      data-lightbox-src={full}
                       aria-label={`${g.title} — ${photoWord} ${i + 1}`}
                       class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                     >

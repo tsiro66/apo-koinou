@@ -7,7 +7,7 @@ import SectionTitle from '../components/SectionTitle.astro';
 import PlayCard from '../components/PlayCard.astro';
 import heroBg from '../assets/bg.jpg';
 import { BRAND, SEASON } from '../consts';
-import { getThumbnail, getVideoId } from '../utils/media';
+import { getThumbnail, getVideoId, ogSrc } from '../utils/media';
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -55,13 +55,18 @@ const fmtDate = (d: Date) =>
     month: 'long',
     day: 'numeric',
   });
+
+// og:image: optimized 1200×630 JPEG crop of the hero photo, never the raw original.
+const og = await ogSrc(heroBg);
 ---
 
 <BaseLayout
   title={t('page.home.title')}
   description={brand.description}
   canonicalPath="/"
-  image={heroBg.src}
+  image={og.src}
+  imageWidth={og.width}
+  imageHeight={og.height}
   flush
 >
   <!-- Hero: full-bleed photo carousel of the productions picked for the

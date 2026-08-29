@@ -6,6 +6,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import { ogSrc } from '../utils/media';
 
 interface Props {
   post: CollectionEntry<'nea'>;
@@ -23,12 +24,17 @@ const pub = d.publishDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR'
   month: 'long',
   day: 'numeric',
 });
+
+// og:image: optimized 1200×630 JPEG, never the raw original.
+const og = d.thumbnail ? await ogSrc(d.thumbnail) : undefined;
 ---
 
 <BaseLayout
   title={d.title}
   description={brand.description}
-  image={d.thumbnail?.src}
+  image={og?.src}
+  imageWidth={og?.width}
+  imageHeight={og?.height}
   canonicalPath={`/nea/${post.id}`}
   type="article"
 >

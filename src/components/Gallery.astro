@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import type { ImageMetadata } from 'astro';
 import { getLocaleFromUrl, useTranslations } from '../i18n/utils';
+import { lightboxSrc } from '../utils/media';
 
 interface Props {
   images: ImageMetadata[];
@@ -12,17 +13,23 @@ interface Props {
 const { images, alt, group = alt } = Astro.props;
 const t = useTranslations(getLocaleFromUrl(Astro.url));
 const photoWord = t('common.photo');
+
+// Lightbox full view: optimized build-time WebP (see lightboxSrc),
+// never the multi-megabyte original file.
+const items = await Promise.all(
+  images.map(async (src) => ({ src, full: await lightboxSrc(src) })),
+);
 ---
 
 {
-  images.length > 0 && (
+  items.length > 0 && (
     <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-      {images.map((src, i) => (
+      {items.map(({ src, full }, i) => (
         <li>
           <button
             type="button"
             data-lightbox={group}
-            data-lightbox-src={src.src}
+            data-lightbox-src={full}
             aria-label={`${alt} — ${photoWord} ${i + 1}`}
             class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
           >

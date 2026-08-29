@@ -9,7 +9,7 @@ import ProductionSection from '../components/ProductionSection.astro';
 import ProductionFacts from '../components/ProductionFacts.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail, getPhotos, getVideoId } from '../utils/media';
+import { getThumbnail, getPhotos, getVideoId, ogSrc } from '../utils/media';
 
 interface Props {
   play: CollectionEntry<'parastaseis'>;
@@ -77,6 +77,10 @@ const orderedSections = [
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 
+// og:image: optimized 1200×630 JPEG, never the raw original.
+const ogImg = d.seoImage ?? getThumbnail(d);
+const og = ogImg ? await ogSrc(ogImg) : undefined;
+
 const playFacts = [
   { label: t('prod.field.title'), value: d.title },
   ...(d.writer ? [{ label: t('prod.writer'), value: d.writer }] : []),
@@ -92,7 +96,9 @@ const placeTimeFacts = d.performances.length > 0
 <BaseLayout
   title={d.title}
   description={d.seoDescription ?? d.summary ?? brand.description}
-  image={(d.seoImage ?? getThumbnail(d))?.src}
+  image={og?.src}
+  imageWidth={og?.width}
+  imageHeight={og?.height}
   canonicalPath={canonicalPath}
   type="article"
 >

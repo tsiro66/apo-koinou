@@ -10,13 +10,16 @@ interface Props {
   title: string;
   description?: string;
   image?: string;
+  /** Actual dimensions of `image` (forwarded to og:image:width/height). */
+  imageWidth?: number;
+  imageHeight?: number;
   /** Locale-neutral path; prefixed with /en automatically for the EN variant. */
   canonicalPath?: string;
   type?: 'website' | 'article';
   /** Page manages its own vertical padding (full-bleed hero/bands). */
   flush?: boolean;
 }
-const { title, description, image, canonicalPath, type, flush } = Astro.props;
+const { title, description, image, imageWidth, imageHeight, canonicalPath, type, flush } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
@@ -34,6 +37,8 @@ const t = useTranslations(locale);
       title={title}
       description={description}
       image={image}
+      imageWidth={imageWidth}
+      imageHeight={imageHeight}
       canonicalPath={canonicalPath}
       type={type}
     />

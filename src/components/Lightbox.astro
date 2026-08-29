@@ -79,7 +79,7 @@ const t = useTranslations(getLocaleFromUrl(Astro.url));
   function bindLightbox() {
     const dialog = document.querySelector<HTMLDialogElement>(
       "[data-lightbox-dialog]",
-    );
+    )!;
     if (!dialog || dialog.dataset.bound) return;
     dialog.dataset.bound = "true";
 

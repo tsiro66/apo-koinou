@@ -10,7 +10,7 @@ import ProductionSection from '../components/ProductionSection.astro';
 import Reviews from '../components/Reviews.astro';
 import { BRAND } from '../consts';
 import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail, getPhotos } from '../utils/media';
+import { getThumbnail, getPhotos, lightboxSrc, ogSrc } from '../utils/media';
 
 interface Props {
   play: CollectionEntry<'parastaseis'>;
@@ -27,6 +27,19 @@ const canonicalPath = `${playPath}/yliko`;
 const youtubeId = d.youtubeTrailer?.startsWith('http')
   ? d.youtubeTrailer.split('v=')[1]?.split('&')[0]
   : d.youtubeTrailer;
+
+// og:image: optimized 1200×630 JPEG, never the raw original.
+const ogImg = d.seoImage ?? getThumbnail(d);
+const og = ogImg ? await ogSrc(ogImg) : undefined;
+
+// Lightbox full views: optimized build-time WebP (see lightboxSrc).
+const invitationItems = await Promise.all(
+  d.invitation.map(async (src) => ({ src, full: await lightboxSrc(src) })),
+);
+const programItems = await Promise.all(
+  d.program.map(async (src) => ({ src, full: await lightboxSrc(src) })),
+);
+const posterFull = d.poster ? await lightboxSrc(d.poster) : undefined;
 
 // Section visibility: render a section (and its button) only when it has data.
 const photos = getPhotos(d);
@@ -61,7 +74,9 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 <BaseLayout
   title={`${d.title} — ${t('prod.yliko')}`}
   description={d.seoDescription ?? d.summary ?? brand.description}
-  image={(d.seoImage ?? getThumbnail(d))?.src}
+  image={og?.src}
+  imageWidth={og?.width}
+  imageHeight={og?.height}
   canonicalPath={canonicalPath}
   type="article"
 >
@@ -125,12 +140,12 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
             band={band('prosklisi')}
           >
             <ul class="grid gap-4 sm:grid-cols-2">
-              {d.invitation.map((src, i) => (
+              {invitationItems.map(({ src, full }, i) => (
                 <li>
                   <button
                     type="button"
                     data-lightbox={`${play.id}-prosklisi`}
-                    data-lightbox-src={src.src}
+                    data-lightbox-src={full}
                     aria-label={`${d.title} — ${t('prod.invitation')} ${i + 1}`}
                     class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                   >
@@ -159,12 +174,12 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
             band={band('programma')}
           >
             <ul class="grid gap-4 sm:grid-cols-2">
-              {d.program.map((src, i) => (
+              {programItems.map(({ src, full }, i) => (
                 <li>
                   <button
                     type="button"
                     data-lightbox={`${play.id}-programma`}
-                    data-lightbox-src={src.src}
+                    data-lightbox-src={full}
                     aria-label={`${d.title} — ${t('prod.program')} ${i + 1}`}
                     class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                   >
@@ -190,7 +205,7 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
             <button
               type="button"
               data-lightbox={`${play.id}-afisa`}
-              data-lightbox-src={d.poster.src}
+              data-lightbox-src={posterFull}
               aria-label={`${d.title} — ${t('prod.poster')}`}
               class="block max-w-md cursor-zoom-in overflow-hidden border border-zinc-950/10"
             >
