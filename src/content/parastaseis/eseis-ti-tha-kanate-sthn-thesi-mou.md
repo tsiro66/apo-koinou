@@ -33,6 +33,10 @@ crew:
     name: Άγγελος Μπουμπούλης
   - role: Άννα
     name: Μαρία Γιαννοπούλου
+  - role: Σμιτς
+    name: Στέφανος Στάθης
+  - role: Μπαμπέτ
+    name: Όλγα Κάνιστρα
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/01.jpg
 gallery:
