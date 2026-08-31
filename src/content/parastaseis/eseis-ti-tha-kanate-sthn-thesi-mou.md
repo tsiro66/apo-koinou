@@ -4,6 +4,27 @@ slug: eseis-ti-tha-kanate-sthn-thesi-mou
 year: 2025
 writer: Μαξ Φρις
 summary: Ελεύθερη απόδοση του έργου «Ο Μπήντερμαν και οι Εμπρηστές» του Μαξ Φρις.
+crew:
+  - role: Διασκευή - Σκηνοθεσία
+    name: Φώτης Λάζαρης
+  - role: Χορογραφία
+    name: Όλγα Σπυράκη
+  - role: Σκηνικά
+    name: Χρήστος Σιάχος, Γιώργος Ντάφλος, Αγγελική Βασιλείου, Eno Skhodrani
+  - role: Κοστούμια
+    name: Θεατρική Ομάδα και ΔΗΠΕΘΕ Πάτρας
+  - role: Μουσική Επιμέλεια
+    name: Φώτης Λάζαρης
+  - role: Σχεδιασμός Φωτισμού
+    name: Γιώργος Διονυσόπουλος
+  - role: Ρύθμιση Φωτισμού
+    name: Νίκος Κωσταντόπουλος
+  - role: Σχεδιασμός και Ρύθμιση Ήχου
+    name: Βασίλης Λάππας
+  - role: Φροντιστήριο
+    name: Μαρία Γιαννοπούλου, Αγγελική Βασιλείου
+  - role: Φωτογραφία - Βίντεο
+    name: Βασίλης Λάγιος
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/01.jpg
 gallery:
@@ -16,5 +37,6 @@ gallery:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/08.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/09.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/10.jpg
+carousel: false
 draft: false
 ---
