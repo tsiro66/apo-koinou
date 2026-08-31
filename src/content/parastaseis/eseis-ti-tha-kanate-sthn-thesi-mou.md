@@ -37,6 +37,10 @@ crew:
     name: Στέφανος Στάθης
   - role: Μπαμπέτ
     name: Όλγα Κάνιστρα
+  - role: Αΐζενρινγκ
+    name: Φώτης Λάζαρης
+  - role: Αστυνομικός, Χήρα Σκλάβενιχ, Δόκτωρ Φιλοσοφίας
+    name: Νίκος Παναγόπουλος
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/01.jpg
 gallery:
