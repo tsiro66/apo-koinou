@@ -25,6 +25,10 @@ crew:
     name: Μαρία Γιαννοπούλου, Αγγελική Βασιλείου
   - role: Φωτογραφία - Βίντεο
     name: Βασίλης Λάγιος
+  - role: Παίζουν με σειρά εμφάνισης
+    name: Οι ηθοποιοί
+  - role: Χορός Γυναικών
+    name: Δέσποινα Μάη, Ελένη Νταή, Μαρίνα Λάππα, Μαρία Κυπραίου, Νόρα Μαυροειδή
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/01.jpg
 gallery:
