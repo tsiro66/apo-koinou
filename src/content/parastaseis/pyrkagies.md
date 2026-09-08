@@ -15,5 +15,6 @@ gallery:
   - ../../assets/parastaseis/pyrkagies/08.jpg
   - ../../assets/parastaseis/pyrkagies/09.jpg
   - ../../assets/parastaseis/pyrkagies/10.jpg
+carousel: true
 draft: false
 ---
