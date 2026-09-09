@@ -12,6 +12,8 @@ summary: Μία ευφυής αληγορία του βασικού εκπροσ
 youtubeTrailer: https://www.youtube.com/watch?v=Ra7GrZiijR0
 thumbnail: ../../assets/parastaseis/678365546_1404602654805183_5312986051802625554_n.jpg
 poster: ../../assets/parastaseis/αφισα Λιθογραφείο.jpg
+gallery:
+  - ../../assets/parastaseis/ρινοκ24.jpg
 carousel: false
 draft: false
 ---
