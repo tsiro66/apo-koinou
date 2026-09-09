@@ -1,5 +1,5 @@
 ---
-title: ρινόκερος
+title: Ρινόκερος
 slug: rinokeros
 year: 2026
 writer: Ευγένιος Ιονέσκο
