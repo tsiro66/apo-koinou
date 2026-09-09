@@ -83,6 +83,14 @@ export const ui = {
     'page.epikoinonia.heading': 'Επικοινωνήστε μαζί μας',
     'page.epikoinonia.body':
       'Για πληροφορίες και συνεργασίες επικοινωνήστε μέσω email.',
+    'page.epikoinonia.email_label': 'Email',
+    'page.epikoinonia.phone_label': 'Τηλέφωνο',
+    'page.epikoinonia.social_label': 'Κοινωνικά δίκτυα',
+    'page.epikoinonia.cta_eyebrow': 'Παραστάσεις',
+    'page.epikoinonia.cta_heading': 'Δείτε τη δουλειά μας στη σκηνή',
+    'page.epikoinonia.cta_body':
+      'Το αρχείο συνοδεύει κάθε παραγωγή με βίντεο, φωτογραφίες και συντελεστές.',
+    'page.epikoinonia.cta_link': 'Δείτε τις παραστάσεις',
 
     'empty.parastaseis': 'Δεν υπάρχουν καταχωρημένες παραστάσεις.',
     'empty.nea': 'Δεν υπάρχουν ανακοινώσεις.',
@@ -210,6 +218,14 @@ export const ui = {
     'page.epikoinonia.heading': 'Get in touch',
     'page.epikoinonia.body':
       'For information and collaborations contact us by email.',
+    'page.epikoinonia.email_label': 'Email',
+    'page.epikoinonia.phone_label': 'Phone',
+    'page.epikoinonia.social_label': 'Social',
+    'page.epikoinonia.cta_eyebrow': 'Productions',
+    'page.epikoinonia.cta_heading': 'See our work on stage',
+    'page.epikoinonia.cta_body':
+      'Every production in the archive comes with video, photography, and contributors.',
+    'page.epikoinonia.cta_link': 'Browse productions',
 
     'empty.parastaseis': 'No productions listed yet.',
     'empty.nea': 'No announcements yet.',
