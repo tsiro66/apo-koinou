@@ -73,16 +73,17 @@ const og = await ogSrc(heroBg);
        front page (newest first, max five; falls back to the most recent
        productions when none are picked).
        No visible heading: the photography carries the hero, with only a
-       watch-now button bottom-right. Runs the full viewport
-       height; the navbar overlays it in overlay mode and flips to solid
-       as the hero exits. The first slide is eager + high fetch priority: it is the
+       watch-now button bottom-right. Height: 70svh on phones — the
+       featured section peeks above the fold — full viewport from sm up.
+       The navbar overlays it in overlay mode and flips to solid as the
+       hero exits. The first slide is eager + high fetch priority: it is the
        LCP element. The negative top margin pulls the photos up under the
        transparent navbar (sticky headers occupy flow space). It must
        match the resting bar height exactly: nav py-2 + h-10 = 3.5rem. -->
   <section
     data-hero
     data-carousel
-    class="relative -mx-4 -mt-14 flex min-h-svh items-end overflow-hidden bg-zinc-950"
+    class="relative -mx-4 -mt-14 flex min-h-[70svh] items-end overflow-hidden bg-zinc-950 sm:min-h-svh"
   >
     {
       heroSlides.length > 0 ? (
