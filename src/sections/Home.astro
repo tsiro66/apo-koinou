@@ -369,7 +369,7 @@ const og = await ogSrc(heroBg);
   // Hero carousel: cross-fades the production photos on a timer.
   // Module scripts run only once under the ClientRouter, so re-binding
   // happens through astro:page-load (same pattern as the navbar).
-  const HERO_INTERVAL_MS = 5000;
+  const HERO_INTERVAL_MS = 3000;
   const HERO_FADE_MS = 1000;
 
   const heroCleanups: Array<() => void> = [];
