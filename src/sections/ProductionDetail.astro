@@ -3,8 +3,7 @@ import type { CollectionEntry } from 'astro:content';
 import { render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import StreamPlayer from '../components/StreamPlayer.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import ProductionHeader from '../components/ProductionHeader.astro';
+import ProductionHero from '../components/ProductionHero.astro';
 import ProductionSection from '../components/ProductionSection.astro';
 import ProductionFacts from '../components/ProductionFacts.astro';
 import { BRAND } from '../consts';
@@ -101,25 +100,37 @@ const placeTimeFacts = d.performances.length > 0
   imageHeight={og?.height}
   canonicalPath={canonicalPath}
   type="article"
+  flush
 >
   <article>
-    <div class="mx-auto max-w-6xl">
-      <Breadcrumbs
-        crumbs={[
-          { label: t('nav.home'), href: localizedPath('/', locale) },
-          { label: t('page.parastaseis.title'), href: localizedPath('/parastaseis', locale) },
-          { label: d.title },
-        ]}
-      />
-      <ProductionHeader
-        play={play}
-        buttons={buttons}
-        stats={stats}
-        watchNowHref={videoId ? '#parastasi' : undefined}
-      />
-    </div>
+    <ProductionHero
+      play={play}
+      buttons={buttons}
+      watchNowHref={videoId ? '#parastasi' : undefined}
+    />
 
-    <div class="mt-10">
+    <!-- Υλικό: quiet inline row right below the hero, on white — the
+         orange counts stay readable here, off the photo. -->
+    {
+      stats.length > 0 && (
+        <div class="mx-auto mt-8 flex max-w-6xl flex-wrap items-baseline gap-x-5 gap-y-2">
+          <span class="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
+            {t('prod.yliko')}
+          </span>
+          {stats.map((s) => (
+            <a
+              href={s.href}
+              class="inline-flex items-baseline gap-1.5 text-sm font-semibold text-zinc-950/80 transition hover:text-orange"
+            >
+              {s.label}
+              {s.count > 1 && <span class="text-orange">{s.count}</span>}
+            </a>
+          ))}
+        </div>
+      )
+    }
+
+    <div class="mt-6">
       <ProductionSection id="theatriko-ergo" title={t('prod.section.play')} band={band('theatriko-ergo')}>
         <ProductionFacts facts={playFacts} />
         {d.summary && <p class="mt-6 leading-relaxed text-zinc-950/80">{d.summary}</p>}

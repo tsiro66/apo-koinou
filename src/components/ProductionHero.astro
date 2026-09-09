@@ -1,0 +1,145 @@
+---
+// Full-bleed cinematic hero for the production pages (detail + Υλικό).
+// The production photo fills the first viewport; the title and the page
+// actions are overlaid bottom-left — the same grammar as the home hero.
+// Breadcrumbs overlay the photo just below the transparent navbar. The
+// navbar flips to solid as the photo exits (data-hero contract; the
+// server-rendered data-mode default lives in Navbar.astro).
+import type { CollectionEntry } from 'astro:content';
+import { Image } from 'astro:assets';
+import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
+import { getThumbnail } from '../utils/media';
+
+export interface HeaderButton {
+  href: string;
+  label: string;
+}
+
+interface Props {
+  play: CollectionEntry<'parastaseis'>;
+  buttons?: HeaderButton[];
+  /** Anchor to the stream section; renders the Watch now button. */
+  watchNowHref?: string;
+  /** Υλικό page only: link back to the production page. */
+  backHref?: string;
+  backLabel?: string;
+  /** Small label above the title (Υλικό page: "Υλικό"). */
+  eyebrow?: string;
+}
+const { play, buttons = [], watchNowHref, backHref, backLabel, eyebrow } = Astro.props;
+const d = play.data;
+const thumb = getThumbnail(d);
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+---
+
+<!-- Full-bleed photo hero. -mt-14 slides it under the transparent navbar
+     (bar height: py-2 + h-10 = 3.5rem). Height: 70svh on phones — the
+     first content peeks above the fold — full viewport from sm up, where
+     the drama earns the space. Plays without a photo fall back to the
+     plain dark band — the overlay text carries the page either way. The
+     photo is the LCP element: eager + high priority. -->
+<section
+  data-hero
+  class="relative -mx-4 -mt-14 flex min-h-[70svh] items-end overflow-hidden bg-zinc-950 sm:min-h-svh"
+>
+  {
+    thumb && (
+      <Image
+        src={thumb}
+        alt=""
+        widths={[768, 1280, 1920, 2560]}
+        sizes="100vw"
+        width={1920}
+        height={1280}
+        loading="eager"
+        fetchpriority="high"
+        class="absolute inset-0 h-full w-full object-cover"
+      />
+    )
+  }
+  <div
+    aria-hidden="true"
+    class="absolute inset-0 bg-gradient-to-t from-zinc-950/90 via-zinc-950/35 to-zinc-950/10"
+  >
+  </div>
+  <div
+    aria-hidden="true"
+    class="absolute inset-x-0 top-0 h-44 bg-gradient-to-b from-zinc-950/60 to-transparent"
+  >
+  </div>
+
+  <!-- Breadcrumbs over the photo, just below the transparent bar.
+       Ancestors only: the current page is the h1 below. Same size and
+       case as the Breadcrumbs component on every other page — only the
+       palette differs (light ink over the photo). -->
+  <nav aria-label="Breadcrumb" class="absolute left-4 top-16 z-10 sm:left-6">
+    <ol class="flex flex-wrap items-center gap-1 text-sm text-zinc-50/70">
+      <li>
+        <a href={localizedPath('/', locale)} class="transition hover:text-zinc-50">
+          {t('nav.home')}
+        </a>
+      </li>
+      <li aria-hidden="true" class="text-zinc-50/40">/</li>
+      <li>
+        <a
+          href={localizedPath('/parastaseis', locale)}
+          class="transition hover:text-zinc-50"
+        >
+          {t('page.parastaseis.title')}
+        </a>
+      </li>
+    </ol>
+  </nav>
+
+  <!-- Overlaid caption: back link (Υλικό only), title, actions. Buttons
+       reuse the home hero's hover language (white hairline chips on the
+       photo, orange fills only for the primary Watch now). -->
+  <div class="relative z-10 flex w-full flex-col gap-4 px-4 pb-6 sm:px-6 sm:pb-8">
+    {
+      backHref && (
+        <a
+          href={backHref}
+          class="inline-flex items-center gap-2 text-sm font-semibold text-zinc-50/70 transition hover:text-zinc-50"
+        >
+          <span aria-hidden="true">←</span>
+          {backLabel}
+        </a>
+      )
+    }
+    {
+      eyebrow && (
+        <p class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-50/70">
+          {eyebrow}
+        </p>
+      )
+    }
+    <h1 class="font-display text-4xl leading-tight text-balance text-zinc-50 sm:text-5xl">
+      {d.title}
+      <span class="font-normal text-zinc-50/60"> ({d.year})</span>
+    </h1>
+
+    {
+      (watchNowHref || buttons.length > 0) && (
+        <nav aria-label={d.title} class="mt-1 flex flex-wrap items-center gap-2">
+          {watchNowHref && (
+            <a
+              href={watchNowHref}
+              class="bg-orange px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
+            >
+              {t('prod.watch_now')}
+            </a>
+          )}
+          {buttons.map((b) => (
+            <a
+              href={b.href}
+              class="border border-zinc-50/50 px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950"
+            >
+              {b.label}
+            </a>
+          ))}
+        </nav>
+      )
+    }
+  </div>
+</section>

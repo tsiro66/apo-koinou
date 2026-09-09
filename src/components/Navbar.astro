@@ -29,6 +29,10 @@ const navLinks = NAV_LINKS.filter((l) => !NAV_HIDDEN.has(l.href));
 
 const neutral = neutralPath(Astro.url);
 const isHome = neutral === "/";
+// Pages that open with a full-bleed photo hero: the homepage carousel and
+// the production pages (detail + Υλικό). They start under the transparent
+// overlay bar; the scroll handler flips to solid as the photo exits.
+const isHero = isHome || neutral.startsWith("/parastaseis/");
 const isActive = (href: string) =>
   href === "/" ? neutral === "/" : neutral.startsWith(href);
 
@@ -42,7 +46,7 @@ const activeLinkMarker = "aria-[current=page]:border-b-2 aria-[current=page]:bor
 
 <div id="nav-menu" class="contents" data-open="false">
   <header
-    data-mode={isHome ? "overlay" : "solid"}
+    data-mode={isHero ? "overlay" : "solid"}
     class="sticky top-0 z-50 bg-zinc-50"
   >
     <nav
@@ -406,8 +410,9 @@ const activeLinkMarker = "aria-[current=page]:border-b-2 aria-[current=page]:bor
     });
   }
 
-  // Navbar mode: overlay (transparent, light ink) while the home hero is
-  // still under the bar; solid (zinc-50, dark ink) once it exits. Pages
+  // Navbar mode: overlay (transparent, light ink) while a page hero
+  // ([data-hero]) is still under the bar; solid (zinc-50, dark ink) once
+  // it exits. Pages
   // declare a hero with [data-hero]; the flip point is the hero's bottom
   // edge minus the bar height, so the transition lands exactly as the
   // photo leaves.
