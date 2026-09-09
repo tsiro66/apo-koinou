@@ -18,6 +18,6 @@ invitation:
   - ../../assets/parastaseis/ρινοκ2.jpg
 program:
   - ../../assets/parastaseis/ρινοκ4.jpg
-carousel: false
+carousel: true
 draft: false
 ---
