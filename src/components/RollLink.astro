@@ -17,7 +17,7 @@ interface Props {
 const { href, label, class: className, rollClass, ...rest } = Astro.props;
 ---
 
-<a href={href} class:list={['roll-link', className]} {...rest}>
+<a href={href} class:list={["roll-link", className]} {...rest}>
   <span class="roll-link-inner">
     <span>{label}</span>
     <span class={rollClass} aria-hidden="true">{label}</span>
@@ -32,7 +32,9 @@ const { href, label, class: className, rollClass, ...rest } = Astro.props;
   .roll-link {
     display: inline-block;
     overflow: hidden;
-    height: calc(1.2em + 0.25em); /* fallback for browsers without `lh` support */
+    height: calc(
+      1.2em + 0.25em
+    ); /* fallback for browsers without `lh` support */
     height: calc(1lh + 0.25em);
     margin-bottom: -0.25em; /* keep the link's layout footprint unchanged */
   }

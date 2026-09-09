@@ -1,0 +1,12 @@
+# build output & tooling
+dist/
+.astro/
+node_modules/
+pnpm-lock.yaml
+
+# hand-authored docs and agent instructions — do not churn
+*.md
+.pi/
+
+# content collections: editorial markdown, formatting is the author's
+src/content/

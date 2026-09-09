@@ -21,11 +21,18 @@ const { crumbs } = Astro.props;
                 {crumb.label}
               </a>
             ) : (
-              <span aria-current={last ? 'page' : undefined} class={last ? 'text-zinc-950' : ''}>
+              <span
+                aria-current={last ? "page" : undefined}
+                class={last ? "text-zinc-950" : ""}
+              >
                 {crumb.label}
               </span>
             )}
-            {!last && <span aria-hidden="true" class="text-zinc-600/60">/</span>}
+            {!last && (
+              <span aria-hidden="true" class="text-zinc-600/60">
+                /
+              </span>
+            )}
           </li>
         );
       })

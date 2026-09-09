@@ -1,18 +1,22 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Gallery from '../components/Gallery.astro';
-import Lightbox from '../components/Lightbox.astro';
-import ProductionHero from '../components/ProductionHero.astro';
-import ProductionSection from '../components/ProductionSection.astro';
-import Reviews from '../components/Reviews.astro';
-import { BRAND } from '../consts';
-import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail, getPhotos, lightboxSrc, ogSrc } from '../utils/media';
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Gallery from "../components/Gallery.astro";
+import Lightbox from "../components/Lightbox.astro";
+import ProductionHero from "../components/ProductionHero.astro";
+import ProductionSection from "../components/ProductionSection.astro";
+import Reviews from "../components/Reviews.astro";
+import { BRAND } from "../consts";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+} from "../i18n/utils";
+import { getThumbnail, getPhotos, lightboxSrc, ogSrc } from "../utils/media";
 
 interface Props {
-  play: CollectionEntry<'parastaseis'>;
+  play: CollectionEntry<"parastaseis">;
 }
 const { play } = Astro.props;
 const d = play.data;
@@ -23,8 +27,8 @@ const brand = BRAND[locale];
 const playPath = `/parastaseis/${play.id}`;
 const canonicalPath = `${playPath}/yliko`;
 
-const youtubeId = d.youtubeTrailer?.startsWith('http')
-  ? d.youtubeTrailer.split('v=')[1]?.split('&')[0]
+const youtubeId = d.youtubeTrailer?.startsWith("http")
+  ? d.youtubeTrailer.split("v=")[1]?.split("&")[0]
   : d.youtubeTrailer;
 
 // og:image: optimized 1200×630 JPEG, never the raw original.
@@ -50,28 +54,34 @@ const hasPoster = !!d.poster;
 const hasReviews = d.kritikes.length > 0;
 
 const buttons = [
-  ...(hasPhotos ? [{ href: '#fotografies', label: t('prod.gallery_section') }] : []),
-  ...(hasTrailer ? [{ href: '#treiler', label: t('prod.trailer_section') }] : []),
-  ...(hasInvitation ? [{ href: '#prosklisi', label: t('prod.invitation') }] : []),
-  ...(hasProgram ? [{ href: '#programma', label: t('prod.program') }] : []),
-  ...(hasPoster ? [{ href: '#afisa', label: t('prod.poster') }] : []),
-  ...(hasReviews ? [{ href: '#kritikes', label: t('prod.reviews') }] : []),
+  ...(hasPhotos
+    ? [{ href: "#fotografies", label: t("prod.gallery_section") }]
+    : []),
+  ...(hasTrailer
+    ? [{ href: "#treiler", label: t("prod.trailer_section") }]
+    : []),
+  ...(hasInvitation
+    ? [{ href: "#prosklisi", label: t("prod.invitation") }]
+    : []),
+  ...(hasProgram ? [{ href: "#programma", label: t("prod.program") }] : []),
+  ...(hasPoster ? [{ href: "#afisa", label: t("prod.poster") }] : []),
+  ...(hasReviews ? [{ href: "#kritikes", label: t("prod.reviews") }] : []),
 ];
 
 // Alternating full-bleed bands, in render order.
 const orderedSections = [
-  ...(hasPhotos ? ['fotografies'] : []),
-  ...(hasTrailer ? ['treiler'] : []),
-  ...(hasInvitation ? ['prosklisi'] : []),
-  ...(hasProgram ? ['programma'] : []),
-  ...(hasPoster ? ['afisa'] : []),
-  ...(hasReviews ? ['kritikes'] : []),
+  ...(hasPhotos ? ["fotografies"] : []),
+  ...(hasTrailer ? ["treiler"] : []),
+  ...(hasInvitation ? ["prosklisi"] : []),
+  ...(hasProgram ? ["programma"] : []),
+  ...(hasPoster ? ["afisa"] : []),
+  ...(hasReviews ? ["kritikes"] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 ---
 
 <BaseLayout
-  title={`${d.title} — ${t('prod.yliko')}`}
+  title={`${d.title} — ${t("prod.yliko")}`}
   description={d.seoDescription ?? d.summary ?? brand.description}
   image={og?.src}
   imageWidth={og?.width}
@@ -85,8 +95,8 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
       play={play}
       buttons={buttons}
       backHref={localizedPath(playPath, locale)}
-      backLabel={t('prod.back_to_play')}
-      eyebrow={t('prod.yliko')}
+      backLabel={t("prod.back_to_play")}
+      eyebrow={t("prod.yliko")}
     />
     <Lightbox />
 
@@ -95,26 +105,35 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
         hasPhotos && (
           <ProductionSection
             id="fotografies"
-            title={t('prod.gallery_section')}
+            title={t("prod.gallery_section")}
             count={photos.length}
-            band={band('fotografies')}
+            band={band("fotografies")}
           >
-            <Gallery images={photos} alt={d.title} group={`${play.id}-fotografies`} />
+            <Gallery
+              images={photos}
+              alt={d.title}
+              group={`${play.id}-fotografies`}
+            />
           </ProductionSection>
         )
       }
 
       {
         hasTrailer && (
-          <ProductionSection id="treiler" title={t('prod.trailer_section')} band={band('treiler')}>
+          <ProductionSection
+            id="treiler"
+            title={t("prod.trailer_section")}
+            band={band("treiler")}
+          >
             <div class="overflow-hidden border border-zinc-950/10 bg-zinc-950 shadow-md">
               <iframe
                 src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
-                title={`${t('prod.trailer_section')} — ${d.title}`}
+                title={`${t("prod.trailer_section")} — ${d.title}`}
                 allow="accelerometer; encrypted-media; fullscreen"
                 allowfullscreen
                 class="aspect-video w-full"
-                loading="lazy"></iframe>
+                loading="lazy"
+              />
             </div>
           </ProductionSection>
         )
@@ -124,9 +143,9 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
         hasInvitation && (
           <ProductionSection
             id="prosklisi"
-            title={t('prod.invitation')}
+            title={t("prod.invitation")}
             count={d.invitation.length}
-            band={band('prosklisi')}
+            band={band("prosklisi")}
           >
             <ul class="grid gap-4 sm:grid-cols-2">
               {invitationItems.map(({ src, full }, i) => (
@@ -135,12 +154,12 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
                     type="button"
                     data-lightbox={`${play.id}-prosklisi`}
                     data-lightbox-src={full}
-                    aria-label={`${d.title} — ${t('prod.invitation')} ${i + 1}`}
+                    aria-label={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
                     class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                   >
                     <Image
                       src={src}
-                      alt={`${d.title} — ${t('prod.invitation')} ${i + 1}`}
+                      alt={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
                       widths={[480, 720]}
                       sizes="(min-width:640px) 50vw, 100vw"
                       width={720}
@@ -158,9 +177,9 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
         hasProgram && (
           <ProductionSection
             id="programma"
-            title={t('prod.program')}
+            title={t("prod.program")}
             count={d.program.length}
-            band={band('programma')}
+            band={band("programma")}
           >
             <ul class="grid gap-4 sm:grid-cols-2">
               {programItems.map(({ src, full }, i) => (
@@ -169,12 +188,12 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
                     type="button"
                     data-lightbox={`${play.id}-programma`}
                     data-lightbox-src={full}
-                    aria-label={`${d.title} — ${t('prod.program')} ${i + 1}`}
+                    aria-label={`${d.title} — ${t("prod.program")} ${i + 1}`}
                     class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
                   >
                     <Image
                       src={src}
-                      alt={`${d.title} — ${t('prod.program')} ${i + 1}`}
+                      alt={`${d.title} — ${t("prod.program")} ${i + 1}`}
                       widths={[480, 720]}
                       sizes="(min-width:640px) 50vw, 100vw"
                       width={720}
@@ -190,17 +209,21 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 
       {
         hasPoster && d.poster && (
-          <ProductionSection id="afisa" title={t('prod.poster')} band={band('afisa')}>
+          <ProductionSection
+            id="afisa"
+            title={t("prod.poster")}
+            band={band("afisa")}
+          >
             <button
               type="button"
               data-lightbox={`${play.id}-afisa`}
               data-lightbox-src={posterFull}
-              aria-label={`${d.title} — ${t('prod.poster')}`}
+              aria-label={`${d.title} — ${t("prod.poster")}`}
               class="block max-w-md cursor-zoom-in overflow-hidden border border-zinc-950/10"
             >
               <Image
                 src={d.poster}
-                alt={`${d.title} — ${t('prod.poster')}`}
+                alt={`${d.title} — ${t("prod.poster")}`}
                 widths={[480, 768]}
                 sizes="(min-width:640px) 448px, 100vw"
                 width={768}
@@ -215,9 +238,9 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
         hasReviews && (
           <ProductionSection
             id="kritikes"
-            title={t('prod.reviews')}
+            title={t("prod.reviews")}
             count={d.kritikes.length}
-            band={band('kritikes')}
+            band={band("kritikes")}
           >
             <Reviews reviews={d.kritikes} />
           </ProductionSection>

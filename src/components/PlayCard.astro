@@ -1,11 +1,11 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import { getLocaleFromUrl, localizedPath } from '../i18n/utils';
-import { getThumbnail } from '../utils/media';
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import { getLocaleFromUrl, localizedPath } from "../i18n/utils";
+import { getThumbnail } from "../utils/media";
 
 interface Props {
-  play: CollectionEntry<'parastaseis'>;
+  play: CollectionEntry<"parastaseis">;
 }
 const { play } = Astro.props;
 const d = play.data;
@@ -37,10 +37,14 @@ const href = localizedPath(`/parastaseis/${play.id}`, locale);
         </div>
       )
     }
-    <p class="mt-4 text-xs font-semibold uppercase tracking-[0.15em] text-orange">
+    <p
+      class="mt-4 text-xs font-semibold uppercase tracking-[0.15em] text-orange"
+    >
       {d.year}
     </p>
-    <h3 class="mt-1 font-display text-2xl leading-snug text-zinc-950 transition group-hover:text-orange">
+    <h3
+      class="mt-1 font-display text-2xl leading-snug text-zinc-950 transition group-hover:text-orange"
+    >
       {d.title}
     </h3>
     {d.writer && <p class="mt-1 text-sm text-zinc-600">{d.writer}</p>}

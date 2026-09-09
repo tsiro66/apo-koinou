@@ -127,8 +127,13 @@ assets/                 <-- optimized source images (astro:assets), grouped by p
   synteleistes/
 
 components/             Navbar, Footer, SEO, SectionTitle, PlayCard, Gallery, StreamPlayer, Timeline, ContributorCard, CTA, Breadcrumbs
+  <page>/               one component per visual block of a large section (e.g. components/home/HeroCarousel.astro)
 
 layouts/               BaseLayout.astro
+
+scripts/                browser-side TS shared by client scripts (onPageLoad.ts lifecycle helper)
+sections/               page-level compositions rendered by thin pages/ wrappers (Home, Archive, History…)
+utils/                  build-time helpers (media, text)
 
 content/               Markdown entries only
   parastaseis/

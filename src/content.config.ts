@@ -1,5 +1,5 @@
-import { defineCollection, z } from 'astro:content';
-import { glob } from 'astro/loaders';
+import { defineCollection, z } from "astro:content";
+import { glob } from "astro/loaders";
 
 // ───────────────────────────────────────────────────────────────────────────
 // Παραστάσεις (Productions)
@@ -9,7 +9,7 @@ import { glob } from 'astro/loaders';
 // build-time optimization (responsive webp/avif, blur placeholders).
 // ───────────────────────────────────────────────────────────────────────────
 const parastaseisCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/parastaseis' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/parastaseis" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -20,7 +20,7 @@ const parastaseisCollection = defineCollection({
       writer: z.string().optional(),
       duration: z.string().optional(),
       genre: z.string().optional(),
-      language: z.string().default('Ελληνικά'),
+      language: z.string().default("Ελληνικά"),
       // Διανομή: actor name + optional role.
       cast: z
         .array(z.object({ name: z.string(), role: z.string().optional() }))
@@ -61,7 +61,7 @@ const parastaseisCollection = defineCollection({
 // publishDate with today's date on creation.
 // ───────────────────────────────────────────────────────────────────────────
 const neaCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/nea' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/nea" }),
   schema: ({ image }) =>
     z.object({
       title: z.string(),
@@ -77,7 +77,7 @@ const neaCollection = defineCollection({
 // (e.g. sections/History.astro renders selides/<locale>/istoria).
 // ───────────────────────────────────────────────────────────────────────────
 const selidesCollection = defineCollection({
-  loader: glob({ pattern: '**/*.md', base: './src/content/selides' }),
+  loader: glob({ pattern: "**/*.md", base: "./src/content/selides" }),
   schema: z.object({
     title: z.string(),
     seoDescription: z.string().optional(),

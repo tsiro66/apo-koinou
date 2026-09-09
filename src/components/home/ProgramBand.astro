@@ -1,0 +1,43 @@
+---
+import { SEASON } from "../../consts";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+  format,
+} from "../../i18n/utils";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const programmaHref = localizedPath("/programma", locale);
+---
+
+<!-- Programme band: the orange bookend against the dark footer. Its
+     negative bottom margin cancels the footer's mt-16 so the two run
+     flush together (flush layout has no bottom padding of its own). -->
+<section class="-mx-4 -mb-16 mt-16 bg-orange text-zinc-50 sm:mt-24">
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-14 sm:flex-row sm:items-center sm:justify-between sm:gap-10"
+  >
+    <div>
+      <p
+        class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-50/80"
+      >
+        {t("page.programma.eyebrow")}
+      </p>
+      <h2 class="mt-2 font-display text-3xl leading-tight sm:text-4xl">
+        {format(t("page.programma.heading"), { season: SEASON })}
+      </h2>
+      <p class="mt-3 max-w-xl text-sm text-zinc-50/80">
+        {t("page.programma.soon")}
+      </p>
+    </div>
+    <a
+      href={programmaHref}
+      class="inline-flex shrink-0 items-center gap-2 self-start border border-zinc-50/50 px-6 py-3 text-sm font-semibold transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950 sm:self-auto"
+    >
+      {t("home.program.cta")}
+      <span aria-hidden="true">→</span>
+    </a>
+  </div>
+</section>

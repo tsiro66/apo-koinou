@@ -1,9 +1,9 @@
 // @ts-check
-import { defineConfig } from 'astro/config';
-import tailwindcss from '@tailwindcss/vite';
-import sitemap from '@astrojs/sitemap';
-import { readdir, readFile, rm } from 'node:fs/promises';
-import { extname, join } from 'node:path';
+import { defineConfig } from "astro/config";
+import tailwindcss from "@tailwindcss/vite";
+import sitemap from "@astrojs/sitemap";
+import { readdir, readFile, rm } from "node:fs/promises";
+import { extname, join } from "node:path";
 
 /**
  * The content layer's image() helper always emits the ORIGINAL source file
@@ -18,23 +18,23 @@ import { extname, join } from 'node:path';
  * are never touched.
  */
 const PRUNABLE_IMAGE_EXTS = new Set([
-  '.jpg',
-  '.jpeg',
-  '.png',
-  '.webp',
-  '.avif',
-  '.gif',
-  '.tiff',
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".webp",
+  ".avif",
+  ".gif",
+  ".tiff",
 ]);
 
 function pruneUnreferencedOriginals() {
   /** @type {import('astro').AstroIntegration} */
   const integration = {
-    name: 'prune-unreferenced-originals',
+    name: "prune-unreferenced-originals",
     hooks: {
-      'astro:build:done': async ({ dir, logger }) => {
+      "astro:build:done": async ({ dir, logger }) => {
         const distDir = new URL(dir).pathname;
-        const astroDir = join(distDir, '_astro');
+        const astroDir = join(distDir, "_astro");
         if (!(await readdir(astroDir).catch(() => undefined))) return;
 
         // Collect every "/_astro/<name>" string from all emitted text files
@@ -42,15 +42,15 @@ function pruneUnreferencedOriginals() {
         // references fonts — sitemap XML, JSON): that is every way a hashed
         // asset can be referenced at runtime.
         const TEXT_EXTS = new Set([
-          '.html',
-          '.css',
-          '.js',
-          '.mjs',
-          '.xml',
-          '.json',
-          '.txt',
-          '.svg',
-          '.webmanifest',
+          ".html",
+          ".css",
+          ".js",
+          ".mjs",
+          ".xml",
+          ".json",
+          ".txt",
+          ".svg",
+          ".webmanifest",
         ]);
         const referenced = new Set();
         const REFERENCE_RE = /\/_astro\/[^"'\s)<>\\]+/g;
@@ -64,10 +64,10 @@ function pruneUnreferencedOriginals() {
               continue;
             }
             if (!TEXT_EXTS.has(extname(entry.name).toLowerCase())) continue;
-            const text = await readFile(full, 'utf8').catch(() => undefined);
+            const text = await readFile(full, "utf8").catch(() => undefined);
             if (text === undefined) continue;
             for (const match of text.matchAll(REFERENCE_RE)) {
-              referenced.add(match[0].slice('/_astro/'.length));
+              referenced.add(match[0].slice("/_astro/".length));
             }
           }
         };
@@ -80,7 +80,8 @@ function pruneUnreferencedOriginals() {
           if (!PRUNABLE_IMAGE_EXTS.has(extname(name).toLowerCase())) continue;
           if (referenced.has(name)) continue;
           const full = join(astroDir, name);
-          bytes += (await readFile(full).catch(() => undefined))?.byteLength ?? 0;
+          bytes +=
+            (await readFile(full).catch(() => undefined))?.byteLength ?? 0;
           await rm(full, { force: true });
           count += 1;
         }
@@ -97,17 +98,17 @@ function pruneUnreferencedOriginals() {
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://apo-koinou.gr',
+  site: "https://apo-koinou.gr",
   integrations: [sitemap(), pruneUnreferencedOriginals()],
   // Fetch internal pages before the click so ClientRouter swaps instantly.
   // All links are few and pages are small static HTML, so viewport is safe.
   prefetch: {
     prefetchAll: true,
-    defaultStrategy: 'viewport',
+    defaultStrategy: "viewport",
   },
   i18n: {
-    defaultLocale: 'el',
-    locales: ['el', 'en'],
+    defaultLocale: "el",
+    locales: ["el", "en"],
     routing: {
       prefixDefaultLocale: false,
     },

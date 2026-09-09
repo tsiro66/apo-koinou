@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import ProductionMaterial from '../../../../sections/ProductionMaterial.astro';
+import { getCollection } from "astro:content";
+import ProductionMaterial from "../../../../sections/ProductionMaterial.astro";
 
 export async function getStaticPaths() {
-  const plays = await getCollection('parastaseis', ({ data }) => !data.draft);
+  const plays = await getCollection("parastaseis", ({ data }) => !data.draft);
   return plays.map((play) => ({
     params: { slug: play.id },
     props: { play },

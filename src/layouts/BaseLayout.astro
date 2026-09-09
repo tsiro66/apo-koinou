@@ -1,10 +1,10 @@
 ---
-import '../styles/global.css';
-import ClientRouter from 'astro/components/ClientRouter.astro';
-import SEO from '../components/SEO.astro';
-import Navbar from '../components/Navbar.astro';
-import Footer from '../components/Footer.astro';
-import { getLocaleFromUrl, useTranslations } from '../i18n/utils';
+import "../styles/global.css";
+import ClientRouter from "astro/components/ClientRouter.astro";
+import SEO from "../components/SEO.astro";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
+import { getLocaleFromUrl, useTranslations } from "../i18n/utils";
 
 interface Props {
   title: string;
@@ -15,11 +15,20 @@ interface Props {
   imageHeight?: number;
   /** Locale-neutral path; prefixed with /en automatically for the EN variant. */
   canonicalPath?: string;
-  type?: 'website' | 'article';
+  type?: "website" | "article";
   /** Page manages its own vertical padding (full-bleed hero/bands). */
   flush?: boolean;
 }
-const { title, description, image, imageWidth, imageHeight, canonicalPath, type, flush } = Astro.props;
+const {
+  title,
+  description,
+  image,
+  imageWidth,
+  imageHeight,
+  canonicalPath,
+  type,
+  flush,
+} = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
@@ -48,13 +57,10 @@ const t = useTranslations(locale);
       href="#main"
       class="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-[60] focus:bg-zinc-950 focus:px-3 focus:py-1 focus:text-zinc-50"
     >
-      {t('common.skip_to_content')}
+      {t("common.skip_to_content")}
     </a>
     <Navbar />
-    <main
-      id="main"
-      class:list={['flex-1 px-4', flush ? 'py-0' : 'py-12']}
-    >
+    <main id="main" class:list={["flex-1 px-4", flush ? "py-0" : "py-12"]}>
       <slot />
     </main>
     <Footer />

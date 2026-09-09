@@ -1,17 +1,22 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { render } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import StreamPlayer from '../components/StreamPlayer.astro';
-import ProductionHero from '../components/ProductionHero.astro';
-import ProductionSection from '../components/ProductionSection.astro';
-import ProductionFacts from '../components/ProductionFacts.astro';
-import { BRAND } from '../consts';
-import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail, getPhotos, getVideoId, ogSrc } from '../utils/media';
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import StreamPlayer from "../components/StreamPlayer.astro";
+import ProductionHero from "../components/ProductionHero.astro";
+import ProductionSection from "../components/ProductionSection.astro";
+import ProductionFacts from "../components/ProductionFacts.astro";
+import { BRAND } from "../consts";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+  formatDate,
+} from "../i18n/utils";
+import { getThumbnail, getPhotos, getVideoId, ogSrc } from "../utils/media";
 
 interface Props {
-  play: CollectionEntry<'parastaseis'>;
+  play: CollectionEntry<"parastaseis">;
 }
 const { play } = Astro.props;
 const { Content } = await render(play);
@@ -23,23 +28,18 @@ const brand = BRAND[locale];
 const canonicalPath = `/parastaseis/${play.id}`;
 const ylikoPath = localizedPath(`${canonicalPath}/yliko`, locale);
 
-const formatDate = (date: Date) =>
-  date.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
-
 // Section visibility: render a section (and its button) only when it has data.
 const hasCrew = d.crew.length > 0;
 const hasCast = d.cast.length > 0;
 const hasPlaceTime = d.performances.length > 0 || !!d.premiereDate;
 
 const buttons = [
-  { href: '#theatriko-ergo', label: t('prod.section.play') },
-  ...(hasCrew ? [{ href: '#syntelestes', label: t('prod.crew_section') }] : []),
-  ...(hasCast ? [{ href: '#dianomi', label: t('prod.section.cast') }] : []),
-  ...(hasPlaceTime ? [{ href: '#topos-chronos', label: t('prod.section.place_time') }] : []),
+  { href: "#theatriko-ergo", label: t("prod.section.play") },
+  ...(hasCrew ? [{ href: "#syntelestes", label: t("prod.crew_section") }] : []),
+  ...(hasCast ? [{ href: "#dianomi", label: t("prod.section.cast") }] : []),
+  ...(hasPlaceTime
+    ? [{ href: "#topos-chronos", label: t("prod.section.place_time") }]
+    : []),
 ];
 
 // Placeholder Bunny IDs ("TODO") must not render a broken video player.
@@ -49,30 +49,62 @@ const videoId = getVideoId(d);
 const photos = getPhotos(d);
 const stats = [
   ...(photos.length > 0
-    ? [{ href: `${ylikoPath}#fotografies`, label: t('prod.gallery_section'), count: photos.length }]
+    ? [
+        {
+          href: `${ylikoPath}#fotografies`,
+          label: t("prod.gallery_section"),
+          count: photos.length,
+        },
+      ]
     : []),
   ...(d.youtubeTrailer
-    ? [{ href: `${ylikoPath}#treiler`, label: t('prod.trailer_section'), count: 1 }]
+    ? [
+        {
+          href: `${ylikoPath}#treiler`,
+          label: t("prod.trailer_section"),
+          count: 1,
+        },
+      ]
     : []),
   ...(d.invitation.length > 0
-    ? [{ href: `${ylikoPath}#prosklisi`, label: t('prod.invitation'), count: d.invitation.length }]
+    ? [
+        {
+          href: `${ylikoPath}#prosklisi`,
+          label: t("prod.invitation"),
+          count: d.invitation.length,
+        },
+      ]
     : []),
   ...(d.program.length > 0
-    ? [{ href: `${ylikoPath}#programma`, label: t('prod.program'), count: d.program.length }]
+    ? [
+        {
+          href: `${ylikoPath}#programma`,
+          label: t("prod.program"),
+          count: d.program.length,
+        },
+      ]
     : []),
-  ...(d.poster ? [{ href: `${ylikoPath}#afisa`, label: t('prod.poster'), count: 1 }] : []),
+  ...(d.poster
+    ? [{ href: `${ylikoPath}#afisa`, label: t("prod.poster"), count: 1 }]
+    : []),
   ...(d.kritikes.length > 0
-    ? [{ href: `${ylikoPath}#kritikes`, label: t('prod.reviews'), count: d.kritikes.length }]
+    ? [
+        {
+          href: `${ylikoPath}#kritikes`,
+          label: t("prod.reviews"),
+          count: d.kritikes.length,
+        },
+      ]
     : []),
 ];
 
 // Alternating full-bleed bands, in render order.
 const orderedSections = [
-  'theatriko-ergo',
-  ...(hasCrew ? ['syntelestes'] : []),
-  ...(hasCast ? ['dianomi'] : []),
-  ...(hasPlaceTime ? ['topos-chronos'] : []),
-  ...(videoId ? ['parastasi'] : []),
+  "theatriko-ergo",
+  ...(hasCrew ? ["syntelestes"] : []),
+  ...(hasCast ? ["dianomi"] : []),
+  ...(hasPlaceTime ? ["topos-chronos"] : []),
+  ...(videoId ? ["parastasi"] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 
@@ -81,15 +113,24 @@ const ogImg = d.seoImage ?? getThumbnail(d);
 const og = ogImg ? await ogSrc(ogImg) : undefined;
 
 const playFacts = [
-  { label: t('prod.field.title'), value: d.title },
-  ...(d.writer ? [{ label: t('prod.writer'), value: d.writer }] : []),
+  { label: t("prod.field.title"), value: d.title },
+  ...(d.writer ? [{ label: t("prod.writer"), value: d.writer }] : []),
 ];
 
-const placeTimeFacts = d.performances.length > 0
-  ? d.performances.map((p) => ({ label: formatDate(p.date), value: p.venue }))
-  : d.premiereDate
-    ? [{ label: t('prod.premiere'), value: formatDate(d.premiereDate) }]
-    : [];
+const placeTimeFacts =
+  d.performances.length > 0
+    ? d.performances.map((p) => ({
+        label: formatDate(p.date, locale),
+        value: p.venue,
+      }))
+    : d.premiereDate
+      ? [
+          {
+            label: t("prod.premiere"),
+            value: formatDate(d.premiereDate, locale),
+          },
+        ]
+      : [];
 ---
 
 <BaseLayout
@@ -106,7 +147,7 @@ const placeTimeFacts = d.performances.length > 0
     <ProductionHero
       play={play}
       buttons={buttons}
-      watchNowHref={videoId ? '#parastasi' : undefined}
+      watchNowHref={videoId ? "#parastasi" : undefined}
     />
 
     <!-- Υλικό: quiet inline row right below the hero, on white — the
@@ -115,7 +156,7 @@ const placeTimeFacts = d.performances.length > 0
       stats.length > 0 && (
         <div class="mx-auto mt-8 flex max-w-6xl flex-wrap items-baseline gap-x-5 gap-y-2">
           <span class="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
-            {t('prod.yliko')}
+            {t("prod.yliko")}
           </span>
           {stats.map((s) => (
             <a
@@ -131,9 +172,17 @@ const placeTimeFacts = d.performances.length > 0
     }
 
     <div class="mt-6">
-      <ProductionSection id="theatriko-ergo" title={t('prod.section.play')} band={band('theatriko-ergo')}>
+      <ProductionSection
+        id="theatriko-ergo"
+        title={t("prod.section.play")}
+        band={band("theatriko-ergo")}
+      >
         <ProductionFacts facts={playFacts} />
-        {d.summary && <p class="mt-6 leading-relaxed text-zinc-950/80">{d.summary}</p>}
+        {
+          d.summary && (
+            <p class="mt-6 leading-relaxed text-zinc-950/80">{d.summary}</p>
+          )
+        }
         {
           play.body?.trim() && (
             <div class="prose mt-6 max-w-none">
@@ -145,17 +194,30 @@ const placeTimeFacts = d.performances.length > 0
 
       {
         hasCrew && (
-          <ProductionSection id="syntelestes" title={t('prod.crew_section')} band={band('syntelestes')}>
-            <ProductionFacts facts={d.crew.map((c) => ({ label: c.role, value: c.name }))} />
+          <ProductionSection
+            id="syntelestes"
+            title={t("prod.crew_section")}
+            band={band("syntelestes")}
+          >
+            <ProductionFacts
+              facts={d.crew.map((c) => ({ label: c.role, value: c.name }))}
+            />
           </ProductionSection>
         )
       }
 
       {
         hasCast && (
-          <ProductionSection id="dianomi" title={t('prod.section.cast')} band={band('dianomi')}>
+          <ProductionSection
+            id="dianomi"
+            title={t("prod.section.cast")}
+            band={band("dianomi")}
+          >
             <ProductionFacts
-              facts={d.cast.map((c) => ({ label: c.role ?? '', value: c.name }))}
+              facts={d.cast.map((c) => ({
+                label: c.role ?? "",
+                value: c.name,
+              }))}
             />
           </ProductionSection>
         )
@@ -163,7 +225,11 @@ const placeTimeFacts = d.performances.length > 0
 
       {
         hasPlaceTime && (
-          <ProductionSection id="topos-chronos" title={t('prod.section.place_time')} band={band('topos-chronos')}>
+          <ProductionSection
+            id="topos-chronos"
+            title={t("prod.section.place_time")}
+            band={band("topos-chronos")}
+          >
             <ProductionFacts facts={placeTimeFacts} />
           </ProductionSection>
         )
@@ -171,7 +237,11 @@ const placeTimeFacts = d.performances.length > 0
 
       {
         videoId && (
-          <ProductionSection id="parastasi" title={t('prod.stream_section')} band={band('parastasi')}>
+          <ProductionSection
+            id="parastasi"
+            title={t("prod.stream_section")}
+            band={band("parastasi")}
+          >
             <StreamPlayer videoId={videoId} title={d.title} />
           </ProductionSection>
         )

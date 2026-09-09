@@ -1,9 +1,9 @@
 ---
-import { getCollection } from 'astro:content';
-import NewsDetail from '../../sections/NewsDetail.astro';
+import { getCollection } from "astro:content";
+import NewsDetail from "../../sections/NewsDetail.astro";
 
 export async function getStaticPaths() {
-  const posts = await getCollection('nea');
+  const posts = await getCollection("nea");
   return posts.map((post) => ({
     params: { slug: post.id },
     props: { post },

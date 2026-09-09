@@ -1,18 +1,22 @@
 ---
-import { getCollection } from 'astro:content';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import SectionTitle from '../components/SectionTitle.astro';
-import PlayCard from '../components/PlayCard.astro';
-import PlayFilters from '../components/PlayFilters.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { normalizeText } from '../utils/text';
+import { getCollection } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import PlayCard from "../components/PlayCard.astro";
+import PlayFilters from "../components/PlayFilters.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+} from "../i18n/utils";
+import { normalizeText } from "../utils/text";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
 const plays = (
-  await getCollection('parastaseis', ({ data }) => !data.draft)
+  await getCollection("parastaseis", ({ data }) => !data.draft)
 ).sort((a, b) => b.data.year - a.data.year);
 
 // Filter facets derived from the collection — never hardcoded.
@@ -21,16 +25,24 @@ const writers = [
   ...new Set(
     plays.map((p) => p.data.writer).filter((w): w is string => Boolean(w)),
   ),
-].sort((a, b) => a.localeCompare(b, 'el'));
+].sort((a, b) => a.localeCompare(b, "el"));
 
-const home = localizedPath('/', locale);
+const home = localizedPath("/", locale);
 ---
 
-<BaseLayout title={t('page.parastaseis.title')} canonicalPath="/parastaseis">
+<BaseLayout title={t("page.parastaseis.title")} canonicalPath="/parastaseis">
   <div class="mx-auto max-w-6xl">
-    <Breadcrumbs crumbs={[{ label: t('nav.home'), href: home }, { label: t('page.parastaseis.title') }]} />
+    <Breadcrumbs
+      crumbs={[
+        { label: t("nav.home"), href: home },
+        { label: t("page.parastaseis.title") },
+      ]}
+    />
     <div class="mt-6">
-      <SectionTitle eyebrow={t('page.parastaseis.eyebrow')} title={t('page.parastaseis.title')} />
+      <SectionTitle
+        eyebrow={t("page.parastaseis.eyebrow")}
+        title={t("page.parastaseis.title")}
+      />
     </div>
     {
       plays.length > 0 ? (
@@ -38,15 +50,22 @@ const home = localizedPath('/', locale);
           <div class="mt-10">
             <PlayFilters years={years} writers={writers} total={plays.length} />
           </div>
-          <div data-plays-grid class="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          <div
+            data-plays-grid
+            class="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3"
+          >
             {plays.map((play) => (
               <div
                 data-play
                 data-year={play.data.year}
-                data-writer={play.data.writer ?? ''}
+                data-writer={play.data.writer ?? ""}
                 data-title={normalizeText(play.data.title)}
                 data-search={normalizeText(
-                  [play.data.title, play.data.writer ?? '', play.data.summary ?? ''].join(' '),
+                  [
+                    play.data.title,
+                    play.data.writer ?? "",
+                    play.data.summary ?? "",
+                  ].join(" "),
                 )}
               >
                 <PlayCard play={play} />
@@ -54,11 +73,11 @@ const home = localizedPath('/', locale);
             ))}
           </div>
           <p data-plays-empty hidden class="mt-10 text-zinc-600">
-            {t('filter.empty')}
+            {t("filter.empty")}
           </p>
         </>
       ) : (
-        <p class="mt-10 text-zinc-600">{t('empty.parastaseis')}</p>
+        <p class="mt-10 text-zinc-600">{t("empty.parastaseis")}</p>
       )
     }
   </div>

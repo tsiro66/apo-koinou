@@ -5,10 +5,14 @@
 // Breadcrumbs overlay the photo just below the transparent navbar. The
 // navbar flips to solid as the photo exits (data-hero contract; the
 // server-rendered data-mode default lives in Navbar.astro).
-import type { CollectionEntry } from 'astro:content';
-import { Image } from 'astro:assets';
-import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { getThumbnail } from '../utils/media';
+import type { CollectionEntry } from "astro:content";
+import { Image } from "astro:assets";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+} from "../i18n/utils";
+import { getThumbnail } from "../utils/media";
 
 export interface HeaderButton {
   href: string;
@@ -16,7 +20,7 @@ export interface HeaderButton {
 }
 
 interface Props {
-  play: CollectionEntry<'parastaseis'>;
+  play: CollectionEntry<"parastaseis">;
   buttons?: HeaderButton[];
   /** Anchor to the stream section; renders the Watch now button. */
   watchNowHref?: string;
@@ -26,7 +30,14 @@ interface Props {
   /** Small label above the title (Υλικό page: "Υλικό"). */
   eyebrow?: string;
 }
-const { play, buttons = [], watchNowHref, backHref, backLabel, eyebrow } = Astro.props;
+const {
+  play,
+  buttons = [],
+  watchNowHref,
+  backHref,
+  backLabel,
+  eyebrow,
+} = Astro.props;
 const d = play.data;
 const thumb = getThumbnail(d);
 const locale = getLocaleFromUrl(Astro.url);
@@ -76,17 +87,20 @@ const t = useTranslations(locale);
   <nav aria-label="Breadcrumb" class="absolute left-4 top-16 z-10 sm:left-6">
     <ol class="flex flex-wrap items-center gap-1 text-sm text-zinc-50/70">
       <li>
-        <a href={localizedPath('/', locale)} class="transition hover:text-zinc-50">
-          {t('nav.home')}
+        <a
+          href={localizedPath("/", locale)}
+          class="transition hover:text-zinc-50"
+        >
+          {t("nav.home")}
         </a>
       </li>
       <li aria-hidden="true" class="text-zinc-50/40">/</li>
       <li>
         <a
-          href={localizedPath('/parastaseis', locale)}
+          href={localizedPath("/parastaseis", locale)}
           class="transition hover:text-zinc-50"
         >
-          {t('page.parastaseis.title')}
+          {t("page.parastaseis.title")}
         </a>
       </li>
     </ol>
@@ -95,7 +109,9 @@ const t = useTranslations(locale);
   <!-- Overlaid caption: back link (Υλικό only), title, actions. Buttons
        reuse the home hero's hover language (white hairline chips on the
        photo, orange fills only for the primary Watch now). -->
-  <div class="relative z-10 flex w-full flex-col gap-4 px-4 pb-6 sm:px-6 sm:pb-8">
+  <div
+    class="relative z-10 flex w-full flex-col gap-4 px-4 pb-6 sm:px-6 sm:pb-8"
+  >
     {
       backHref && (
         <a
@@ -114,20 +130,25 @@ const t = useTranslations(locale);
         </p>
       )
     }
-    <h1 class="font-display text-4xl leading-tight text-balance text-zinc-50 sm:text-5xl">
+    <h1
+      class="font-display text-4xl leading-tight text-balance text-zinc-50 sm:text-5xl"
+    >
       {d.title}
       <span class="font-normal text-zinc-50/60"> ({d.year})</span>
     </h1>
 
     {
       (watchNowHref || buttons.length > 0) && (
-        <nav aria-label={d.title} class="mt-1 flex flex-wrap items-center gap-2">
+        <nav
+          aria-label={d.title}
+          class="mt-1 flex flex-wrap items-center gap-2"
+        >
           {watchNowHref && (
             <a
               href={watchNowHref}
               class="bg-orange px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
             >
-              {t('prod.watch_now')}
+              {t("prod.watch_now")}
             </a>
           )}
           {buttons.map((b) => (

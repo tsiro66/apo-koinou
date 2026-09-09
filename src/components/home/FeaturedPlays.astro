@@ -1,0 +1,45 @@
+---
+import type { CollectionEntry } from "astro:content";
+import SectionTitle from "../SectionTitle.astro";
+import PlayCard from "../PlayCard.astro";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+} from "../../i18n/utils";
+
+interface Props {
+  /** The newest productions, already sorted. */
+  plays: CollectionEntry<"parastaseis">[];
+}
+const { plays } = Astro.props;
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const parastaseisHref = localizedPath("/parastaseis", locale);
+---
+
+{
+  plays.length > 0 && (
+    <section class="mx-auto mt-16 max-w-6xl sm:mt-24">
+      <div class="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
+        <SectionTitle
+          eyebrow={t("home.featured.eyebrow")}
+          title={t("home.featured.heading")}
+        />
+        <a
+          href={parastaseisHref}
+          class="inline-flex shrink-0 items-center gap-2 pb-1 text-sm font-semibold text-zinc-950 transition hover:text-orange"
+        >
+          {t("home.featured.all")}
+          <span aria-hidden="true">→</span>
+        </a>
+      </div>
+      <div class="mt-8 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+        {plays.map((play) => (
+          <PlayCard play={play} />
+        ))}
+      </div>
+    </section>
+  )
+}

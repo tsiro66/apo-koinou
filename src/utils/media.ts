@@ -1,6 +1,6 @@
-import type { CollectionEntry } from 'astro:content';
-import { getImage } from 'astro:assets';
-import type { ImageMetadata } from 'astro';
+import type { CollectionEntry } from "astro:content";
+import { getImage } from "astro:assets";
+import type { ImageMetadata } from "astro";
 
 /** Longest-edge cap for lightbox "full view" images. 1920px covers any
  *  screen without shipping the multi-megabyte camera originals. */
@@ -16,7 +16,7 @@ export async function lightboxSrc(img: ImageMetadata): Promise<string> {
   const out = await getImage({
     src: img,
     ...(landscape ? { width: edge } : { height: edge }),
-    format: 'webp',
+    format: "webp",
   });
   return out.src;
 }
@@ -35,10 +35,14 @@ export async function ogSrc(img: ImageMetadata): Promise<{
     src: img,
     width: 1200,
     height: 630,
-    fit: 'cover',
-    format: 'jpeg',
+    fit: "cover",
+    format: "jpeg",
   });
-  return { src: out.src, width: out.attributes.width, height: out.attributes.height };
+  return {
+    src: out.src,
+    width: out.attributes.width,
+    height: out.attributes.height,
+  };
 }
 
 /**
@@ -48,7 +52,7 @@ export async function ogSrc(img: ImageMetadata): Promise<{
  * the preferred photo first.
  */
 export const getThumbnail = (
-  d: CollectionEntry<'parastaseis'>['data'],
+  d: CollectionEntry<"parastaseis">["data"],
 ): ImageMetadata | undefined => d.thumbnail ?? d.gallery[0];
 
 /**
@@ -57,9 +61,9 @@ export const getThumbnail = (
  * or a Watch-now button.
  */
 export const getVideoId = (
-  d: CollectionEntry<'parastaseis'>['data'],
+  d: CollectionEntry<"parastaseis">["data"],
 ): string | undefined =>
-  d.videoId && !d.videoId.trim().toUpperCase().startsWith('TODO')
+  d.videoId && !d.videoId.trim().toUpperCase().startsWith("TODO")
     ? d.videoId
     : undefined;
 
@@ -68,7 +72,7 @@ export const getVideoId = (
  * gallery (minus the thumbnail, so it is never shown twice).
  */
 export const getPhotos = (
-  d: CollectionEntry<'parastaseis'>['data'],
+  d: CollectionEntry<"parastaseis">["data"],
 ): ImageMetadata[] => {
   const thumb = getThumbnail(d);
   const seen = new Set<string>(thumb ? [thumb.src] : []);

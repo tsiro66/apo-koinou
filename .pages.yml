@@ -26,7 +26,7 @@ content:
     label: Παραστάσεις
     path: src/content/parastaseis
     type: collection
-    filename: '{fields.slug}.md'
+    filename: "{fields.slug}.md"
     view:
       fields: [thumbnail, title, year, draft]
       primary: title
@@ -44,7 +44,7 @@ content:
         type: string
         required: true
         description: Μόνο λατινικοί χαρακτήρες και παύλες, π.χ. panigyri. Χρησιμοποιείται ως όνομα αρχείου και URL.
-        pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
       - name: year
         label: Έτος
         type: number
@@ -153,7 +153,7 @@ content:
     label: Νέα
     path: src/content/nea
     type: collection
-    filename: '{fields.slug}.md'
+    filename: "{fields.slug}.md"
     view:
       fields: [thumbnail, title, publishDate]
       primary: title
@@ -171,7 +171,7 @@ content:
         type: string
         required: true
         description: Μόνο λατινικοί χαρακτήρες και παύλες. Χρησιμοποιείται ως όνομα αρχείου και URL.
-        pattern: '^[a-z0-9]+(?:-[a-z0-9]+)*$'
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
       - name: publishDate
         label: Ημερομηνία δημοσίευσης
         type: date

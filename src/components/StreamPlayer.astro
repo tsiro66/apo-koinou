@@ -1,15 +1,16 @@
 ---
 // Embeds a Bunny Stream video. The video ID lives only in frontmatter,
 // never hardcoded in pages. Uses the official iframe embed.
-import { BUNNY_LIBRARY_ID } from '../consts';
-import { getLocaleFromUrl, useTranslations } from '../i18n/utils';
+import { BUNNY_LIBRARY_ID } from "../consts";
+import { getLocaleFromUrl, useTranslations } from "../i18n/utils";
 
 interface Props {
   videoId: string;
   title?: string;
 }
 const { videoId, title } = Astro.props;
-const videoTitle = title ?? useTranslations(getLocaleFromUrl(Astro.url))('prod.stream_default');
+const videoTitle =
+  title ?? useTranslations(getLocaleFromUrl(Astro.url))("prod.stream_default");
 // Bunny Stream iframe syntax:
 // https://iframe.mediadelivery.net/embed/<libraryId>/<videoId>
 // The library ID is site-wide (consts.ts); videoId is the per-video GUID.
@@ -25,6 +26,5 @@ const src = `https://iframe.mediadelivery.net/embed/${BUNNY_LIBRARY_ID}/${videoI
     allow="accelerometer; gyroscope; encrypted-media; picture-in-picture; fullscreen"
     allowfullscreen
     class="aspect-video w-full"
-    loading="lazy"
-  ></iframe>
+    loading="lazy"></iframe>
 </div>

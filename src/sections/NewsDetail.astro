@@ -1,15 +1,20 @@
 ---
-import type { CollectionEntry } from 'astro:content';
-import { render } from 'astro:content';
-import { Image } from 'astro:assets';
-import BaseLayout from '../layouts/BaseLayout.astro';
-import Breadcrumbs from '../components/Breadcrumbs.astro';
-import { BRAND } from '../consts';
-import { getLocaleFromUrl, useTranslations, localizedPath } from '../i18n/utils';
-import { ogSrc } from '../utils/media';
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { Image } from "astro:assets";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import { BRAND } from "../consts";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+  formatDate,
+} from "../i18n/utils";
+import { ogSrc } from "../utils/media";
 
 interface Props {
-  post: CollectionEntry<'nea'>;
+  post: CollectionEntry<"nea">;
 }
 const { post } = Astro.props;
 const { Content } = await render(post);
@@ -19,11 +24,7 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const brand = BRAND[locale];
 
-const pub = d.publishDate.toLocaleDateString(locale === 'en' ? 'en-GB' : 'el-GR', {
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
+const pub = formatDate(d.publishDate, locale);
 
 // og:image: optimized 1200×630 JPEG, never the raw original.
 const og = d.thumbnail ? await ogSrc(d.thumbnail) : undefined;
@@ -41,8 +42,8 @@ const og = d.thumbnail ? await ogSrc(d.thumbnail) : undefined;
   <article class="mx-auto max-w-6xl">
     <Breadcrumbs
       crumbs={[
-        { label: t('nav.home'), href: localizedPath('/', locale) },
-        { label: t('page.nea.title'), href: localizedPath('/nea', locale) },
+        { label: t("nav.home"), href: localizedPath("/", locale) },
+        { label: t("page.nea.title"), href: localizedPath("/nea", locale) },
         { label: d.title },
       ]}
     />
@@ -50,9 +51,18 @@ const og = d.thumbnail ? await ogSrc(d.thumbnail) : undefined;
       <p class="text-xs uppercase tracking-wider text-zinc-600">{pub}</p>
       <h1 class="mt-2 font-display text-4xl text-zinc-950">{d.title}</h1>
     </header>
-    {d.thumbnail && (
-      <Image src={d.thumbnail} alt={d.title} widths={[480, 768, 1024]} sizes="(min-width:768px) 768px, 100vw" class="mt-6 h-auto w-full border border-zinc-950/10" loading="eager" />
-    )}
+    {
+      d.thumbnail && (
+        <Image
+          src={d.thumbnail}
+          alt={d.title}
+          widths={[480, 768, 1024]}
+          sizes="(min-width:768px) 768px, 100vw"
+          class="mt-6 h-auto w-full border border-zinc-950/10"
+          loading="eager"
+        />
+      )
+    }
     <div class="prose mt-8 max-w-none">
       <Content />
     </div>
