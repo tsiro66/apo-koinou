@@ -72,8 +72,8 @@ const og = await ogSrc(heroBg);
   <!-- Hero: full-bleed photo carousel of the productions picked for the
        front page (newest first, max five; falls back to the most recent
        productions when none are picked).
-       No visible heading: the photography carries the hero, with only the
-       current production's name bottom-left. Runs the full viewport
+       No visible heading: the photography carries the hero, with only a
+       watch-now button bottom-right. Runs the full viewport
        height; the navbar overlays it in overlay mode and flips to solid
        as the hero exits. The first slide is eager + high fetch priority: it is the
        LCP element. The negative top margin pulls the photos up under the
@@ -151,48 +151,32 @@ const og = await ogSrc(heroBg);
     <!-- The site title stays as a screen-reader h1: the page keeps its
          document outline (and SEO signal) without covering the photos. -->
     <h1 class="sr-only">{t('site.title')}</h1>
-    <!-- Carousel chrome: the current production's name (linked to its
-         page) bottom-left, slide indicators centered below it; prev/next
+    <!-- Carousel chrome: a watch-now button (only for productions with
+         video) bottom-right, slide indicators centered below it; prev/next
          arrows sit at the screen edges. Hidden entirely when there is
          nothing to show. -->
     {
       heroSlides.length > 0 && (
         <div class="absolute inset-x-4 bottom-6 z-10 flex flex-col gap-4 sm:inset-x-6 sm:bottom-8">
-          <div class="grid w-full justify-items-center sm:max-w-md sm:justify-items-start">
+          <div class="grid w-full justify-items-end">
             {heroSlides.map(({ play }, i) => (
               <div
                 data-caption
                 aria-hidden={i !== 0}
                 class:list={[
-                  'hero-caption col-start-1 row-start-1 flex flex-col items-center gap-4 text-center sm:items-start sm:text-start',
+                  'hero-caption col-start-1 row-start-1 flex flex-col items-end',
                   { 'is-active': i === 0 },
                 ]}
               >
-                <a
-                  href={localizedPath(`/parastaseis/${play.id}`, locale)}
-                  tabindex={i === 0 ? undefined : -1}
-                  class="font-display text-2xl leading-tight text-balance text-zinc-50 underline-offset-4 hover:underline sm:text-4xl"
-                >
-                  {play.data.title}
-                </a>
-                <div class="flex flex-wrap justify-center gap-2 sm:justify-start">
+                {getVideoId(play.data) && (
                   <a
-                    href={localizedPath(`/parastaseis/${play.id}`, locale)}
+                    href={`${localizedPath(`/parastaseis/${play.id}`, locale)}#parastasi`}
                     tabindex={i === 0 ? undefined : -1}
-                    class="border border-zinc-50/50 px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:border-zinc-50 hover:bg-zinc-50 hover:text-zinc-950"
+                    class="bg-orange px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
                   >
-                    {t('home.hero.view_play')}
+                    {t('prod.watch_now')}
                   </a>
-                  {getVideoId(play.data) && (
-                    <a
-                      href={`${localizedPath(`/parastaseis/${play.id}`, locale)}#parastasi`}
-                      tabindex={i === 0 ? undefined : -1}
-                      class="bg-orange px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
-                    >
-                      {t('prod.watch_now')}
-                    </a>
-                  )}
-                </div>
+                )}
               </div>
             ))}
           </div>
@@ -423,8 +407,8 @@ const og = await ogSrc(heroBg);
           captions.forEach((c, k) => {
             c.classList.toggle("is-active", k === i);
             c.setAttribute("aria-hidden", String(k !== i));
-            // Every link inside the caption (name + buttons) follows its
-            // focusability, so hidden slides never trap the keyboard.
+            // Every link inside the caption follows its focusability, so
+            // hidden slides never trap the keyboard.
             c.querySelectorAll("a").forEach((a) => {
               if (k === i) a.removeAttribute("tabindex");
               else a.setAttribute("tabindex", "-1");
