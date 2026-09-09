@@ -14,6 +14,8 @@ thumbnail: ../../assets/parastaseis/678365546_1404602654805183_53129860518026255
 poster: ../../assets/parastaseis/αφισα Λιθογραφείο.jpg
 gallery:
   - ../../assets/parastaseis/ρινοκ24.jpg
+invitation:
+  - ../../assets/parastaseis/ρινοκ2.jpg
 carousel: false
 draft: false
 ---
