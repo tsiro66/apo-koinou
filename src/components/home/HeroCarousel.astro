@@ -172,6 +172,19 @@ const hasSlides = slides.length > 0;
   .hero-slide {
     opacity: 0;
     transition: opacity 1s ease-in-out;
+    /* The swipe drag drives transform/opacity from JS every frame. */
+    will-change: transform, opacity;
+  }
+  /* Swipe: horizontal gestures belong to the carousel while vertical
+     page scrolling stays native (touch-action: pan-y); photos must not
+     start a native drag, selection or iOS callout mid-gesture. */
+  section[data-carousel] {
+    touch-action: pan-y;
+    user-select: none;
+    -webkit-touch-callout: none;
+  }
+  section[data-carousel] img {
+    -webkit-user-drag: none;
   }
   .hero-slide.is-under {
     z-index: 1;
