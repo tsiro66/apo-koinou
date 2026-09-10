@@ -10,21 +10,27 @@ import {
   useTranslations,
   localizedPath,
 } from "../i18n/utils";
-import { getThumbnail, getPhotos, lightboxSrc } from "../utils/media";
+import { lightboxSrc } from "../utils/media";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Keep productions that have any photos (thumbnail or gallery).
-const plays = (await getCollection("parastaseis", ({ data }) => !data.draft))
-  .filter((p) => p.data.gallery.length > 0 || !!p.data.thumbnail)
-  .sort((a, b) => b.data.year - a.data.year);
+// Only plays whose editors uploaded Συλλογή-only photos (syllogiPhotos)
+// get a section here — the page deliberately never repeats the
+// production galleries of /parastaseis. Newest first, same order as
+// the archive page.
+const plays = (
+  await getCollection(
+    "parastaseis",
+    ({ data }) => !data.draft && data.syllogiPhotos.length > 0,
+  )
+).sort((a, b) => b.data.year - a.data.year);
 
 const home = localizedPath("/", locale);
 const photoWord = t("common.photo");
 
-// For each play, collect all its photos (effective thumbnail first, then
-// gallery) paired with an optimized lightbox URL (see lightboxSrc).
+// Each play's Συλλογή photos paired with an optimized lightbox URL
+// (see lightboxSrc).
 const groups = await Promise.all(
   plays.map(async (play) => ({
     href: localizedPath(`/parastaseis/${play.id}`, locale),
@@ -32,7 +38,7 @@ const groups = await Promise.all(
     year: play.data.year,
     director: play.data.director,
     photos: await Promise.all(
-      getPhotos(play.data).map(async (src) => ({
+      play.data.syllogiPhotos.map(async (src) => ({
         src,
         full: await lightboxSrc(src),
       })),

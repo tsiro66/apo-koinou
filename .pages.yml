@@ -110,6 +110,13 @@ content:
         options:
           media: parastaseis-media
           multiple: true
+      - name: syllogiPhotos
+        label: Φωτογραφίες Συλλογής
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+        description: Φωτογραφίες που εμφανίζονται ΜΟΝΟ στη σελίδα «Συλλογή» (/syllogi), όχι στη σελίδα της παράστασης. Αν το αφήσεις κενό, η παράσταση δεν εμφανίζεται στη Συλλογή.
       - name: invitation
         label: Πρόσκληση
         type: image
