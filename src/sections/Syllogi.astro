@@ -10,19 +10,21 @@ import {
   useTranslations,
   localizedPath,
 } from "../i18n/utils";
-import { lightboxSrc } from "../utils/media";
+import { getPhotos, lightboxSrc } from "../utils/media";
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Only plays whose editors uploaded Συλλογή-only photos (syllogiPhotos)
-// get a section here — the page deliberately never repeats the
-// production galleries of /parastaseis. Newest first, same order as
-// the archive page.
+// A play's Συλλογή photos: the dedicated syllogiPhotos set when the
+// editors uploaded one through the CMS, otherwise the play's regular
+// photos (thumbnail + gallery) — the section never renders empty.
+// Newest first, same order as the archive page.
 const plays = (
   await getCollection(
     "parastaseis",
-    ({ data }) => !data.draft && data.syllogiPhotos.length > 0,
+    ({ data }) =>
+      !data.draft &&
+      (data.syllogiPhotos.length > 0 || getPhotos(data).length > 0),
   )
 ).sort((a, b) => b.data.year - a.data.year);
 
@@ -32,18 +34,24 @@ const photoWord = t("common.photo");
 // Each play's Συλλογή photos paired with an optimized lightbox URL
 // (see lightboxSrc).
 const groups = await Promise.all(
-  plays.map(async (play) => ({
-    href: localizedPath(`/parastaseis/${play.id}`, locale),
-    title: play.data.title,
-    year: play.data.year,
-    director: play.data.director,
-    photos: await Promise.all(
-      play.data.syllogiPhotos.map(async (src) => ({
-        src,
-        full: await lightboxSrc(src),
-      })),
-    ),
-  })),
+  plays.map(async (play) => {
+    const sources =
+      play.data.syllogiPhotos.length > 0
+        ? play.data.syllogiPhotos
+        : getPhotos(play.data);
+    return {
+      href: localizedPath(`/parastaseis/${play.id}`, locale),
+      title: play.data.title,
+      year: play.data.year,
+      director: play.data.director,
+      photos: await Promise.all(
+        sources.map(async (src) => ({
+          src,
+          full: await lightboxSrc(src),
+        })),
+      ),
+    };
+  }),
 );
 ---
 

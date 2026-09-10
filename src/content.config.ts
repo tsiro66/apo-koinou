@@ -39,9 +39,10 @@ const parastaseisCollection = defineCollection({
       thumbnail: image().optional(),
       gallery: z.array(image()).default([]),
       // Συλλογή (/syllogi): photos shown ONLY on the Συλλογή page —
-      // never on the production page. Plays without syllogiPhotos get
-      // no section there, so the page never repeats the production
-      // galleries. Managed by the client through Pages CMS.
+      // never on the production page. A play without syllogiPhotos
+      // falls back to its regular photos (thumbnail + gallery) there,
+      // so the Συλλογή page is never empty. Managed by the client
+      // through Pages CMS.
       syllogiPhotos: z.array(image()).default([]),
       // Πρόσκληση (front/back scans) and Πρόγραμμα scans for the Υλικό page.
       invitation: z.array(image()).default([]),
