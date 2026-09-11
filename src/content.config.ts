@@ -38,12 +38,6 @@ const parastaseisCollection = defineCollection({
       youtubeTrailer: z.string().optional(),
       thumbnail: image().optional(),
       gallery: z.array(image()).default([]),
-      // Συλλογή (/syllogi): photos shown ONLY on the Συλλογή page —
-      // never on the production page. A play without syllogiPhotos
-      // falls back to its regular photos (thumbnail + gallery) there,
-      // so the Συλλογή page is never empty. Managed by the client
-      // through Pages CMS.
-      syllogiPhotos: z.array(image()).default([]),
       // Πρόσκληση (front/back scans) and Πρόγραμμα scans for the Υλικό page.
       invitation: z.array(image()).default([]),
       poster: image().optional(),
@@ -91,6 +85,24 @@ const repertorioCollection = defineCollection({
 });
 
 // ───────────────────────────────────────────────────────────────────────────
+// Συλλογή (/syllogi): photo sets shown ONLY on the Συλλογή page — never
+// on the production page. One entry per play, linked via the `reference`
+// field (stored as the play's slug); the filename derives from the chosen
+// play ({fields.play}), so entries carry no slug of their own. A play
+// without a dedicated set falls back to its regular photos (thumbnail +
+// gallery), so the Συλλογή page is never empty. Managed by the client
+// through Pages CMS.
+// ───────────────────────────────────────────────────────────────────────────
+const syllogiCollection = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/syllogi" }),
+  schema: ({ image }) =>
+    z.object({
+      play: z.string(),
+      photos: z.array(image()).default([]),
+    }),
+});
+
+// ───────────────────────────────────────────────────────────────────────────
 // Νέα (Announcements / news posts)
 // Minimal entry: title + image + markdown body. Pages CMS auto-fills
 // publishDate with today's date on creation.
@@ -122,6 +134,7 @@ const istoriaCollection = defineCollection({
 export const collections = {
   parastaseis: parastaseisCollection,
   repertorio: repertorioCollection,
+  syllogi: syllogiCollection,
   nea: neaCollection,
   istoria: istoriaCollection,
 };

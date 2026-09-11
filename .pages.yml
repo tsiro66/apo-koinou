@@ -110,13 +110,6 @@ content:
         options:
           media: parastaseis-media
           multiple: true
-      - name: syllogiPhotos
-        label: Φωτογραφίες Συλλογής
-        type: image
-        options:
-          media: parastaseis-media
-          multiple: true
-        description: Φωτογραφίες που εμφανίζονται ΜΟΝΟ στη σελίδα «Συλλογή» (/syllogi), όχι στη σελίδα της παράστασης. Αν το αφήσεις κενό, η Συλλογή εμφανίζει τις κανονικές Φωτογραφίες της παράστασης.
       - name: invitation
         label: Πρόσκληση
         type: image
@@ -254,6 +247,37 @@ content:
       - name: body
         label: Κείμενο
         type: rich-text
+
+  # ── Συλλογή ────────────────────────────────────────────────────────
+  # Photo sets shown ONLY on the /syllogi page. One entry per play —
+  # the filename derives from the chosen play, so entries carry no slug
+  # field. A play without a dedicated set falls back to its regular
+  # Φωτογραφίες, so the page is never empty.
+  - name: syllogi
+    label: Συλλογή
+    path: src/content/syllogi
+    type: collection
+    filename: "{fields.play}.md"
+    view:
+      fields: [play]
+      primary: play
+    fields:
+      - name: play
+        label: Παράσταση
+        type: reference
+        required: true
+        description: Επιλέξτε την παράσταση — το αρχείο ονομάζεται αυτόματα με το slug της.
+        options:
+          collection: parastaseis
+          value: "{name}"
+          label: "{primary}"
+      - name: photos
+        label: Φωτογραφίες
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+        description: Φωτογραφίες που εμφανίζονται ΜΟΝΟ στη σελίδα «Συλλογή» (/syllogi), όχι στη σελίδα της παράστασης. Αν η λίστα είναι κενή, η Συλλογή εμφανίζει τις κανονικές Φωτογραφίες της παράστασης.
 
   # ── Ιστορία ──────────────────────────────────────────────────────────
   # The history page's long-form text (Greek only). Single file managed

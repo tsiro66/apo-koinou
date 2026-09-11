@@ -15,18 +15,23 @@ import { getPhotos, lightboxSrc } from "../utils/media";
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// A play's Συλλογή photos: the dedicated syllogiPhotos set when the
-// editors uploaded one through the CMS, otherwise the play's regular
-// photos (thumbnail + gallery) — the section never renders empty.
-// Newest first, same order as the archive page.
+// A play's Συλλογή photos: the dedicated set from the `syllogi`
+// collection when the editors uploaded one through the CMS, otherwise
+// the play's regular photos (thumbnail + gallery) — the section never
+// renders empty. Newest first, same order as the archive page.
 const plays = (
-  await getCollection(
-    "parastaseis",
-    ({ data }) =>
-      !data.draft &&
-      (data.syllogiPhotos.length > 0 || getPhotos(data).length > 0),
-  )
+  await getCollection("parastaseis", ({ data }) => !data.draft)
 ).sort((a, b) => b.data.year - a.data.year);
+
+// Resolve a syllogi entry's `play` reference (bare slug or entry path)
+// to the play's id.
+const slugOf = (ref: string) => ref.split("/").pop()!.replace(/\.md$/, "");
+const photoSets = new Map(
+  (await getCollection("syllogi")).map((s) => [
+    slugOf(s.data.play),
+    s.data.photos,
+  ]),
+);
 
 const home = localizedPath("/", locale);
 const photoWord = t("common.photo");
@@ -35,10 +40,9 @@ const photoWord = t("common.photo");
 // (see lightboxSrc).
 const groups = await Promise.all(
   plays.map(async (play) => {
+    const dedicated = photoSets.get(play.id);
     const sources =
-      play.data.syllogiPhotos.length > 0
-        ? play.data.syllogiPhotos
-        : getPhotos(play.data);
+      dedicated && dedicated.length > 0 ? dedicated : getPhotos(play.data);
     return {
       href: localizedPath(`/parastaseis/${play.id}`, locale),
       title: play.data.title,
