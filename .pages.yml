@@ -21,325 +21,321 @@ media:
     output: ../../assets/logos
 
 content:
-  - name: content
-    label: Περιεχόμενο
-    type: group
-    items:
-      - name: parastaseis
-        label: Παραστάσεις
-        path: src/content/parastaseis
-        type: collection
-        filename: "{fields.slug}.md"
-        view:
-          fields: [thumbnail, title, year, draft]
-          primary: title
-          sort: [year]
-          default:
-            sort: year
-            order: desc
+  - name: parastaseis
+    label: Παραστάσεις
+    path: src/content/parastaseis
+    type: collection
+    filename: "{fields.slug}.md"
+    view:
+      fields: [thumbnail, title, year, draft]
+      primary: title
+      sort: [year]
+      default:
+        sort: year
+        order: desc
+    fields:
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: slug
+        label: Slug (URL)
+        type: string
+        required: true
+        description: Μόνο λατινικοί χαρακτήρες και παύλες, π.χ. panigyri. Χρησιμοποιείται ως όνομα αρχείου και URL.
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      - name: year
+        label: Έτος
+        type: number
+        required: true
+      - name: writer
+        label: Συγγραφέας
+        type: string
+      - name: summary
+        label: Περίληψη
+        type: text
+      - name: crew
+        label: Συντελεστές
+        description: Ρόλος + όνομα, π.χ. Σκηνοθεσία — Φώτης Λάζαρης.
+        type: object
+        list:
+          collapsible:
+            collapsed: true
         fields:
-          - name: title
-            label: Τίτλος
+          - name: role
+            label: Ρόλος
             type: string
             required: true
-          - name: slug
-            label: Slug (URL)
+          - name: name
+            label: Όνομα
             type: string
             required: true
-            description: Μόνο λατινικοί χαρακτήρες και παύλες, π.χ. panigyri. Χρησιμοποιείται ως όνομα αρχείου και URL.
-            pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-          - name: year
-            label: Έτος
-            type: number
-            required: true
-          - name: writer
-            label: Συγγραφέας
-            type: string
-          - name: summary
-            label: Περίληψη
-            type: text
-          - name: crew
-            label: Συντελεστές
-            description: Ρόλος + όνομα, π.χ. Σκηνοθεσία — Φώτης Λάζαρης.
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-            fields:
-              - name: role
-                label: Ρόλος
-                type: string
-                required: true
-              - name: name
-                label: Όνομα
-                type: string
-                required: true
-          - name: performances
-            label: Παραστάσεις (τόπος & χρόνος)
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-            fields:
-              - name: venue
-                label: Τόπος / Χώρος
-                type: string
-                required: true
-              - name: date
-                label: Χρόνος / Ημερομηνία
-                type: date
-                required: true
-          - name: videoId
-            label: Bunny Stream Video ID
-            type: string
-            description: GUID βίντεο από το Bunny Stream dashboard (πλήρη μαγνητοσκοπημένη παράσταση), π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb. Αν είναι TODO, αντικαταστήστε το.
-          - name: youtubeTrailer
-            label: Τρέιλερ (YouTube)
-            type: string
-            description: Το ID του βίντεο YouTube (π.χ. dQw4w9WgXcQ) ή ολόκληρο το link. Εμφανίζεται στη σελίδα Υλικό της παράστασης.
-          - name: thumbnail
-            label: Εικόνα εξωφύλλου
-            type: image
-            options:
-              media: parastaseis-media
-          - name: poster
-            label: Αφίσα
-            type: image
-            options:
-              media: parastaseis-media
-          - name: gallery
-            label: Φωτογραφίες
-            type: image
-            options:
-              media: parastaseis-media
-              multiple: true
-          - name: invitation
-            label: Πρόσκληση
-            type: image
-            options:
-              media: parastaseis-media
-              multiple: true
-          - name: program
-            label: Πρόγραμμα
-            type: image
-            options:
-              media: parastaseis-media
-              multiple: true
-          - name: kritikes
-            label: Κριτικές
-            type: object
-            description: Κριτικές από οργανισμούς, ΜΜΕ, κοινό κ.λπ.
-            list:
-              collapsible:
-                collapsed: true
-            fields:
-              - name: source
-                label: Πηγή
-                type: string
-                required: true
-              - name: text
-                label: Κείμενο κριτικής
-                type: text
-                required: true
-          - name: carousel
-            label: Καρουζέλ αρχικής σελίδας
-            type: boolean
-            default: false
-            description: Εμφάνιση της παράστασης στο καρουζέλ της αρχικής σελίδας (χρειάζεται εικόνα εξωφύλλου ή φωτογραφίες). Εμφανίζονται έως 5, οι πιο πρόσφατες πρώτα. Αν καμία δεν επιλεχθεί, μπαίνουν αυτόματα οι 5 πιο πρόσφατες.
-          - name: draft
-            label: Πρόχειρο (να μην δημοσιευτεί)
-            type: boolean
-            default: false
-
-      # ── Ρεπερτόριο ─────────────────────────────────────────────────────
-      # One entry per play currently in the season's repertoire. The entry
-      # links to a Παραστάσεις entry (relation dropdown, stored as the play's
-      # slug) and carries the season-specific content: text, summary and
-      # upcoming show dates. The filename is derived from the chosen play
-      # ({fields.play}), so entries don't need their own slug field.
-      - name: repertorio
-        label: Ρεπερτόριο
-        path: src/content/repertorio
-        type: collection
-        filename: "{fields.play}.md"
-        view:
-          fields: [play, draft]
-          primary: play
-          sort: [order]
-          default:
-            sort: order
-            order: asc
+      - name: performances
+        label: Παραστάσεις (τόπος & χρόνος)
+        type: object
+        list:
+          collapsible:
+            collapsed: true
         fields:
-          - name: play
-            label: Παράσταση
-            type: reference
-            required: true
-            description: Επιλέξτε την παράσταση από τις Παραστάσεις — τίτλος, εικόνα και συντελεστές έρχονται αυτόματα από εκεί. Το αρχείο ονομάζεται αυτόματα με το slug της παράστασης.
-            options:
-              collection: parastaseis
-              # Store the play's slug (e.g. "glaros"); display its title.
-              value: "{name}"
-              label: "{primary}"
-          - name: summary
-            label: Περίληψη ρεπερτορίου
-            type: text
-            description: Σύντομο κείμενο για τη σελίδα του ρεπερτορίου. Αν μείνει κενό, χρησιμοποιείται η Περίληψη της παράστασης.
-          - name: performances
-            label: Παραστάσεις (τόπος & χρόνος)
-            description: Οι επόμενες παραστάσεις της περιόδου — εμφανίζονται στη σελίδα Ρεπερτόριο, όχι στο αρχείο της παράστασης.
-            type: object
-            list:
-              collapsible:
-                collapsed: true
-            fields:
-              - name: venue
-                label: Τόπος / Χώρος
-                type: string
-                required: true
-              - name: date
-                label: Χρόνος / Ημερομηνία
-                type: date
-                required: true
-          - name: order
-            label: Σειρά εμφάνισης
-            type: number
-            description: Προαιρετικό — μικρότερος αριθμός εμφανίζεται πρώτος στη σελίδα Ρεπερτόριο. Χωρίς αριθμό, οι πιο πρόσφατες παραστάσεις πάνε πρώτες.
-          - name: draft
-            label: Πρόχειρο (να μην δημοσιευτεί)
-            type: boolean
-            default: false
-          - name: body
-            label: Κείμενο
-            type: rich-text
-            description: Το κείμενο για την παράσταση στη σελίδα του ρεπερτορίου.
-
-      # ── Επικοινωνία ─────────────────────────────────────────────────────
-      # The contact page's details (Greek only): lead text, email, phone
-      # and social links. Single file; creating/renaming/deleting disabled.
-      # Empty fields fall back to the site constants in src/consts.ts.
-      - name: nea
-        label: Νέα
-        path: src/content/nea
-        type: collection
-        filename: "{fields.slug}.md"
-        view:
-          fields: [thumbnail, title, publishDate]
-          primary: title
-          sort: [publishDate]
-          default:
-            sort: publishDate
-            order: desc
-        fields:
-          - name: title
-            label: Τίτλος
+          - name: venue
+            label: Τόπος / Χώρος
             type: string
             required: true
-          - name: slug
-            label: Slug (URL)
-            type: string
-            required: true
-            description: Μόνο λατινικοί χαρακτήρες και παύλες. Χρησιμοποιείται ως όνομα αρχείου και URL.
-            pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
-          - name: publishDate
-            label: Ημερομηνία δημοσίευσης
+          - name: date
+            label: Χρόνος / Ημερομηνία
             type: date
             required: true
-            description: Γεμίζει αυτόματα με τη σημερινή ημερομηνία — συνήθως δεν χρειάζεται αλλαγή.
-          - name: thumbnail
-            label: Εικόνα
-            type: image
-            options:
-              media: nea-media
-          - name: body
-            label: Κείμενο
-            type: rich-text
-
-      # ── Συλλογή ────────────────────────────────────────────────────────
-      # Photo sets shown ONLY on the /syllogi page. One entry per play —
-      # the filename derives from the chosen play, so entries carry no slug
-      # field. A play without a dedicated set falls back to its regular
-      # Φωτογραφίες, so the page is never empty.
-      - name: istoria
-        label: Ιστορία
-        path: src/content/istoria
-        type: collection
-        operations:
-          create: false
-          rename: false
-          delete: false
-        view:
-          primary: title
+      - name: videoId
+        label: Bunny Stream Video ID
+        type: string
+        description: GUID βίντεο από το Bunny Stream dashboard (πλήρη μαγνητοσκοπημένη παράσταση), π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb. Αν είναι TODO, αντικαταστήστε το.
+      - name: youtubeTrailer
+        label: Τρέιλερ (YouTube)
+        type: string
+        description: Το ID του βίντεο YouTube (π.χ. dQw4w9WgXcQ) ή ολόκληρο το link. Εμφανίζεται στη σελίδα Υλικό της παράστασης.
+      - name: thumbnail
+        label: Εικόνα εξωφύλλου
+        type: image
+        options:
+          media: parastaseis-media
+      - name: poster
+        label: Αφίσα
+        type: image
+        options:
+          media: parastaseis-media
+      - name: gallery
+        label: Φωτογραφίες
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+      - name: invitation
+        label: Πρόσκληση
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+      - name: program
+        label: Πρόγραμμα
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+      - name: kritikes
+        label: Κριτικές
+        type: object
+        description: Κριτικές από οργανισμούς, ΜΜΕ, κοινό κ.λπ.
+        list:
+          collapsible:
+            collapsed: true
         fields:
-          - name: title
-            label: Τίτλος
+          - name: source
+            label: Πηγή
             type: string
             required: true
-          - name: seoDescription
-            label: SEO Περιγραφή
+          - name: text
+            label: Κείμενο κριτικής
             type: text
-          - name: body
-            label: Κείμενο
-            type: rich-text
-      - name: syllogi
-        label: Συλλογή
-        path: src/content/syllogi
-        type: collection
-        filename: "{fields.play}.md"
-        view:
-          fields: [play]
-          primary: play
-        fields:
-          - name: play
-            label: Παράσταση
-            type: reference
             required: true
-            description: Επιλέξτε την παράσταση — το αρχείο ονομάζεται αυτόματα με το slug της.
-            options:
-              collection: parastaseis
-              value: "{name}"
-              label: "{primary}"
-          - name: photos
-            label: Φωτογραφίες
-            type: image
-            options:
-              media: parastaseis-media
-              multiple: true
-            description: Φωτογραφίες που εμφανίζονται ΜΟΝΟ στη σελίδα «Συλλογή» (/syllogi), όχι στη σελίδα της παράστασης. Αν η λίστα είναι κενή, η Συλλογή εμφανίζει τις κανονικές Φωτογραφίες της παράστασης.
+      - name: carousel
+        label: Καρουζέλ αρχικής σελίδας
+        type: boolean
+        default: false
+        description: Εμφάνιση της παράστασης στο καρουζέλ της αρχικής σελίδας (χρειάζεται εικόνα εξωφύλλου ή φωτογραφίες). Εμφανίζονται έως 5, οι πιο πρόσφατες πρώτα. Αν καμία δεν επιλεχθεί, μπαίνουν αυτόματα οι 5 πιο πρόσφατες.
+      - name: draft
+        label: Πρόχειρο (να μην δημοσιευτεί)
+        type: boolean
+        default: false
 
-      # ── Ιστορία ──────────────────────────────────────────────────────────
-      # The history page's long-form text (Greek only). Single file managed
-      # by the client; creating/renaming/deleting disabled — the filename
-      # maps to the page rendered by src/sections/History.astro.
-      - name: epikoinonia
-        label: Επικοινωνία
-        path: src/content/epikoinonia
-        type: collection
-        operations:
-          create: false
-          rename: false
-          delete: false
-        view:
-          primary: body
+  # ── Ρεπερτόριο ─────────────────────────────────────────────────────
+  # One entry per play currently in the season's repertoire. The entry
+  # links to a Παραστάσεις entry (relation dropdown, stored as the play's
+  # slug) and carries the season-specific content: text, summary and
+  # upcoming show dates. The filename is derived from the chosen play
+  # ({fields.play}), so entries don't need their own slug field.
+  - name: repertorio
+    label: Ρεπερτόριο
+    path: src/content/repertorio
+    type: collection
+    filename: "{fields.play}.md"
+    view:
+      fields: [play, draft]
+      primary: play
+      sort: [order]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: play
+        label: Παράσταση
+        type: reference
+        required: true
+        description: Επιλέξτε την παράσταση από τις Παραστάσεις — τίτλος, εικόνα και συντελεστές έρχονται αυτόματα από εκεί. Το αρχείο ονομάζεται αυτόματα με το slug της παράστασης.
+        options:
+          collection: parastaseis
+          # Store the play's slug (e.g. "glaros"); display its title.
+          value: "{name}"
+          label: "{primary}"
+      - name: summary
+        label: Περίληψη ρεπερτορίου
+        type: text
+        description: Σύντομο κείμενο για τη σελίδα του ρεπερτορίου. Αν μείνει κενό, χρησιμοποιείται η Περίληψη της παράστασης.
+      - name: performances
+        label: Παραστάσεις (τόπος & χρόνος)
+        description: Οι επόμενες παραστάσεις της περιόδου — εμφανίζονται στη σελίδα Ρεπερτόριο, όχι στο αρχείο της παράστασης.
+        type: object
+        list:
+          collapsible:
+            collapsed: true
         fields:
-          - name: body
-            label: Κείμενο εισαγωγής
-            type: text
-          - name: email
-            label: Email
+          - name: venue
+            label: Τόπος / Χώρος
             type: string
-          - name: phone
-            label: Τηλέφωνο
-            type: string
-            description: 10 ψηφία, χωρίς το +30 — π.χ. 6974991255.
-          - name: youtube
-            label: YouTube (link)
-            type: string
-          - name: facebook
-            label: Facebook (link)
-            type: string
-          - name: instagram
-            label: Instagram (link)
-            type: string
-            description: Αν μείνει κενό, το Instagram δεν εμφανίζεται στη σελίδα.
+            required: true
+          - name: date
+            label: Χρόνος / Ημερομηνία
+            type: date
+            required: true
+      - name: order
+        label: Σειρά εμφάνισης
+        type: number
+        description: Προαιρετικό — μικρότερος αριθμός εμφανίζεται πρώτος στη σελίδα Ρεπερτόριο. Χωρίς αριθμό, οι πιο πρόσφατες παραστάσεις πάνε πρώτες.
+      - name: draft
+        label: Πρόχειρο (να μην δημοσιευτεί)
+        type: boolean
+        default: false
+      - name: body
+        label: Κείμενο
+        type: rich-text
+        description: Το κείμενο για την παράσταση στη σελίδα του ρεπερτορίου.
 
-    # ── Νέα ─────────────────────────────────────────────────────────────
+  # ── Επικοινωνία ─────────────────────────────────────────────────────
+  # The contact page's details (Greek only): lead text, email, phone
+  # and social links. Single file; creating/renaming/deleting disabled.
+  # Empty fields fall back to the site constants in src/consts.ts.
+  - name: nea
+    label: Νέα
+    path: src/content/nea
+    type: collection
+    filename: "{fields.slug}.md"
+    view:
+      fields: [thumbnail, title, publishDate]
+      primary: title
+      sort: [publishDate]
+      default:
+        sort: publishDate
+        order: desc
+    fields:
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: slug
+        label: Slug (URL)
+        type: string
+        required: true
+        description: Μόνο λατινικοί χαρακτήρες και παύλες. Χρησιμοποιείται ως όνομα αρχείου και URL.
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      - name: publishDate
+        label: Ημερομηνία δημοσίευσης
+        type: date
+        required: true
+        description: Γεμίζει αυτόματα με τη σημερινή ημερομηνία — συνήθως δεν χρειάζεται αλλαγή.
+      - name: thumbnail
+        label: Εικόνα
+        type: image
+        options:
+          media: nea-media
+      - name: body
+        label: Κείμενο
+        type: rich-text
+
+  # ── Συλλογή ────────────────────────────────────────────────────────
+  # Photo sets shown ONLY on the /syllogi page. One entry per play —
+  # the filename derives from the chosen play, so entries carry no slug
+  # field. A play without a dedicated set falls back to its regular
+  # Φωτογραφίες, so the page is never empty.
+  - name: istoria
+    label: Ιστορία
+    path: src/content/istoria
+    type: collection
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: seoDescription
+        label: SEO Περιγραφή
+        type: text
+      - name: body
+        label: Κείμενο
+        type: rich-text
+  - name: syllogi
+    label: Συλλογή
+    path: src/content/syllogi
+    type: collection
+    filename: "{fields.play}.md"
+    view:
+      fields: [play]
+      primary: play
+    fields:
+      - name: play
+        label: Παράσταση
+        type: reference
+        required: true
+        description: Επιλέξτε την παράσταση — το αρχείο ονομάζεται αυτόματα με το slug της.
+        options:
+          collection: parastaseis
+          value: "{name}"
+          label: "{primary}"
+      - name: photos
+        label: Φωτογραφίες
+        type: image
+        options:
+          media: parastaseis-media
+          multiple: true
+        description: Φωτογραφίες που εμφανίζονται ΜΟΝΟ στη σελίδα «Συλλογή» (/syllogi), όχι στη σελίδα της παράστασης. Αν η λίστα είναι κενή, η Συλλογή εμφανίζει τις κανονικές Φωτογραφίες της παράστασης.
+
+  # ── Ιστορία ──────────────────────────────────────────────────────────
+  # The history page's long-form text (Greek only). Single file managed
+  # by the client; creating/renaming/deleting disabled — the filename
+  # maps to the page rendered by src/sections/History.astro.
+  - name: epikoinonia
+    label: Επικοινωνία
+    path: src/content/epikoinonia
+    type: collection
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: body
+    fields:
+      - name: body
+        label: Κείμενο εισαγωγής
+        type: text
+      - name: email
+        label: Email
+        type: string
+      - name: phone
+        label: Τηλέφωνο
+        type: string
+        description: 10 ψηφία, χωρίς το +30 — π.χ. 6974991255.
+      - name: youtube
+        label: YouTube (link)
+        type: string
+      - name: facebook
+        label: Facebook (link)
+        type: string
+      - name: instagram
+        label: Instagram (link)
+        type: string
+        description: Αν μείνει κενό, το Instagram δεν εμφανίζεται στη σελίδα.
+
+# ── Νέα ─────────────────────────────────────────────────────────────
