@@ -100,6 +100,13 @@ function pruneUnreferencedOriginals() {
 export default defineConfig({
   site: "https://apo-koinou.gr",
   integrations: [sitemap(), pruneUnreferencedOriginals()],
+  // The programme page was renamed to repertoire (Ρεπερτόριο); keep old
+  // links and sitemap entries working. Static builds emit meta-refresh
+  // HTML pages for these.
+  redirects: {
+    "/programma": "/repertorio",
+    "/en/programma": "/en/repertorio",
+  },
   // Fetch internal pages before the click so ClientRouter swaps instantly.
   // All links are few and pages are small static HTML, so viewport is safe.
   prefetch: {

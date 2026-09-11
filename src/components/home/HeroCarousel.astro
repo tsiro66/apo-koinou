@@ -124,13 +124,23 @@ const hasSlides = slides.length > 0;
                 { "is-active": i === 0 },
               ]}
             >
-              {getVideoId(play.data) && (
+              {getVideoId(play.data) ? (
                 <a
                   href={`${localizedPath(`/parastaseis/${play.id}`, locale)}#parastasi`}
                   tabindex={i === 0 ? undefined : -1}
                   class="bg-orange px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
                 >
                   {t("prod.watch_now")}
+                </a>
+              ) : (
+                // No recorded performance: the slide still gets an
+                // action — "See more" leads to the production page.
+                <a
+                  href={localizedPath(`/parastaseis/${play.id}`, locale)}
+                  tabindex={i === 0 ? undefined : -1}
+                  class="bg-orange px-4 py-2.5 text-sm font-semibold text-zinc-50 transition hover:bg-zinc-100 hover:text-zinc-950"
+                >
+                  {t("prod.see_more")}
                 </a>
               )}
             </div>

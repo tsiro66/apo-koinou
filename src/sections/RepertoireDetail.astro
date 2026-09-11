@@ -1,0 +1,147 @@
+---
+import type { RepertoireItem } from "../utils/repertoire";
+import { render } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import ProductionHero from "../components/ProductionHero.astro";
+import ProductionSection from "../components/ProductionSection.astro";
+import ProductionFacts from "../components/ProductionFacts.astro";
+import { BRAND } from "../consts";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+  formatDate,
+} from "../i18n/utils";
+import { getThumbnail, ogSrc } from "../utils/media";
+
+type Props = RepertoireItem;
+const { entry, play } = Astro.props;
+const { Content } = await render(entry);
+const d = play.data;
+const r = entry.data;
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+const brand = BRAND[locale];
+const canonicalPath = `/repertorio/${entry.id}`;
+
+// Section visibility: render a section (and its button) only when it has
+// data. Deliberately a focused page: no stream, no Υλικό, no Διανομή —
+// the archive page (/parastaseis/<slug>) keeps the full treatment.
+const hasCrew = d.crew.length > 0;
+const hasPlaceTime = r.performances.length > 0 || !!d.premiereDate;
+
+const buttons = [
+  { href: "#theatriko-ergo", label: t("prod.section.play") },
+  ...(hasPlaceTime
+    ? [{ href: "#topos-chronos", label: t("prod.section.place_time") }]
+    : []),
+  ...(hasCrew ? [{ href: "#syntelestes", label: t("prod.crew_section") }] : []),
+];
+
+// og:image: optimized 1200×630 JPEG, never the raw original.
+const ogImg = getThumbnail(d);
+const og = ogImg ? await ogSrc(ogImg) : undefined;
+
+const playFacts = [
+  { label: t("prod.field.title"), value: d.title },
+  ...(d.writer ? [{ label: t("prod.writer"), value: d.writer }] : []),
+];
+
+// This season's shows, soonest first; falls back to the premiere date.
+const placeTimeFacts =
+  r.performances.length > 0
+    ? [...r.performances]
+        .sort((a, b) => a.date.getTime() - b.date.getTime())
+        .map((p) => ({
+          label: formatDate(p.date, locale),
+          value: p.venue,
+        }))
+    : d.premiereDate
+      ? [
+          {
+            label: t("prod.premiere"),
+            value: formatDate(d.premiereDate, locale),
+          },
+        ]
+      : [];
+
+// Alternating full-bleed bands, in render order.
+const orderedSections = [
+  "theatriko-ergo",
+  ...(hasPlaceTime ? ["topos-chronos"] : []),
+  ...(hasCrew ? ["syntelestes"] : []),
+];
+const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
+
+// Text priority: repertoire blurb, else the play's archive summary.
+const summary = r.summary ?? d.summary;
+---
+
+<BaseLayout
+  title={d.title}
+  description={summary ?? brand.description}
+  image={og?.src}
+  imageWidth={og?.width}
+  imageHeight={og?.height}
+  canonicalPath={canonicalPath}
+  type="article"
+  flush
+>
+  <article>
+    <ProductionHero
+      play={play}
+      buttons={buttons}
+      backHref={localizedPath("/repertorio", locale)}
+      backLabel={t("page.repertorio.back_to_list")}
+    />
+
+    <div class="mt-6">
+      <ProductionSection
+        id="theatriko-ergo"
+        title={t("prod.section.play")}
+        band={band("theatriko-ergo")}
+      >
+        <ProductionFacts facts={playFacts} />
+        {
+          summary && (
+            <p class="mt-6 leading-relaxed text-zinc-950/80">{summary}</p>
+          )
+        }
+        {
+          entry.body?.trim() && (
+            <div class="prose mt-6 max-w-none">
+              <Content />
+            </div>
+          )
+        }
+      </ProductionSection>
+
+      {
+        hasPlaceTime && (
+          <ProductionSection
+            id="topos-chronos"
+            title={t("prod.section.place_time")}
+            band={band("topos-chronos")}
+          >
+            <ProductionFacts facts={placeTimeFacts} />
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasCrew && (
+          <ProductionSection
+            id="syntelestes"
+            title={t("prod.crew_section")}
+            band={band("syntelestes")}
+          >
+            <ProductionFacts
+              facts={d.crew.map((c) => ({ label: c.role, value: c.name }))}
+            />
+          </ProductionSection>
+        )
+      }
+    </div>
+  </article>
+</BaseLayout>

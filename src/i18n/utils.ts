@@ -22,7 +22,7 @@ export function useTranslations(locale: Locale) {
   };
 }
 
-/** Render a templated string, e.g. "Πρόγραμμα {season}" -> "Πρόγραμμα 2025–2026". */
+/** Render a templated string, e.g. "Ρεπερτόριο {season}" -> "Ρεπερτόριο 2025–2026". */
 export function format(
   template: string,
   vars: Record<string, string | number>,

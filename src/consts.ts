@@ -15,7 +15,7 @@ export const SITE = {
   },
 } as const;
 
-// Current season label, shown on the programme page and homepage band.
+// Current season label, shown on the repertoire page and homepage band.
 export const SEASON = "2025–2026";
 
 // Bunny Stream library ID — shared by every video embed URL. Individual
@@ -32,16 +32,16 @@ export const BRAND: Record<
   el: {
     title: "Από Κοινού",
     tagline:
-      "Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού». Παραστάσεις, βίντεο, φωτογραφία, πρόγραμμα, ιστορία και τρόποι επικοινωνίας.",
+      "Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού». Παραστάσεις, βίντεο, φωτογραφία, ρεπερτόριο, ιστορία και τρόποι επικοινωνίας.",
     description:
-      "Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού». Παραστάσεις, βίντεο, φωτογραφία, πρόγραμμα, ιστορία και τρόποι επικοινωνίας.",
+      "Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού». Παραστάσεις, βίντεο, φωτογραφία, ρεπερτόριο, ιστορία και τρόποι επικοινωνίας.",
   },
   en: {
     title: "Από Κοινού",
     tagline:
-      "Digital archive of the «Από Κοινού» theater group. Productions, video, photography, programme, history, and contact.",
+      "Digital archive of the «Από Κοινού» theater group. Productions, video, photography, repertoire, history, and contact.",
     description:
-      "Digital archive of the «Από Κοινού» theater group. Productions, video, photography, programme, history, and contact.",
+      "Digital archive of the «Από Κοινού» theater group. Productions, video, photography, repertoire, history, and contact.",
   },
 };
 
@@ -50,7 +50,7 @@ export const BRAND: Record<
 export const NAV_LINKS = [
   { href: "/", labelKey: "nav.home" },
   { href: "/parastaseis", labelKey: "nav.parastaseis" },
-  { href: "/programma", labelKey: "nav.programma" },
+  { href: "/repertorio", labelKey: "nav.repertorio" },
   { href: "/nea", labelKey: "nav.nea" },
   { href: "/istoria", labelKey: "nav.istoria" },
   { href: "/syllogi", labelKey: "nav.syllogi" },

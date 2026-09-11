@@ -15,12 +15,12 @@ export const ui = {
     "site.title": "Από Κοινού",
     "site.tagline": "Θεατρική ομάδα της Α΄ ΕΛΜΕ Αχαΐας",
     "site.description":
-      "Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού». Παραστάσεις, βίντεο, φωτογραφία, πρόγραμμα, ιστορία και τρόποι επικοινωνίας.",
+      "Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού». Παραστάσεις, βίντεο, φωτογραφία, ρεπερτόριο, ιστορία και τρόποι επικοινωνίας.",
 
     "nav.home": "Αρχική",
     "nav.parastaseis": "Παραστάσεις",
     "nav.nea": "Νέα",
-    "nav.programma": "Πρόγραμμα",
+    "nav.repertorio": "Ρεπερτόριο",
     "nav.syllogi": "Συλλογή",
     "nav.istoria": "Ιστορία",
     "nav.epikoinonia": "Επικοινωνία",
@@ -42,7 +42,7 @@ export const ui = {
     "page.home.eyebrow": "Θεατρική ομάδα",
     "page.home.heading": "Ψηφιακό αρχείο της θεατρικής ομάδας «Από Κοινού».",
     "page.home.body":
-      "Παραστάσεις, βίντεο, φωτογραφία, πρόγραμμα, ιστορία και τρόποι επικοινωνίας.",
+      "Παραστάσεις, βίντεο, φωτογραφία, ρεπερτόριο, ιστορία και τρόποι επικοινωνίας.",
 
     "home.hero.carousel_aria": "Πρόσφατες παραστάσεις",
     "home.hero.slide_label": "Διαφάνεια {index} από {total}",
@@ -52,7 +52,7 @@ export const ui = {
     "home.featured.heading": "Πρόσφατες παραστάσεις",
     "home.featured.all": "Όλες οι παραστάσεις",
     "home.news.all": "Όλα τα νέα",
-    "home.program.cta": "Δείτε το πρόγραμμα",
+    "home.repertorio.cta": "Δείτε το ρεπερτόριο",
 
     "page.parastaseis.title": "Παραστάσεις",
     "page.parastaseis.eyebrow": "Αρχείο",
@@ -61,11 +61,12 @@ export const ui = {
     "page.syllogi.title": "Συλλογή",
     "page.syllogi.eyebrow": "Αρχείο",
     "page.syllogi.heading": "Συλλογή παραγωγών",
-    "page.programma.title": "Πρόγραμμα",
-    "page.programma.eyebrow": "Τρέχων περίοδος",
-    "page.programma.heading": "Πρόγραμμα {season}",
-    "page.programma.soon":
+    "page.repertorio.title": "Ρεπερτόριο",
+    "page.repertorio.eyebrow": "Τρέχουσα περίοδος",
+    "page.repertorio.heading": "Ρεπερτόριο {season}",
+    "page.repertorio.soon":
       "Λεπτομέρειες για εισιτήρια και χώρους θα ανακοινωθούν σύντομα.",
+    "page.repertorio.back_to_list": "Πίσω στο ρεπερτόριο",
     "page.istoria.title": "Ιστορία",
     "page.istoria.eyebrow": "Η ομάδα",
     "page.istoria.heading": "Η ιστορία μας",
@@ -124,6 +125,7 @@ export const ui = {
     "prod.stream_default": "Παράσταση",
 
     "prod.watch_now": "Παρακολουθήστε τώρα",
+    "prod.see_more": "Δείτε περισσότερα",
     "prod.yliko": "Υλικό",
     "prod.section.play": "Θεατρικό έργο",
     "prod.section.cast": "Διανομή",
@@ -133,6 +135,7 @@ export const ui = {
     "prod.poster": "Αφίσα",
     "prod.reviews": "Κριτικές",
     "prod.back_to_play": "Πίσω στην παράσταση",
+    "prod.back_to_list": "Πίσω στις παραστάσεις",
     "prod.field.title": "Τίτλος",
     "prod.field.summary": "Σύνοψη",
     "prod.field.date": "Ημερομηνία",
@@ -147,12 +150,12 @@ export const ui = {
     "site.title": "Από Κοινού",
     "site.tagline": "Theater group of Α΄ ΕΛΜΕ Αχαΐας",
     "site.description":
-      "Digital archive of the «Από Κοινού» theater group. Productions, video, photography, programme, history, and contact.",
+      "Digital archive of the «Από Κοινού» theater group. Productions, video, photography, repertoire, history, and contact.",
 
     "nav.home": "Home",
     "nav.parastaseis": "Productions",
     "nav.nea": "News",
-    "nav.programma": "Programme",
+    "nav.repertorio": "Repertoire",
     "nav.syllogi": "Archive",
     "nav.istoria": "History",
     "nav.epikoinonia": "Contact",
@@ -174,7 +177,7 @@ export const ui = {
     "page.home.eyebrow": "Theater group",
     "page.home.heading": "Digital archive of the «Από Κοινού» theater group.",
     "page.home.body":
-      "Productions, video, photography, programme, history, and ways to reach us.",
+      "Productions, video, photography, repertoire, history, and ways to reach us.",
 
     "home.hero.carousel_aria": "Recent productions",
     "home.hero.slide_label": "Slide {index} of {total}",
@@ -184,7 +187,7 @@ export const ui = {
     "home.featured.heading": "Recent productions",
     "home.featured.all": "All productions",
     "home.news.all": "All news",
-    "home.program.cta": "View the programme",
+    "home.repertorio.cta": "View the repertoire",
 
     "page.parastaseis.title": "Productions",
     "page.parastaseis.eyebrow": "Archive",
@@ -193,11 +196,12 @@ export const ui = {
     "page.syllogi.title": "Archive",
     "page.syllogi.eyebrow": "Archive",
     "page.syllogi.heading": "Productions archive",
-    "page.programma.title": "Programme",
-    "page.programma.eyebrow": "Current season",
-    "page.programma.heading": "Programme {season}",
-    "page.programma.soon":
+    "page.repertorio.title": "Repertoire",
+    "page.repertorio.eyebrow": "Current season",
+    "page.repertorio.heading": "Repertoire {season}",
+    "page.repertorio.soon":
       "Details about tickets and venues will be announced soon.",
+    "page.repertorio.back_to_list": "Back to the repertoire",
     "page.istoria.title": "History",
     "page.istoria.eyebrow": "The group",
     "page.istoria.heading": "Our story",
@@ -255,6 +259,7 @@ export const ui = {
     "prod.stream_default": "Performance",
 
     "prod.watch_now": "Watch now",
+    "prod.see_more": "See more",
     "prod.yliko": "Material",
     "prod.section.play": "The play",
     "prod.section.cast": "Cast",
@@ -264,6 +269,7 @@ export const ui = {
     "prod.poster": "Poster",
     "prod.reviews": "Reviews",
     "prod.back_to_play": "Back to the play",
+    "prod.back_to_list": "Back to the plays",
     "prod.field.title": "Title",
     "prod.field.summary": "Synopsis",
     "prod.field.date": "Date",

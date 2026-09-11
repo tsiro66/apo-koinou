@@ -6,12 +6,17 @@ import { getThumbnail } from "../utils/media";
 
 interface Props {
   play: CollectionEntry<"parastaseis">;
+  /** Link target override (e.g. repertoire detail instead of the archive). */
+  href?: string;
+  /** Eyebrow override (e.g. the season's date range on /repertorio).
+   *  Defaults to the production year. */
+  eyebrow?: string;
 }
-const { play } = Astro.props;
+const { play, href: hrefOverride, eyebrow: eyebrowOverride } = Astro.props;
 const d = play.data;
 const thumb = getThumbnail(d);
 const locale = getLocaleFromUrl(Astro.url);
-const href = localizedPath(`/parastaseis/${play.id}`, locale);
+const href = hrefOverride ?? localizedPath(`/parastaseis/${play.id}`, locale);
 ---
 
 <!-- Editorial, image-led card: flat — no box, no border, no shadow.
@@ -40,7 +45,7 @@ const href = localizedPath(`/parastaseis/${play.id}`, locale);
     <p
       class="mt-4 text-xs font-semibold uppercase tracking-[0.15em] text-orange"
     >
-      {d.year}
+      {eyebrowOverride ?? d.year}
     </p>
     <h3
       class="mt-1 font-display text-2xl leading-snug text-zinc-950 transition group-hover:text-orange"

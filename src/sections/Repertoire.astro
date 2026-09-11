@@ -1,0 +1,54 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SectionTitle from "../components/SectionTitle.astro";
+import Breadcrumbs from "../components/Breadcrumbs.astro";
+import PlayCard from "../components/PlayCard.astro";
+import { SEASON } from "../consts";
+import { getRepertoire, performanceRange } from "../utils/repertoire";
+import {
+  getLocaleFromUrl,
+  useTranslations,
+  localizedPath,
+  format,
+} from "../i18n/utils";
+
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+// Plays picked for the current season (Ρεπερτόριο collection in Pages CMS),
+// ordered by the entry's `order` field, then newest play first.
+const items = await getRepertoire();
+const heading = format(t("page.repertorio.heading"), { season: SEASON });
+---
+
+<BaseLayout title={t("page.repertorio.title")} canonicalPath="/repertorio">
+  <div class="mx-auto max-w-6xl">
+    <Breadcrumbs
+      crumbs={[
+        { label: t("nav.home"), href: localizedPath("/", locale) },
+        { label: t("page.repertorio.title") },
+      ]}
+    />
+    <div class="mt-6">
+      <SectionTitle eyebrow={t("page.repertorio.eyebrow")} title={heading} />
+    </div>
+    {
+      items.length > 0 ? (
+        <div class="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+          {items.map(({ entry, play }) => (
+            <PlayCard
+              play={play}
+              href={localizedPath(`/repertorio/${entry.id}`, locale)}
+              eyebrow={
+                performanceRange(entry.data.performances, locale) ??
+                String(play.data.year)
+              }
+            />
+          ))}
+        </div>
+      ) : (
+        <p class="mt-10 text-zinc-600">{t("page.repertorio.soon")}</p>
+      )
+    }
+  </div>
+</BaseLayout>

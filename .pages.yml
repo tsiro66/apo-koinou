@@ -155,6 +155,70 @@ content:
         type: boolean
         default: false
 
+  # ── Ρεπερτόριο ─────────────────────────────────────────────────────
+  # One entry per play currently in the season's repertoire. The entry
+  # links to a Παραστάσεις entry (relation picker) and carries the
+  # season-specific content: text, summary and upcoming show dates.
+  # Title, image and crew come from the linked play entry.
+  - name: repertorio
+    label: Ρεπερτόριο
+    path: src/content/repertorio
+    type: collection
+    filename: "{fields.slug}.md"
+    view:
+      fields: [play, draft]
+      primary: play
+      sort: [order]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: play
+        label: Παράσταση
+        type: relation
+        required: true
+        description: Επιλέξτε την παράσταση από τις Παραστάσεις — τίτλος, εικόνα και συντελεστές έρχονται αυτόματα από εκεί.
+        options:
+          collection: parastaseis
+      - name: slug
+        label: Slug (URL)
+        type: string
+        required: true
+        description: Μόνο λατινικοί χαρακτήρες και παύλες, ιδανικά ίδιο με το slug της παράστασης, π.χ. glaros. Χρησιμοποιείται ως όνομα αρχείου και URL.
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      - name: summary
+        label: Περίληψη ρεπερτορίου
+        type: text
+        description: Σύντομο κείμενο για τη σελίδα του ρεπερτορίου. Αν μείνει κενό, χρησιμοποιείται η Περίληψη της παράστασης.
+      - name: performances
+        label: Παραστάσεις (τόπος & χρόνος)
+        description: Οι επόμενες παραστάσεις της περιόδου — εμφανίζονται στη σελίδα Ρεπερτόριο, όχι στο αρχείο της παράστασης.
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+        fields:
+          - name: venue
+            label: Τόπος / Χώρος
+            type: string
+            required: true
+          - name: date
+            label: Χρόνος / Ημερομηνία
+            type: date
+            required: true
+      - name: order
+        label: Σειρά εμφάνισης
+        type: number
+        description: Προαιρετικό — μικρότερος αριθμός εμφανίζεται πρώτος στη σελίδα Ρεπερτόριο. Χωρίς αριθμό, οι πιο πρόσφατες παραστάσεις πάνε πρώτες.
+      - name: draft
+        label: Πρόχειρο (να μην δημοσιευτεί)
+        type: boolean
+        default: false
+      - name: body
+        label: Κείμενο
+        type: rich-text
+        description: Το κείμενο για την παράσταση στη σελίδα του ρεπερτορίου.
+
   # ── Νέα ─────────────────────────────────────────────────────────────
   - name: nea
     label: Νέα

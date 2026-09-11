@@ -62,6 +62,34 @@ const parastaseisCollection = defineCollection({
 });
 
 // ───────────────────────────────────────────────────────────────────────────
+// Ρεπερτόριο (current-season repertoire)
+// One entry per play currently in the season's repertoire. The entry links
+// to a parastaseis document (Pages CMS `relation` picker, stored as the
+// entry path, e.g. "glaros.md") and carries only the season-specific
+// content: body text, summary and upcoming show dates. Title, year,
+// thumbnail and crew come from the linked play at build time
+// (see src/utils/repertoire.ts).
+// ───────────────────────────────────────────────────────────────────────────
+const repertorioCollection = defineCollection({
+  loader: glob({ pattern: "**/*.md", base: "./src/content/repertorio" }),
+  schema: z.object({
+    // Linked play: Pages CMS relation value ("glaros.md" or bare slug).
+    play: z.string(),
+    // Short blurb; falls back to the play's archive summary when omitted.
+    summary: z.string().optional(),
+    // This season's shows — kept separate from the play's historical
+    // `performances` so the archive page stays purely historical.
+    performances: z
+      .array(z.object({ date: z.coerce.date(), venue: z.string() }))
+      .default([]),
+    // Manual listing order on /repertorio (smaller first). Falls back to
+    // the play's year, newest first.
+    order: z.number().optional(),
+    draft: z.boolean().default(false),
+  }),
+});
+
+// ───────────────────────────────────────────────────────────────────────────
 // Νέα (Announcements / news posts)
 // Minimal entry: title + image + markdown body. Pages CMS auto-fills
 // publishDate with today's date on creation.
@@ -92,6 +120,7 @@ const selidesCollection = defineCollection({
 
 export const collections = {
   parastaseis: parastaseisCollection,
+  repertorio: repertorioCollection,
   nea: neaCollection,
   selides: selidesCollection,
 };

@@ -7,7 +7,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import HeroCarousel from "../components/home/HeroCarousel.astro";
 import FeaturedPlays from "../components/home/FeaturedPlays.astro";
 import LatestNews from "../components/home/LatestNews.astro";
-import ProgramBand from "../components/home/ProgramBand.astro";
+import RepertoireBand from "../components/home/RepertoireBand.astro";
 import heroBg from "../assets/bg.jpg";
 import { BRAND } from "../consts";
 import { getThumbnail, ogSrc } from "../utils/media";
@@ -60,5 +60,5 @@ const og = await ogSrc(heroBg);
   <HeroCarousel slides={heroSlides} />
   <FeaturedPlays plays={featuredPlays} />
   <LatestNews posts={latestNews} />
-  <ProgramBand />
+  <RepertoireBand />
 </BaseLayout>

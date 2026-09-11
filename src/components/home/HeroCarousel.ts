@@ -79,11 +79,8 @@ function bindHeroCarousel() {
       timer = window.setInterval(() => show(index + 1), HERO_INTERVAL_MS);
     }
 
-    // Autoplay pauses on hover, keyboard focus and hidden tabs.
-    root.addEventListener("mouseenter", pause, { signal });
-    root.addEventListener("mouseleave", play, { signal });
-    root.addEventListener("focusin", pause, { signal });
-    root.addEventListener("focusout", play, { signal });
+    // Autoplay pauses only while the tab is hidden (hover and keyboard
+    // focus no longer pause it).
     document.addEventListener(
       "visibilitychange",
       () => (document.hidden ? pause() : play()),
@@ -111,7 +108,7 @@ function bindHeroCarousel() {
     // The photo tracks the finger: the current slide follows the drag
     // while the incoming one rides alongside, exactly one viewport
     // away; release either settles on the neighbor or springs back.
-    // Desktop keeps hover-pause and the dots (mouse never swipes).
+    // Desktop keeps the dots (mouse never swipes).
     // touch-action: pan-y keeps vertical scrolling native — gestures
     // that turn into a scroll arrive as pointercancel and spring back.
     // A committed swipe suppresses the click that follows it, so a
