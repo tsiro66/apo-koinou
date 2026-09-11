@@ -157,14 +157,15 @@ content:
 
   # ── Ρεπερτόριο ─────────────────────────────────────────────────────
   # One entry per play currently in the season's repertoire. The entry
-  # links to a Παραστάσεις entry (relation picker) and carries the
-  # season-specific content: text, summary and upcoming show dates.
-  # Title, image and crew come from the linked play entry.
+  # links to a Παραστάσεις entry (relation dropdown, stored as the play's
+  # slug) and carries the season-specific content: text, summary and
+  # upcoming show dates. The filename is derived from the chosen play
+  # ({fields.play}), so entries don't need their own slug field.
   - name: repertorio
     label: Ρεπερτόριο
     path: src/content/repertorio
     type: collection
-    filename: "{fields.slug}.md"
+    filename: "{fields.play}.md"
     view:
       fields: [play, draft]
       primary: play
@@ -177,15 +178,12 @@ content:
         label: Παράσταση
         type: relation
         required: true
-        description: Επιλέξτε την παράσταση από τις Παραστάσεις — τίτλος, εικόνα και συντελεστές έρχονται αυτόματα από εκεί.
+        description: Επιλέξτε την παράσταση από τις Παραστάσεις — τίτλος, εικόνα και συντελεστές έρχονται αυτόματα από εκεί. Το αρχείο ονομάζεται αυτόματα με το slug της παράστασης.
         options:
           collection: parastaseis
-      - name: slug
-        label: Slug (URL)
-        type: string
-        required: true
-        description: Μόνο λατινικοί χαρακτήρες και παύλες, ιδανικά ίδιο με το slug της παράστασης, π.χ. glaros. Χρησιμοποιείται ως όνομα αρχείου και URL.
-        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+          # Store the play's slug (e.g. "glaros"); display its title.
+          value: "{name}"
+          label: "{primary}"
       - name: summary
         label: Περίληψη ρεπερτορίου
         type: text
@@ -257,19 +255,19 @@ content:
         label: Κείμενο
         type: rich-text
 
-  # ── Σελίδες (ιστορία κ.λπ.) ──────────────────────────────────────────
-  # Editing allowed; creating/renaming/deleting disabled — filenames map
-  # to locale pages rendered by src/sections.
-  - name: selides
-    label: Σελίδες
-    path: src/content/selides
+  # ── Ιστορία ──────────────────────────────────────────────────────────
+  # The history page's long-form text (Greek only). Single file managed
+  # by the client; creating/renaming/deleting disabled — the filename
+  # maps to the page rendered by src/sections/History.astro.
+  - name: istoria
+    label: Ιστορία
+    path: src/content/istoria
     type: collection
     operations:
       create: false
       rename: false
       delete: false
     view:
-      layout: tree
       primary: title
     fields:
       - name: title

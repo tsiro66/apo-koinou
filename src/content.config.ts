@@ -73,7 +73,8 @@ const parastaseisCollection = defineCollection({
 const repertorioCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/repertorio" }),
   schema: z.object({
-    // Linked play: Pages CMS relation value ("glaros.md" or bare slug).
+    // Linked play: Pages CMS relation value — the play's slug (e.g.
+    // "glaros"); also tolerates an entry path ("glaros.md").
     play: z.string(),
     // Short blurb; falls back to the play's archive summary when omitted.
     summary: z.string().optional(),
@@ -106,12 +107,12 @@ const neaCollection = defineCollection({
 });
 
 // ───────────────────────────────────────────────────────────────────────────
-// Σελίδες (long-form static pages, one Markdown file per locale)
-// src/content/selides/<locale>/<page>.md — rendered by the matching section
-// (e.g. sections/History.astro renders selides/<locale>/istoria).
+// Ιστορία (long-form history page, Greek only)
+// One Markdown file: src/content/istoria/istoria.md, rendered by
+// sections/History.astro. Managed by the client through Pages CMS.
 // ───────────────────────────────────────────────────────────────────────────
-const selidesCollection = defineCollection({
-  loader: glob({ pattern: "**/*.md", base: "./src/content/selides" }),
+const istoriaCollection = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/istoria" }),
   schema: z.object({
     title: z.string(),
     seoDescription: z.string().optional(),
@@ -122,5 +123,5 @@ export const collections = {
   parastaseis: parastaseisCollection,
   repertorio: repertorioCollection,
   nea: neaCollection,
-  selides: selidesCollection,
+  istoria: istoriaCollection,
 };

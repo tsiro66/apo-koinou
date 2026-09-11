@@ -14,9 +14,10 @@ import {
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 
-// Long-form history content lives in the `selides` collection, one Markdown
-// entry per locale: src/content/selides/<locale>/istoria.md
-const entry = await getEntry("selides", `${locale}/istoria`);
+// Long-form history content lives in the `istoria` collection (Greek
+// only): src/content/istoria/istoria.md. The EN page renders the same
+// Greek entry until a translation is added.
+const entry = await getEntry("istoria", "istoria");
 const rendered = entry ? await render(entry) : null;
 const Content = rendered?.Content;
 

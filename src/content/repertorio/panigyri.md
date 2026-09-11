@@ -1,5 +1,5 @@
 ---
-play: panigyri.md
+play: panigyri
 summary: Dummy placeholder — η «Το πανηγύρι» στο ρεπερτόριο της τρέχουσας περιόδου.
 order: 1
 performances:
