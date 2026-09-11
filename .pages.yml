@@ -210,6 +210,42 @@ content:
         type: rich-text
         description: Το κείμενο για την παράσταση στη σελίδα του ρεπερτορίου.
 
+  # ── Επικοινωνία ─────────────────────────────────────────────────────
+  # The contact page's details (Greek only): lead text, email, phone
+  # and social links. Single file; creating/renaming/deleting disabled.
+  # Empty fields fall back to the site constants in src/consts.ts.
+  - name: epikoinonia
+    label: Επικοινωνία
+    path: src/content/epikoinonia
+    type: collection
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: body
+    fields:
+      - name: body
+        label: Κείμενο εισαγωγής
+        type: text
+      - name: email
+        label: Email
+        type: string
+      - name: phone
+        label: Τηλέφωνο
+        type: string
+        description: 10 ψηφία, χωρίς το +30 — π.χ. 6974991255.
+      - name: youtube
+        label: YouTube (link)
+        type: string
+      - name: facebook
+        label: Facebook (link)
+        type: string
+      - name: instagram
+        label: Instagram (link)
+        type: string
+        description: Αν μείνει κενό, το Instagram δεν εμφανίζεται στη σελίδα.
+
   # ── Νέα ─────────────────────────────────────────────────────────────
   - name: nea
     label: Νέα

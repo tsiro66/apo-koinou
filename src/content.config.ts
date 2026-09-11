@@ -131,10 +131,31 @@ const istoriaCollection = defineCollection({
   }),
 });
 
+// ───────────────────────────────────────────────────────────────────────────
+// Επικοινωνία (contact page, Greek only)
+// One Markdown file: src/content/epikoinonia/epikoinonia.md — the lead
+// text plus the contact details (email, phone, social links). Values
+// fall back to the SITE constants in consts.ts when left empty.
+// Managed by the client through Pages CMS.
+// ───────────────────────────────────────────────────────────────────────────
+const epikoinoniaCollection = defineCollection({
+  loader: glob({ pattern: "*.md", base: "./src/content/epikoinonia" }),
+  schema: z.object({
+    // Intro paragraph shown under the heading.
+    body: z.string().optional(),
+    email: z.string().optional(),
+    phone: z.string().optional(),
+    youtube: z.string().optional(),
+    facebook: z.string().optional(),
+    instagram: z.string().optional(),
+  }),
+});
+
 export const collections = {
   parastaseis: parastaseisCollection,
   repertorio: repertorioCollection,
   syllogi: syllogiCollection,
   nea: neaCollection,
   istoria: istoriaCollection,
+  epikoinonia: epikoinoniaCollection,
 };

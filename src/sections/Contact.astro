@@ -3,6 +3,7 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import { SITE } from "../consts";
+import { getEntry } from "astro:content";
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -13,16 +14,35 @@ const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const parastaseisHref = localizedPath("/parastaseis", locale);
 
+// Contact details come from the `epikoinonia` collection (Greek only,
+// managed through Pages CMS); the SITE constants are the fallback so
+// the page renders even when the entry is missing or a field is empty.
+const entry = await getEntry("epikoinonia", "epikoinonia");
+const email = entry?.data.email ?? SITE.email;
+const phone = entry?.data.phone ?? SITE.phone;
+
 // Display-only grouping (697 499 1255); the tel: href keeps the
 // international +30 form so the link also works from abroad.
-const phoneDisplay = SITE.phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3");
+const phoneDisplay = phone.replace(/(\d{3})(\d{3})(\d{4})/, "$1 $2 $3");
 
-// Only platforms with a URL configured in consts.ts are rendered
-// (Instagram is currently empty and drops out automatically).
+// Only platforms with a URL configured are rendered (Instagram is
+// currently empty and drops out automatically).
 const socials = [
-  { label: "YouTube", href: SITE.social.youtube, icon: "youtube" },
-  { label: "Facebook", href: SITE.social.facebook, icon: "facebook" },
-  { label: "Instagram", href: SITE.social.instagram, icon: "instagram" },
+  {
+    label: "YouTube",
+    href: entry?.data.youtube ?? SITE.social.youtube,
+    icon: "youtube",
+  },
+  {
+    label: "Facebook",
+    href: entry?.data.facebook ?? SITE.social.facebook,
+    icon: "facebook",
+  },
+  {
+    label: "Instagram",
+    href: entry?.data.instagram ?? SITE.social.instagram,
+    icon: "instagram",
+  },
 ].filter((s) => s.href);
 ---
 
@@ -48,7 +68,7 @@ const socials = [
       <p
         class="mt-6 max-w-xl text-base leading-relaxed text-zinc-950/75 sm:text-lg"
       >
-        {t("page.epikoinonia.body")}
+        {entry?.data.body ?? t("page.epikoinonia.body")}
       </p>
 
       <!-- Contact rows: three rows, one grammar. Every row is the same
@@ -59,7 +79,7 @@ const socials = [
       <ul class="mt-10 border-t border-zinc-950/10">
         <li class="border-b border-zinc-950/10">
           <a
-            href={`mailto:${SITE.email}`}
+            href={`mailto:${email}`}
             class="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:py-5"
           >
             <span
@@ -70,7 +90,7 @@ const socials = [
             <span
               class="inline-flex items-center gap-2 font-display text-lg text-zinc-950 sm:text-xl"
             >
-              <span class="[overflow-wrap:anywhere]">{SITE.email}</span>
+              <span class="[overflow-wrap:anywhere]">{email}</span>
               <span
                 aria-hidden="true"
                 class="transition-transform duration-200 group-hover:translate-x-1"
@@ -81,7 +101,7 @@ const socials = [
         </li>
         <li class="border-b border-zinc-950/10">
           <a
-            href={`tel:+30${SITE.phone}`}
+            href={`tel:+30${phone}`}
             class="group flex flex-col gap-1 py-4 sm:flex-row sm:items-baseline sm:justify-between sm:gap-6 sm:py-5"
           >
             <span
