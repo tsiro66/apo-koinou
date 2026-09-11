@@ -43,7 +43,6 @@ crew:
     name: Νίκος Παναγόπουλος
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 youtubeTrailer: https://www.youtube.com/watch?v=GuuoUA58AfA
-thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/01.jpg
 gallery:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/02.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/03.jpg
