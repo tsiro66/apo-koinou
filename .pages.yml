@@ -20,8 +20,6 @@ media:
     input: src/assets/logos
     output: ../../assets/logos
 
-content:
-  # ── Παραστάσεις ──────────────────────────────────────────────────────
   - name: parastaseis
     label: Παραστάσεις
     path: src/content/parastaseis
@@ -214,39 +212,6 @@ content:
   # The contact page's details (Greek only): lead text, email, phone
   # and social links. Single file; creating/renaming/deleting disabled.
   # Empty fields fall back to the site constants in src/consts.ts.
-  - name: epikoinonia
-    label: Επικοινωνία
-    path: src/content/epikoinonia
-    type: collection
-    operations:
-      create: false
-      rename: false
-      delete: false
-    view:
-      primary: body
-    fields:
-      - name: body
-        label: Κείμενο εισαγωγής
-        type: text
-      - name: email
-        label: Email
-        type: string
-      - name: phone
-        label: Τηλέφωνο
-        type: string
-        description: 10 ψηφία, χωρίς το +30 — π.χ. 6974991255.
-      - name: youtube
-        label: YouTube (link)
-        type: string
-      - name: facebook
-        label: Facebook (link)
-        type: string
-      - name: instagram
-        label: Instagram (link)
-        type: string
-        description: Αν μείνει κενό, το Instagram δεν εμφανίζεται στη σελίδα.
-
-  # ── Νέα ─────────────────────────────────────────────────────────────
   - name: nea
     label: Νέα
     path: src/content/nea
@@ -289,6 +254,27 @@ content:
   # the filename derives from the chosen play, so entries carry no slug
   # field. A play without a dedicated set falls back to its regular
   # Φωτογραφίες, so the page is never empty.
+  - name: istoria
+    label: Ιστορία
+    path: src/content/istoria
+    type: collection
+    operations:
+      create: false
+      rename: false
+      delete: false
+    view:
+      primary: title
+    fields:
+      - name: title
+        label: Τίτλος
+        type: string
+        required: true
+      - name: seoDescription
+        label: SEO Περιγραφή
+        type: text
+      - name: body
+        label: Κείμενο
+        type: rich-text
   - name: syllogi
     label: Συλλογή
     path: src/content/syllogi
@@ -319,24 +305,36 @@ content:
   # The history page's long-form text (Greek only). Single file managed
   # by the client; creating/renaming/deleting disabled — the filename
   # maps to the page rendered by src/sections/History.astro.
-  - name: istoria
-    label: Ιστορία
-    path: src/content/istoria
+  - name: epikoinonia
+    label: Επικοινωνία
+    path: src/content/epikoinonia
     type: collection
     operations:
       create: false
       rename: false
       delete: false
     view:
-      primary: title
+      primary: body
     fields:
-      - name: title
-        label: Τίτλος
-        type: string
-        required: true
-      - name: seoDescription
-        label: SEO Περιγραφή
-        type: text
       - name: body
-        label: Κείμενο
-        type: rich-text
+        label: Κείμενο εισαγωγής
+        type: text
+      - name: email
+        label: Email
+        type: string
+      - name: phone
+        label: Τηλέφωνο
+        type: string
+        description: 10 ψηφία, χωρίς το +30 — π.χ. 6974991255.
+      - name: youtube
+        label: YouTube (link)
+        type: string
+      - name: facebook
+        label: Facebook (link)
+        type: string
+      - name: instagram
+        label: Instagram (link)
+        type: string
+        description: Αν μείνει κενό, το Instagram δεν εμφανίζεται στη σελίδα.
+
+  # ── Νέα ─────────────────────────────────────────────────────────────
