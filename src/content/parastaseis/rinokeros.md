@@ -17,7 +17,7 @@ gallery:
   - ../../assets/parastaseis/ρινοκ24.jpg
   - ../../assets/parastaseis/ρινοκ24-1.jpg
 invitation:
-  - ../../assets/parastaseis/ρινοκ2.jpg
+  - ../../assets/parastaseis/ρινοκ12.jpg
 program:
   - ../../assets/parastaseis/ρινοκ4.jpg
 carousel: true
