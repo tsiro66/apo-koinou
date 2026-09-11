@@ -176,7 +176,7 @@ content:
     fields:
       - name: play
         label: Παράσταση
-        type: relation
+        type: reference
         required: true
         description: Επιλέξτε την παράσταση από τις Παραστάσεις — τίτλος, εικόνα και συντελεστές έρχονται αυτόματα από εκεί. Το αρχείο ονομάζεται αυτόματα με το slug της παράστασης.
         options:
