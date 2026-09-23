@@ -76,6 +76,6 @@ gallery:
 invitation:
   - ../../assets/parastaseis/vussinokhpos/invitation-front.jpg
   - ../../assets/parastaseis/vussinokhpos/invitation-back.jpg
-carousel: false
+carousel: true
 draft: false
 ---
