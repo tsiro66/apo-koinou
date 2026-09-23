@@ -16,6 +16,7 @@ poster: ../../assets/parastaseis/αφισα Λιθογραφείο.jpg
 gallery:
   - ../../assets/parastaseis/ρινοκ24.jpg
   - ../../assets/parastaseis/ρινοκ24-1.jpg
+  - ../../assets/parastaseis/screenshot-2026-09-23_12-06-11.png
 invitation:
   - ../../assets/parastaseis/ρινοκ12.jpg
 program:
