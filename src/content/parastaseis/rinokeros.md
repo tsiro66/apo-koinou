@@ -52,6 +52,7 @@ invitation:
 program:
   - ../../assets/parastaseis/ρινοκ4.jpg
   - ../../assets/parastaseis/ρινοκ40.jpg
+  - ../../assets/parastaseis/ρινοκ35.jpg
 carousel: true
 draft: false
 ---
