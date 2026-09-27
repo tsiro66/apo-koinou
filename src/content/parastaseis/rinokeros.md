@@ -56,6 +56,7 @@ program:
   - ../../assets/parastaseis/678191866_1404612801470835_4047708310726081593_n.jpg
   - ../../assets/parastaseis/ρινοκ32.jpg
   - ../../assets/parastaseis/ριν22.jpg
+  - ../../assets/parastaseis/ριν32.jpg
 carousel: true
 draft: false
 ---
