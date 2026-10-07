@@ -7,6 +7,8 @@ summary: Θέατρο-ντοκουμέντο βασισμένο σε μαρτυ�
 videoId: 1d2f4d88-6864-4a89-b2b4-5a587458e359
 youtubeTrailer: https://www.youtube.com/watch?v=NmR22NNQXv8
 thumbnail: ../../assets/parastaseis/DSC02736.jpg
+gallery:
+  - ../../assets/parastaseis/DSC_9201.jpg
 carousel: false
 draft: false
 ---
