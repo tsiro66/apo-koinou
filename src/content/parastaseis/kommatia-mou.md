@@ -50,6 +50,7 @@ gallery:
   - ../../assets/parastaseis/DSC00926.jpg
   - ../../assets/parastaseis/DSC00892.jpg
   - ../../assets/parastaseis/DSC00959.jpg
+  - ../../assets/parastaseis/DSC00693.jpg
 carousel: false
 draft: false
 ---
