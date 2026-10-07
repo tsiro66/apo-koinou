@@ -14,6 +14,8 @@ gallery:
   - ../../assets/parastaseis/DSC_9299.jpg
   - ../../assets/parastaseis/DSC_9302.jpg
   - ../../assets/parastaseis/DSC_9318.jpg
+  - ../../assets/parastaseis/DSC_9321.jpg
+  - ../../assets/parastaseis/DSC_9322.jpg
 carousel: false
 draft: false
 ---
