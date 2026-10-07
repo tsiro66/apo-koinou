@@ -1,5 +1,6 @@
 import { defineCollection, z } from "astro:content";
 import { glob } from "astro/loaders";
+import type { ZodObject, ZodRawShape } from "astro/zod";
 
 // ───────────────────────────────────────────────────────────────────────────
 // Παραστάσεις (Productions)
@@ -8,6 +9,40 @@ import { glob } from "astro/loaders";
 // paths relative to the entry file and feeds them through astro:assets for
 // build-time optimization (responsive webp/avif, blur placeholders).
 // ───────────────────────────────────────────────────────────────────────────
+/**
+ * List-of-rows fields whose editor is Pages CMS. When an editor adds a list
+ * item and clears its fields (or never fills them in), the CMS commits a
+ * YAML row with missing/empty values (e.g. `- {}` or `- { name: "" }`),
+ * which would fail strict validation and break every build. Such rows are
+ * abandoned edits, so we drop any row whose required keys are missing or
+ * empty *before* schema validation (z.preprocess) instead of failing.
+ *
+ * Rows that are partially filled but genuinely incomplete are likewise
+ * dropped — a nameless crew member has no usable identity to render.
+ */
+const cmsRows = <
+  T extends [string, ...string[]],
+  S extends ZodObject<ZodRawShape>,
+>(
+  requiredKeys: T,
+  schema: S,
+) =>
+  z.preprocess(
+    (val) =>
+      Array.isArray(val)
+        ? val.filter(
+            (row) =>
+              row !== null &&
+              typeof row === "object" &&
+              requiredKeys.every((key) => {
+                const v = (row as Record<string, unknown>)[key];
+                return v !== undefined && v !== null && v !== "";
+              }),
+          )
+        : val,
+    z.array(schema).default([]),
+  );
+
 const parastaseisCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/parastaseis" }),
   schema: ({ image }) =>
@@ -22,16 +57,19 @@ const parastaseisCollection = defineCollection({
       genre: z.string().optional(),
       language: z.string().default("Ελληνικά"),
       // Διανομή: actor name + optional role.
-      cast: z
-        .array(z.object({ name: z.string(), role: z.string().optional() }))
-        .default([]),
-      crew: z
-        .array(z.object({ role: z.string(), name: z.string() }))
-        .default([]),
+      cast: cmsRows(
+        ["name"],
+        z.object({ name: z.string(), role: z.string().optional() }),
+      ),
+      crew: cmsRows(
+        ["role", "name"],
+        z.object({ role: z.string(), name: z.string() }),
+      ),
       // Τόπος & χρόνος: one row per performance.
-      performances: z
-        .array(z.object({ date: z.coerce.date(), venue: z.string() }))
-        .default([]),
+      performances: cmsRows(
+        ["date", "venue"],
+        z.object({ date: z.coerce.date(), venue: z.string() }),
+      ),
       summary: z.string().optional(),
       // Bunny Stream video ID (GUID) for the full recorded performance.
       videoId: z.string().optional(),
@@ -43,9 +81,10 @@ const parastaseisCollection = defineCollection({
       poster: image().optional(),
       program: z.array(image()).default([]),
       // Κριτικές: review quotes with source attribution.
-      kritikes: z
-        .array(z.object({ source: z.string(), text: z.string() }))
-        .default([]),
+      kritikes: cmsRows(
+        ["source", "text"],
+        z.object({ source: z.string(), text: z.string() }),
+      ),
       seoDescription: z.string().optional(),
       seoImage: image().optional(),
       draft: z.boolean().default(false),
