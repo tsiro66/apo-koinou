@@ -9,6 +9,7 @@ poster: ../../assets/parastaseis/epistrofh/poster.jpg
 gallery:
   - ../../assets/parastaseis/DSC07465.jpg
   - ../../assets/parastaseis/DSC07407.jpg
+  - ../../assets/parastaseis/DSC07439.jpg
 carousel: true
 draft: false
 ---
