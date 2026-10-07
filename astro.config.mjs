@@ -53,7 +53,10 @@ function pruneUnreferencedOriginals() {
           ".webmanifest",
         ]);
         const referenced = new Set();
-        const REFERENCE_RE = /\/_astro\/[^"'\s)<>\\]+/g;
+        // Parens are legal filename chars ("DSC00620 (1).jpg"); refs in
+        // attributes/strings are quote-terminated, so capture ")" too and
+        // trim only an UNbalanced trailing one ("url(...)" context).
+        const REFERENCE_RE = /\/_astro\/[^"'\s<>\\]+/g;
         const walk = async (/** @type {string} */ directory) => {
           for (const entry of await readdir(directory, {
             withFileTypes: true,
@@ -67,18 +70,44 @@ function pruneUnreferencedOriginals() {
             const text = await readFile(full, "utf8").catch(() => undefined);
             if (text === undefined) continue;
             for (const match of text.matchAll(REFERENCE_RE)) {
-              referenced.add(match[0].slice("/_astro/".length));
+              // Filenames may contain parentheses (e.g. "DSC00620 (1).jpg"),
+              // but url(...) and srcset(...) contexts end in ")". Keep ")"
+              // in the capture and trim only an UNBALANCED trailing one —
+              // balanced pairs belong to the filename itself.
+              let ref = match[0].slice("/_astro/".length);
+              while (ref.endsWith(")")) {
+                const opens = (ref.match(/\(/g) || []).length;
+                const closes = (ref.match(/\)/g) || []).length;
+                if (closes > opens) ref = ref.slice(0, -1);
+                else break;
+              }
+              referenced.add(ref);
             }
           }
         };
         await walk(distDir);
+
+        // URLs in HTML are percent-encoded; files on disk keep their raw
+        // names (Unicode filenames are written verbatim by the fs, while
+        // Astro emits percent-encoded URLs). Index both forms so encoded
+        // Greek-named derivatives are never treated as unreferenced.
+        const matchedNames = new Set();
+        for (const ref of referenced) {
+          matchedNames.add(ref);
+          try {
+            matchedNames.add(decodeURIComponent(ref));
+          } catch {
+            /* malformed escape — keep raw form only */
+          }
+        }
+        const referencedNames = matchedNames;
 
         // Delete image files in _astro that nothing references.
         let count = 0;
         let bytes = 0;
         for (const name of await readdir(astroDir)) {
           if (!PRUNABLE_IMAGE_EXTS.has(extname(name).toLowerCase())) continue;
-          if (referenced.has(name)) continue;
+          if (referencedNames.has(name)) continue;
           const full = join(astroDir, name);
           bytes +=
             (await readFile(full).catch(() => undefined))?.byteLength ?? 0;
