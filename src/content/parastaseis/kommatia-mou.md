@@ -33,6 +33,10 @@ thumbnail: ../../assets/parastaseis/DSC00620 (1).jpg
 poster: ../../assets/parastaseis/kommatia-mou/poster.jpg
 gallery:
   - ../../assets/parastaseis/DSC00584.jpg
+  - ../../assets/parastaseis/DSC00569.jpg
+  - ../../assets/parastaseis/DSC00581.jpg
+  - ../../assets/parastaseis/DSC00613.jpg
+  - ../../assets/parastaseis/DSC00606.jpg
 carousel: false
 draft: false
 ---
