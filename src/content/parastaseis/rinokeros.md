@@ -48,18 +48,20 @@ poster: ../../assets/parastaseis/αφισα Λιθογραφείο.jpg
 gallery:
   - ../../assets/parastaseis/ρινοκ24.jpg
   - ../../assets/parastaseis/ρινοκ4-1.jpg
-invitation:
+  - ../../assets/parastaseis/ρινοκ18.jpg
+  - ../../assets/parastaseis/ρινοκ21.jpg
+  - ../../assets/parastaseis/ρινοκ32.jpg
+  - ../../assets/parastaseis/ριν32.jpg
+  - ../../assets/parastaseis/ριν22.jpg
+  - ../../assets/parastaseis/ριν28.jpg
   - ../../assets/parastaseis/ρινοκ12.jpg
-program:
+  - ../../assets/parastaseis/ρινοκ2.jpg
+  - ../../assets/parastaseis/ρινοκ21.jpg
+  - ../../assets/parastaseis/ρινοκ35.jpg
+  - ../../assets/parastaseis/ρινοκ4-1.jpg
   - ../../assets/parastaseis/ρινοκ4.jpg
   - ../../assets/parastaseis/ρινοκ40.jpg
-  - ../../assets/parastaseis/ρινοκ35.jpg
-  - ../../assets/parastaseis/678191866_1404612801470835_4047708310726081593_n.jpg
-  - ../../assets/parastaseis/ρινοκ32.jpg
-  - ../../assets/parastaseis/ριν22.jpg
-  - ../../assets/parastaseis/ριν32.jpg
   - ../../assets/parastaseis/ριν10.jpg
-  - ../../assets/parastaseis/ριν28.jpg
   - ../../assets/parastaseis/ριν18.jpg
 carousel: true
 draft: false
