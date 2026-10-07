@@ -50,6 +50,7 @@ gallery:
   - ../../assets/parastaseis/DSC04974.jpg
   - ../../assets/parastaseis/DSC04871.jpg
   - ../../assets/parastaseis/DSC04831.jpg
+  - ../../assets/parastaseis/DSC04901.jpg
 program:
   - ../../assets/parastaseis/o-kalos-anthrwpos/program1.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program2.jpg
