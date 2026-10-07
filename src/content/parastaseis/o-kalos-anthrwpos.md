@@ -59,6 +59,6 @@ program:
   - ../../assets/parastaseis/o-kalos-anthrwpos/program2.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program3.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program4.jpg
-carousel: false
+carousel: true
 draft: false
 ---
