@@ -31,6 +31,8 @@ crew:
 videoId: 4746d013-8b3d-496a-82ae-0a717d8a8fb8
 thumbnail: ../../assets/parastaseis/DSC00620 (1).jpg
 poster: ../../assets/parastaseis/kommatia-mou/poster.jpg
+gallery:
+  - ../../assets/parastaseis/DSC00584.jpg
 carousel: false
 draft: false
 ---
