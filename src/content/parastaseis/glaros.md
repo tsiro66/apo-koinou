@@ -52,7 +52,7 @@ crew:
     name: Μαρία Φωτίου
   - role: Φωτογραφία, βίντεο
     name: Βασίλης Λάγιος
-videoId: 2626fb3e-c765-4271-9979-bce928fe441d
+videoId: 760b88a2-ae58-4a69-847d-61e1e7a204ec
 youtubeTrailer: https://www.youtube.com/watch?v=rtlxTbT56l0
 thumbnail: ../../assets/parastaseis/glaros/01.jpg
 poster: ../../assets/parastaseis/glaros/poster.jpg
