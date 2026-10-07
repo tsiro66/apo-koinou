@@ -9,6 +9,8 @@ youtubeTrailer: https://www.youtube.com/watch?v=NmR22NNQXv8
 thumbnail: ../../assets/parastaseis/DSC02736.jpg
 gallery:
   - ../../assets/parastaseis/DSC_9201.jpg
+  - ../../assets/parastaseis/DSC_9217.jpg
+  - ../../assets/parastaseis/DSC_9239.jpg
 carousel: false
 draft: false
 ---
