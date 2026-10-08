@@ -54,6 +54,6 @@ gallery:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/08.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/09.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/10.jpg
-carousel: false
+carousel: true
 draft: false
 ---
