@@ -4,7 +4,7 @@ import SectionTitle from "../components/SectionTitle.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import RepertoireFeature from "../components/RepertoireFeature.astro";
 import { SEASON } from "../consts";
-import { getRepertoire } from "../utils/repertoire";
+import { getRepertoire, getRepertoirePage } from "../utils/repertoire";
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -18,7 +18,13 @@ const t = useTranslations(locale);
 // Plays picked for the current season (Ρεπερτόριο collection in Pages CMS),
 // ordered by the entry's `order` field, then newest play first.
 const items = await getRepertoire();
-const heading = format(t("page.repertorio.heading"), { season: SEASON });
+
+// Page texts from the "Ρεπερτόριο — Σελίδα" entry; falls back to the
+// SEASON constant and the hardcoded translations.
+const { season, intro, emptyNote } = await getRepertoirePage();
+const heading = format(t("page.repertorio.heading"), {
+  season: season ?? SEASON,
+});
 ---
 
 <BaseLayout title={t("page.repertorio.title")} canonicalPath="/repertorio">
@@ -33,6 +39,13 @@ const heading = format(t("page.repertorio.heading"), { season: SEASON });
       <SectionTitle eyebrow={t("page.repertorio.eyebrow")} title={heading} />
     </div>
     {
+      intro && (
+        <p class="mt-6 max-w-xl text-base leading-relaxed text-zinc-950/75 sm:text-lg">
+          {intro}
+        </p>
+      )
+    }
+    {
       items.length > 0 ? (
         // Full-width featured blocks — one per play, photo side alternating.
         <div class="mt-10 flex flex-col gap-16 sm:gap-20">
@@ -41,7 +54,9 @@ const heading = format(t("page.repertorio.heading"), { season: SEASON });
           ))}
         </div>
       ) : (
-        <p class="mt-10 text-zinc-600">{t("page.repertorio.soon")}</p>
+        <p class="mt-10 max-w-xl text-zinc-600">
+          {emptyNote ?? t("page.repertorio.soon")}
+        </p>
       )
     }
   </div>

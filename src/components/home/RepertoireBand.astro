@@ -1,5 +1,6 @@
 ---
 import { SEASON } from "../../consts";
+import { getRepertoirePage } from "../../utils/repertoire";
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -10,6 +11,10 @@ import {
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const repertoireHref = localizedPath("/repertorio", locale);
+
+// Season label + note from the "Ρεπερτόριο — Σελίδα" entry; falls back
+// to the SEASON constant and the hardcoded "soon" translation.
+const { season, emptyNote } = await getRepertoirePage();
 ---
 
 <!-- Repertoire band: the orange bookend against the dark footer. Its
@@ -26,10 +31,10 @@ const repertoireHref = localizedPath("/repertorio", locale);
         {t("page.repertorio.eyebrow")}
       </p>
       <h2 class="mt-2 font-display text-3xl leading-tight sm:text-4xl">
-        {format(t("page.repertorio.heading"), { season: SEASON })}
+        {format(t("page.repertorio.heading"), { season: season ?? SEASON })}
       </h2>
       <p class="mt-3 max-w-xl text-sm text-zinc-50/80">
-        {t("page.repertorio.soon")}
+        {emptyNote ?? t("page.repertorio.soon")}
       </p>
     </div>
     <a
