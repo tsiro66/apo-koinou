@@ -40,6 +40,7 @@ summary: >
 thumbnail: ../../assets/parastaseis/70414795715314649419138102624200811129321757n.jpg
 gallery:
   - ../../assets/parastaseis/70097119215314557452480637979977113445692978n.jpg
+  - ../../assets/parastaseis/70115689215314510252485351436568623856134121n.jpg
 carousel: false
 draft: false
 ---
