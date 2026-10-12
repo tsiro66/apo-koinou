@@ -1,7 +1,7 @@
 ---
 title: Ο καλός άνθρωπος
 slug: o-kalos-anthrwpos
-year: 2024
+year: 2023
 writer: Μπέρτολτ Μπρεχτ
 crew:
   - role: Βανγκ, ο νερουλάς/ ένας άνεργος/ ο ιερέας
