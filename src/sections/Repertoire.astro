@@ -2,9 +2,9 @@
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
-import PlayCard from "../components/PlayCard.astro";
+import RepertoireFeature from "../components/RepertoireFeature.astro";
 import { SEASON } from "../consts";
-import { getRepertoire, performanceRange } from "../utils/repertoire";
+import { getRepertoire } from "../utils/repertoire";
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -34,16 +34,10 @@ const heading = format(t("page.repertorio.heading"), { season: SEASON });
     </div>
     {
       items.length > 0 ? (
-        <div class="mt-10 grid gap-x-6 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map(({ entry, play }) => (
-            <PlayCard
-              play={play}
-              href={localizedPath(`/repertorio/${entry.id}`, locale)}
-              eyebrow={
-                performanceRange(entry.data.performances, locale) ??
-                String(play.data.year)
-              }
-            />
+        // Full-width featured blocks — one per play, photo side alternating.
+        <div class="mt-10 flex flex-col gap-16 sm:gap-20">
+          {items.map((item, index) => (
+            <RepertoireFeature item={item} index={index} />
           ))}
         </div>
       ) : (
