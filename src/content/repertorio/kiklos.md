@@ -11,5 +11,8 @@ summary: Η θεατρική ομάδα ‘’από κοινού’’  της 
 thumbnail: ../../assets/repertorio/fj20747.webp
 crew:
   - {}
+performances:
+  - venue: Πάτρα - Αθήνα, Άνοιξη- Καλοκαίρι 2027
+    date: 2026-10-12
 draft: false
 ---
