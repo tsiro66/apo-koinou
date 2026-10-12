@@ -16,7 +16,7 @@ export const SITE = {
 } as const;
 
 // Current season label, shown on the repertoire page and homepage band.
-export const SEASON = "2025–2026";
+export const SEASON = "2026–2027";
 
 // Bunny Stream library ID — shared by every video embed URL. Individual
 // video IDs live in each play's `videoId` frontmatter field.
