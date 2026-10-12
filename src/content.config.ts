@@ -150,22 +150,6 @@ const syllogiCollection = defineCollection({
     }),
 });
 
-// ──────────────────────────────────────────────────────────────────────────
-// Ρεπερτόριο — Σελίδα (page-level texts for /repertorio)
-// Single file, editable through Pages CMS, Greek only. The season label
-// feeds the page heading and the home band, the intro renders under the
-// heading, and the empty note shows on the page (and home band) while no
-// play is published. Empty fields fall back to SEASON / the hardcoded
-// translations, so a blank entry never breaks anything.
-const repertorioSelidaCollection = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/repertorioselida" }),
-  schema: z.object({
-    season: z.string().optional(),
-    intro: z.string().optional(),
-    emptyNote: z.string().optional(),
-  }),
-});
-
 // ───────────────────────────────────────────────────────────────────────────
 // Νέα (Announcements / news posts)
 // Minimal entry: title + image + markdown body. Pages CMS auto-fills
@@ -219,7 +203,6 @@ export const collections = {
   parastaseis: parastaseisCollection,
   repertorio: repertorioCollection,
   syllogi: syllogiCollection,
-  repertorioselida: repertorioSelidaCollection,
   nea: neaCollection,
   istoria: istoriaCollection,
   epikoinonia: epikoinoniaCollection,

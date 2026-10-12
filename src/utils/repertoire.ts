@@ -2,25 +2,10 @@
 // Repertoire entries are standalone current-season plays (NOT parastaseis
 // archive entries); this helper resolves and orders them for the listing
 // and detail pages.
-import { getCollection, getEntry, type CollectionEntry } from "astro:content";
+import { getCollection, type CollectionEntry } from "astro:content";
 import type { Locale } from "../i18n/ui";
 
 export type RepertoireEntry = CollectionEntry<"repertorio">;
-
-/**
- * Page-level texts for /repertorio, edited through the "Ρεπερτόριο —
- * Σελίδα" single-file entry in Pages CMS. Undefined fields fall back
- * to the SEASON constant / the hardcoded translations at the call
- * sites, so a blank entry never breaks anything.
- */
-export async function getRepertoirePage(): Promise<{
-  season?: string;
-  intro?: string;
-  emptyNote?: string;
-}> {
-  const entry = await getEntry("repertorioselida", "repertorioselida");
-  return entry?.data ?? {};
-}
 
 /**
  * Published repertoire entries, ordered for the listing: manual `order`

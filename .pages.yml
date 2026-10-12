@@ -251,37 +251,6 @@ content:
         type: rich-text
         description: Το κείμενο για τη σελίδα της παράστασης στον ρεπερτόριο.
 
-  # ── Ρεπερτόριο — Σελίδα ───────────────────────────────────────────────
-  # Page-level texts for /repertorio (Greek only): the season label
-  # feeds the heading on the page and the home band, the intro renders
-  # under the heading, and the empty note shows while no play is
-  # published. Creation/rename/delete are disabled — it's a single
-  # fixed file, editors only change text. Empty fields fall back to
-  # the SEASON constant and the hardcoded translations.
-  - name: repertorioselida
-    label: Ρεπερτόριο — Σελίδα
-    path: src/content/repertorioselida
-    type: collection
-    operations:
-      create: false
-      rename: false
-      delete: false
-    view:
-      primary: season
-    fields:
-      - name: season
-        label: Ένδειξη περιόδου
-        type: string
-        description: Η σεζόν (περίοδος) που εμφανίζεται στον τίτλο, π.χ. 2025–2026.
-      - name: intro
-        label: Κείμενο εισαγωγής
-        type: text
-        description: Προαιρετικό κείμενο κάτω από τον τίτλο της σελίδας Ρεπερτόριο.
-      - name: emptyNote
-        label: Σημείωμα όταν δεν υπάρχει παράσταση
-        type: text
-        description: Εμφανίζεται στη σελίδα Ρεπερτόριο και στην αρχική όσο κανένας θίασος δεν έχει καταχωρηθεί.
-
   # ── Επικοινωνία ─────────────────────────────────────────────────────
   # The contact page's details (Greek only): lead text, email, phone
   # and social links. Single file; creating/renaming/deleting disabled.
