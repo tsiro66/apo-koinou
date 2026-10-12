@@ -6,14 +6,13 @@
 // navbar. The navbar flips to solid as the photo exits (data-hero
 // contract; the server-rendered data-mode default lives in
 // Navbar.astro).
-import type { CollectionEntry } from "astro:content";
 import { Image } from "astro:assets";
+import type { ImageMetadata } from "astro";
 import {
   getLocaleFromUrl,
   useTranslations,
   localizedPath,
 } from "../i18n/utils";
-import { getThumbnail } from "../utils/media";
 
 export interface HeaderButton {
   href: string;
@@ -21,7 +20,12 @@ export interface HeaderButton {
 }
 
 interface Props {
-  play: CollectionEntry<"parastaseis">;
+  /** Display title (production title). */
+  title: string;
+  /** Production year, rendered in parentheses after the title. */
+  year?: number;
+  /** Hero photo; a play without one falls back to a plain dark band. */
+  thumb?: ImageMetadata;
   buttons?: HeaderButton[];
   /** Anchor to the stream section; renders the Watch now button. */
   watchNowHref?: string;
@@ -33,15 +37,15 @@ interface Props {
   backLabel?: string;
 }
 const {
-  play,
+  title,
+  year,
+  thumb,
   buttons = [],
   watchNowHref,
   backHref,
   backLabel,
   eyebrow,
 } = Astro.props;
-const d = play.data;
-const thumb = getThumbnail(d);
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 ---
@@ -111,16 +115,13 @@ const t = useTranslations(locale);
     <h1
       class="font-display text-4xl leading-tight text-balance text-zinc-50 sm:text-5xl"
     >
-      {d.title}
-      <span class="font-normal text-zinc-50/60"> ({d.year})</span>
+      {title}
+      {year && <span class="font-normal text-zinc-50/60"> ({year})</span>}
     </h1>
 
     {
       (watchNowHref || buttons.length > 0) && (
-        <nav
-          aria-label={d.title}
-          class="mt-1 flex flex-wrap items-center gap-2"
-        >
+        <nav aria-label={title} class="mt-1 flex flex-wrap items-center gap-2">
           {watchNowHref && (
             <a
               href={watchNowHref}

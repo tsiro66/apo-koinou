@@ -17,6 +17,12 @@ media:
     # Entries live at src/content/parastaseis/*.md → two levels up.
     output: ../../assets/parastaseis
     rename: safe
+  - name: repertorio-media
+    label: Εικόνες ρεπερτορίου
+    input: src/assets/repertorio
+    # Entries live at src/content/repertorio/*.md → two levels up.
+    output: ../../assets/repertorio
+    rename: safe
   - name: nea-media
     label: Εικόνες νέων
     input: src/assets/nea
@@ -155,38 +161,67 @@ content:
         default: false
 
   # ── Ρεπερτόριο ─────────────────────────────────────────────────────
-  # One entry per play currently in the season's repertoire. The entry
-  # links to a Παραστάσεις entry (relation dropdown, stored as the play's
-  # slug) and carries the season-specific content: text, summary and
-  # upcoming show dates. The filename is derived from the chosen play
-  # ({fields.play}), so entries don't need their own slug field.
+  # STANDALONE entries: repertoire plays are on stage now, so each entry
+  # carries everything here — title, year, writer, own image, text, crew
+  # and upcoming show dates. Nothing is pulled from the Παραστάσεις
+  # archive (a play enters the archive only after its run ends). The
+  # filename derives from the entry's slug ({fields.slug}).
   - name: repertorio
     label: Ρεπερτόριο
     path: src/content/repertorio
     type: collection
-    filename: "{fields.play}.md"
+    filename: "{fields.slug}.md"
     view:
-      fields: [play, draft]
-      primary: play
+      fields: [title, year, draft]
+      primary: title
       sort: [order]
       default:
         sort: order
         order: asc
     fields:
-      - name: play
-        label: Παράσταση
-        type: reference
+      - name: title
+        label: Τίτλος
+        type: string
         required: true
-        description: Επιλέξτε την παράσταση από τις Παραστάσεις — τίτλος, εικόνα και συντελεστές έρχονται αυτόματα από εκεί. Το αρχείο ονομάζεται αυτόματα με το slug της παράστασης.
-        options:
-          collection: parastaseis
-          # Store the play's slug (e.g. "glaros"); display its title.
-          value: "{name}"
-          label: "{primary}"
+      - name: slug
+        label: Slug (URL)
+        type: string
+        required: true
+        description: Μόνο λατινικοί χαρακτήρες και παύλες, π.χ. rinokeros. Χρησιμοποιείται ως όνομα αρχείου και URL.
+        pattern: "^[a-z0-9]+(?:-[a-z0-9]+)*$"
+      - name: year
+        label: Έτος
+        type: number
+        required: true
+      - name: writer
+        label: Συγγραφέας
+        type: string
       - name: summary
-        label: Περίληψη ρεπερτορίου
+        label: Περίληψη
         type: text
-        description: Σύντομο κείμενο για τη σελίδα του ρεπερτορίου. Αν μείνει κενό, χρησιμοποιείται η Περίληψη της παράστασης.
+        description: Σύντομο κείμενο για τη σελίδα του ρεπερτορίου — εμφανίζεται δίπλα στη φωτογραφία.
+      - name: thumbnail
+        label: Εικόνα εξωφύλλου
+        type: image
+        options:
+          media: repertorio-media
+        description: Η κύρια φωτογραφία της παράστασης· εμφανίζεται στη σελίδα Ρεπερτόριο.
+      - name: crew
+        label: Συντελεστές
+        description: Ρόλος + όνομα, π.χ. Σκηνοθεσία — Φώτης Λάζαρης.
+        type: object
+        list:
+          collapsible:
+            collapsed: true
+        fields:
+          - name: role
+            label: Ρόλος
+            type: string
+            required: true
+          - name: name
+            label: Όνομα
+            type: string
+            required: true
       - name: performances
         label: Παραστάσεις (τόπος & χρόνος)
         description: Οι επόμενες παραστάσεις της περιόδου — εμφανίζονται στη σελίδα Ρεπερτόριο, όχι στο αρχείο της παράστασης.
@@ -214,7 +249,7 @@ content:
       - name: body
         label: Κείμενο
         type: rich-text
-        description: Το κείμενο για την παράσταση στη σελίδα του ρεπερτορίου.
+        description: Το κείμενο για τη σελίδα της παράστασης στον ρεπερτόριο.
 
   # ── Επικοινωνία ─────────────────────────────────────────────────────
   # The contact page's details (Greek only): lead text, email, phone

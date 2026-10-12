@@ -92,7 +92,9 @@ const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 >
   <article>
     <ProductionHero
-      play={play}
+      title={d.title}
+      year={d.year}
+      thumb={getThumbnail(d)}
       buttons={buttons}
       backHref={localizedPath(playPath, locale)}
       backLabel={t("prod.back_to_play")}

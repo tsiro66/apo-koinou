@@ -1,53 +1,23 @@
 // Build-time helpers for the Ρεπερτόριο (repertoire) collection.
-// A repertoire entry links a play (parastaseis entry) and carries the
-// season-specific content; these helpers resolve and order that pairing
-// for the listing and detail pages.
+// Repertoire entries are standalone current-season plays (NOT parastaseis
+// archive entries); this helper resolves and orders them for the listing
+// and detail pages.
 import { getCollection, type CollectionEntry } from "astro:content";
 import type { Locale } from "../i18n/ui";
 
-export type Play = CollectionEntry<"parastaseis">;
 export type RepertoireEntry = CollectionEntry<"repertorio">;
-export type RepertoireItem = { entry: RepertoireEntry; play: Play };
 
 /**
- * Normalize a Pages CMS relation value ("glaros.md", "sub/glaros.md")
- * to the bare slug used by parastaseis entry ids.
+ * Published repertoire entries, ordered for the listing: manual `order`
+ * first (smaller first), then newest production year.
  */
-export function relationSlug(ref: string): string {
-  return ref.split("/").pop()!.replace(/\.md$/, "");
-}
-
-function findPlay(plays: Play[], ref: string): Play | undefined {
-  const slug = relationSlug(ref);
-  return plays.find((p) => p.id === slug || p.data.slug === slug);
-}
-
-/**
- * Published repertoire entries with their linked play, ordered for the
- * listing: manual `order` first (smaller first), then newest play year.
- * Entries whose play is missing or draft are skipped with a warning, so
- * a bad CMS link can never break the build.
- */
-export async function getRepertoire(): Promise<RepertoireItem[]> {
-  const [entries, plays] = await Promise.all([
-    getCollection("repertorio", ({ data }) => !data.draft),
-    getCollection("parastaseis", ({ data }) => !data.draft),
-  ]);
-  return entries
-    .map((entry) => ({ entry, play: findPlay(plays, entry.data.play) }))
-    .filter((item): item is RepertoireItem => {
-      if (item.play) return true;
-      console.warn(
-        `[repertorio] "${item.entry.id}" links to missing play "${item.entry.data.play}" — skipped.`,
-      );
-      return false;
-    })
-    .sort(
-      (a, b) =>
-        (a.entry.data.order ?? Number.POSITIVE_INFINITY) -
-          (b.entry.data.order ?? Number.POSITIVE_INFINITY) ||
-        b.play.data.year - a.play.data.year,
-    );
+export async function getRepertoire(): Promise<RepertoireEntry[]> {
+  const entries = await getCollection("repertorio", ({ data }) => !data.draft);
+  return entries.sort(
+    (a, b) =>
+      (a.data.order ?? Number.POSITIVE_INFINITY) -
+        (b.data.order ?? Number.POSITIVE_INFINITY) || b.data.year - a.data.year,
+  );
 }
 
 /**

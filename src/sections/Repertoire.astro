@@ -36,8 +36,8 @@ const heading = format(t("page.repertorio.heading"), { season: SEASON });
       items.length > 0 ? (
         // Full-width featured blocks — one per play, photo side alternating.
         <div class="mt-10 flex flex-col gap-16 sm:gap-20">
-          {items.map((item, index) => (
-            <RepertoireFeature item={item} index={index} />
+          {items.map((entry, index) => (
+            <RepertoireFeature entry={entry} index={index} />
           ))}
         </div>
       ) : (

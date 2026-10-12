@@ -3,14 +3,14 @@ import RepertoireDetail from "../../../sections/RepertoireDetail.astro";
 import { getRepertoire } from "../../../utils/repertoire";
 
 export async function getStaticPaths() {
-  const items = await getRepertoire();
-  return items.map(({ entry, play }) => ({
+  const entries = await getRepertoire();
+  return entries.map((entry) => ({
     params: { slug: entry.id },
-    props: { entry, play },
+    props: { entry },
   }));
 }
 
-const { entry, play } = Astro.props;
+const { entry } = Astro.props;
 ---
 
-<RepertoireDetail entry={entry} play={play} />
+<RepertoireDetail entry={entry} />

@@ -1,5 +1,5 @@
 ---
-import type { RepertoireItem } from "../utils/repertoire";
+import type { RepertoireEntry } from "../utils/repertoire";
 import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProductionHero from "../components/ProductionHero.astro";
@@ -12,13 +12,14 @@ import {
   localizedPath,
   formatDate,
 } from "../i18n/utils";
-import { getThumbnail, ogSrc } from "../utils/media";
+import { ogSrc } from "../utils/media";
 
-type Props = RepertoireItem;
-const { entry, play } = Astro.props;
+interface Props {
+  entry: RepertoireEntry;
+}
+const { entry } = Astro.props;
 const { Content } = await render(entry);
-const d = play.data;
-const r = entry.data;
+const d = entry.data;
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
@@ -27,9 +28,10 @@ const canonicalPath = `/repertorio/${entry.id}`;
 
 // Section visibility: render a section (and its button) only when it has
 // data. Deliberately a focused page: no stream, no Υλικό, no Διανομή —
-// the archive page (/parastaseis/<slug>) keeps the full treatment.
+// the archive page keeps the full treatment once a run enters the
+// Παραστάσεις archive.
 const hasCrew = d.crew.length > 0;
-const hasPlaceTime = r.performances.length > 0 || !!d.premiereDate;
+const hasPlaceTime = d.performances.length > 0;
 
 const buttons = [
   { href: "#theatriko-ergo", label: t("prod.section.play") },
@@ -40,7 +42,7 @@ const buttons = [
 ];
 
 // og:image: optimized 1200×630 JPEG, never the raw original.
-const ogImg = getThumbnail(d);
+const ogImg = d.thumbnail;
 const og = ogImg ? await ogSrc(ogImg) : undefined;
 
 const playFacts = [
@@ -48,23 +50,13 @@ const playFacts = [
   ...(d.writer ? [{ label: t("prod.writer"), value: d.writer }] : []),
 ];
 
-// This season's shows, soonest first; falls back to the premiere date.
-const placeTimeFacts =
-  r.performances.length > 0
-    ? [...r.performances]
-        .sort((a, b) => a.date.getTime() - b.date.getTime())
-        .map((p) => ({
-          label: formatDate(p.date, locale),
-          value: p.venue,
-        }))
-    : d.premiereDate
-      ? [
-          {
-            label: t("prod.premiere"),
-            value: formatDate(d.premiereDate, locale),
-          },
-        ]
-      : [];
+// This season's shows, soonest first.
+const placeTimeFacts = [...d.performances]
+  .sort((a, b) => a.date.getTime() - b.date.getTime())
+  .map((p) => ({
+    label: formatDate(p.date, locale),
+    value: p.venue,
+  }));
 
 // Alternating full-bleed bands, in render order.
 const orderedSections = [
@@ -73,14 +65,11 @@ const orderedSections = [
   ...(hasCrew ? ["syntelestes"] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
-
-// Text priority: repertoire blurb, else the play's archive summary.
-const summary = r.summary ?? d.summary;
 ---
 
 <BaseLayout
   title={d.title}
-  description={summary ?? brand.description}
+  description={d.summary ?? brand.description}
   image={og?.src}
   imageWidth={og?.width}
   imageHeight={og?.height}
@@ -90,7 +79,9 @@ const summary = r.summary ?? d.summary;
 >
   <article>
     <ProductionHero
-      play={play}
+      title={d.title}
+      year={d.year}
+      thumb={d.thumbnail}
       buttons={buttons}
       backHref={localizedPath("/repertorio", locale)}
       backLabel={t("page.repertorio.back_to_list")}
@@ -104,8 +95,8 @@ const summary = r.summary ?? d.summary;
       >
         <ProductionFacts facts={playFacts} />
         {
-          summary && (
-            <p class="mt-6 leading-relaxed text-zinc-950/80">{summary}</p>
+          d.summary && (
+            <p class="mt-6 leading-relaxed text-zinc-950/80">{d.summary}</p>
           )
         }
         {

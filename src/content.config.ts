@@ -96,31 +96,40 @@ const parastaseisCollection = defineCollection({
 
 // ───────────────────────────────────────────────────────────────────────────
 // Ρεπερτόριο (current-season repertoire)
-// One entry per play currently in the season's repertoire. The entry links
-// to a parastaseis document (Pages CMS `relation` picker, stored as the
-// entry path, e.g. "glaros.md") and carries only the season-specific
-// content: body text, summary and upcoming show dates. Title, year,
-// thumbnail and crew come from the linked play at build time
-// (see src/utils/repertoire.ts).
+// One standalone entry per play currently in the season's repertoire.
+// Repertoire plays are deliberately NOT in the parastaseis archive —
+// they are on stage now — so each entry carries everything the listing
+// and detail pages show: title, writer, own thumbnail, text, crew and
+// this season's show dates. When a run ends, a parastaseis entry is
+// created separately for the archive.
 // ───────────────────────────────────────────────────────────────────────────
 const repertorioCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/repertorio" }),
-  schema: z.object({
-    // Linked play: Pages CMS relation value — the play's slug (e.g.
-    // "glaros"); also tolerates an entry path ("glaros.md").
-    play: z.string(),
-    // Short blurb; falls back to the play's archive summary when omitted.
-    summary: z.string().optional(),
-    // This season's shows — kept separate from the play's historical
-    // `performances` so the archive page stays purely historical.
-    performances: z
-      .array(z.object({ date: z.coerce.date(), venue: z.string() }))
-      .default([]),
-    // Manual listing order on /repertorio (smaller first). Falls back to
-    // the play's year, newest first.
-    order: z.number().optional(),
-    draft: z.boolean().default(false),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      // Filename derives from the slug ({fields.slug} in Pages CMS).
+      slug: z.string().optional(),
+      year: z.number().int(),
+      writer: z.string().optional(),
+      // Short blurb for the listing and meta description.
+      summary: z.string().optional(),
+      thumbnail: image().optional(),
+      // Συντελεστές: role + name rows, same shape as parastaseis.
+      crew: cmsRows(
+        ["role", "name"],
+        z.object({ role: z.string(), name: z.string() }),
+      ),
+      // This season's shows — kept separate from the play's historical
+      // `performances` so the archive page stays purely historical.
+      performances: z
+        .array(z.object({ date: z.coerce.date(), venue: z.string() }))
+        .default([]),
+      // Manual listing order on /repertorio (smaller first). Falls back
+      // to the production year, newest first.
+      order: z.number().optional(),
+      draft: z.boolean().default(false),
+    }),
 });
 
 // ───────────────────────────────────────────────────────────────────────────

@@ -2,38 +2,37 @@
 // Featured repertoire block: a full-width editorial split used for
 // every play on /repertorio. Photo left at its native 3:2 (~60%), text
 // column right: date-range eyebrow, serif title, writer, season blurb
-// (falls back to the play's archive summary) and this season's shows
-// (date — venue). The whole block points at the repertoire detail page.
-// Blocks alternate the photo side for rhythm between consecutive plays.
-import type { RepertoireItem } from "../utils/repertoire";
+// and this season's shows (date — venue). The whole block points at the
+// repertoire detail page. Blocks alternate the photo side for rhythm
+// between consecutive plays.
+import type { RepertoireEntry } from "../utils/repertoire";
 import { Image } from "astro:assets";
-import { getLocaleFromUrl, localizedPath, formatDate } from "../i18n/utils";
-import { getThumbnail } from "../utils/media";
+import {
+  getLocaleFromUrl,
+  localizedPath,
+  formatDate,
+  useTranslations,
+} from "../i18n/utils";
 import { performanceRange } from "../utils/repertoire";
-import { useTranslations } from "../i18n/utils";
 
 interface Props {
-  item: RepertoireItem;
+  entry: RepertoireEntry;
   /** Even-indexed blocks lead with the photo, odd ones trail it. */
   index?: number;
 }
-const { item, index = 0 } = Astro.props;
-const { entry, play } = item;
-const d = play.data;
+const { entry, index = 0 } = Astro.props;
+const d = entry.data;
 
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const href = localizedPath(`/repertorio/${entry.id}`, locale);
-const thumb = getThumbnail(d);
-const summary = entry.data.summary ?? d.summary;
 
 // This season's shows, soonest first; the eyebrow carries the whole
 // range, the list shows each date with its venue.
-const shows = [...entry.data.performances].sort(
+const shows = [...d.performances].sort(
   (a, b) => a.date.getTime() - b.date.getTime(),
 );
-const eyebrow =
-  performanceRange(entry.data.performances, locale) ?? String(d.year);
+const eyebrow = performanceRange(d.performances, locale) ?? String(d.year);
 ---
 
 <article class="group grid gap-8 lg:grid-cols-5 lg:items-center lg:gap-14">
@@ -42,9 +41,9 @@ const eyebrow =
     class={`block overflow-hidden max-lg:order-first ${index % 2 === 1 ? "lg:order-last lg:col-span-3" : "lg:col-span-3"}`}
   >
     {
-      thumb ? (
+      d.thumbnail ? (
         <Image
-          src={thumb}
+          src={d.thumbnail}
           alt={d.title}
           widths={[480, 768, 1024, 1280]}
           sizes="(min-width:1024px) 60vw, 100vw"
@@ -75,7 +74,11 @@ const eyebrow =
       <span class="font-normal text-zinc-950/50"> ({d.year})</span>
     </h2>
     {d.writer && <p class="mt-2 text-lg text-zinc-600">{d.writer}</p>}
-    {summary && <p class="mt-5 leading-relaxed text-zinc-950/80">{summary}</p>}
+    {
+      d.summary && (
+        <p class="mt-5 leading-relaxed text-zinc-950/80">{d.summary}</p>
+      )
+    }
     {
       shows.length > 0 && (
         <dl class="mt-6 space-y-2 text-sm">
