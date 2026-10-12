@@ -6,22 +6,22 @@ summary: Θέατρο-ντοκουμέντο βασισμένο σε μαρτυ�
   Πολυτεχνείου.
 videoId: 1d2f4d88-6864-4a89-b2b4-5a587458e359
 youtubeTrailer: https://www.youtube.com/watch?v=NmR22NNQXv8
-thumbnail: ../../assets/parastaseis/DSC02736.jpg
+thumbnail: ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC02736.jpg
 gallery:
-  - ../../assets/parastaseis/DSC_9201.jpg
-  - ../../assets/parastaseis/DSC_9217.jpg
-  - ../../assets/parastaseis/DSC_9239.jpg
-  - ../../assets/parastaseis/DSC_9299.jpg
-  - ../../assets/parastaseis/DSC_9302.jpg
-  - ../../assets/parastaseis/DSC_9318.jpg
-  - ../../assets/parastaseis/DSC_9321.jpg
-  - ../../assets/parastaseis/DSC_9322.jpg
-  - ../../assets/parastaseis/DSC_9325.jpg
-  - ../../assets/parastaseis/DSC_9271.jpg
-  - ../../assets/parastaseis/DSC02679.jpg
-  - ../../assets/parastaseis/DSC_9347.jpg
-  - ../../assets/parastaseis/DSC_9366.jpg
-  - ../../assets/parastaseis/DSC02692.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9201.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9217.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9239.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9299.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9302.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9318.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9321.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9322.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9325.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9271.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC02679.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9347.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9366.jpg
+  - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC02692.jpg
 carousel: false
 draft: false
 ---

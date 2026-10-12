@@ -29,28 +29,28 @@ crew:
     name: Χορωδία Amabile Πάτρας και Ορχήστρα, υπό τη διεύθυνση του μαέστρου Τάσου
       Καραγιάννη
 videoId: 4746d013-8b3d-496a-82ae-0a717d8a8fb8
-thumbnail: ../../assets/parastaseis/DSC00620 (1).jpg
+thumbnail: ../../assets/parastaseis/kommatia-mou/DSC00620 (1).jpg
 poster: ../../assets/parastaseis/kommatia-mou/poster.jpg
 gallery:
-  - ../../assets/parastaseis/DSC00584.jpg
-  - ../../assets/parastaseis/DSC00569.jpg
-  - ../../assets/parastaseis/DSC00581.jpg
-  - ../../assets/parastaseis/DSC00613.jpg
-  - ../../assets/parastaseis/DSC00606.jpg
-  - ../../assets/parastaseis/DSC00596.jpg
-  - ../../assets/parastaseis/DSC00598.jpg
-  - ../../assets/parastaseis/DSC00615.jpg
-  - ../../assets/parastaseis/DSC00652.jpg
-  - ../../assets/parastaseis/DSC00665.jpg
-  - ../../assets/parastaseis/DSC00692.jpg
-  - ../../assets/parastaseis/DSC00635.jpg
-  - ../../assets/parastaseis/DSC00794.jpg
-  - ../../assets/parastaseis/DSC00814.jpg
-  - ../../assets/parastaseis/DSC00864.jpg
-  - ../../assets/parastaseis/DSC00926.jpg
-  - ../../assets/parastaseis/DSC00892.jpg
-  - ../../assets/parastaseis/DSC00959.jpg
-  - ../../assets/parastaseis/DSC00693.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00584.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00569.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00581.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00613.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00606.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00596.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00598.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00615.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00652.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00665.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00692.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00635.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00794.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00814.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00864.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00926.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00892.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00959.jpg
+  - ../../assets/parastaseis/kommatia-mou/DSC00693.jpg
 carousel: true
 draft: false
 ---

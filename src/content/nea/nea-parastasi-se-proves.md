@@ -2,7 +2,7 @@
 title: "''Ο κύκλος με την κιμωλία'' του Μπέρτολτ Μπεχτ"
 slug: nea-parastasi-se-proves
 publishDate: 2026-08-31
-thumbnail: ../../assets/nea/fj20747.webp
+thumbnail: ../../assets/nea/nea-parastasi-se-proves/fj20747.webp
 ---
 Η θεατρική ομάδα ‘’από κοινού’’  της Α ΕΛΜΕ Αχαΐας παρουσιάζει
 

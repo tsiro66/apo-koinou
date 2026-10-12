@@ -31,29 +31,29 @@ crew:
   - role: η χήρα Σιν/ η κυρία Γιανγκ, μητέρα του Γιανγκ Σουν
     name: Μαρία Δαλαμήτρου
 videoId: 32af63b5-6122-4fa6-9200-009c46bceef9
-thumbnail: ../../assets/parastaseis/DSC05478.jpg
-poster: ../../assets/parastaseis/DSC05158a.jpg
+thumbnail: ../../assets/parastaseis/o-kalos-anthrwpos/DSC05478.jpg
+poster: ../../assets/parastaseis/o-kalos-anthrwpos/DSC05158a.jpg
 gallery:
-  - ../../assets/parastaseis/DSC04623.jpg
-  - ../../assets/parastaseis/DSC04641.jpg
-  - ../../assets/parastaseis/DSC04644.jpg
-  - ../../assets/parastaseis/DSC04648.jpg
-  - ../../assets/parastaseis/DSC04649.jpg
-  - ../../assets/parastaseis/DSC04653.jpg
-  - ../../assets/parastaseis/DSC04680.jpg
-  - ../../assets/parastaseis/DSC04695.jpg
-  - ../../assets/parastaseis/DSC04743.jpg
-  - ../../assets/parastaseis/DSC04777.jpg
-  - ../../assets/parastaseis/DSC04700.jpg
-  - ../../assets/parastaseis/DSC04789.jpg
-  - ../../assets/parastaseis/DSC04846.jpg
-  - ../../assets/parastaseis/DSC04974.jpg
-  - ../../assets/parastaseis/DSC04871.jpg
-  - ../../assets/parastaseis/DSC04831.jpg
-  - ../../assets/parastaseis/DSC04901.jpg
-  - ../../assets/parastaseis/DSC05660.jpg
-  - ../../assets/parastaseis/DSC05377.jpg
-  - ../../assets/parastaseis/DSC05821.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04623.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04641.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04644.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04648.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04649.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04653.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04680.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04695.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04743.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04777.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04700.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04789.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04846.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04974.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04871.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04831.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04901.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC05660.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC05377.jpg
+  - ../../assets/parastaseis/o-kalos-anthrwpos/DSC05821.jpg
 program:
   - ../../assets/parastaseis/o-kalos-anthrwpos/program1.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program2.jpg

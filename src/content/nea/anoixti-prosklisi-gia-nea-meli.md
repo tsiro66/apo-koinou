@@ -2,7 +2,7 @@
 title: Ανοιχτή πρόσκληση για νέα μέλη
 slug: anoixti-prosklisi-gia-nea-meli
 publishDate: 2026-08-31
-thumbnail: ../../assets/nea/8910-d6GST4Mf2faCy0uaKIWu-catalogue.jpg
+thumbnail: ../../assets/nea/anoixti-prosklisi-gia-nea-meli/8910-d6GST4Mf2faCy0uaKIWu-catalogue.jpg
 ---
 **70 ΧΡΟΝΙΑ ΑΠΟ ΤΟΝ ΘΑΝΑΤΟ ΤΟΥ ΜΠΕΡΤΟΛΤ ΜΠΡΕΧΤ**
 

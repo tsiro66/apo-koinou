@@ -5,16 +5,23 @@
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
 # to the entry .md file, hence output values like `../../assets/...`.
 
+# Images are organized in one subfolder per play (per news entry), named
+# after the entry's slug: src/assets/parastaseis/<slug>/. The media picker
+# uploads into the folder that is currently open — editors must navigate
+# into the play's folder (creating it first for new plays) before hitting
+# Upload. `rename: safe` slugifies uploaded filenames (no spaces/parens).
 media:
   - name: parastaseis-media
     label: Εικόνες παραστάσεων
     input: src/assets/parastaseis
     # Entries live at src/content/parastaseis/*.md → two levels up.
     output: ../../assets/parastaseis
+    rename: safe
   - name: nea-media
     label: Εικόνες νέων
     input: src/assets/nea
     output: ../../assets/nea
+    rename: safe
   - name: logos-media
     label: Λογότυπα
     input: src/assets/logos

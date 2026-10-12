@@ -42,26 +42,26 @@ crew:
       Άγγελος Μπουμπούλης
 videoId: 6196aa00-34c5-4e99-a6ad-d3340c57aff7
 youtubeTrailer: https://www.youtube.com/watch?v=Ra7GrZiijR0
-thumbnail: ../../assets/parastaseis/678365546_1404602654805183_5312986051802625554_n.jpg
-poster: ../../assets/parastaseis/αφισα Λιθογραφείο.jpg
+thumbnail: ../../assets/parastaseis/rinokeros/678365546_1404602654805183_5312986051802625554_n.jpg
+poster: ../../assets/parastaseis/rinokeros/αφισα Λιθογραφείο.jpg
 gallery:
-  - ../../assets/parastaseis/ρινοκ24.jpg
-  - ../../assets/parastaseis/ρινοκ4-1.jpg
-  - ../../assets/parastaseis/ρινοκ18.jpg
-  - ../../assets/parastaseis/ρινοκ21.jpg
-  - ../../assets/parastaseis/ρινοκ32.jpg
-  - ../../assets/parastaseis/ριν32.jpg
-  - ../../assets/parastaseis/ριν22.jpg
-  - ../../assets/parastaseis/ριν28.jpg
-  - ../../assets/parastaseis/ρινοκ12.jpg
-  - ../../assets/parastaseis/ρινοκ2.jpg
-  - ../../assets/parastaseis/ρινοκ21.jpg
-  - ../../assets/parastaseis/ρινοκ35.jpg
-  - ../../assets/parastaseis/ρινοκ4-1.jpg
-  - ../../assets/parastaseis/ρινοκ4.jpg
-  - ../../assets/parastaseis/ρινοκ40.jpg
-  - ../../assets/parastaseis/ριν10.jpg
-  - ../../assets/parastaseis/ριν18.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ24.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ4-1.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ18.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ21.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ32.jpg
+  - ../../assets/parastaseis/rinokeros/ριν32.jpg
+  - ../../assets/parastaseis/rinokeros/ριν22.jpg
+  - ../../assets/parastaseis/rinokeros/ριν28.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ12.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ2.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ21.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ35.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ4-1.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ4.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ40.jpg
+  - ../../assets/parastaseis/rinokeros/ριν10.jpg
+  - ../../assets/parastaseis/rinokeros/ριν18.jpg
 carousel: true
 draft: false
 ---
