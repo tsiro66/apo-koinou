@@ -44,16 +44,22 @@ crew:
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 youtubeTrailer: https://www.youtube.com/watch?v=GuuoUA58AfA
 thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04084.jpg
+poster: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/poster.jpg
 gallery:
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/02.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/03.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/04.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/05.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/06.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/07.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/08.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/09.jpg
-  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/10.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04031.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04042.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04107.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04108.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04248.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04278.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04326.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04340.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04365.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04384.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04390.jpg
+invitation:
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-front.jpg
+  - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-back.jpg
 carousel: true
 draft: false
 ---

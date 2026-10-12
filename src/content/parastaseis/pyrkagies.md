@@ -4,17 +4,19 @@ slug: pyrkagies
 year: 2020
 writer: Ουαζντί Μουαουάντ
 videoId: 22a75db9-17bc-41df-aded-09d54d962ac0
-thumbnail: ../../assets/parastaseis/pyrkagies/06.jpg
+thumbnail: ../../assets/parastaseis/pyrkagies/DSC03975.jpg
 gallery:
-  - ../../assets/parastaseis/pyrkagies/02.jpg
-  - ../../assets/parastaseis/pyrkagies/03.jpg
-  - ../../assets/parastaseis/pyrkagies/04.jpg
-  - ../../assets/parastaseis/pyrkagies/05.jpg
-  - ../../assets/parastaseis/pyrkagies/06.jpg
-  - ../../assets/parastaseis/pyrkagies/07.jpg
-  - ../../assets/parastaseis/pyrkagies/08.jpg
-  - ../../assets/parastaseis/pyrkagies/09.jpg
-  - ../../assets/parastaseis/pyrkagies/10.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC03975.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC03987.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC04054.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC04135.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC04229.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC04244.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC04249.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC04455.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC04496.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC_8884.jpg
+  - ../../assets/parastaseis/pyrkagies/DSC_9182.jpg
 carousel: true
 draft: false
 ---
