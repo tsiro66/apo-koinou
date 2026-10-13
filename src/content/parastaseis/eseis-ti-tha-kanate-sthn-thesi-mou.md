@@ -68,6 +68,7 @@ gallery:
   - ../../assets/parastaseis/49040962612083718275564581999723191044640201n.jpg
   - ../../assets/parastaseis/49054688212083708275565584315757297871640729n.jpg
   - ../../assets/parastaseis/49010352112083704308899311122607740539952986n.jpg
+  - ../../assets/parastaseis/48091745311918462225423523180666774957399571n.jpg
 invitation:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-front.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-back.jpg
