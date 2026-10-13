@@ -6,6 +6,7 @@ writer: Αρκάς
 crew:
   - role: "Σκηνοθεσία "
     name: Φώτης Λάζαρης
+thumbnail: ../../assets/parastaseis/48439507011862996797636731911831851078728452n.jpg
 carousel: false
 draft: false
 ---
