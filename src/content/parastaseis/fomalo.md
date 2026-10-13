@@ -28,6 +28,7 @@ summary: >
 
   φωτογραφία Βασίλης Λάγιος 
 thumbnail: ../../assets/parastaseis/4896665721207486897644951754481621116954647n.jpg
+poster: ../../assets/parastaseis/4810782531221381113125242916446488184448501458n.jpg
 carousel: false
 draft: false
 ---
