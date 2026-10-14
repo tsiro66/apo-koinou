@@ -62,7 +62,7 @@ gallery:
   - ../../assets/parastaseis/rinokeros/ρινοκ40.jpg
   - ../../assets/parastaseis/rinokeros/ριν10.jpg
   - ../../assets/parastaseis/rinokeros/ριν18.jpg
-  - ../../assets/parastaseis/rinok40.jpg
+  - ../../assets/parastaseis/rinok7.jpg
 carousel: true
 draft: false
 ---
