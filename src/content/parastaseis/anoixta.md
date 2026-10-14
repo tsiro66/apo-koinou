@@ -73,6 +73,7 @@ gallery:
   - ../../assets/parastaseis/70767882514297115822942904636672230671357885n.jpg
   - ../../assets/parastaseis/70778330514297122822942208763546122047496847n.jpg
   - ../../assets/parastaseis/vlp6848.jpg
+  - ../../assets/parastaseis/672675403101627477368129605098251443270444102n.jpg
 carousel: false
 draft: false
 ---
