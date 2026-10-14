@@ -73,6 +73,7 @@ gallery:
   - ../../assets/parastaseis/rin5.jpg
   - ../../assets/parastaseis/rin27.jpg
   - ../../assets/parastaseis/rinok16.jpg
+  - ../../assets/parastaseis/rin33.jpg
 carousel: true
 draft: false
 ---
