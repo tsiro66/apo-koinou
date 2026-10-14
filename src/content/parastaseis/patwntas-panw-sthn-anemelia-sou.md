@@ -22,6 +22,7 @@ gallery:
   - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9347.jpg
   - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9366.jpg
   - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC02692.jpg
+  - ../../assets/parastaseis/48201208111849462698990144110232755683628210n.jpg
 carousel: false
 draft: false
 ---
