@@ -68,6 +68,7 @@ gallery:
   - ../../assets/parastaseis/rin2.jpg
   - ../../assets/parastaseis/rin8.jpg
   - ../../assets/parastaseis/rin14.jpg
+  - ../../assets/parastaseis/rin24.jpg
 carousel: true
 draft: false
 ---
