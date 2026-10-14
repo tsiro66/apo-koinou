@@ -58,12 +58,13 @@ gallery:
   - ../../assets/parastaseis/rinokeros/ρινοκ21.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ35.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ4-1.jpg
-  - ../../assets/parastaseis/rinokeros/ρινοκ4.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ40.jpg
   - ../../assets/parastaseis/rinokeros/ριν10.jpg
   - ../../assets/parastaseis/rinokeros/ριν18.jpg
   - ../../assets/parastaseis/rinok7.jpg
   - ../../assets/parastaseis/rin-48.jpg
+  - ../../assets/parastaseis/rin21.jpg
+  - ../../assets/parastaseis/rin-26.jpg
 carousel: true
 draft: false
 ---
