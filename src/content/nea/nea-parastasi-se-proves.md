@@ -1,6 +1,6 @@
 ---
 title: " Η κεντρική παραγωγή για τη χρονιά 2026-2027  ''Ο κύκλος με την
-  κιμωλία'' του Μπέρτολτ Μπεχτ"
+  κιμωλία'' του Μπέρτολτ Μπρεχτ"
 slug: nea-parastasi-se-proves
 publishDate: 2026-08-31
 thumbnail: ../../assets/nea/nea-parastasi-se-proves/fj20747.webp
