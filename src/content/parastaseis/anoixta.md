@@ -37,6 +37,7 @@ performances:
   - venue: ΣΥΝΕΔΡΙΑΚΟ ΚΑΙ ΠΟΛΙΤΙΣΤΙΚΟ ΚΕΝΤΡΟ ΠΑΝΕΠΙΣΤΗΜΙΟΥ ΠΑΤΡΩΝ
     date: 2026-05-23
 thumbnail: ../../assets/parastaseis/70412119315314473052489074236862187399359354n-1.jpg
+poster: ../../assets/parastaseis/afisa-panta-anoikta.jpg
 gallery:
   - ../../assets/parastaseis/70097119215314557452480637979977113445692978n.jpg
   - ../../assets/parastaseis/70115689215314510252485351436568623856134121n.jpg
