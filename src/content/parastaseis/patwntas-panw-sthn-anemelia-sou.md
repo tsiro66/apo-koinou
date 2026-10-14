@@ -7,6 +7,7 @@ summary: Θέατρο-ντοκουμέντο βασισμένο σε μαρτυ�
 videoId: 1d2f4d88-6864-4a89-b2b4-5a587458e359
 youtubeTrailer: https://www.youtube.com/watch?v=NmR22NNQXv8
 thumbnail: ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC02736.jpg
+poster: ../../assets/parastaseis/48201717211849403232329423390524873830286710n.jpg
 gallery:
   - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9201.jpg
   - ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC_9217.jpg
