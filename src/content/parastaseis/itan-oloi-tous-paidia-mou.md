@@ -44,7 +44,7 @@ crew:
     name: Βασίλης Λάγιος
   - role: Μακιγιάζ-Κομμώσεις
     name: Αρετή Τζίφα
-videoId: 69380c77-a3b5-4cb6-9b5c-428eb1a494b0
+videoId: 19f0f495-b4e6-49d3-ad6d-b3d260925d42
 thumbnail: ../../assets/parastaseis/itan-oloi-tous-paidia-mou/01.jpg
 poster: ../../assets/parastaseis/itan-oloi-tous-paidia-mou/poster.jpg
 gallery:
