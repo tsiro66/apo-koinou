@@ -20,6 +20,12 @@ crew:
     name: Λαμπρινή Αναγνώστου
   - role: Ήχος και φωτισμός
     name: Νίκος Αντωνίου, Νέλλη Χασιώτη
+thumbnail: ../../assets/parastaseis/img20220227211130-768x355.jpg
+gallery:
+  - ../../assets/parastaseis/img20220227211719-768x355.jpg
+  - ../../assets/parastaseis/img20220227211846.jpg
+  - ../../assets/parastaseis/img20220227212935.jpg
+  - ../../assets/parastaseis/img-003643782098a4f666b5c5fc13abe0b6-v.jpg
 carousel: false
 draft: false
 ---
