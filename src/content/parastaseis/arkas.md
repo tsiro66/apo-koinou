@@ -43,6 +43,7 @@ gallery:
   - ../../assets/parastaseis/mhx4.jpg
   - ../../assets/parastaseis/mhx5.jpg
   - ../../assets/parastaseis/mhx6.jpg
+  - ../../assets/parastaseis/mhx7.jpg
 carousel: false
 draft: false
 ---
