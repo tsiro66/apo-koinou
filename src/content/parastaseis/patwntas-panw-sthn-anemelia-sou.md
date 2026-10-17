@@ -43,6 +43,7 @@ gallery:
   - ../../assets/parastaseis/484225012118494129323284534682650118016773n.jpg
   - ../../assets/parastaseis/48430546511849467865656296310501370284604619n.jpg
   - ../../assets/parastaseis/patwntas4.jpg
+  - ../../assets/parastaseis/patwntas5.jpg
 carousel: false
 draft: false
 ---
