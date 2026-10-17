@@ -80,6 +80,7 @@ gallery:
   - ../../assets/parastaseis/66858784613916479961006495475399639576063803n.jpg
   - ../../assets/parastaseis/66815350813916483094339514457412526983773654n.jpg
   - ../../assets/parastaseis/66758971613916470461007446606809958576398990n.jpg
+  - ../../assets/parastaseis/pan8eon-rinokeros.jpg
 carousel: true
 draft: false
 ---
