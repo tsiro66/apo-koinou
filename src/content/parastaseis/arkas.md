@@ -40,6 +40,7 @@ gallery:
   - ../../assets/parastaseis/arkas/09.jpg
   - ../../assets/parastaseis/arkas/10.jpg
   - ../../assets/parastaseis/mhx3.jpg
+  - ../../assets/parastaseis/mhx4.jpg
 carousel: false
 draft: false
 ---
