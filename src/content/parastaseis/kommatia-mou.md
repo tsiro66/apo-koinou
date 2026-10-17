@@ -57,6 +57,7 @@ gallery:
   - ../../assets/parastaseis/kommatia-moy-2.jpg
   - ../../assets/parastaseis/kommatia4.jpg
   - ../../assets/parastaseis/kommatia5.jpg
+  - ../../assets/parastaseis/kommatia7.jpg
 carousel: true
 draft: false
 ---
