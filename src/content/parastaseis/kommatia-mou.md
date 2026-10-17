@@ -53,6 +53,7 @@ gallery:
   - ../../assets/parastaseis/kommatia-mou/DSC00693.jpg
   - ../../assets/parastaseis/komatia6.jpg
   - ../../assets/parastaseis/kommatia-3.jpg
+  - ../../assets/parastaseis/kommatia-moy-1.jpg
 carousel: true
 draft: false
 ---
