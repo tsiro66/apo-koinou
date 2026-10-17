@@ -29,6 +29,7 @@ crew:
     name: Βασίλης Λάγιος
 videoId: fe5c4ef7-e6f8-44f8-8a0d-3a7ab0da9532
 thumbnail: ../../assets/parastaseis/arkas/01.jpg
+poster: ../../assets/parastaseis/afisa-arkas.jpg
 gallery:
   - ../../assets/parastaseis/arkas/02.jpg
   - ../../assets/parastaseis/arkas/03.jpg
