@@ -52,6 +52,7 @@ gallery:
   - ../../assets/parastaseis/mhx14.jpg
   - ../../assets/parastaseis/mhx16.jpg
   - ../../assets/parastaseis/mhx15.jpg
+  - ../../assets/parastaseis/mhx18.jpg
 carousel: false
 draft: false
 ---
