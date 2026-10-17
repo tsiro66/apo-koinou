@@ -58,6 +58,7 @@ gallery:
   - ../../assets/parastaseis/kommatia4.jpg
   - ../../assets/parastaseis/kommatia5.jpg
   - ../../assets/parastaseis/kommatia7.jpg
+  - ../../assets/parastaseis/kommatia8.jpg
 carousel: true
 draft: false
 ---
