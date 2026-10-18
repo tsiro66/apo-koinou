@@ -22,6 +22,7 @@ gallery:
   - ../../assets/parastaseis/epn7.jpg
   - ../../assets/parastaseis/epn10.jpg
   - ../../assets/parastaseis/epn11.jpg
+  - ../../assets/parastaseis/epn12.jpg
 carousel: false
 draft: false
 ---
