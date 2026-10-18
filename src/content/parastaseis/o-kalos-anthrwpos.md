@@ -31,7 +31,7 @@ crew:
   - role: η χήρα Σιν/ η κυρία Γιανγκ, μητέρα του Γιανγκ Σουν
     name: Μαρία Δαλαμήτρου
 videoId: 32af63b5-6122-4fa6-9200-009c46bceef9
-thumbnail: ../../assets/parastaseis/o-kalos-anthrwpos/DSC05478.jpg
+thumbnail: ../../assets/parastaseis/epistrofh.jpg
 poster: ../../assets/parastaseis/o-kalos-anthrwpos/DSC05158a.jpg
 gallery:
   - ../../assets/parastaseis/o-kalos-anthrwpos/DSC04623.jpg
