@@ -1,5 +1,5 @@
 ---
-title: Ο καλός άνθρωπος
+title: Ο καλός άνθρωπος του ΣενΤσουαν
 slug: o-kalos-anthrwpos
 year: 2023
 writer: Μπέρτολτ Μπρεχτ
