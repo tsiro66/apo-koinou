@@ -97,6 +97,7 @@ gallery:
   - ../../assets/parastaseis/aytox27.jpg
   - ../../assets/parastaseis/aytox28.jpg
   - ../../assets/parastaseis/aytox29.jpg
+  - ../../assets/parastaseis/aytox30.jpg
 carousel: false
 draft: false
 ---
