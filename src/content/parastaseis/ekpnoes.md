@@ -15,6 +15,8 @@ summary: >+
   φωσφόρος θάνατος και μαύρο μεσημέρι''
 
 thumbnail: ../../assets/parastaseis/ekpnoes1-2.jpg
+gallery:
+  - ../../assets/parastaseis/ekp4.jpg
 carousel: false
 draft: false
 ---
