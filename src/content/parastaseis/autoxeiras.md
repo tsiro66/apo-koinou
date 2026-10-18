@@ -76,6 +76,7 @@ gallery:
   - ../../assets/parastaseis/autoxeiras/08.jpg
   - ../../assets/parastaseis/autoxeiras/09.jpg
   - ../../assets/parastaseis/autoxeiras/10.jpg
+  - ../../assets/parastaseis/ayt3.jpg
 carousel: false
 draft: false
 ---
