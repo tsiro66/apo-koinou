@@ -55,6 +55,7 @@ gallery:
   - ../../assets/parastaseis/o-kalos-anthrwpos/DSC05377.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/DSC05821.jpg
   - ../../assets/parastaseis/episrofh3.jpg
+  - ../../assets/parastaseis/episrofh4.jpg
 program:
   - ../../assets/parastaseis/o-kalos-anthrwpos/program1.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program2.jpg
