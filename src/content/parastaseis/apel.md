@@ -7,6 +7,7 @@ gallery:
   - ../../assets/parastaseis/apel5-1.jpg
   - ../../assets/parastaseis/apel8.jpg
   - ../../assets/parastaseis/apeley8erwsh1.jpg
+  - ../../assets/parastaseis/apeley8erwsh2.jpg
 carousel: false
 draft: false
 ---
