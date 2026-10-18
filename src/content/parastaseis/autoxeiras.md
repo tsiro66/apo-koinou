@@ -103,6 +103,7 @@ gallery:
   - ../../assets/parastaseis/aytox32.jpg
   - ../../assets/parastaseis/aytox33.jpg
   - ../../assets/parastaseis/aytox35.jpg
+  - ../../assets/parastaseis/aytox36.jpg
 carousel: false
 draft: false
 ---
