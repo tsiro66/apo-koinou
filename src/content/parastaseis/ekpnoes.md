@@ -17,6 +17,7 @@ summary: >+
 thumbnail: ../../assets/parastaseis/ekpnoes1-2.jpg
 gallery:
   - ../../assets/parastaseis/ekp4.jpg
+  - ../../assets/parastaseis/ekpn9.jpg
 carousel: false
 draft: false
 ---
