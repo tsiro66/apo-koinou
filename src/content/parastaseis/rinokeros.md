@@ -43,14 +43,18 @@ crew:
 performances:
   - venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
     date: 2026-05-03
-  - venue: Θέατρο Πάνθεον
+  - venue: Θέατρο Πάνθεον, Πάτρα
     date: 2026-05-06
-  - venue: Θέατρο Πάνθεον
+  - venue: Θέατρο Πάνθεον, Πάτρα
     date: 2026-05-07
   - venue: Πνευματικό Κέντρο Δήμου Πετρούπολης, Αθήνα
     date: 2026-05-09
   - venue: Θέατρο Απόλλων, Αίγιο
     date: 2026-05-15
+  - venue: Θέατρο Λιθογραφείο, Πάτρα
+    date: 2026-06-12
+  - venue: Θέατρο Λιθογραφείο, Πάτρα
+    date: 2026-06-13
 videoId: 6196aa00-34c5-4e99-a6ad-d3340c57aff7
 youtubeTrailer: https://www.youtube.com/watch?v=Ra7GrZiijR0
 thumbnail: ../../assets/parastaseis/rinokeros/678365546_1404602654805183_5312986051802625554_n.jpg
