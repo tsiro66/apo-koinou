@@ -55,6 +55,8 @@ performances:
     date: 2026-06-12
   - venue: Θέατρο Λιθογραφείο, Πάτρα
     date: 2026-06-13
+  - venue: Φεστιβάλ Ερασιτεχνικού Θεάτρου Δήμου Πατρέων, Ανοιχτό Θέατρο Κρήνης
+    date: 2026-06-26
 videoId: 6196aa00-34c5-4e99-a6ad-d3340c57aff7
 youtubeTrailer: https://www.youtube.com/watch?v=Ra7GrZiijR0
 thumbnail: ../../assets/parastaseis/rinokeros/678365546_1404602654805183_5312986051802625554_n.jpg
