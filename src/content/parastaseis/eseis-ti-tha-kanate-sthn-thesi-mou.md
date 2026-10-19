@@ -1,5 +1,5 @@
 ---
-title: Εσείς τί θα κάνατε στη θέση μου;
+title: Ο Μπίντερμαν και οι εμπρηστές. (Εσείς τί θα κάνατε στη θέση μου;)
 slug: eseis-ti-tha-kanate-sthn-thesi-mou
 year: 2025
 writer: Μαξ Φρις
