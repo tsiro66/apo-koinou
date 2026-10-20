@@ -74,9 +74,11 @@ crew:
     name: Τάσος Καραγιάννης
 performances:
   - venue: ΤΡΙΚΟΥΠΕΙΟ ΠΟΛΙΤΙΣΤΙΚΟ ΚΕΝΤΡΟ ΜΕΣΟΛΟΓΓΙΟΥ
-    date: 2026-04-26
+    dates:
+      - 2026-04-26
   - venue: ΣΥΝΕΔΡΙΑΚΟ ΚΑΙ ΠΟΛΙΤΙΣΤΙΚΟ ΚΕΝΤΡΟ ΠΑΝΕΠΙΣΤΗΜΙΟΥ ΠΑΤΡΩΝ
-    date: 2026-05-23
+    dates:
+      - 2026-05-23
 thumbnail: ../../assets/parastaseis/70412119315314473052489074236862187399359354n-1.jpg
 poster: ../../assets/parastaseis/afisa-panta-anoikta.jpg
 gallery:

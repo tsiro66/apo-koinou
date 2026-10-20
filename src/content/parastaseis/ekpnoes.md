@@ -19,7 +19,8 @@ crew:
     name: Φώτης Λάζαρης
 performances:
   - venue: Θέατρο Λιθογραφείο
-    date: 2023-03-13
+    dates:
+      - 2023-03-13
 thumbnail: ../../assets/parastaseis/ekpnoes1-2.jpg
 gallery:
   - ../../assets/parastaseis/ekp4.jpg

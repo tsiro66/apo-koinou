@@ -44,11 +44,14 @@ crew:
     name: Βασίλης Λάγιος, Ελένη Σιγαλού
 performances:
   - venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
-    date: 2016-04-09
+    dates:
+      - 2016-04-09
   - venue: Δημοτικό θέατρο Απόλλων
-    date: 2016-05-18
+    dates:
+      - 2016-05-18
   - venue: Συνεδριακό & Πολιτιστικό Κέντρο Πανεπιστημίου Πατρών
-    date: 2016-05-24
+    dates:
+      - 2016-05-24
 videoId: 22279b7d-56b3-4628-98f5-b773282dfbeb
 thumbnail: ../../assets/parastaseis/panigyri/01.jpg
 poster: ../../assets/parastaseis/panigyri/poster.jpg

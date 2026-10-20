@@ -19,6 +19,8 @@ import type { ZodObject, ZodRawShape } from "astro/zod";
  *
  * Rows that are partially filled but genuinely incomplete are likewise
  * dropped — a nameless crew member has no usable identity to render.
+ * Empty list values (e.g. a performance row with no dates yet) count as
+ * missing too.
  */
 const cmsRows = <
   T extends [string, ...string[]],
@@ -36,6 +38,7 @@ const cmsRows = <
               typeof row === "object" &&
               requiredKeys.every((key) => {
                 const v = (row as Record<string, unknown>)[key];
+                if (Array.isArray(v)) return v.length > 0;
                 return v !== undefined && v !== null && v !== "";
               }),
           )
@@ -65,13 +68,14 @@ const parastaseisCollection = defineCollection({
         ["role", "name"],
         z.object({ role: z.string(), name: z.string() }),
       ),
-      // Τόπος & χρόνος: one row per performance (more rows = more days;
-      // non-consecutive days are simply separate rows).
+      // Τόπος & χρόνος: one row per venue run — each row holds one or
+      // more dates (15 & 16 June share a row); a different venue or a
+      // non-consecutive run is a separate row.
       performances: cmsRows(
-        ["date", "venue"],
+        ["venue", "dates"],
         z.object({
-          date: z.coerce.date(),
           venue: z.string(),
+          dates: z.array(z.coerce.date()),
         }),
       ),
       summary: z.string().optional(),
@@ -126,15 +130,15 @@ const repertorioCollection = defineCollection({
       ),
       // This season's shows — kept separate from the play's historical
       // `performances` so the archive page stays purely historical.
-      // One row per performance; several rows cover separate days.
-      performances: z
-        .array(
-          z.object({
-            date: z.coerce.date(),
-            venue: z.string(),
-          }),
-        )
-        .default([]),
+      // One row per venue run; each row's `dates` list covers days that
+      // belong together (15 & 16 June in one row).
+      performances: cmsRows(
+        ["venue", "dates"],
+        z.object({
+          venue: z.string(),
+          dates: z.array(z.coerce.date()),
+        }),
+      ),
       // Manual listing order on /repertorio (smaller first). Falls back
       // to the production year, newest first.
       order: z.number().optional(),

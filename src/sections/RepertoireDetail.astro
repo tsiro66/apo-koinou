@@ -50,8 +50,8 @@ const playFacts = [
   ...(d.writer ? [{ label: t("prod.writer"), value: d.writer }] : []),
 ];
 
-// This season's shows, soonest first (a row with an end date renders
-// as a range, e.g. 13–25 Οκτωβρίου 2026).
+// This season's shows, soonest first (a row's dates render grouped,
+// e.g. 15 & 16 Ιουνίου 2026).
 const placeTimeFacts = sortShows(d.performances).map((p) => ({
   label: formatShowDate(p, locale),
   value: p.venue,

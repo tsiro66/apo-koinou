@@ -13,6 +13,7 @@ crew:
   - {}
 performances:
   - venue: Πάτρα - Αθήνα, Άνοιξη- Καλοκαίρι 2027
-    date: 2026-10-12
+    dates:
+      - 2026-10-12
 draft: false
 ---
