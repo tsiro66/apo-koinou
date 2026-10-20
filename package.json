@@ -13,7 +13,8 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "astro": "astro"
+    "astro": "astro",
+    "lint:pages": "node scripts/lint-pages-yml.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -28,6 +29,7 @@
     "@astrojs/check": "^0.9.10",
     "prettier": "^3.9.6",
     "prettier-plugin-astro": "^0.14.1",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "yaml": "^2.9.1"
   }
 }
