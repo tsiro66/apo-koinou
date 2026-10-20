@@ -65,13 +65,12 @@ const parastaseisCollection = defineCollection({
         ["role", "name"],
         z.object({ role: z.string(), name: z.string() }),
       ),
-      // Τόπος & χρόνος: one row per performance or run (endDate covers
-      // a daily range, e.g. 13–25 Οκτωβρίου; separate days = more rows).
+      // Τόπος & χρόνος: one row per performance (more rows = more days;
+      // non-consecutive days are simply separate rows).
       performances: cmsRows(
         ["date", "venue"],
         z.object({
           date: z.coerce.date(),
-          endDate: z.coerce.date().optional(),
           venue: z.string(),
         }),
       ),
@@ -127,12 +126,11 @@ const repertorioCollection = defineCollection({
       ),
       // This season's shows — kept separate from the play's historical
       // `performances` so the archive page stays purely historical.
-      // Optional endDate covers a daily run (13–25 Οκτωβρίου).
+      // One row per performance; several rows cover separate days.
       performances: z
         .array(
           z.object({
             date: z.coerce.date(),
-            endDate: z.coerce.date().optional(),
             venue: z.string(),
           }),
         )

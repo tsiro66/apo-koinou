@@ -7,8 +7,8 @@ import type { Locale } from "../i18n/ui";
 
 export type RepertoireEntry = CollectionEntry<"repertorio">;
 
-/** One show or run (venue + start date, optional end date for a run). */
-export type Show = { date: Date; endDate?: Date; venue: string };
+/** One show (venue + date). Non-consecutive days = more rows. */
+export type Show = { date: Date; venue: string };
 
 /**
  * Published repertoire entries, ordered for the listing: manual `order`
@@ -29,16 +29,10 @@ export function sortShows<P extends { date: Date }>(rows: P[]): P[] {
 }
 
 /**
- * Human date (range) for a show row: "14 Μαρτίου 2026" or
- * "13–25 Οκτωβρίου 2026" ("13–25 October 2026" in EN).
+ * Human date for a show row: "14 Μαρτίου 2026" ("14 March 2026" in EN).
  */
-export function formatShowDate(
-  show: { date: Date; endDate?: Date },
-  locale: Locale,
-): string {
-  if (!show.endDate || show.endDate.getTime() === show.date.getTime())
-    return full(show.date, locale);
-  return range(show.date, show.endDate, locale);
+export function formatShowDate(show: { date: Date }, locale: Locale): string {
+  return full(show.date, locale === "en" ? "en-GB" : "el-GR");
 }
 
 /**
@@ -49,12 +43,12 @@ export function formatShowDate(
  * has no performances yet (the card then falls back to the year).
  */
 export function performanceRange(
-  performances: { date: Date; endDate?: Date }[],
+  performances: { date: Date }[],
   locale: Locale,
 ): string | undefined {
   if (performances.length === 0) return undefined;
   const dates = performances
-    .flatMap((p) => [p.date, ...(p.endDate ? [p.endDate] : [])])
+    .map((p) => p.date)
     .sort((a, b) => a.getTime() - b.getTime());
   const first = dates[0];
   const last = dates[dates.length - 1];

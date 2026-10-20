@@ -1,6 +1,6 @@
 # Pages CMS configuration — https://pages.cms
 # Repo: tsiro66/apo-koinou (branch: master)
-# config-rev: 3 (nudge CMS config cache; schema per 19a6002 — endDate)
+# config-rev: 4 (nudge CMS config cache; endDate removed — one row per performance)
 #
 # Entries live in Astro Content Collections (src/content/*) and images in
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
@@ -99,9 +99,6 @@ content:
             label: Χρόνος / Ημερομηνία
             type: date
             required: true
-          - name: endDate
-            label: Έως (προαιρετικό)
-            type: date
       - name: videoId
         label: Bunny Stream Video ID
         type: string
@@ -242,9 +239,6 @@ content:
             label: Χρόνος / Ημερομηνία
             type: date
             required: true
-          - name: endDate
-            label: Έως (προαιρετικό)
-            type: date
       - name: order
         label: Σειρά εμφάνισης
         type: number
