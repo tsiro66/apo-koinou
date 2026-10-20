@@ -84,7 +84,8 @@ const parastaseisCollection = defineCollection({
       youtubeTrailer: z.string().optional(),
       thumbnail: image().optional(),
       gallery: z.array(image()).default([]),
-      // Πρόσκληση (front/back scans) and Πρόγραμμα scans for the Υλικό page.
+      // Πρόσκληση (front/back scans) and Πρόγραμμα scans for the
+      // production page (Υλικό sections).
       invitation: z.array(image()).default([]),
       poster: image().optional(),
       program: z.array(image()).default([]),

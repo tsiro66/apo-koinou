@@ -1,0 +1,5 @@
+# The old per-play Υλικό subpages were merged into the production page
+# (one page per play, section anchors instead). Old links land on the play;
+# the sticky section nav carries the rest.
+/parastaseis/:slug/yliko /parastaseis/:slug 301
+/en/parastaseis/:slug/yliko /en/parastaseis/:slug 301

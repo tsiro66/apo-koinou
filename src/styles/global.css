@@ -20,7 +20,11 @@
 }
 
 html {
-  scroll-behavior: smooth;
+  /* Anchor jumps (hero chips, production subnav) animate only when the
+     visitor hasn't asked for reduced motion. */
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-behavior: smooth;
+  }
 }
 
 body {

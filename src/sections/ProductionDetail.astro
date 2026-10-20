@@ -1,19 +1,29 @@
 ---
+// One page per production: the play (Θεατρικό έργο, συντελεστές, διανομή,
+// τόπος & χρόνος), the recording (Τρέιλερ, Παράσταση) and all Υλικό
+// sections (φωτογραφίες, πρόσκληση, πρόγραμμα, αφίσα, κριτικές) — the old
+// separate /yliko page is merged in so nothing sits behind a cross-page
+// link. The hero's chip row is the menu: every section on the page.
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StreamPlayer from "../components/StreamPlayer.astro";
 import ProductionHero from "../components/ProductionHero.astro";
 import ProductionSection from "../components/ProductionSection.astro";
 import ProductionFacts from "../components/ProductionFacts.astro";
+import Gallery from "../components/Gallery.astro";
+import Lightbox from "../components/Lightbox.astro";
+import Reviews from "../components/Reviews.astro";
 import { BRAND } from "../consts";
+import { getLocaleFromUrl, useTranslations, formatDate } from "../i18n/utils";
 import {
-  getLocaleFromUrl,
-  useTranslations,
-  localizedPath,
-  formatDate,
-} from "../i18n/utils";
-import { getThumbnail, getPhotos, getVideoId, ogSrc } from "../utils/media";
+  getThumbnail,
+  getPhotos,
+  getVideoId,
+  lightboxSrc,
+  ogSrc,
+} from "../utils/media";
 import { formatShowDate, sortShows } from "../utils/repertoire";
 
 interface Props {
@@ -26,14 +36,39 @@ const d = play.data;
 const locale = getLocaleFromUrl(Astro.url);
 const t = useTranslations(locale);
 const brand = BRAND[locale];
-const canonicalPath = `/parastaseis/${play.id}`;
-const ylikoPath = localizedPath(`${canonicalPath}/yliko`, locale);
 
-// Section visibility: render a section (and its button) only when it has data.
+// Placeholder Bunny IDs ("TODO") must not render a broken video player.
+const videoId = getVideoId(d);
+
+// YouTube trailer: accept a bare ID or a full watch?v= URL.
+const youtubeId = d.youtubeTrailer?.startsWith("http")
+  ? d.youtubeTrailer.split("v=")[1]?.split("&")[0]
+  : d.youtubeTrailer;
+
+// Lightbox full views: optimized build-time WebP (see lightboxSrc).
+const invitationItems = await Promise.all(
+  d.invitation.map(async (src) => ({ src, full: await lightboxSrc(src) })),
+);
+const programItems = await Promise.all(
+  d.program.map(async (src) => ({ src, full: await lightboxSrc(src) })),
+);
+const posterFull = d.poster ? await lightboxSrc(d.poster) : undefined;
+
+// Section visibility: render a section (and its chip) only when it has data.
+const photos = getPhotos(d);
 const hasCrew = d.crew.length > 0;
 const hasCast = d.cast.length > 0;
 const hasPlaceTime = d.performances.length > 0 || !!d.premiereDate;
+const hasTrailer = !!youtubeId;
+const hasPhotos = photos.length > 0;
+const hasInvitation = d.invitation.length > 0;
+const hasProgram = d.program.length > 0;
+const hasPoster = !!d.poster;
+const hasReviews = d.kritikes.length > 0;
 
+// Menu below the hero title: every section on the page, in render order —
+// the single navigation system. "Παράσταση" gets no chip: the orange
+// Watch now button already targets the stream.
 const buttons = [
   { href: "#theatriko-ergo", label: t("prod.section.play") },
   ...(hasCrew ? [{ href: "#syntelestes", label: t("prod.crew_section") }] : []),
@@ -41,57 +76,41 @@ const buttons = [
   ...(hasPlaceTime
     ? [{ href: "#topos-chronos", label: t("prod.section.place_time") }]
     : []),
-];
-
-// Placeholder Bunny IDs ("TODO") must not render a broken video player.
-const videoId = getVideoId(d);
-
-// Top-right stats menu: one entry per available Υλικό subsection.
-const photos = getPhotos(d);
-const stats = [
-  ...(photos.length > 0
+  ...(hasTrailer
+    ? [{ href: "#treiler", label: t("prod.trailer_section") }]
+    : []),
+  ...(hasPhotos
     ? [
         {
-          href: `${ylikoPath}#fotografies`,
+          href: "#fotografies",
           label: t("prod.gallery_section"),
           count: photos.length,
         },
       ]
     : []),
-  ...(d.youtubeTrailer
+  ...(hasInvitation
     ? [
         {
-          href: `${ylikoPath}#treiler`,
-          label: t("prod.trailer_section"),
-          count: 1,
-        },
-      ]
-    : []),
-  ...(d.invitation.length > 0
-    ? [
-        {
-          href: `${ylikoPath}#prosklisi`,
+          href: "#prosklisi",
           label: t("prod.invitation"),
           count: d.invitation.length,
         },
       ]
     : []),
-  ...(d.program.length > 0
+  ...(hasProgram
     ? [
         {
-          href: `${ylikoPath}#programma`,
+          href: "#programma",
           label: t("prod.program"),
           count: d.program.length,
         },
       ]
     : []),
-  ...(d.poster
-    ? [{ href: `${ylikoPath}#afisa`, label: t("prod.poster"), count: 1 }]
-    : []),
-  ...(d.kritikes.length > 0
+  ...(hasPoster ? [{ href: "#afisa", label: t("prod.poster") }] : []),
+  ...(hasReviews
     ? [
         {
-          href: `${ylikoPath}#kritikes`,
+          href: "#kritikes",
           label: t("prod.reviews"),
           count: d.kritikes.length,
         },
@@ -105,7 +124,13 @@ const orderedSections = [
   ...(hasCrew ? ["syntelestes"] : []),
   ...(hasCast ? ["dianomi"] : []),
   ...(hasPlaceTime ? ["topos-chronos"] : []),
+  ...(hasTrailer ? ["treiler"] : []),
   ...(videoId ? ["parastasi"] : []),
+  ...(hasPhotos ? ["fotografies"] : []),
+  ...(hasInvitation ? ["prosklisi"] : []),
+  ...(hasProgram ? ["programma"] : []),
+  ...(hasPoster ? ["afisa"] : []),
+  ...(hasReviews ? ["kritikes"] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
 
@@ -140,7 +165,7 @@ const placeTimeFacts =
   image={og?.src}
   imageWidth={og?.width}
   imageHeight={og?.height}
-  canonicalPath={canonicalPath}
+  canonicalPath={`/parastaseis/${play.id}`}
   type="article"
   flush
 >
@@ -153,26 +178,7 @@ const placeTimeFacts =
       watchNowHref={videoId ? "#parastasi" : undefined}
     />
 
-    <!-- Υλικό: quiet inline row right below the hero, on white — the
-         orange counts stay readable here, off the photo. -->
-    {
-      stats.length > 0 && (
-        <div class="mx-auto mt-8 flex max-w-6xl flex-wrap items-baseline gap-x-5 gap-y-2">
-          <span class="text-xs font-semibold uppercase tracking-[0.2em] text-orange">
-            {t("prod.yliko")}
-          </span>
-          {stats.map((s) => (
-            <a
-              href={s.href}
-              class="inline-flex items-baseline gap-1.5 text-sm font-semibold text-zinc-950/80 transition hover:text-orange"
-            >
-              {s.label}
-              {s.count > 1 && <span class="text-orange">{s.count}</span>}
-            </a>
-          ))}
-        </div>
-      )
-    }
+    <Lightbox />
 
     <div class="mt-6">
       <ProductionSection
@@ -239,6 +245,27 @@ const placeTimeFacts =
       }
 
       {
+        hasTrailer && (
+          <ProductionSection
+            id="treiler"
+            title={t("prod.trailer_section")}
+            band={band("treiler")}
+          >
+            <div class="overflow-hidden border border-zinc-950/10 bg-zinc-950 shadow-md">
+              <iframe
+                src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
+                title={`${t("prod.trailer_section")} — ${d.title}`}
+                allow="accelerometer; encrypted-media; fullscreen"
+                allowfullscreen
+                class="aspect-video w-full"
+                loading="lazy"
+              />
+            </div>
+          </ProductionSection>
+        )
+      }
+
+      {
         videoId && (
           <ProductionSection
             id="parastasi"
@@ -246,6 +273,131 @@ const placeTimeFacts =
             band={band("parastasi")}
           >
             <StreamPlayer videoId={videoId} title={d.title} />
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasPhotos && (
+          <ProductionSection
+            id="fotografies"
+            title={t("prod.gallery_section")}
+            count={photos.length}
+            band={band("fotografies")}
+          >
+            <Gallery
+              images={photos}
+              alt={d.title}
+              group={`${play.id}-fotografies`}
+            />
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasInvitation && (
+          <ProductionSection
+            id="prosklisi"
+            title={t("prod.invitation")}
+            count={d.invitation.length}
+            band={band("prosklisi")}
+          >
+            <ul class="grid gap-4 sm:grid-cols-2">
+              {invitationItems.map(({ src, full }, i) => (
+                <li>
+                  <button
+                    type="button"
+                    data-lightbox={`${play.id}-prosklisi`}
+                    data-lightbox-src={full}
+                    aria-label={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
+                    class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
+                  >
+                    <Image
+                      src={src}
+                      alt={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
+                      widths={[480, 720]}
+                      sizes="(min-width:640px) 50vw, 100vw"
+                      width={720}
+                      class="h-auto w-full"
+                    />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasProgram && (
+          <ProductionSection
+            id="programma"
+            title={t("prod.program")}
+            count={d.program.length}
+            band={band("programma")}
+          >
+            <ul class="grid gap-4 sm:grid-cols-2">
+              {programItems.map(({ src, full }, i) => (
+                <li>
+                  <button
+                    type="button"
+                    data-lightbox={`${play.id}-programma`}
+                    data-lightbox-src={full}
+                    aria-label={`${d.title} — ${t("prod.program")} ${i + 1}`}
+                    class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
+                  >
+                    <Image
+                      src={src}
+                      alt={`${d.title} — ${t("prod.program")} ${i + 1}`}
+                      widths={[480, 720]}
+                      sizes="(min-width:640px) 50vw, 100vw"
+                      width={720}
+                      class="h-auto w-full"
+                    />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasPoster && d.poster && (
+          <ProductionSection
+            id="afisa"
+            title={t("prod.poster")}
+            band={band("afisa")}
+          >
+            <button
+              type="button"
+              data-lightbox={`${play.id}-afisa`}
+              data-lightbox-src={posterFull}
+              aria-label={`${d.title} — ${t("prod.poster")}`}
+              class="block max-w-md cursor-zoom-in overflow-hidden border border-zinc-950/10"
+            >
+              <Image
+                src={d.poster}
+                alt={`${d.title} — ${t("prod.poster")}`}
+                widths={[480, 768]}
+                sizes="(min-width:640px) 448px, 100vw"
+                width={768}
+                class="h-auto w-full"
+              />
+            </button>
+          </ProductionSection>
+        )
+      }
+
+      {
+        hasReviews && (
+          <ProductionSection
+            id="kritikes"
+            title={t("prod.reviews")}
+            count={d.kritikes.length}
+            band={band("kritikes")}
+          >
+            <Reviews reviews={d.kritikes} />
           </ProductionSection>
         )
       }

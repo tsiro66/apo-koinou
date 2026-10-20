@@ -126,7 +126,6 @@ export const ui = {
 
     "prod.watch_now": "Παρακολουθήστε τώρα",
     "prod.see_more": "Δείτε περισσότερα",
-    "prod.yliko": "Υλικό",
     "prod.section.play": "Θεατρικό έργο",
     "prod.section.cast": "Διανομή",
     "prod.section.place_time": "Τόπος & Χρόνος",
@@ -136,7 +135,6 @@ export const ui = {
     "prod.reviews": "Κριτικές",
     "prod.reviews_read_more": "Διαβάστε περισσότερα",
     "prod.reviews_read_less": "Διαβάστε λιγότερα",
-    "prod.back_to_play": "Πίσω στην παράσταση",
     "prod.back_to_list": "Πίσω στις παραστάσεις",
     "prod.field.title": "Τίτλος",
     "prod.field.summary": "Σύνοψη",
@@ -262,7 +260,6 @@ export const ui = {
 
     "prod.watch_now": "Watch now",
     "prod.see_more": "See more",
-    "prod.yliko": "Material",
     "prod.section.play": "The play",
     "prod.section.cast": "Cast",
     "prod.section.place_time": "Place & time",
@@ -272,7 +269,6 @@ export const ui = {
     "prod.reviews": "Reviews",
     "prod.reviews_read_more": "Read more",
     "prod.reviews_read_less": "Read less",
-    "prod.back_to_play": "Back to the play",
     "prod.back_to_list": "Back to the plays",
     "prod.field.title": "Title",
     "prod.field.summary": "Synopsis",
