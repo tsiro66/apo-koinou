@@ -41,6 +41,15 @@ crew:
     name: Φώτης Λάζαρης
   - role: Αστυνομικός, Χήρα Σκλάβενιχ, Δόκτωρ Φιλοσοφίας
     name: Νίκος Παναγόπουλος
+performances:
+  - venue: Θέατρο Πάνθεον, Πάτρα
+    dates:
+      - 2025-03-26
+      - 2025-03-27
+  - venue: Θέατρο Λιθογραφείο, Πάτρα
+    dates:
+      - 2025-05-02
+      - 2025-05-03
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 youtubeTrailer: https://www.youtube.com/watch?v=GuuoUA58AfA
 thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04084.jpg
