@@ -74,11 +74,11 @@ invitation:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-front.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-back.jpg
 kritikes:
-  - source: "Εφημερίδα Πελοπόννησος "
-    text: >+
+  - source: Εφημερίδα Πελοπόννησος
+    title: >-
       Ο Μπίντερμαν και οι εμπρηστές του Μαξ Φρις από τη θεατρική ομάδα «Από
       κοινού» της Α’  ΕΛΜΕ Αχαΐας
-
+    text: >+
       Κριτική θεάτρου, από τη Μαίρη Σιδηρά, φιλόλογος – συγγραφέας.
 
       Μαίρη Σιδηρά

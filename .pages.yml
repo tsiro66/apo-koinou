@@ -153,6 +153,14 @@ content:
             label: Κείμενο κριτικής
             type: text
             required: true
+          - name: title
+            label: Τίτλος κριτικής
+            type: string
+            description: Προαιρετικά — ο τίτλος του άρθρου, αν υπάρχει.
+          - name: date
+            label: Ημερομηνία
+            type: string
+            description: Προαιρετικά — ελεύθερο κείμενο, π.χ. «8 Μαΐου 2026». Ημερομηνία δημοσίευσης της κριτικής.
       - name: carousel
         label: Καρουζέλ αρχικής σελίδας
         type: boolean

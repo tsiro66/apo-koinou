@@ -1,25 +1,101 @@
 ---
-// Review quotes with source attribution, rendered as a vertical list of
-// blockquotes with an orange accent bar.
+// Κριτικές: vertical list of review cards. Each card keeps the orange
+// accent bar and shows an optional title heading plus a meta line
+// (— source · date). The body starts as a 2–3 sentence teaser inside a
+// native <details>/<summary>, so long reviews expand without JavaScript:
+// the teaser hides when open (pure CSS via the group-open variant) and
+// the full text shows, with a "Read less" chip to collapse again (placed
+// after the text via flex order, still the native <summary> toggle).
+// Old-format rows (source + text only) render fine: the meta line alone
+// carries the identity.
+import { getLocaleFromUrl, useTranslations } from "../i18n/utils";
+
+interface Review {
+  source: string;
+  text: string;
+  title?: string;
+  date?: string;
+}
 interface Props {
-  reviews: { source: string; text: string }[];
+  reviews: Review[];
 }
 const { reviews } = Astro.props;
+const t = useTranslations(getLocaleFromUrl(Astro.url));
+
+/** Folded values yield one \n per paragraph (blank YAML lines); wrapped
+ * lines are folded to spaces. Split on newline runs, trim, drop empties. */
+const paragraphs = (text: string): string[] =>
+  text
+    .split(/\n+/)
+    .map((p) => p.replace(/[ \t]+/g, " ").trim())
+    .filter(Boolean);
+
+/** Teaser = first 2–3 sentences (≈ ≤ 320 chars, always sentence-bounded). */
+const TEASER_MAX = 320;
+function makeTeaser(text: string): string {
+  const re = /[^.!?…;]*[.!?…;]+["»'’)]*\s*/g;
+  const sentences = [...text.matchAll(re)].map((m) => m[0]);
+  const tail = text.slice(sentences.join("").length);
+  if (tail.trim()) sentences.push(tail);
+  let teaser = "";
+  let count = 0;
+  for (const s of sentences) {
+    if (teaser && teaser.length + s.length > TEASER_MAX) break;
+    teaser += s;
+    if (++count >= 3) break;
+  }
+  return teaser.trimEnd();
+}
+
+const body = "text-base leading-relaxed text-zinc-700";
 ---
 
-<ul class="space-y-6">
+<ul class="space-y-10">
   {
-    reviews.map((r) => (
-      <li>
-        <blockquote class="border-l-2 border-orange pl-4">
-          <p class="font-display text-xl italic leading-relaxed text-zinc-950/80">
-            {r.text}
-          </p>
-          <footer class="mt-2 text-sm font-semibold text-zinc-600">
-            — {r.source}
-          </footer>
-        </blockquote>
-      </li>
-    ))
+    reviews.map((r) => {
+      const paras = paragraphs(r.text);
+      const teaser = makeTeaser(paras.join(" "));
+      const short = paras.join(" ").length <= teaser.length + 40;
+      return (
+        <li>
+          <article class="max-w-prose border-l-2 border-orange pl-4 sm:pl-5">
+            {r.title && (
+              <h3 class="text-lg font-semibold tracking-tight text-zinc-950">
+                {r.title}
+              </h3>
+            )}
+            <p class="text-sm text-zinc-500">
+              <span class="font-semibold text-zinc-950">— {r.source}</span>
+              {r.date ? <span> · {r.date}</span> : null}
+            </p>
+
+            {short ? (
+              paras.map((p) => <p class={body + " mt-2 first:mt-0"}>{p}</p>)
+            ) : (
+              // flex + order puts the summary (only the "Read less" chip is
+              // visible when open) AFTER the full text, without JavaScript.
+              <details class="group flex flex-col">
+                <div class="order-first mt-2">
+                  {paras.map((p, i) => (
+                    <p class:list={[body, i > 0 && "mt-3"]}>{p}</p>
+                  ))}
+                </div>
+                <summary class="order-last cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                  <span class={body + " block group-open:hidden"}>
+                    {teaser}
+                  </span>
+                  <span class="group-open:hidden mt-1 inline-block text-sm font-semibold text-orange hover:underline">
+                    {t("prod.reviews_read_more")}
+                  </span>
+                  <span class="mt-1 hidden text-sm font-semibold text-orange group-open:inline hover:underline">
+                    {t("prod.reviews_read_less")}
+                  </span>
+                </summary>
+              </details>
+            )}
+          </article>
+        </li>
+      );
+    })
   }
 </ul>

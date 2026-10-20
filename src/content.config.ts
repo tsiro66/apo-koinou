@@ -88,10 +88,18 @@ const parastaseisCollection = defineCollection({
       invitation: z.array(image()).default([]),
       poster: image().optional(),
       program: z.array(image()).default([]),
-      // Κριτικές: review quotes with source attribution.
+      // Κριτικές: review quotes with source attribution. `title` and `date`
+      // are optional pro fields; real dates are Greek prose ("8 Μαΐου 2026"),
+      // so `date` stays a string. Required keys stay ["source", "text"] so
+      // old-format rows keep validating.
       kritikes: cmsRows(
         ["source", "text"],
-        z.object({ source: z.string(), text: z.string() }),
+        z.object({
+          source: z.string(),
+          text: z.string(),
+          title: z.string().optional(),
+          date: z.string().optional(),
+        }),
       ),
       seoDescription: z.string().optional(),
       seoImage: image().optional(),
