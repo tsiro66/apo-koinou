@@ -58,6 +58,8 @@ crew:
     name: Νάσια Καλογεροπούλου
   - role: Διασκεδαστής
     name: Ελένη Σιγαλού
+  - role: Μουσική Επιμέλεια
+    name: Φώτης Λάζαρης
   - role: Φωτογραφία - Βίντεο
     name: Βασίλης Λάγιος
   - role: Φροντιστήριο
@@ -72,8 +74,6 @@ crew:
     name: Αγγελίνα Βγενοπούλου
   - role: Επιμέλεια προγράμματος
     name: Μυρτώ Νάσσιου
-  - role: Μουσική Επιμέλεια
-    name: Φώτης Λάζαρης
 videoId: 65dbd3fb-5716-40a7-9136-ac50b291244b
 youtubeTrailer: https://www.youtube.com/watch?v=yokv1HIO6CY
 thumbnail: ../../assets/parastaseis/ayt15.jpg
