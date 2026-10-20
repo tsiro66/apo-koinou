@@ -1,6 +1,6 @@
 ---
 import type { RepertoireEntry } from "../utils/repertoire";
-import { expandPerformances } from "../utils/repertoire";
+import { formatShowDate, sortShows } from "../utils/repertoire";
 import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProductionHero from "../components/ProductionHero.astro";
@@ -11,7 +11,6 @@ import {
   getLocaleFromUrl,
   useTranslations,
   localizedPath,
-  formatDate,
 } from "../i18n/utils";
 import { ogSrc } from "../utils/media";
 
@@ -51,10 +50,10 @@ const playFacts = [
   ...(d.writer ? [{ label: t("prod.writer"), value: d.writer }] : []),
 ];
 
-// This season's shows, soonest first (a row with a second date yields
-// two fact rows, one per date).
-const placeTimeFacts = expandPerformances(d.performances).map((p) => ({
-  label: formatDate(p.date, locale),
+// This season's shows, soonest first (a row with an end date renders
+// as a range, e.g. 13–25 Οκτωβρίου 2026).
+const placeTimeFacts = sortShows(d.performances).map((p) => ({
+  label: formatShowDate(p, locale),
   value: p.venue,
 }));
 

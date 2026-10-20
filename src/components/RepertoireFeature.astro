@@ -13,7 +13,11 @@ import {
   formatDate,
   useTranslations,
 } from "../i18n/utils";
-import { performanceRange, expandPerformances } from "../utils/repertoire";
+import {
+  performanceRange,
+  sortShows,
+  formatShowDate,
+} from "../utils/repertoire";
 
 interface Props {
   entry: RepertoireEntry;
@@ -28,9 +32,8 @@ const t = useTranslations(locale);
 const href = localizedPath(`/repertorio/${entry.id}`, locale);
 
 // This season's shows, soonest first; the eyebrow carries the whole
-// range, the list shows each date with its venue (a row with a second
-// date yields two shows).
-const shows = expandPerformances(d.performances);
+// range, the list shows each date (or date range) with its venue.
+const shows = sortShows(d.performances);
 const eyebrow = performanceRange(d.performances, locale) ?? String(d.year);
 ---
 
@@ -84,7 +87,7 @@ const eyebrow = performanceRange(d.performances, locale) ?? String(d.year);
           {shows.map((p) => (
             <div class="flex flex-wrap items-baseline gap-x-3">
               <dt class="font-semibold text-zinc-950">
-                {formatDate(p.date, locale)}
+                {formatShowDate(p, locale)}
               </dt>
               <dd class="text-orange">{p.venue}</dd>
             </div>
