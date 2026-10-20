@@ -14,6 +14,7 @@ import {
   formatDate,
 } from "../i18n/utils";
 import { getThumbnail, getPhotos, getVideoId, ogSrc } from "../utils/media";
+import { expandPerformances } from "../utils/repertoire";
 
 interface Props {
   play: CollectionEntry<"parastaseis">;
@@ -119,7 +120,7 @@ const playFacts = [
 
 const placeTimeFacts =
   d.performances.length > 0
-    ? d.performances.map((p) => ({
+    ? expandPerformances(d.performances).map((p) => ({
         label: formatDate(p.date, locale),
         value: p.venue,
       }))

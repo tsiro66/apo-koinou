@@ -98,6 +98,10 @@ content:
             label: Χρόνος / Ημερομηνία
             type: date
             required: true
+          - name: date2
+            label: Δεύτερη ημερομηνία (προαιρετικό)
+            type: date
+            description: Δεύτερη παράσταση στον ίδιο χώρο (π.χ. Σάββατο & Κυριακή). Αφήστε το κενό αν υπάρχει μόνο μία παράσταση.
       - name: videoId
         label: Bunny Stream Video ID
         type: string
@@ -238,6 +242,10 @@ content:
             label: Χρόνος / Ημερομηνία
             type: date
             required: true
+          - name: date2
+            label: Δεύτερη ημερομηνία (προαιρετικό)
+            type: date
+            description: Δεύτερη παράσταση στον ίδιο χώρο (π.χ. Σάββατο & Κυριακή). Αφήστε το κενό αν υπάρχει μόνο μία παράσταση.
       - name: order
         label: Σειρά εμφάνισης
         type: number

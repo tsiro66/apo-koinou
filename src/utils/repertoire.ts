@@ -7,6 +7,9 @@ import type { Locale } from "../i18n/ui";
 
 export type RepertoireEntry = CollectionEntry<"repertorio">;
 
+/** One dated show (venue + date). */
+export type Show = { date: Date; venue: string };
+
 /**
  * Published repertoire entries, ordered for the listing: manual `order`
  * first (smaller first), then newest production year.
@@ -21,6 +24,23 @@ export async function getRepertoire(): Promise<RepertoireEntry[]> {
 }
 
 /**
+ * Flatten performance rows into one show per date: a row with a second
+ * date (two-show run at the same venue) yields two entries, each sorted
+ * chronologically overall.
+ */
+export function expandPerformances<
+  P extends { date: Date; date2?: Date; venue: string },
+>(performances: P[]): Show[] {
+  return performances
+    .flatMap((p) => {
+      const shows: Show[] = [{ date: p.date, venue: p.venue }];
+      if (p.date2) shows.push({ date: p.date2, venue: p.venue });
+      return shows;
+    })
+    .sort((a, b) => a.date.getTime() - b.date.getTime());
+}
+
+/**
  * Human date range for a play's season performances, e.g.
  * "14 Μαρτίου 2026", "14–15 Μαρτίου 2026", "14 Μαρτίου – 2 Απριλίου 2026"
  * ("14 March – 2 April 2026" in EN). Used as the card eyebrow on
@@ -28,12 +48,12 @@ export async function getRepertoire(): Promise<RepertoireEntry[]> {
  * has no performances yet (the card then falls back to the year).
  */
 export function performanceRange(
-  performances: { date: Date }[],
+  performances: { date: Date; date2?: Date }[],
   locale: Locale,
 ): string | undefined {
   if (performances.length === 0) return undefined;
   const dates = performances
-    .map((p) => p.date)
+    .flatMap((p) => [p.date, ...(p.date2 ? [p.date2] : [])])
     .sort((a, b) => a.getTime() - b.getTime());
   const first = dates[0];
   const last = dates[dates.length - 1];

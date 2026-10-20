@@ -1,5 +1,6 @@
 ---
 import type { RepertoireEntry } from "../utils/repertoire";
+import { expandPerformances } from "../utils/repertoire";
 import { render } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProductionHero from "../components/ProductionHero.astro";
@@ -50,13 +51,12 @@ const playFacts = [
   ...(d.writer ? [{ label: t("prod.writer"), value: d.writer }] : []),
 ];
 
-// This season's shows, soonest first.
-const placeTimeFacts = [...d.performances]
-  .sort((a, b) => a.date.getTime() - b.date.getTime())
-  .map((p) => ({
-    label: formatDate(p.date, locale),
-    value: p.venue,
-  }));
+// This season's shows, soonest first (a row with a second date yields
+// two fact rows, one per date).
+const placeTimeFacts = expandPerformances(d.performances).map((p) => ({
+  label: formatDate(p.date, locale),
+  value: p.venue,
+}));
 
 // Alternating full-bleed bands, in render order.
 const orderedSections = [

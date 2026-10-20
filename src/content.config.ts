@@ -43,6 +43,15 @@ const cmsRows = <
     z.array(schema).default([]),
   );
 
+/**
+ * Optional date field in a Pages CMS list row. The CMS may commit an
+ * untouched date picker as `""` or `null`; coerce only real values.
+ */
+const optionalDate = z.preprocess(
+  (v) => (v === "" || v === null ? undefined : v),
+  z.coerce.date().optional(),
+);
+
 const parastaseisCollection = defineCollection({
   loader: glob({ pattern: "**/*.md", base: "./src/content/parastaseis" }),
   schema: ({ image }) =>
@@ -65,10 +74,15 @@ const parastaseisCollection = defineCollection({
         ["role", "name"],
         z.object({ role: z.string(), name: z.string() }),
       ),
-      // Τόπος & χρόνος: one row per performance.
+      // Τόπος & χρόνος: one row per performance (optional second date
+      // for two-show runs at the same venue, e.g. Σάββατο & Κυριακή).
       performances: cmsRows(
         ["date", "venue"],
-        z.object({ date: z.coerce.date(), venue: z.string() }),
+        z.object({
+          date: z.coerce.date(),
+          date2: optionalDate,
+          venue: z.string(),
+        }),
       ),
       summary: z.string().optional(),
       // Bunny Stream video ID (GUID) for the full recorded performance.
@@ -122,8 +136,15 @@ const repertorioCollection = defineCollection({
       ),
       // This season's shows — kept separate from the play's historical
       // `performances` so the archive page stays purely historical.
+      // Optional second date for two-show runs at the same venue.
       performances: z
-        .array(z.object({ date: z.coerce.date(), venue: z.string() }))
+        .array(
+          z.object({
+            date: z.coerce.date(),
+            date2: optionalDate,
+            venue: z.string(),
+          }),
+        )
         .default([]),
       // Manual listing order on /repertorio (smaller first). Falls back
       // to the production year, newest first.
