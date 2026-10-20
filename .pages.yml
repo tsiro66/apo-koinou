@@ -102,7 +102,7 @@ content:
           - name: endDate
             label: Έως (προαιρετικό)
             type: date
-          - name: videoId
+      - name: videoId
         label: Bunny Stream Video ID
         type: string
         description: GUID βίντεο από το Bunny Stream dashboard (πλήρη μαγνητοσκοπημένη παράσταση), π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb. Αν είναι TODO, αντικαταστήστε το.
