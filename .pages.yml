@@ -1,5 +1,6 @@
 # Pages CMS configuration — https://pages.cms
 # Repo: tsiro66/apo-koinou (branch: master)
+# config-rev: 3 (nudge CMS config cache; schema per 19a6002 — endDate)
 #
 # Entries live in Astro Content Collections (src/content/*) and images in
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
