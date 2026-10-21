@@ -85,6 +85,22 @@ crew:
     name: Αγγελίνα Βγενοπούλου
   - role: Επιμέλεια προγράμματος
     name: Μυρτώ Νάσσιου
+performances:
+  - venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
+    dates:
+      - 2024-04-06
+      - 2024-04-07
+  - venue: Θέατρο Πάνθεον, Πάτρα
+    dates:
+      - 2024-04-10
+      - 2024-04-11
+      - 2024-05-22
+  - venue: Θέατρο Κνωσσός, Αθήνα
+    dates:
+      - 2024-06-01
+  - venue: Φεστιβάλ Ερασιτεχνικού Θεάτρου Δήμου Πατρέων, Παλαιά Δημοτικά Σφαγεία
+    dates:
+      - 2024-06-28
 videoId: 65dbd3fb-5716-40a7-9136-ac50b291244b
 youtubeTrailer: https://www.youtube.com/watch?v=yokv1HIO6CY
 thumbnail: ../../assets/parastaseis/ayt15.jpg
