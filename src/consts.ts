@@ -4,7 +4,7 @@ import type { Locale } from "./i18n/ui";
 
 export const SITE = {
   // Brand name kept identical in both locales (proper noun).
-  site: "https://apo-koinou.gr",
+  site: "https://apo-koinou.com",
   email: "lazaris.fotis.thea@gmail.com",
   phone: "6974991255",
   social: {

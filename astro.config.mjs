@@ -127,7 +127,7 @@ function pruneUnreferencedOriginals() {
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://apo-koinou.gr",
+  site: "https://apo-koinou.com",
   integrations: [sitemap(), pruneUnreferencedOriginals()],
   // The programme page was renamed to repertoire (Ρεπερτόριο); keep old
   // links and sitemap entries working. Static builds emit meta-refresh

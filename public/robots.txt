@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://apo-koinou.gr/sitemap-index.xml
+Sitemap: https://apo-koinou.com/sitemap-index.xml
