@@ -50,6 +50,17 @@ performances:
     dates:
       - 2025-05-02
       - 2025-05-03
+      - 2026-10-21
+  - venue: Θέατρο ΝΟΥΣ, Αθήνα
+    dates:
+      - 2025-04-26
+  - venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
+    dates:
+      - 2025-03-15
+      - 2025-03-16
+  - venue: Φεστιβάλ Ερασιτεχνικού Θεάτρου Δήμου Πατρέων, Ανοιχτό Θέατρο Κρήνης
+    dates:
+      - 2025-06-28
 videoId: 50467211-b1c9-4acb-9a76-8e182438bd54
 youtubeTrailer: https://www.youtube.com/watch?v=GuuoUA58AfA
 thumbnail: ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/DSC04084.jpg
