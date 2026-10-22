@@ -62,7 +62,7 @@ crew:
     name: Φώτης Λάζαρης
 videoId: a70fa1cb-3df1-4dcc-9cb4-449f6174626f
 youtubeTrailer: https://www.youtube.com/watch?v=UXYLIqc95mY
-thumbnail: ../../assets/parastaseis/vussinokhpos/01.jpg
+thumbnail: ../../assets/parastaseis/13-1.jpg
 poster: ../../assets/parastaseis/vussinokhpos/poster.jpg
 gallery:
   - ../../assets/parastaseis/vussinokhpos/02.jpg
@@ -77,7 +77,7 @@ gallery:
   - ../../assets/parastaseis/5.jpg
   - ../../assets/parastaseis/10.jpg
   - ../../assets/parastaseis/12.jpg
-  - ../../assets/parastaseis/13.jpg
+  - ../../assets/parastaseis/16.jpg
 invitation:
   - ../../assets/parastaseis/vussinokhpos/invitation-front.jpg
   - ../../assets/parastaseis/vussinokhpos/invitation-back.jpg
