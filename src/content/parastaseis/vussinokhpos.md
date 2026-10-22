@@ -89,6 +89,7 @@ gallery:
   - ../../assets/parastaseis/1752256519430519359311806071263249645055460n.jpg
   - ../../assets/parastaseis/1749900919434718392225236433957218031727893n.jpg
   - ../../assets/parastaseis/1762651319461972289499842632484168189386350n.jpg
+  - ../../assets/parastaseis/1762648519434720425558368206126408518392852n.jpg
 invitation:
   - ../../assets/parastaseis/vussinokhpos/invitation-front.jpg
   - ../../assets/parastaseis/vussinokhpos/invitation-back.jpg
