@@ -61,7 +61,7 @@ crew:
   - role: Μουσική επιμέλεια
     name: Φώτης Λάζαρης
 videoId: a70fa1cb-3df1-4dcc-9cb4-449f6174626f
-youtubeTrailer: https://youtu.be/UXYLIqc95mY
+youtubeTrailer: https://www.youtube.com/watch?v=UXYLIqc95mY
 thumbnail: ../../assets/parastaseis/vussinokhpos/01.jpg
 poster: ../../assets/parastaseis/vussinokhpos/poster.jpg
 gallery:
