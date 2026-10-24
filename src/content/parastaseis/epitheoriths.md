@@ -56,7 +56,7 @@ crew:
     name: Φώτης Λάζαρης, Μαρία Καζάκου, Ηλίας Κούλης
   - role: Ακορντεόν επί σκηνής
     name: Αναστασία Μπούρμπου
-videoId: 3090fc97-30c7-4af7-aeaf-281b597e8f58
+videoId: f94092f5-0bdb-4370-8e60-9d2983a6795c
 thumbnail: ../../assets/parastaseis/epi8ewrhths.webp
 poster: ../../assets/parastaseis/epitheoriths/poster.jpg
 gallery:
