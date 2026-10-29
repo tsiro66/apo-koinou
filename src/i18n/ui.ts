@@ -126,6 +126,9 @@ export const ui = {
     "prod.interviews": "Συνεντεύξεις",
     "prod.interviews_video": "Βίντεο",
     "prod.interviews_audio": "Ήχος",
+    "prod.interviews_play": "Αναπαραγωγή",
+    "prod.interviews_pause": "Παύση",
+    "prod.interviews_seek": "Θέση ήχου",
     "prod.stream_default": "Παράσταση",
 
     "prod.watch_now": "Παρακολουθήστε τώρα",
@@ -264,6 +267,9 @@ export const ui = {
     "prod.interviews": "Interviews",
     "prod.interviews_video": "Video",
     "prod.interviews_audio": "Audio",
+    "prod.interviews_play": "Play",
+    "prod.interviews_pause": "Pause",
+    "prod.interviews_seek": "Seek",
     "prod.stream_default": "Performance",
 
     "prod.watch_now": "Watch now",
