@@ -57,6 +57,7 @@ crew:
   - role: Ακορντεόν επί σκηνής
     name: Αναστασία Μπούρμπου
 videoId: f94092f5-0bdb-4370-8e60-9d2983a6795c
+youtubeTrailer: https://www.youtube.com/watch?v=O2yuYps__6Q
 thumbnail: ../../assets/parastaseis/epi8ewrhths.webp
 poster: ../../assets/parastaseis/epitheoriths/poster.jpg
 gallery:
