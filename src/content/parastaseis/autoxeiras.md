@@ -143,6 +143,9 @@ gallery:
   - ../../assets/parastaseis/aytox35.jpg
   - ../../assets/parastaseis/aytox36.jpg
   - ../../assets/parastaseis/aytox34.jpg
+syneunteixeisVideo:
+  - youtube: https://www.youtube.com/watch?v=c1k-I7am0G0
+    date: Απρίλιος 2024
 carousel: false
 draft: false
 ---
