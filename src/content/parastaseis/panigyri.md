@@ -2,7 +2,7 @@
 title: Το πανηγύρι
 slug: panigyri
 year: 2016
-writer: Δ. Κεχαΐδης
+writer: Δημήτρης Κεχαΐδης
 crew:
   - role: Σκηνοθεσία
     name: Φώτης Λάζαρης
@@ -53,6 +53,7 @@ performances:
     dates:
       - 2016-05-24
 videoId: 22279b7d-56b3-4628-98f5-b773282dfbeb
+youtubeTrailer: https://www.youtube.com/watch?v=XIH7QBotyHM
 thumbnail: ../../assets/parastaseis/panigyri/01.jpg
 poster: ../../assets/parastaseis/panigyri/poster.jpg
 gallery:
