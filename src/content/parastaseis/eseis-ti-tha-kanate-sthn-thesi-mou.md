@@ -92,8 +92,6 @@ gallery:
 invitation:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-front.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-back.jpg
-syneunteixeisVideo:
-  - {}
 kritikes:
   - source: Εφημερίδα Πελοπόννησος
     text: >+
