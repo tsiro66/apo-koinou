@@ -2,7 +2,7 @@
 title: Ο βυσσινόκηπος
 slug: vussinokhpos
 year: 2017
-writer: Άντον Τσέχοφ
+writer: Αντόν Τσέχωφ
 crew:
   - role: Λοπάχιν
     name: Άγγελος Μπουμπούλης
