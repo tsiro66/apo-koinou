@@ -66,6 +66,15 @@ gallery:
   - ../../assets/parastaseis/glaros/08.jpg
   - ../../assets/parastaseis/glaros/09.jpg
   - ../../assets/parastaseis/glaros/10.jpg
+# Test data for the Συνεντεύξεις section — replace with real interviews.
+syneunteixeisVideo:
+  - youtube: https://www.youtube.com/watch?v=rtlxTbT56l0
+    title: Συνέντευξη σκηνοθέτη
+    date: "2022"
+syneunteixeisAudio:
+  - audio: /syneunteixeis/glaros/dokimi.mp3
+    title: Ραδιοφωνική εκπομπή
+    date: "2022"
 carousel: true
 draft: false
 ---

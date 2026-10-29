@@ -2,6 +2,8 @@
 // Label/value rows in the style "Label: value" used by the production
 // sections (Θεατρικό έργο, Συντελεστές, Διανομή, Τόπος & Χρόνος).
 // Rows with an empty label render just the value (e.g. cast without roles).
+// Two columns from sm up: long crew/cast lists (25+ rows on some
+// productions) scan far better as a two-column wall than a single one.
 interface Fact {
   label: string;
   value: string;
@@ -12,7 +14,7 @@ interface Props {
 const { facts } = Astro.props;
 ---
 
-<dl class="space-y-4">
+<dl class="grid gap-x-10 gap-y-4 sm:grid-cols-2">
   {
     facts.map((f) => (
       <div>

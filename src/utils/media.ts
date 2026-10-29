@@ -80,3 +80,16 @@ export const getPhotos = (
     (p): p is ImageMetadata => !!p,
   );
 };
+
+/**
+ * YouTube video ID from a bare ID or a pasted URL (watch?v=… or
+ * youtu.be/… — what CMS editors paste). Returns trimmed input when it
+ * is already a bare ID.
+ */
+export const toYouTubeId = (urlOrId: string): string => {
+  const s = urlOrId.trim();
+  if (!s.startsWith("http")) return s;
+  if (s.includes("youtu.be/"))
+    return s.split("youtu.be/")[1]?.split(/[?/]/)[0] ?? "";
+  return s.split("v=")[1]?.split("&")[0] ?? "";
+};

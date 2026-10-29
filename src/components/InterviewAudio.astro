@@ -1,0 +1,27 @@
+---
+// Native audio player card for voice interviews (Συνεντεύξεις — Ήχος).
+// No JS: the browser's own <audio> UI, preload="none" so recordings
+// are only fetched when the visitor presses play. Audio files live in
+// public/syneunteixeis/ (uploaded via Pages CMS) — mp3s need no
+// astro:assets processing.
+interface Props {
+  /** Site-absolute path, e.g. /syneunteixeis/glaros/radio.mp3. */
+  src: string;
+  title?: string;
+  /** Free-text date, Greek prose ("Μάρτιος 2023"). */
+  date?: string;
+}
+const { src, title, date } = Astro.props;
+---
+
+<figure class="border border-zinc-950/10 bg-zinc-50 p-4">
+  {
+    (title || date) && (
+      <figcaption class="text-sm font-semibold text-zinc-950">
+        {title}
+        {date && <span class="ml-2 font-normal text-zinc-950/50">{date}</span>}
+      </figcaption>
+    )
+  }
+  <audio controls preload="none" src={src} class="mt-3 w-full"></audio>
+</figure>

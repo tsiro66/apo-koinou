@@ -122,6 +122,10 @@ export const ui = {
     "prod.cast_section": "Συμμετέχουν",
     "prod.crew_section": "Συντελεστές",
     "prod.gallery_section": "Φωτογραφίες",
+    "prod.printed_material": "Έντυπο υλικό",
+    "prod.interviews": "Συνεντεύξεις",
+    "prod.interviews_video": "Βίντεο",
+    "prod.interviews_audio": "Ήχος",
     "prod.stream_default": "Παράσταση",
 
     "prod.watch_now": "Παρακολουθήστε τώρα",
@@ -256,6 +260,10 @@ export const ui = {
     "prod.cast_section": "Cast",
     "prod.crew_section": "Crew",
     "prod.gallery_section": "Photos",
+    "prod.printed_material": "Printed material",
+    "prod.interviews": "Interviews",
+    "prod.interviews_video": "Video",
+    "prod.interviews_audio": "Audio",
     "prod.stream_default": "Performance",
 
     "prod.watch_now": "Watch now",

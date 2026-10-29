@@ -1,6 +1,6 @@
 # Pages CMS configuration — https://pages.cms
 # Repo: tsiro66/apo-koinou (branch: master)
-# config-rev: 5 (nudge CMS config cache; performances date → dates list — one venue row holds several dates)
+# config-rev: 6 (nudge CMS config cache; new Συνεντεύξεις fields + audio media library)
 #
 # Entries live in Astro Content Collections (src/content/*) and images in
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
@@ -28,6 +28,15 @@ media:
     label: Εικόνες νέων
     input: src/assets/nea
     output: ../../assets/nea
+    rename: safe
+  - name: syneunteixeis-media
+    label: Ήχοι συνεντεύξεων
+    input: public/syneunteixeis
+    # Audio needs no astro:assets processing — files live in public/
+    # and the absolute output path is stored as-is in the frontmatter
+    # (e.g. /syneunteixeis/glaros/radio.mp3). Editors upload per play:
+    # navigate into the play's subfolder first.
+    output: /syneunteixeis
     rename: safe
   - name: logos-media
     label: Λογότυπα
@@ -137,6 +146,49 @@ content:
         options:
           media: parastaseis-media
           multiple: true
+      - name: syneunteixeisVideo
+        label: Συνεντεύξεις (βίντεο)
+        type: object
+        description: Βίντεο YouTube — συνεντεύξεις, παρουσιάσεις κ.λπ. γύρω από την παράσταση.
+        list:
+          collapsible:
+            collapsed: true
+        fields:
+          - name: youtube
+            label: YouTube
+            type: string
+            required: true
+            description: Το ID του βίντεο (π.χ. dQw4w9WgXcQ) ή ολόκληρο το link.
+          - name: title
+            label: Τίτλος
+            type: string
+            description: Προαιρετικά — π.χ. «Συνέντευξη σκηνοθέτη».
+          - name: date
+            label: Ημερομηνία
+            type: string
+            description: Προαιρετικά — ελεύθερο κείμενο, π.χ. «Μάρτιος 2023».
+      - name: syneunteixeisAudio
+        label: Συνεντεύξεις (ήχος)
+        type: object
+        description: Ηχογραφημένες συνεντεύξεις / ραδιοφωνικές εκπομπές. Ανεβάστε πρώτα το αρχείο στη βιβλιοθήκη «Ήχοι συνεντεύξεων», μέσα στον φάκελο της παράστασης.
+        list:
+          collapsible:
+            collapsed: true
+        fields:
+          - name: audio
+            label: Αρχείο ήχου
+            type: file
+            required: true
+            options:
+              media: syneunteixeis-media
+          - name: title
+            label: Τίτλος
+            type: string
+            description: Προαιρετικά — π.χ. «Ραδιοφωνική εκπομπή».
+          - name: date
+            label: Ημερομηνία
+            type: string
+            description: Προαιρετικά — ελεύθερο κείμενο, π.χ. «Μάρτιος 2023».
       - name: kritikes
         label: Κριτικές
         type: object

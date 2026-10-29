@@ -1,0 +1,48 @@
+---
+// Click-to-load YouTube trailer (facade pattern): renders the trailer's
+// own thumbnail with a play button; the nocookie iframe (with autoplay)
+// is swapped in on click by TrailerFacade.ts. Keeps YouTube's heavy
+// player JS off the page until a visitor actually asks for the trailer.
+interface Props {
+  youtubeId: string;
+  /** Accessible name for the play button (e.g. "Τρέιλερ — <play>"). */
+  title: string;
+}
+const { youtubeId, title } = Astro.props;
+---
+
+<div data-trailer-facade data-trailer-id={youtubeId} data-trailer-title={title}>
+  <button
+    type="button"
+    class="group relative block aspect-video w-full cursor-pointer overflow-hidden border border-zinc-950/10 bg-zinc-950 shadow-md"
+    aria-label={title}
+  >
+    <!-- hqdefault always exists (maxres often doesn't); the 4:3 frame is
+         cropped to 16:9 by object-cover. -->
+    <img
+      src={`https://i.ytimg.com/vi/${youtubeId}/hqdefault.jpg`}
+      alt=""
+      loading="lazy"
+      class="absolute inset-0 h-full w-full object-cover opacity-90 transition group-hover:scale-[1.02] group-hover:opacity-100"
+    />
+    <span
+      aria-hidden="true"
+      class="absolute inset-0 bg-zinc-950/25 transition group-hover:bg-zinc-950/10"
+    >
+    </span>
+    <span aria-hidden="true" class="absolute inset-0 grid place-items-center">
+      <span
+        class="grid h-14 w-20 place-items-center bg-orange transition group-hover:bg-zinc-50"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          class="h-6 w-6 fill-zinc-50 transition group-hover:fill-zinc-950"
+        >
+          <path d="M8 5v14l11-7z"></path>
+        </svg>
+      </span>
+    </span>
+  </button>
+</div>
+
+<script src="./TrailerFacade.ts"></script>

@@ -1,17 +1,22 @@
 ---
 // One page per production: the play (Θεατρικό έργο, συντελεστές, διανομή,
-// τόπος & χρόνος), the recording (Τρέιλερ, Παράσταση) and all Υλικό
-// sections (φωτογραφίες, πρόσκληση, πρόγραμμα, αφίσα, κριτικές) — the old
+// τόπος & χρόνος), the recording (Παράσταση, with the trailer as a
+// click-to-load card inside it) and all Υλικό sections (φωτογραφίες,
+// έντυπο υλικό = αφίσα + πρόσκληση + πρόγραμμα merged, κριτικές) — the old
 // separate /yliko page is merged in so nothing sits behind a cross-page
-// link. The hero's chip row is the menu: every section on the page.
+// link. The menu is the sticky chip bar under the hero: every section on
+// the page, one row, always reachable.
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import StreamPlayer from "../components/StreamPlayer.astro";
 import ProductionHero from "../components/ProductionHero.astro";
+import ProductionSubNav from "../components/ProductionSubNav.astro";
 import ProductionSection from "../components/ProductionSection.astro";
 import ProductionFacts from "../components/ProductionFacts.astro";
+import TrailerFacade from "../components/TrailerFacade.astro";
+import InterviewAudio from "../components/InterviewAudio.astro";
 import Gallery from "../components/Gallery.astro";
 import Lightbox from "../components/Lightbox.astro";
 import Reviews from "../components/Reviews.astro";
@@ -23,6 +28,7 @@ import {
   getVideoId,
   lightboxSrc,
   ogSrc,
+  toYouTubeId,
 } from "../utils/media";
 import { formatShowDate, sortShows } from "../utils/repertoire";
 
@@ -40,10 +46,8 @@ const brand = BRAND[locale];
 // Placeholder Bunny IDs ("TODO") must not render a broken video player.
 const videoId = getVideoId(d);
 
-// YouTube trailer: accept a bare ID or a full watch?v= URL.
-const youtubeId = d.youtubeTrailer?.startsWith("http")
-  ? d.youtubeTrailer.split("v=")[1]?.split("&")[0]
-  : d.youtubeTrailer;
+// YouTube trailer: accept a bare ID or a full watch/youtu.be URL.
+const youtubeId = d.youtubeTrailer ? toYouTubeId(d.youtubeTrailer) : undefined;
 
 // Lightbox full views: optimized build-time WebP (see lightboxSrc).
 const invitationItems = await Promise.all(
@@ -59,12 +63,18 @@ const photos = getPhotos(d);
 const hasCrew = d.crew.length > 0;
 const hasCast = d.cast.length > 0;
 const hasPlaceTime = d.performances.length > 0 || !!d.premiereDate;
-const hasTrailer = !!youtubeId;
 const hasPhotos = photos.length > 0;
 const hasInvitation = d.invitation.length > 0;
 const hasProgram = d.program.length > 0;
 const hasPoster = !!d.poster;
 const hasReviews = d.kritikes.length > 0;
+// Printed material (Αφίσα, Πρόσκληση, Πρόγραμμα): same content type —
+// scanned paper — so the three old sections share one band.
+const hasPrinted = hasInvitation || hasProgram || hasPoster;
+const printedCount =
+  d.invitation.length + d.program.length + (hasPoster ? 1 : 0);
+const hasInterviews =
+  d.syneunteixeisVideo.length > 0 || d.syneunteixeisAudio.length > 0;
 
 // Menu below the hero title: every section on the page, in render order —
 // the single navigation system. "Παράσταση" gets no chip: the orange
@@ -76,9 +86,6 @@ const buttons = [
   ...(hasPlaceTime
     ? [{ href: "#topos-chronos", label: t("prod.section.place_time") }]
     : []),
-  ...(hasTrailer
-    ? [{ href: "#treiler", label: t("prod.trailer_section") }]
-    : []),
   ...(hasPhotos
     ? [
         {
@@ -88,25 +95,18 @@ const buttons = [
         },
       ]
     : []),
-  ...(hasInvitation
+  ...(hasPrinted
     ? [
         {
-          href: "#prosklisi",
-          label: t("prod.invitation"),
-          count: d.invitation.length,
+          href: "#entypo-yliko",
+          label: t("prod.printed_material"),
+          count: printedCount,
         },
       ]
     : []),
-  ...(hasProgram
-    ? [
-        {
-          href: "#programma",
-          label: t("prod.program"),
-          count: d.program.length,
-        },
-      ]
+  ...(hasInterviews
+    ? [{ href: "#syneunteixeis", label: t("prod.interviews") }]
     : []),
-  ...(hasPoster ? [{ href: "#afisa", label: t("prod.poster") }] : []),
   ...(hasReviews
     ? [
         {
@@ -124,12 +124,14 @@ const orderedSections = [
   ...(hasCrew ? ["syntelestes"] : []),
   ...(hasCast ? ["dianomi"] : []),
   ...(hasPlaceTime ? ["topos-chronos"] : []),
-  ...(hasTrailer ? ["treiler"] : []),
+  // The recording comes before the trailer teaser: the stream is the
+  // page's product. A trailer without a recording stays a standalone
+  // section; otherwise it lives inside Παράσταση.
   ...(videoId ? ["parastasi"] : []),
+  ...(!videoId && youtubeId ? ["treiler"] : []),
   ...(hasPhotos ? ["fotografies"] : []),
-  ...(hasInvitation ? ["prosklisi"] : []),
-  ...(hasProgram ? ["programma"] : []),
-  ...(hasPoster ? ["afisa"] : []),
+  ...(hasPrinted ? ["entypo-yliko"] : []),
+  ...(hasInterviews ? ["syneunteixeis"] : []),
   ...(hasReviews ? ["kritikes"] : []),
 ];
 const band = (id: string) => orderedSections.indexOf(id) % 2 === 0;
@@ -174,9 +176,14 @@ const placeTimeFacts =
       title={d.title}
       year={d.year}
       thumb={getThumbnail(d)}
-      buttons={buttons}
       watchNowHref={videoId ? "#parastasi" : undefined}
     />
+
+    {
+      /* Sticky section menu — replaces the old hero chip row: same links,
+        one horizontally scrolling row, reachable for the whole page. */
+    }
+    <ProductionSubNav buttons={buttons} label={d.title} />
 
     <Lightbox />
 
@@ -245,22 +252,16 @@ const placeTimeFacts =
       }
 
       {
-        hasTrailer && (
+        !videoId && youtubeId && (
           <ProductionSection
             id="treiler"
             title={t("prod.trailer_section")}
             band={band("treiler")}
           >
-            <div class="overflow-hidden border border-zinc-950/10 bg-zinc-950 shadow-md">
-              <iframe
-                src={`https://www.youtube-nocookie.com/embed/${youtubeId}`}
-                title={`${t("prod.trailer_section")} — ${d.title}`}
-                allow="accelerometer; encrypted-media; fullscreen"
-                allowfullscreen
-                class="aspect-video w-full"
-                loading="lazy"
-              />
-            </div>
+            <TrailerFacade
+              youtubeId={youtubeId}
+              title={`${t("prod.trailer_section")} — ${d.title}`}
+            />
           </ProductionSection>
         )
       }
@@ -273,6 +274,19 @@ const placeTimeFacts =
             band={band("parastasi")}
           >
             <StreamPlayer videoId={videoId} title={d.title} />
+            {youtubeId && (
+              <div class="mt-8">
+                <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+                  {t("prod.trailer_section")}
+                </h3>
+                <div class="mt-3 max-w-xl">
+                  <TrailerFacade
+                    youtubeId={youtubeId}
+                    title={`${t("prod.trailer_section")} — ${d.title}`}
+                  />
+                </div>
+              </div>
+            )}
           </ProductionSection>
         )
       }
@@ -295,96 +309,156 @@ const placeTimeFacts =
       }
 
       {
-        hasInvitation && (
+        /* Έντυπο υλικό: αφίσα, πρόσκληση, πρόγραμμα — all scanned paper,
+           so one section (poster first, then the document grids) instead
+           of three near-identical bands. */
+        hasPrinted && (
           <ProductionSection
-            id="prosklisi"
-            title={t("prod.invitation")}
-            count={d.invitation.length}
-            band={band("prosklisi")}
+            id="entypo-yliko"
+            title={t("prod.printed_material")}
+            count={printedCount}
+            band={band("entypo-yliko")}
           >
-            <ul class="grid gap-4 sm:grid-cols-2">
-              {invitationItems.map(({ src, full }, i) => (
-                <li>
-                  <button
-                    type="button"
-                    data-lightbox={`${play.id}-prosklisi`}
-                    data-lightbox-src={full}
-                    aria-label={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
-                    class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
-                  >
-                    <Image
-                      src={src}
-                      alt={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
-                      widths={[480, 720]}
-                      sizes="(min-width:640px) 50vw, 100vw"
-                      width={720}
-                      class="h-auto w-full"
-                    />
-                  </button>
-                </li>
-              ))}
-            </ul>
+            {hasPoster && d.poster && (
+              <div>
+                <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+                  {t("prod.poster")}
+                </h3>
+                <button
+                  type="button"
+                  data-lightbox={`${play.id}-afisa`}
+                  data-lightbox-src={posterFull}
+                  aria-label={`${d.title} — ${t("prod.poster")}`}
+                  class="mt-3 block max-w-md cursor-zoom-in overflow-hidden border border-zinc-950/10"
+                >
+                  <Image
+                    src={d.poster}
+                    alt={`${d.title} — ${t("prod.poster")}`}
+                    widths={[480, 768]}
+                    sizes="(min-width:640px) 448px, 100vw"
+                    width={768}
+                    class="h-auto w-full"
+                  />
+                </button>
+              </div>
+            )}
+
+            {hasInvitation && (
+              <div class:list={[hasPoster && "mt-8"]}>
+                <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+                  {t("prod.invitation")}
+                </h3>
+                <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+                  {invitationItems.map(({ src, full }, i) => (
+                    <li>
+                      <button
+                        type="button"
+                        data-lightbox={`${play.id}-prosklisi`}
+                        data-lightbox-src={full}
+                        aria-label={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
+                        class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
+                      >
+                        <Image
+                          src={src}
+                          alt={`${d.title} — ${t("prod.invitation")} ${i + 1}`}
+                          widths={[480, 720]}
+                          sizes="(min-width:640px) 50vw, 100vw"
+                          width={720}
+                          class="h-auto w-full"
+                        />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+
+            {hasProgram && (
+              <div class:list={[(hasPoster || hasInvitation) && "mt-8"]}>
+                <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+                  {t("prod.program")}
+                </h3>
+                <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+                  {programItems.map(({ src, full }, i) => (
+                    <li>
+                      <button
+                        type="button"
+                        data-lightbox={`${play.id}-programma`}
+                        data-lightbox-src={full}
+                        aria-label={`${d.title} — ${t("prod.program")} ${i + 1}`}
+                        class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
+                      >
+                        <Image
+                          src={src}
+                          alt={`${d.title} — ${t("prod.program")} ${i + 1}`}
+                          widths={[480, 720]}
+                          sizes="(min-width:640px) 50vw, 100vw"
+                          width={720}
+                          class="h-auto w-full"
+                        />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
           </ProductionSection>
         )
       }
 
       {
-        hasProgram && (
+        /* Συνεντεύξεις: YouTube videos via the click-to-load facade,
+           voice recordings via the native <audio> player. */
+        hasInterviews && (
           <ProductionSection
-            id="programma"
-            title={t("prod.program")}
-            count={d.program.length}
-            band={band("programma")}
+            id="syneunteixeis"
+            title={t("prod.interviews")}
+            band={band("syneunteixeis")}
           >
-            <ul class="grid gap-4 sm:grid-cols-2">
-              {programItems.map(({ src, full }, i) => (
-                <li>
-                  <button
-                    type="button"
-                    data-lightbox={`${play.id}-programma`}
-                    data-lightbox-src={full}
-                    aria-label={`${d.title} — ${t("prod.program")} ${i + 1}`}
-                    class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
-                  >
-                    <Image
-                      src={src}
-                      alt={`${d.title} — ${t("prod.program")} ${i + 1}`}
-                      widths={[480, 720]}
-                      sizes="(min-width:640px) 50vw, 100vw"
-                      width={720}
-                      class="h-auto w-full"
-                    />
-                  </button>
-                </li>
-              ))}
-            </ul>
-          </ProductionSection>
-        )
-      }
+            {d.syneunteixeisVideo.length > 0 && (
+              <div>
+                <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+                  {t("prod.interviews_video")}
+                </h3>
+                <div class="mt-3 max-w-3xl space-y-6">
+                  {d.syneunteixeisVideo.map((v) => (
+                    <div>
+                      {v.title && (
+                        <p class="mb-3 text-sm font-semibold text-zinc-950">
+                          {v.title}
+                          {v.date && (
+                            <span class="ml-2 font-normal text-zinc-950/50">
+                              {v.date}
+                            </span>
+                          )}
+                        </p>
+                      )}
+                      <TrailerFacade
+                        youtubeId={toYouTubeId(v.youtube)}
+                        title={`${v.title ?? t("prod.interviews")} — ${d.title}`}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
-      {
-        hasPoster && d.poster && (
-          <ProductionSection
-            id="afisa"
-            title={t("prod.poster")}
-            band={band("afisa")}
-          >
-            <button
-              type="button"
-              data-lightbox={`${play.id}-afisa`}
-              data-lightbox-src={posterFull}
-              aria-label={`${d.title} — ${t("prod.poster")}`}
-              class="block max-w-md cursor-zoom-in overflow-hidden border border-zinc-950/10"
-            >
-              <Image
-                src={d.poster}
-                alt={`${d.title} — ${t("prod.poster")}`}
-                widths={[480, 768]}
-                sizes="(min-width:640px) 448px, 100vw"
-                width={768}
-                class="h-auto w-full"
-              />
-            </button>
+            {d.syneunteixeisAudio.length > 0 && (
+              <div class:list={[d.syneunteixeisVideo.length > 0 && "mt-8"]}>
+                <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+                  {t("prod.interviews_audio")}
+                </h3>
+                <div class="mt-3 max-w-xl space-y-4">
+                  {d.syneunteixeisAudio.map((a) => (
+                    <InterviewAudio
+                      src={a.audio}
+                      title={a.title}
+                      date={a.date}
+                    />
+                  ))}
+                </div>
+              </div>
+            )}
           </ProductionSection>
         )
       }

@@ -102,6 +102,29 @@ const parastaseisCollection = defineCollection({
           date: z.string().optional(),
         }),
       ),
+      // Συνεντεύξεις: interviews about/around the production — YouTube
+      // videos and voice recordings. Two lists (not one typed list) so
+      // each keeps its own required key and CMS editors only ever see
+      // the fields relevant to what they are adding.
+      syneunteixeisVideo: cmsRows(
+        ["youtube"],
+        z.object({
+          youtube: z.string(),
+          title: z.string().optional(),
+          date: z.string().optional(),
+        }),
+      ),
+      // Voice recordings: audio lives in public/syneunteixeis (no
+      // astro:assets processing for mp3s) — the frontmatter value is a
+      // site-absolute path like /syneunteixeis/<slug>/file.mp3.
+      syneunteixeisAudio: cmsRows(
+        ["audio"],
+        z.object({
+          audio: z.string(),
+          title: z.string().optional(),
+          date: z.string().optional(),
+        }),
+      ),
       seoDescription: z.string().optional(),
       seoImage: image().optional(),
       draft: z.boolean().default(false),
