@@ -86,6 +86,11 @@ const buttons = [
   ...(hasPlaceTime
     ? [{ href: "#topos-chronos", label: t("prod.section.place_time") }]
     : []),
+  // Trailer chip: standalone section when there's no recording, otherwise
+  // the embedded teaser inside Παράσταση carries the #treiler anchor.
+  ...(youtubeId
+    ? [{ href: "#treiler", label: t("prod.trailer_section") }]
+    : []),
   ...(hasPhotos
     ? [
         {
@@ -275,7 +280,7 @@ const placeTimeFacts =
           >
             <StreamPlayer videoId={videoId} title={d.title} />
             {youtubeId && (
-              <div class="mt-8">
+              <div id="treiler" class="mt-8 scroll-mt-28">
                 <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
                   {t("prod.trailer_section")}
                 </h3>

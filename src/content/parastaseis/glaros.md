@@ -71,10 +71,6 @@ syneunteixeisVideo:
   - youtube: https://www.youtube.com/watch?v=rtlxTbT56l0
     title: Συνέντευξη σκηνοθέτη
     date: "2022"
-syneunteixeisAudio:
-  - audio: /syneunteixeis/glaros/dokimi.mp3
-    title: Ραδιοφωνική εκπομπή
-    date: "2022"
 carousel: true
 draft: false
 ---

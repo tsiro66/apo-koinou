@@ -23,3 +23,6 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 a.out
+
+# raw editor drops, staged manually into public/
+hxhtika/
