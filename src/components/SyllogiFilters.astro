@@ -1,0 +1,185 @@
+---
+import { getLocaleFromUrl, useTranslations, format } from "../i18n/utils";
+
+interface Props {
+  /** Distinct production years with photos, descending. */
+  years: number[];
+  /** Play titles, alphabetically sorted (exact-match filter values). */
+  plays: string[];
+  /** Total photo groups shown before filtering (initial status line). */
+  total: number;
+}
+const { years, plays, total } = Astro.props;
+const locale = getLocaleFromUrl(Astro.url);
+const t = useTranslations(locale);
+
+const initialStatus =
+  total === 1
+    ? t("filter.results_one")
+    : format(t("filter.results_many"), { count: total });
+
+const fieldClass =
+  "w-full appearance-none border-b border-zinc-950/20 bg-transparent py-2 text-sm text-zinc-950 transition hover:border-zinc-950/40 focus:border-orange focus:outline-none";
+const labelClass =
+  "mb-1 block text-xs font-semibold uppercase tracking-[0.15em] text-zinc-600";
+
+// Same generic PlayFilters.ts script as the archive page — targets are
+// declared on the section, no writer dropdown on this page.
+const chevronClass =
+  "pointer-events-none absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-950/40";
+---
+
+<section
+  aria-label={t("filter.aria")}
+  data-play-filters
+  data-filter-target="[data-syllogi-groups]"
+  data-filter-item="[data-group]"
+  data-filter-empty="[data-syllogi-empty]"
+  data-filter-writer-param="play"
+>
+  <div
+    class="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_repeat(3,minmax(0,13rem))]"
+  >
+    <div class="sm:col-span-2 lg:col-span-1">
+      <label for="syllogi-filter-search" class={labelClass}
+        >{t("filter.search")}</label
+      >
+      <div class="relative">
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class="pointer-events-none absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 text-zinc-950/40"
+        >
+          <circle cx="7" cy="7" r="4.5" stroke="currentColor" stroke-width="1.5"
+          ></circle>
+          <path
+            d="m10.5 10.5 3 3"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"></path>
+        </svg>
+        <input
+          id="syllogi-filter-search"
+          type="search"
+          autocomplete="off"
+          data-filter-search
+          placeholder={t("filter.search_placeholder_photos")}
+          class={`${fieldClass} pl-7 pr-3 placeholder:text-zinc-950/40`}
+        />
+      </div>
+    </div>
+
+    <div>
+      <label for="syllogi-filter-year" class={labelClass}
+        >{t("filter.year")}</label
+      >
+      <div class="relative">
+        <select
+          id="syllogi-filter-year"
+          data-filter-year
+          class={`${fieldClass} pr-8`}
+        >
+          <option value="">{t("filter.year_all")}</option>
+          {years.map((y) => <option value={y}>{y}</option>)}
+        </select>
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class={chevronClass}
+        >
+          <path
+            d="m4 6 4 4 4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <label for="syllogi-filter-play" class={labelClass}
+        >{t("filter.play")}</label
+      >
+      <div class="relative">
+        <select
+          id="syllogi-filter-play"
+          data-filter-writer
+          class={`${fieldClass} pr-8`}
+        >
+          <option value="">{t("filter.play_all")}</option>
+          {plays.map((p) => <option value={p}>{p}</option>)}
+        </select>
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class={chevronClass}
+        >
+          <path
+            d="m4 6 4 4 4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </div>
+    </div>
+
+    <div>
+      <label for="syllogi-filter-sort" class={labelClass}
+        >{t("filter.sort")}</label
+      >
+      <div class="relative">
+        <select
+          id="syllogi-filter-sort"
+          data-filter-sort
+          class={`${fieldClass} pr-8`}
+        >
+          <option value="newest">{t("filter.sort_newest")}</option>
+          <option value="oldest">{t("filter.sort_oldest")}</option>
+          <option value="title">{t("filter.sort_title")}</option>
+        </select>
+        <svg
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+          class={chevronClass}
+        >
+          <path
+            d="m4 6 4 4 4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-zinc-950/10 pt-3"
+  >
+    <p
+      role="status"
+      data-filter-status
+      data-results-one={t("filter.results_one")}
+      data-results-many={t("filter.results_many")}
+      class="text-sm text-zinc-600"
+    >
+      {initialStatus}
+    </p>
+    <button
+      type="button"
+      data-filter-clear
+      hidden
+      class="cursor-pointer text-sm font-semibold text-zinc-600 underline underline-offset-2 transition hover:text-orange"
+    >
+      {t("filter.clear")}
+    </button>
+  </div>
+</section>
+
+<script src="./PlayFilters.ts"></script>

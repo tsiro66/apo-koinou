@@ -24,9 +24,21 @@ const labelClass =
   "mb-1 block text-xs font-semibold uppercase tracking-[0.15em] text-zinc-600";
 ---
 
-<section aria-label={t("filter.aria")} data-play-filters>
+<!--
+  Filter bar for a client-side filtered list. Fully generic: the shared
+  PlayFilters.ts script reads its targets from the data-* attributes on
+  this section, so other pages (e.g. SyllogiFilters) reuse the same
+  script with their own grid/items/empty-node selectors.
+-->
+<section
+  aria-label={t("filter.aria")}
+  data-play-filters
+  data-filter-target="[data-plays-grid]"
+  data-filter-item="[data-play]"
+  data-filter-empty="[data-plays-empty]"
+>
   <div
-    class="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_auto_auto_auto]"
+    class="grid gap-x-8 gap-y-5 sm:grid-cols-2 lg:grid-cols-[minmax(0,1fr)_repeat(3,minmax(0,13rem))]"
   >
     <div class="sm:col-span-2 lg:col-span-1">
       <label for="play-filter-search" class={labelClass}

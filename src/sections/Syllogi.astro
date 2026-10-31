@@ -5,6 +5,8 @@ import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Lightbox from "../components/Lightbox.astro";
+import SyllogiFilters from "../components/SyllogiFilters.astro";
+import { normalizeText } from "../utils/text";
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -57,6 +59,17 @@ const groups = await Promise.all(
     };
   }),
 );
+
+// Distinct years for the filter dropdown, descending; play titles for
+// the exact-match dropdown, Greek-alphabetical.
+const years = [...new Set(groups.map((g) => g.year))].sort((a, b) => b - a);
+const playTitles = groups
+  .map((g) => g.title)
+  .sort((a, b) => a.localeCompare(b, "el"));
+// Items carry `data-writer` (the shared script's exact-match hook, see
+// PlayFilters.ts); on this page it holds the play title for the dropdown.
+---
+
 ---
 
 <BaseLayout title={t("page.syllogi.title")} canonicalPath="/syllogi">
@@ -75,58 +88,78 @@ const groups = await Promise.all(
     </div>
     {
       groups.length > 0 ? (
-        <div class="mt-12 space-y-12">
-          {groups.map((g) => (
-            <section>
-              <header class="mb-4 flex items-baseline justify-between gap-4">
-                <div>
-                  <h2 class="text-2xl text-zinc-950">
-                    <a
-                      href={g.href}
-                      aria-label={g.title}
-                      class="hover:text-zinc-950"
-                    >
-                      {g.title}
-                    </a>
-                  </h2>
-                  <p class="mt-1 text-sm text-zinc-600">
-                    {g.year}
-                    {g.director ? ` — ${g.director}` : ""}
-                  </p>
-                </div>
-                <a
-                  href={g.href}
-                  class="whitespace-nowrap text-sm text-zinc-950 hover:underline"
-                >
-                  →
-                </a>
-              </header>
-              <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-                {g.photos.map(({ src, full }, i) => (
-                  <li>
-                    <button
-                      type="button"
-                      data-lightbox={`syllogi-${g.title}`}
-                      data-lightbox-src={full}
-                      aria-label={`${g.title} — ${photoWord} ${i + 1}`}
-                      class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
-                    >
-                      <Image
-                        src={src}
-                        alt={`${g.title} — ${photoWord} ${i + 1}`}
-                        widths={[240, 480, 640]}
-                        sizes="(min-width:1024px) 25vw,(min-width:640px) 33vw,50vw"
-                        width={480}
-                        height={480}
-                        class="aspect-square w-full object-cover transition hover:scale-105"
-                      />
-                    </button>
-                  </li>
-                ))}
-              </ul>
-            </section>
-          ))}
-        </div>
+        <>
+          <div class="mt-10">
+            <SyllogiFilters
+              years={years}
+              plays={playTitles}
+              total={groups.length}
+            />
+          </div>
+          <div data-syllogi-groups class="mt-12 space-y-12">
+            {groups.map((g) => (
+              <section
+                data-group
+                data-year={g.year}
+                data-title={normalizeText(g.title)}
+                data-writer={g.title}
+                data-search={normalizeText(
+                  [g.title, g.director ?? ""].join(" "),
+                )}
+              >
+                <header class="mb-4 flex items-baseline justify-between gap-4">
+                  <div>
+                    <h2 class="text-2xl text-zinc-950">
+                      <a
+                        href={g.href}
+                        aria-label={g.title}
+                        class="hover:text-zinc-950"
+                      >
+                        {g.title}
+                      </a>
+                    </h2>
+                    <p class="mt-1 text-sm text-zinc-600">
+                      {g.year}
+                      {g.director ? ` — ${g.director}` : ""}
+                    </p>
+                  </div>
+                  <a
+                    href={g.href}
+                    class="whitespace-nowrap text-sm text-zinc-950 hover:underline"
+                  >
+                    →
+                  </a>
+                </header>
+                <ul class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+                  {g.photos.map(({ src, full }, i) => (
+                    <li>
+                      <button
+                        type="button"
+                        data-lightbox={`syllogi-${g.title}`}
+                        data-lightbox-src={full}
+                        aria-label={`${g.title} — ${photoWord} ${i + 1}`}
+                        class="block w-full cursor-zoom-in overflow-hidden border border-zinc-950/10"
+                      >
+                        <Image
+                          src={src}
+                          alt={`${g.title} — ${photoWord} ${i + 1}`}
+                          widths={[240, 480, 640]}
+                          sizes="(min-width:1024px) 25vw,(min-width:640px) 33vw,50vw"
+                          width={480}
+                          height={480}
+                          class="aspect-square w-full object-cover transition hover:scale-105"
+                        />
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </section>
+            ))}
+          </div>
+          <p data-syllogi-empty hidden class="mt-10 text-zinc-600">
+            {t("filter.empty")}
+          </p>
+        </>
       ) : (
         <p class="mt-10 text-zinc-600">{t("empty.syllogi")}</p>
       )

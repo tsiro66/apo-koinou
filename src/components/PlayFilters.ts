@@ -1,31 +1,51 @@
 import { normalizeText } from "../utils/text";
 import { onPageLoad } from "../scripts/onPageLoad";
 
-// Filters the [data-play] cards inside [data-plays-grid]. Sort is applied
-// by re-appending DOM nodes, visibility via the `hidden` attribute, and
-// state is mirrored to the URL (?q=&year=&writer=&sort=) so filtered
-// views are shareable and survive ClientRouter navigation.
+// Generic client-side list filtering, shared by the archive page
+// (PlayFilters.astro) and the Συλλογή page (SyllogiFilters.astro). The
+// filter root declares its targets via data attributes, so one script
+// serves any list whose items carry data-year / data-title / data-search:
+//
+//   data-filter-target  selector of the container holding the items
+//   data-filter-item    selector matching one filterable item
+//   data-filter-empty   selector of the "no results" note (optional)
+//
+// Sort is applied by re-appending DOM nodes, visibility via the `hidden`
+// attribute, and state is mirrored to the URL (?q=&year=&sort= plus the
+// exact-match select's parameter) so filtered views are shareable and
+// survive ClientRouter navigation.
 type SortKey = "newest" | "oldest" | "title";
 
 function setup(root: HTMLElement) {
-  const grid = document.querySelector<HTMLElement>("[data-plays-grid]");
-  const empty = document.querySelector<HTMLElement>("[data-plays-empty]");
+  const targetSel = root.dataset.filterTarget;
+  const itemSel = root.dataset.filterItem;
+  if (!targetSel || !itemSel) return;
+  const grid = document.querySelector<HTMLElement>(targetSel);
+  const empty = root.dataset.filterEmpty
+    ? document.querySelector<HTMLElement>(root.dataset.filterEmpty)
+    : null;
   const search = root.querySelector<HTMLInputElement>("[data-filter-search]");
   const year = root.querySelector<HTMLSelectElement>("[data-filter-year]");
+  // Writer is page-specific (archive only) — optional everywhere else.
   const writer = root.querySelector<HTMLSelectElement>("[data-filter-writer]");
   const sort = root.querySelector<HTMLSelectElement>("[data-filter-sort]");
   const status = root.querySelector<HTMLElement>("[data-filter-status]");
   const clear = root.querySelector<HTMLButtonElement>("[data-filter-clear]");
-  if (!grid || !search || !year || !writer || !sort) return;
+  if (!grid || !search || !year || !sort) return;
+  // The exact-match select matches the item's `data-writer` attribute; the
+  // URL parameter name is configurable so the Συλλογή page can expose it
+  // as ?play= while the archive keeps ?writer=.
+  const writerParam = root.dataset.filterWriterParam || "writer";
   // Alias after the guard: TS narrowing is not preserved inside the
   // closures below otherwise.
   const gridEl = grid;
+  const emptyEl = empty;
   const searchEl = search;
   const yearEl = year;
   const writerEl = writer;
   const sortEl = sort;
 
-  const items = Array.from(gridEl.querySelectorAll<HTMLElement>("[data-play]"));
+  const items = Array.from(gridEl.querySelectorAll<HTMLElement>(itemSel));
 
   function currentSort(): SortKey {
     const v = sortEl.value;
@@ -35,7 +55,7 @@ function setup(root: HTMLElement) {
   function apply(syncUrl = true) {
     const q = normalizeText(searchEl.value);
     const y = yearEl.value;
-    const w = writerEl.value;
+    const w = writerEl?.value ?? "";
     const s = currentSort();
 
     const ordered = [...items].sort((a, b) => {
@@ -69,14 +89,14 @@ function setup(root: HTMLElement) {
           : (status.dataset.resultsMany ?? "");
       status.textContent = tpl.replace("{count}", String(visible));
     }
-    if (empty) empty.hidden = visible !== 0;
+    if (emptyEl) emptyEl.hidden = visible !== 0;
     if (clear) clear.hidden = !q && !y && !w && s === "newest";
 
     if (syncUrl) {
       const params = new URLSearchParams();
       if (q) params.set("q", searchEl.value.trim());
       if (y) params.set("year", y);
-      if (w) params.set("writer", w);
+      if (w) params.set(writerParam, w);
       if (s !== "newest") params.set("sort", s);
       const qs = params.toString();
       history.replaceState(
@@ -91,18 +111,18 @@ function setup(root: HTMLElement) {
   const params = new URLSearchParams(location.search);
   searchEl.value = params.get("q") ?? "";
   yearEl.value = params.get("year") ?? "";
-  writerEl.value = params.get("writer") ?? "";
+  if (writerEl) writerEl.value = params.get(writerParam) ?? "";
   sortEl.value = params.get("sort") ?? "newest";
   apply(false);
 
   searchEl.addEventListener("input", () => apply());
   yearEl.addEventListener("change", () => apply());
-  writerEl.addEventListener("change", () => apply());
+  writerEl?.addEventListener("change", () => apply());
   sortEl.addEventListener("change", () => apply());
   clear?.addEventListener("click", () => {
     searchEl.value = "";
     yearEl.value = "";
-    writerEl.value = "";
+    if (writerEl) writerEl.value = "";
     sortEl.value = "newest";
     apply();
     searchEl.focus();
