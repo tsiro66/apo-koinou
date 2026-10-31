@@ -117,6 +117,9 @@ gallery:
   - ../../assets/parastaseis/672675403101627477368129605098251443270444102n.jpg
   - ../../assets/parastaseis/70778330514297122822942208763546122047496847n.jpg
   - ../../assets/parastaseis/vlp6848.jpg
+syneunteixeisAudio:
+  - audio: /syneunteixeis/anoixta/maxfm-syneunteksi.mp3
+    title: Συνέντευξη MaxFM
 carousel: false
 draft: false
 ---

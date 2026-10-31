@@ -282,6 +282,9 @@ kritikes:
 
       Αν σας βολέψει κάποια από τις παραστάσεις που απομένουν, μην την χάσετε.
     date: 10 Μαΐου
+syneunteixeisAudio:
+  - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi.mp3
+    title: Συνέντευξη MaxFM
 carousel: true
 draft: false
 ---
