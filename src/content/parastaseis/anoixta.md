@@ -120,6 +120,7 @@ gallery:
 syneunteixeisAudio:
   - audio: /syneunteixeis/anoixta/maxfm-syneunteksi.mp3
     title: Συνέντευξη MaxFM
+    date: Μάιος 2026
 carousel: false
 draft: false
 ---
