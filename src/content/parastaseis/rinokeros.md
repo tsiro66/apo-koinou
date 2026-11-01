@@ -119,7 +119,8 @@ gallery:
 syneunteixeisAudio:
   - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi-v2.mp3
     title: Συνέντευξη MaxFM
-    date: Μάϊος 2026
+    date: Μάιος 2026
+  - {}
 kritikes:
   - source: Xristina Kokkota
     text: >-
