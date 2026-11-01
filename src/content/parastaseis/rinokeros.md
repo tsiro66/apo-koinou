@@ -116,6 +116,10 @@ gallery:
   - ../../assets/parastaseis/66815350813916483094339514457412526983773654n.jpg
   - ../../assets/parastaseis/66758971613916470461007446606809958576398990n.jpg
   - ../../assets/parastaseis/pan8eon-rinokeros.jpg
+syneunteixeisAudio:
+  - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi-v2.mp3
+    title: Συνέντευξη MaxFM
+    date: Μάϊος 2026
 kritikes:
   - source: Xristina Kokkota
     text: >-
@@ -282,9 +286,6 @@ kritikes:
 
       Αν σας βολέψει κάποια από τις παραστάσεις που απομένουν, μην την χάσετε.
     date: 10 Μαΐου
-syneunteixeisAudio:
-  - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi-v2.mp3
-    title: Συνέντευξη MaxFM
 carousel: true
 draft: false
 ---
