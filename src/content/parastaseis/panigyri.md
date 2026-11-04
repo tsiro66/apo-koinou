@@ -59,7 +59,6 @@ poster: ../../assets/parastaseis/panigyri/poster.jpg
 gallery:
   - ../../assets/parastaseis/panigyri/02.jpg
   - ../../assets/parastaseis/panigyri/03.jpg
-  - ../../assets/parastaseis/panigyri/04.jpg
   - ../../assets/parastaseis/panigyri/05.jpg
   - ../../assets/parastaseis/panigyri/06.jpg
   - ../../assets/parastaseis/panigyri/07.jpg
