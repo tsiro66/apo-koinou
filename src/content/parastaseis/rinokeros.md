@@ -116,6 +116,10 @@ gallery:
   - ../../assets/parastaseis/66815350813916483094339514457412526983773654n.jpg
   - ../../assets/parastaseis/66758971613916470461007446606809958576398990n.jpg
   - ../../assets/parastaseis/pan8eon-rinokeros.jpg
+syneunteixeisVideo:
+  - video: 72f6169a-ac2a-4995-8ff4-28048b6c7c8a
+    title: Συνέντευξη στο IONIAN TV
+    date: Μάιος 2026
 syneunteixeisAudio:
   - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3
     title: Συνέντευξη MaxFM
