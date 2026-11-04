@@ -92,6 +92,10 @@ gallery:
 invitation:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-front.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-back.jpg
+syneunteixeisVideo:
+  - video: e113e391-b814-4718-9396-16afd7bf180b
+    title: Συνέντευξη στην εκπομπή Metropolis του IONIAN TV
+    date: Μάρτιος 2025
 kritikes:
   - source: Εφημερίδα Πελοπόννησος
     text: >+
