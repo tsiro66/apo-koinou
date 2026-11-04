@@ -93,3 +93,31 @@ export const toYouTubeId = (urlOrId: string): string => {
     return s.split("youtu.be/")[1]?.split(/[?/]/)[0] ?? "";
   return s.split("v=")[1]?.split("&")[0] ?? "";
 };
+
+/**
+ * Bunny Stream video ID from a bare GUID or a pasted embed URL
+ * (https://iframe.mediadelivery.net/embed/<libraryId>/<videoId>?… —
+ * what CMS editors copy from the Bunny dashboard). Returns trimmed
+ * input when it is already a bare GUID.
+ */
+export const toBunnyId = (urlOrId: string): string => {
+  const s = urlOrId.trim();
+  if (!s.toLowerCase().startsWith("http")) return s;
+  // …/embed/<libraryId>/<videoId> — the GUID is the last path
+  // segment; query/fragment are stripped first (?autoplay=false…).
+  const afterEmbed = (s.split("embed/")[1] ?? "").split(/[?#]/)[0];
+  return afterEmbed.split("/").filter(Boolean).pop() ?? "";
+};
+
+/**
+ * Whether an interview-video frontmatter value is a Bunny Stream video
+ * (embed URL or bare GUID) rather than a YouTube link/ID — decides which
+ * player the interviews section renders for the row.
+ */
+export const isBunnyVideo = (s: string): boolean => {
+  const v = s.trim().toLowerCase();
+  return (
+    v.includes("mediadelivery.net/embed/") ||
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/.test(v)
+  );
+};

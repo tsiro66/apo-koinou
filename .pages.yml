@@ -1,6 +1,6 @@
 # Pages CMS configuration — https://pages.cms
 # Repo: tsiro66/apo-koinou (branch: master)
-# config-rev: 6 (nudge CMS config cache; new Συνεντεύξεις fields + audio media library)
+# config-rev: 7 (nudge CMS config cache; Συνεντεύξεις video rows accept YouTube link or Bunny Stream ID)
 #
 # Entries live in Astro Content Collections (src/content/*) and images in
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
@@ -149,16 +149,16 @@ content:
       - name: syneunteixeisVideo
         label: Συνεντεύξεις (βίντεο)
         type: object
-        description: Βίντεο YouTube — συνεντεύξεις, παρουσιάσεις κ.λπ. γύρω από την παράσταση.
+        description: Συνεντεύξεις, παρουσιάσεις κ.λπ. γύρω από την παράσταση — βίντεο YouTube ή Bunny Stream.
         list:
           collapsible:
             collapsed: true
         fields:
-          - name: youtube
-            label: YouTube
+          - name: video
+            label: Βίντεο (YouTube ή Bunny)
             type: string
             required: true
-            description: Το ID του βίντεο (π.χ. dQw4w9WgXcQ) ή ολόκληρο το link.
+            description: Το link ή το ID του YouTube βίντεο (π.χ. https://youtu.be/dQw4w9WgXcQ ή dQw4w9WgXcQ) Ή το ID/embed link βίντεο από το Bunny Stream dashboard (π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb). Συμπληρώστε το ένα ή το άλλο.
           - name: title
             label: Τίτλος
             type: string

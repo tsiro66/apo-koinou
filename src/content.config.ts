@@ -102,14 +102,16 @@ const parastaseisCollection = defineCollection({
           date: z.string().optional(),
         }),
       ),
-      // Συνεντεύξεις: interviews about/around the production — YouTube
-      // videos and voice recordings. Two lists (not one typed list) so
-      // each keeps its own required key and CMS editors only ever see
-      // the fields relevant to what they are adding.
+      // Συνεντεύξεις: interviews about/around the production — videos
+      // (YouTube link/ID or Bunny Stream GUID/embed link; the two are
+      // auto-detected at render time via utils/media) and voice
+      // recordings. Two lists (not one typed list) so each keeps its own
+      // required key and CMS editors only ever see the fields relevant
+      // to what they are adding.
       syneunteixeisVideo: cmsRows(
-        ["youtube"],
+        ["video"],
         z.object({
-          youtube: z.string(),
+          video: z.string(),
           title: z.string().optional(),
           date: z.string().optional(),
         }),

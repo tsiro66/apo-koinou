@@ -26,8 +26,10 @@ import {
   getThumbnail,
   getPhotos,
   getVideoId,
+  isBunnyVideo,
   lightboxSrc,
   ogSrc,
+  toBunnyId,
   toYouTubeId,
 } from "../utils/media";
 import { formatShowDate, sortShows } from "../utils/repertoire";
@@ -412,8 +414,9 @@ const placeTimeFacts =
       }
 
       {
-        /* Συνεντεύξεις: YouTube videos via the click-to-load facade,
-           voice recordings via the native <audio> player. */
+        /* Συνεντεύξεις: videos via the click-to-load YouTube facade or
+           the Bunny Stream player (auto-detected per row), voice
+           recordings via the native <audio> player. */
         hasInterviews && (
           <ProductionSection
             id="syneunteixeis"
@@ -438,10 +441,17 @@ const placeTimeFacts =
                           )}
                         </p>
                       )}
-                      <TrailerFacade
-                        youtubeId={toYouTubeId(v.youtube)}
-                        title={`${v.title ?? t("prod.interviews")} — ${d.title}`}
-                      />
+                      {isBunnyVideo(v.video) ? (
+                        <StreamPlayer
+                          videoId={toBunnyId(v.video)}
+                          title={`${v.title ?? t("prod.interviews")} — ${d.title}`}
+                        />
+                      ) : (
+                        <TrailerFacade
+                          youtubeId={toYouTubeId(v.video)}
+                          title={`${v.title ?? t("prod.interviews")} — ${d.title}`}
+                        />
+                      )}
                     </div>
                   ))}
                 </div>

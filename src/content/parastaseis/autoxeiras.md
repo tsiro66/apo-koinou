@@ -144,7 +144,7 @@ gallery:
   - ../../assets/parastaseis/aytox36.jpg
   - ../../assets/parastaseis/aytox34.jpg
 syneunteixeisVideo:
-  - youtube: https://www.youtube.com/watch?v=c1k-I7am0G0
+  - video: https://www.youtube.com/watch?v=c1k-I7am0G0
     title: Συνέντευξη στο IONIAN TV
     date: Απρίλιος 2024
 carousel: false
