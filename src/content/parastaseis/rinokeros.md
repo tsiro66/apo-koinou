@@ -118,7 +118,7 @@ gallery:
   - ../../assets/parastaseis/pan8eon-rinokeros.jpg
 syneunteixeisVideo:
   - video: 72f6169a-ac2a-4995-8ff4-28048b6c7c8a
-    title: Συνέντευξη στο IONIAN TV
+    title: Συνέντευξη στην εκπομπή Metropolis του IONIAN TV
     date: Μάιος 2026
 syneunteixeisAudio:
   - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3
