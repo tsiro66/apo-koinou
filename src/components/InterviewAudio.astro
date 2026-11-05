@@ -5,17 +5,15 @@
 // seek bar (input[type=range], accent-color — keyboard accessible for
 // free), current/total time. Behavior lives in InterviewAudio.ts.
 // preload="metadata" loads only the header (duration) — the audio
-// itself is fetched when the visitor presses play.
+// itself is fetched when the visitor presses play. Titles/dates render
+// in ProductionDetail above the card, mirroring video interviews.
 import { getLocaleFromUrl, useTranslations } from "../i18n/utils";
 
 interface Props {
   /** Site-absolute path, e.g. /syneunteixeis/glaros/radio.mp3. */
   src: string;
-  title?: string;
-  /** Free-text date, Greek prose ("Μάρτιος 2023"). */
-  date?: string;
 }
-const { src, title, date } = Astro.props;
+const { src } = Astro.props;
 const t = useTranslations(getLocaleFromUrl(Astro.url));
 ---
 
@@ -50,16 +48,6 @@ const t = useTranslations(getLocaleFromUrl(Astro.url));
       </svg>
     </button>
     <div class="min-w-0 flex-1">
-      {
-        (title || date) && (
-          <p class="truncate text-sm font-semibold text-zinc-50">
-            {title}
-            {date && (
-              <span class="ml-2 font-normal text-zinc-50/50">{date}</span>
-            )}
-          </p>
-        )
-      }
       <input
         type="range"
         data-audio-seek
