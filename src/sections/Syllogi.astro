@@ -6,7 +6,7 @@ import SectionTitle from "../components/SectionTitle.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
 import Lightbox from "../components/Lightbox.astro";
 import SyllogiFilters from "../components/SyllogiFilters.astro";
-import { normalizeText } from "../utils/text";
+import { directorFromCrew, normalizeText } from "../utils/text";
 import {
   getLocaleFromUrl,
   useTranslations,
@@ -49,7 +49,9 @@ const groups = await Promise.all(
       href: localizedPath(`/parastaseis/${play.id}`, locale),
       title: play.data.title,
       year: play.data.year,
-      director: play.data.director,
+      // `director` frontmatter is unused in practice — derive it from the
+      // crew's Σκηνοθεσία row; drives the header line and search index.
+      director: play.data.director ?? directorFromCrew(play.data.crew),
       photos: await Promise.all(
         sources.map(async (src) => ({
           src,

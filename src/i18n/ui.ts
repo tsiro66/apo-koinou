@@ -97,7 +97,7 @@ export const ui = {
 
     "filter.aria": "Φιλτράρισμα παραστάσεων",
     "filter.search": "Αναζήτηση",
-    "filter.search_placeholder": "Τίτλος, συγγραφέας ή σύνοψη…",
+    "filter.search_placeholder": "Τίτλος, συγγραφέας ή σκηνοθέτης…",
     "filter.search_placeholder_photos": "Τίτλος ή σκηνοθέτης…",
     "filter.year": "Χρονιά",
     "filter.year_all": "Όλες οι χρονιές",
@@ -241,7 +241,7 @@ export const ui = {
 
     "filter.aria": "Filter productions",
     "filter.search": "Search",
-    "filter.search_placeholder": "Title, writer, or synopsis…",
+    "filter.search_placeholder": "Title, writer, or director…",
     "filter.search_placeholder_photos": "Title or director…",
     "filter.year": "Year",
     "filter.year_all": "All years",
