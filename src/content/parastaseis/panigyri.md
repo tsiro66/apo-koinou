@@ -57,6 +57,7 @@ youtubeTrailer: https://www.youtube.com/watch?v=XIH7QBotyHM
 thumbnail: ../../assets/parastaseis/panigyri/dsc0464-2.jpg
 poster: ../../assets/parastaseis/panigyri/poster.jpg
 gallery:
+  - ../../assets/parastaseis/panigyri/01.jpg
   - ../../assets/parastaseis/panigyri/02.jpg
   - ../../assets/parastaseis/panigyri/03.jpg
   - ../../assets/parastaseis/panigyri/05.jpg
@@ -66,7 +67,6 @@ gallery:
   - ../../assets/parastaseis/panigyri/09.jpg
   - ../../assets/parastaseis/panigyri/10.jpg
   - ../../assets/parastaseis/panigyri/dsc0310.jpg
-  - ../../assets/parastaseis/panigyri/01.jpg
 invitation:
   - ../../assets/parastaseis/panigyri/invitation-front.jpg
   - ../../assets/parastaseis/panigyri/invitation-back.jpg
