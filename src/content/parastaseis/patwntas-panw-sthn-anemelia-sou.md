@@ -6,6 +6,11 @@ writer: Μαρτυρίες αγωνιστριών και αγωνιστών το
   Περικλής Κοροβέσης
 summary: Θέατρο-ντοκουμέντο βασισμένο σε μαρτυρίες αγωνιστριών και αγωνιστών του
   Πολυτεχνείου.
+performances:
+  - venue: Παλαιά Δημοτικά Σφαγεία
+    dates:
+      - 2024-11-15
+      - 2024-11-16
 videoId: 1d2f4d88-6864-4a89-b2b4-5a587458e359
 youtubeTrailer: https://www.youtube.com/watch?v=NmR22NNQXv8
 thumbnail: ../../assets/parastaseis/patwntas-panw-sthn-anemelia-sou/DSC02736.jpg
