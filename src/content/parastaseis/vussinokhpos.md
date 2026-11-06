@@ -75,8 +75,8 @@ gallery:
   - ../../assets/parastaseis/vussinokhpos/09.jpg
   - ../../assets/parastaseis/vussinokhpos/10.jpg
   - ../../assets/parastaseis/5.jpg
-  - ../../assets/parastaseis/10.jpg
   - ../../assets/parastaseis/12.jpg
+  - ../../assets/parastaseis/10.jpg
   - ../../assets/parastaseis/16.jpg
   - ../../assets/parastaseis/17.jpg
   - ../../assets/parastaseis/18.jpg
