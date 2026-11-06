@@ -122,10 +122,11 @@ syneunteixeisVideo:
     date: Μάιος 2026
 syneunteixeisAudio:
   - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3
-    title: Συνέντευξη MaxFM
+    title: Συνέντευξη MaxFM 93.4
     date: Μάιος 2026
   - audio: /syneunteixeis/rinokeros/peloponnisos-fm-syneunteksi.mp3
-    title: 'Συνέντευξη PELOPONNISOS FM 103,9 — Φώτης Λάζαρης, Παύλος Τσεκούρας'
+    title: Συνέντευξη Peloponnisos FM 103.9
+    date: Μάιος 2026
 kritikes:
   - source: Xristina Kokkota
     text: >-
