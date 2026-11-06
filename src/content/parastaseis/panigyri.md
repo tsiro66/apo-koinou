@@ -66,6 +66,7 @@ gallery:
   - ../../assets/parastaseis/panigyri/09.jpg
   - ../../assets/parastaseis/panigyri/10.jpg
   - ../../assets/parastaseis/panigyri/dsc0310.jpg
+  - ../../assets/parastaseis/panigyri/01.jpg
 invitation:
   - ../../assets/parastaseis/panigyri/invitation-front.jpg
   - ../../assets/parastaseis/panigyri/invitation-back.jpg
