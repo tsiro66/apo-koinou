@@ -119,7 +119,7 @@ gallery:
   - ../../assets/parastaseis/vlp6848.jpg
 syneunteixeisAudio:
   - audio: /syneunteixeis/anoixta/maxfm-syneunteksi.mp3
-    title: Συνέντευξη MaxFM
+    title: Συνέντευξη MaxFM 93.4
     date: Μάιος 2026
 carousel: false
 draft: false
