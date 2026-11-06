@@ -54,7 +54,7 @@ performances:
       - 2016-05-24
 videoId: 22279b7d-56b3-4628-98f5-b773282dfbeb
 youtubeTrailer: https://www.youtube.com/watch?v=XIH7QBotyHM
-thumbnail: ../../assets/parastaseis/panigyri/dsc0464.jpg
+thumbnail: ../../assets/parastaseis/panigyri/dsc0464-1.jpg
 poster: ../../assets/parastaseis/panigyri/poster.jpg
 gallery:
   - ../../assets/parastaseis/panigyri/02.jpg
