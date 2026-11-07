@@ -56,6 +56,17 @@ crew:
     name: Φώτης Λάζαρης, Μαρία Καζάκου, Ηλίας Κούλης
   - role: Ακορντεόν επί σκηνής
     name: Αναστασία Μπούρμπου
+performances:
+  - venue: Θέατρο Σχολικού Συγκροτήματος Κουκούλι
+    dates:
+      - 2018-04-28
+  - venue: Δημοτικό Θέατρο ''Απόλλων'', Πάτρα
+    dates:
+      - 2018-05-16
+  - venue: Συνεδριακό και Πολιτιστικό Κέντρο ΤΕΙ Πάτρας
+    dates:
+      - 2018-05-22
+      - 2018-05-23
 videoId: f94092f5-0bdb-4370-8e60-9d2983a6795c
 youtubeTrailer: https://www.youtube.com/watch?v=O2yuYps__6Q
 thumbnail: ../../assets/parastaseis/epi8ewrhths.webp
