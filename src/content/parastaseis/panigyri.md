@@ -67,6 +67,23 @@ gallery:
   - ../../assets/parastaseis/panigyri/09.jpg
   - ../../assets/parastaseis/panigyri/10.jpg
   - ../../assets/parastaseis/panigyri/dsc0310.jpg
+  - ../../assets/parastaseis/panigyri/dsc0297.jpg
+  - ../../assets/parastaseis/panigyri/dsc0313.jpg
+  - ../../assets/parastaseis/panigyri/dsc0317.jpg
+  - ../../assets/parastaseis/panigyri/dsc0319.jpg
+  - ../../assets/parastaseis/panigyri/dsc0333.jpg
+  - ../../assets/parastaseis/panigyri/dsc0310.jpg
+  - ../../assets/parastaseis/panigyri/dsc0362.jpg
+  - ../../assets/parastaseis/panigyri/dsc0337.jpg
+  - ../../assets/parastaseis/panigyri/dsc0370.jpg
+  - ../../assets/parastaseis/panigyri/dsc0371.jpg
+  - ../../assets/parastaseis/panigyri/dsc0373.jpg
+  - ../../assets/parastaseis/panigyri/dsc0427.jpg
+  - ../../assets/parastaseis/panigyri/dsc0447.jpg
+  - ../../assets/parastaseis/panigyri/dsc0452.jpg
+  - ../../assets/parastaseis/panigyri/dsc0466.jpg
+  - ../../assets/parastaseis/panigyri/dsc0500.jpg
+  - ../../assets/parastaseis/panigyri/dsc0508.jpg
 invitation:
   - ../../assets/parastaseis/panigyri/invitation-front.jpg
   - ../../assets/parastaseis/panigyri/invitation-back.jpg
