@@ -81,8 +81,8 @@ gallery:
   - ../../assets/parastaseis/panigyri/dsc0603.jpg
   - ../../assets/parastaseis/panigyri/dsc0427.jpg
   - ../../assets/parastaseis/panigyri/dsc0447.jpg
-  - ../../assets/parastaseis/panigyri/dsc0452.jpg
   - ../../assets/parastaseis/panigyri/dsc0466.jpg
+  - ../../assets/parastaseis/panigyri/dsc0452.jpg
   - ../../assets/parastaseis/panigyri/dsc0500.jpg
   - ../../assets/parastaseis/panigyri/dsc0508.jpg
 invitation:
