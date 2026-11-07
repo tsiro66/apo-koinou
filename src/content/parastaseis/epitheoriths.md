@@ -76,7 +76,6 @@ gallery:
   - ../../assets/parastaseis/epitheoriths/dsc3781.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3852.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3859.jpg
-  - ../../assets/parastaseis/epitheoriths/dsc4405.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3909.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3918.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3928.jpg
