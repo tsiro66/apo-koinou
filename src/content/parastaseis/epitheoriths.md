@@ -70,6 +70,28 @@ gallery:
   - ../../assets/parastaseis/epitheoriths/08.jpg
   - ../../assets/parastaseis/epitheoriths/09.jpg
   - ../../assets/parastaseis/epitheoriths/10.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3604.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3618.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3646.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3781.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3852.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3859.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3909.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3918.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3928.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3930.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3931.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3934.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3984.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3989.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc3999.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4005.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4040.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4049.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4064.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4066.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4405.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4408.jpg
 invitation:
   - ../../assets/parastaseis/epitheoriths/invitation-front.jpg
   - ../../assets/parastaseis/epitheoriths/invitation-back.jpg
