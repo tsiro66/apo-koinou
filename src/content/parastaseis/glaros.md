@@ -54,7 +54,7 @@ crew:
     name: Βασίλης Λάγιος
 videoId: 760b88a2-ae58-4a69-847d-61e1e7a204ec
 youtubeTrailer: https://www.youtube.com/watch?v=rtlxTbT56l0
-thumbnail: ../../assets/parastaseis/glaros/01.jpg
+thumbnail: ../../assets/parastaseis/glaros/glaros-vlap.jpg
 poster: ../../assets/parastaseis/glaros/poster.jpg
 gallery:
   - ../../assets/parastaseis/glaros/02.jpg
