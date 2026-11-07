@@ -78,6 +78,7 @@ gallery:
   - ../../assets/parastaseis/panigyri/dsc0370.jpg
   - ../../assets/parastaseis/panigyri/dsc0371.jpg
   - ../../assets/parastaseis/panigyri/dsc0373.jpg
+  - ../../assets/parastaseis/panigyri/dsc0603.jpg
   - ../../assets/parastaseis/panigyri/dsc0427.jpg
   - ../../assets/parastaseis/panigyri/dsc0447.jpg
   - ../../assets/parastaseis/panigyri/dsc0452.jpg
