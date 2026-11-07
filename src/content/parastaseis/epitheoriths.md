@@ -76,6 +76,7 @@ gallery:
   - ../../assets/parastaseis/epitheoriths/dsc3781.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3852.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3859.jpg
+  - ../../assets/parastaseis/epitheoriths/dsc4405.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3909.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3918.jpg
   - ../../assets/parastaseis/epitheoriths/dsc3928.jpg
@@ -90,7 +91,6 @@ gallery:
   - ../../assets/parastaseis/epitheoriths/dsc4049.jpg
   - ../../assets/parastaseis/epitheoriths/dsc4064.jpg
   - ../../assets/parastaseis/epitheoriths/dsc4066.jpg
-  - ../../assets/parastaseis/epitheoriths/dsc4405.jpg
   - ../../assets/parastaseis/epitheoriths/dsc4408.jpg
 invitation:
   - ../../assets/parastaseis/epitheoriths/invitation-front.jpg
