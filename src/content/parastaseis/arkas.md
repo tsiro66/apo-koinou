@@ -27,6 +27,10 @@ crew:
     name: Μυρτώ Νάσιου
   - role: Φωτογραφία
     name: Βασίλης Λάγιος
+performances:
+  - venue: Θέατρο Μηχανουργείο, Πάτρα
+    dates:
+      - 2024-03-10
 videoId: fe5c4ef7-e6f8-44f8-8a0d-3a7ab0da9532
 thumbnail: ../../assets/parastaseis/arkas/01.jpg
 poster: ../../assets/parastaseis/afisa-arkas.jpg
