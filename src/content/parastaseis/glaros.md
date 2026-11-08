@@ -81,6 +81,7 @@ gallery:
   - ../../assets/parastaseis/dsc09274.jpg
   - ../../assets/parastaseis/dsc09297.jpg
   - ../../assets/parastaseis/dsc09304.jpg
+  - ../../assets/parastaseis/dsc09316.jpg
 carousel: true
 draft: false
 ---
