@@ -82,8 +82,6 @@ gallery:
   - ../../assets/parastaseis/dsc09297.jpg
   - ../../assets/parastaseis/dsc09304.jpg
   - ../../assets/parastaseis/dsc09316.jpg
-  - ../../assets/parastaseis/dsc09343.jpg
-  - ../../assets/parastaseis/dsc09353.jpg
   - ../../assets/parastaseis/dsc08930.jpg
   - ../../assets/parastaseis/dsc08942.jpg
   - ../../assets/parastaseis/dsc08961.jpg
@@ -97,6 +95,8 @@ gallery:
   - ../../assets/parastaseis/dsc09056.jpg
   - ../../assets/parastaseis/dsc09059.jpg
   - ../../assets/parastaseis/dsc09081.jpg
+  - ../../assets/parastaseis/dsc09089.jpg
+  - ../../assets/parastaseis/dsc09343-1.jpg
 carousel: true
 draft: false
 ---
