@@ -91,6 +91,7 @@ gallery:
   - ../../assets/parastaseis/dsc09017.jpg
   - ../../assets/parastaseis/dsc09031.jpg
   - ../../assets/parastaseis/dsc09036.jpg
+  - ../../assets/parastaseis/dsc09042.jpg
 carousel: true
 draft: false
 ---
