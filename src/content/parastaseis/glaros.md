@@ -87,6 +87,7 @@ gallery:
   - ../../assets/parastaseis/dsc08930.jpg
   - ../../assets/parastaseis/dsc08942.jpg
   - ../../assets/parastaseis/dsc08961.jpg
+  - ../../assets/parastaseis/dsc08975.jpg
 carousel: true
 draft: false
 ---
