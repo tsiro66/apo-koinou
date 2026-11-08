@@ -66,6 +66,7 @@ gallery:
   - ../../assets/parastaseis/glaros/08.jpg
   - ../../assets/parastaseis/glaros/09.jpg
   - ../../assets/parastaseis/glaros/10.jpg
+  - ../../assets/parastaseis/dsc09093.jpg
 carousel: true
 draft: false
 ---
