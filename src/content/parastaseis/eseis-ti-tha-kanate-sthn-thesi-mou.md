@@ -103,6 +103,7 @@ gallery:
   - ../../assets/parastaseis/dsc0211.jpg
   - ../../assets/parastaseis/dsc0252.jpg
   - ../../assets/parastaseis/dsc9996.jpg
+  - ../../assets/parastaseis/dsc8229.jpg
 invitation:
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-front.jpg
   - ../../assets/parastaseis/eseis-ti-tha-kanate-sthn-thesi-mou/invitation-back.jpg
