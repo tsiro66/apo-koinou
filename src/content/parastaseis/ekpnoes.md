@@ -21,7 +21,7 @@ performances:
   - venue: Θέατρο Λιθογραφείο
     dates:
       - 2023-03-13
-thumbnail: ../../assets/parastaseis/ekpnoes1-2.jpg
+thumbnail: ../../assets/parastaseis/ekpnoes1.jpg
 gallery:
   - ../../assets/parastaseis/ekp4.jpg
   - ../../assets/parastaseis/ekpn9.jpg

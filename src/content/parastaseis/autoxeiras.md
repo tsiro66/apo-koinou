@@ -128,7 +128,7 @@ gallery:
   - ../../assets/parastaseis/ayt16.jpg
   - ../../assets/parastaseis/ayt17.jpg
   - ../../assets/parastaseis/aytox1.jpg
-  - ../../assets/parastaseis/ayt14-1.jpg
+  - ../../assets/parastaseis/ayt14.jpg
   - ../../assets/parastaseis/aytox23.jpg
   - ../../assets/parastaseis/aytox24.jpg
   - ../../assets/parastaseis/aytox25.jpg

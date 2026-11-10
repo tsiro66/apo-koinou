@@ -62,7 +62,7 @@ crew:
     name: Φώτης Λάζαρης
 videoId: a70fa1cb-3df1-4dcc-9cb4-449f6174626f
 youtubeTrailer: https://www.youtube.com/watch?v=cu2_nef0Gd4
-thumbnail: ../../assets/parastaseis/13-1.jpg
+thumbnail: ../../assets/parastaseis/vussinokhpos/13.jpg
 poster: ../../assets/parastaseis/vussinokhpos/poster.jpg
 gallery:
   - ../../assets/parastaseis/vussinokhpos/02.jpg
@@ -73,15 +73,15 @@ gallery:
   - ../../assets/parastaseis/vussinokhpos/08.jpg
   - ../../assets/parastaseis/vussinokhpos/09.jpg
   - ../../assets/parastaseis/vussinokhpos/10.jpg
-  - ../../assets/parastaseis/5.jpg
-  - ../../assets/parastaseis/12.jpg
+  - ../../assets/parastaseis/vussinokhpos/05.jpg
+  - ../../assets/parastaseis/vussinokhpos/12.jpg
   - ../../assets/parastaseis/10.jpg
-  - ../../assets/parastaseis/16.jpg
-  - ../../assets/parastaseis/17.jpg
-  - ../../assets/parastaseis/18.jpg
-  - ../../assets/parastaseis/19.jpg
-  - ../../assets/parastaseis/14.jpg
-  - ../../assets/parastaseis/15.jpg
+  - ../../assets/parastaseis/vussinokhpos/16.jpg
+  - ../../assets/parastaseis/vussinokhpos/17.jpg
+  - ../../assets/parastaseis/vussinokhpos/18.jpg
+  - ../../assets/parastaseis/vussinokhpos/19.jpg
+  - ../../assets/parastaseis/vussinokhpos/14.jpg
+  - ../../assets/parastaseis/vussinokhpos/15.jpg
   - ../../assets/parastaseis/1745729319430602892636789199467673254318706n.jpg
   - ../../assets/parastaseis/1742625519430519925978411134443528615096367n.jpg
   - ../../assets/parastaseis/1749948819434721125558293473996168545784551n.jpg
@@ -95,7 +95,7 @@ gallery:
   - ../../assets/parastaseis/175540431943471892555851257817389743728364n.jpg
   - ../../assets/parastaseis/1755390819434699092227164272455482798868924n.jpg
   - ../../assets/parastaseis/1763000219434690625561341964909963621224944n.jpg
-  - ../../assets/parastaseis/1.jpg
+  - ../../assets/parastaseis/vussinokhpos/01.jpg
 invitation:
   - ../../assets/parastaseis/vussinokhpos/invitation-front.jpg
   - ../../assets/parastaseis/vussinokhpos/invitation-back.jpg

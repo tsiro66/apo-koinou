@@ -7,7 +7,7 @@ crew:
     name: Φώτης Λάζαρης
 thumbnail: ../../assets/parastaseis/apel7.jpg
 gallery:
-  - ../../assets/parastaseis/apel5-1.jpg
+  - ../../assets/parastaseis/apel5.jpg
   - ../../assets/parastaseis/apel8.jpg
   - ../../assets/parastaseis/apeley8erwsh1.jpg
   - ../../assets/parastaseis/apeley8erwsh2.jpg

@@ -81,7 +81,7 @@ thumbnail: ../../assets/parastaseis/rinokeros/678365546_1404602654805183_5312986
 poster: ../../assets/parastaseis/rinokeros/αφισα Λιθογραφείο.jpg
 gallery:
   - ../../assets/parastaseis/rinokeros/ρινοκ24.jpg
-  - ../../assets/parastaseis/rinokeros/ρινοκ4-1.jpg
+  - ../../assets/parastaseis/rinokeros/ρινοκ4.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ18.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ21.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ32.jpg
@@ -91,7 +91,6 @@ gallery:
   - ../../assets/parastaseis/rinokeros/ρινοκ12.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ2.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ35.jpg
-  - ../../assets/parastaseis/rinokeros/ρινοκ4-1.jpg
   - ../../assets/parastaseis/rinokeros/ρινοκ40.jpg
   - ../../assets/parastaseis/rinokeros/ριν10.jpg
   - ../../assets/parastaseis/rinokeros/ριν18.jpg
