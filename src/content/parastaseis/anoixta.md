@@ -110,6 +110,16 @@ gallery:
   - ../../assets/parastaseis/70577203514297113589609792107082306025037050n.jpg
   - ../../assets/parastaseis/672675403101627477368129605098251443270444102n.jpg
   - ../../assets/parastaseis/vlp6848.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6725.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6745.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6785.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6802.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6806.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6808.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6809.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6818.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6839.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6875.jpg
 syneunteixeisAudio:
   - audio: /syneunteixeis/anoixta/maxfm-syneunteksi.mp3
     title: Συνέντευξη MaxFM 93.4
