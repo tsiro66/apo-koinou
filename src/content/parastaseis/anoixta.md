@@ -120,7 +120,6 @@ gallery:
   - ../../assets/parastaseis/panta-anoixta/vlp6818.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6839.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6875.jpg
-  - ../../assets/parastaseis/vlp6848.jpg
 syneunteixeisAudio:
   - audio: /syneunteixeis/anoixta/maxfm-syneunteksi.mp3
     title: Συνέντευξη MaxFM 93.4
