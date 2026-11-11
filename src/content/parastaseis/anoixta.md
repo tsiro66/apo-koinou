@@ -111,6 +111,7 @@ gallery:
   - ../../assets/parastaseis/672675403101627477368129605098251443270444102n.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6725.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6745.jpg
+  - ../../assets/parastaseis/panta-anoixta/vlp6758.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6785.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6802.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6806.jpg
