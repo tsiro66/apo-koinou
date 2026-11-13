@@ -23,6 +23,8 @@ crew:
     name: Νίκος Αντωνίου
 videoId: e4f77f11-9b85-4594-8ebf-57b4b383ae2e
 thumbnail: ../../assets/parastaseis/14808635642779311655547096034128851927396538n.jpg
+gallery:
+  - ../../assets/parastaseis/14771947342779313455546916292423307304521072n.jpg
 carousel: false
 draft: false
 ---
