@@ -29,6 +29,11 @@ gallery:
   - ../../assets/parastaseis/14866272642779310655547192670471374657549174n.jpg
   - ../../assets/parastaseis/14757895942779303855547873763201333345598513n.jpg
   - ../../assets/parastaseis/14822671642779314122213517070113873509816216n-1.jpg
+dimosieumata:
+  - file: /parastaseis-docs/metakinisi-exi-gia-ton-papou-aristophani/fotis-lazaris-syneuntefxi-pelop.pdf
+    title: "Φώτης Λάζαρης: Να ξορκίσουμε κάθε σκοτεινό πνεύμα"
+    source: Πελοπ
+    date: 8 Φεβρουαρίου 2021
 carousel: false
 draft: false
 ---

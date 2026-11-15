@@ -17,6 +17,7 @@ import ProductionSection from "../components/ProductionSection.astro";
 import ProductionFacts from "../components/ProductionFacts.astro";
 import TrailerFacade from "../components/TrailerFacade.astro";
 import InterviewAudio from "../components/InterviewAudio.astro";
+import PressDoc from "../components/PressDoc.astro";
 import Gallery from "../components/Gallery.astro";
 import Lightbox from "../components/Lightbox.astro";
 import Reviews from "../components/Reviews.astro";
@@ -75,8 +76,12 @@ const hasReviews = d.kritikes.length > 0;
 const hasPrinted = hasInvitation || hasProgram || hasPoster;
 const printedCount =
   d.invitation.length + d.program.length + (hasPoster ? 1 : 0);
+// Press-clipping PDFs (Δημοσιεύματα) share the Συνεντεύξεις section
+// as its «Κείμενο» subtitle block.
 const hasInterviews =
-  d.syneunteixeisVideo.length > 0 || d.syneunteixeisAudio.length > 0;
+  d.syneunteixeisVideo.length > 0 ||
+  d.syneunteixeisAudio.length > 0 ||
+  d.dimosieumata.length > 0;
 
 // Menu below the hero title: every section on the page, in render order —
 // the single navigation system. "Παράσταση" gets no chip: the orange
@@ -482,6 +487,34 @@ const placeTimeFacts =
                 </div>
               </div>
             )}
+
+            {
+              /* Κείμενο: press clippings (interviews, articles) as PDFs,
+                 one link card per document — opens in a new window. */
+              d.dimosieumata.length > 0 && (
+                <div
+                  class:list={[
+                    (d.syneunteixeisVideo.length > 0 ||
+                      d.syneunteixeisAudio.length > 0) &&
+                      "mt-8",
+                  ]}
+                >
+                  <h3 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+                    {t("prod.interviews_text")}
+                  </h3>
+                  <div class="mt-3 max-w-3xl space-y-6">
+                    {d.dimosieumata.map((p) => (
+                      <PressDoc
+                        src={p.file}
+                        title={p.title}
+                        source={p.source}
+                        date={p.date}
+                      />
+                    ))}
+                  </div>
+                </div>
+              )
+            }
           </ProductionSection>
         )
       }

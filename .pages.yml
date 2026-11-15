@@ -1,6 +1,6 @@
 # Pages CMS configuration — https://pages.cms
 # Repo: tsiro66/apo-koinou (branch: master)
-# config-rev: 7 (nudge CMS config cache; Συνεντεύξεις video rows accept YouTube link or Bunny Stream ID)
+# config-rev: 9 (nudge CMS config cache; PDF press clippings regrouped under Συνεντεύξεις as «Κείμενο»)
 #
 # Entries live in Astro Content Collections (src/content/*) and images in
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
@@ -18,6 +18,13 @@ media:
     # Entries live at src/content/parastaseis/*.md → two levels up.
     output: ../../assets/parastaseis
     rename: safe
+  # Press clippings (Συνεντεύξεις «Κείμενο»): interviews, articles etc.
+  - name: parastaseis-docs
+    label: Δημοσιεύματα παραστάσεων (PDF)
+    input: public/parastaseis-docs
+    output: /parastaseis-docs
+    rename: safe
+    extensions: [pdf]
   - name: repertorio-media
     label: Εικόνες ρεπερτορίου
     input: src/assets/repertorio
@@ -185,6 +192,32 @@ content:
             label: Τίτλος
             type: string
             description: Προαιρετικά — π.χ. «Ραδιοφωνική εκπομπή».
+          - name: date
+            label: Ημερομηνία
+            type: string
+            description: Προαιρετικά — ελεύθερο κείμενο, π.χ. «Μάρτιος 2023».
+      - name: dimosieumata
+        label: Συνεντεύξεις (κείμενο)
+        type: object
+        description: Δημοσιεύματα για την παράσταση — συνεντεύξεις, άρθρα σε εφημερίδες ή ιστοσελίδες κ.λπ. — ανεβασμένα ως PDF. Εμφανίζονται στην ενότητα Συνεντεύξεις της σελίδας, υπό τον τίτλο «Κείμενο». Ανεβάστε πρώτα το αρχείο στη βιβλιοθήκη «Δημοσιεύματα παραστάσεων (PDF)», μέσα στον φάκελο της παράστασης.
+        list:
+          collapsible:
+            collapsed: true
+        fields:
+          - name: file
+            label: Αρχείο PDF
+            type: file
+            required: true
+            options:
+              media: parastaseis-docs
+          - name: title
+            label: Τίτλος
+            type: string
+            description: Προαιρετικά — π.χ. «Συνέντευξη του σκηνοθέτη».
+          - name: source
+            label: Έντυπο / Μέσο
+            type: string
+            description: Προαιρετικά — π.χ. «Εφημερίδα …» ή το όνομα της ιστοσελίδας.
           - name: date
             label: Ημερομηνία
             type: string

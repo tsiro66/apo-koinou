@@ -127,6 +127,20 @@ const parastaseisCollection = defineCollection({
           date: z.string().optional(),
         }),
       ),
+      // Press clippings (Στον Τύπο): interviews, news articles etc.
+      // about the production, uploaded as PDFs — files live in
+      // public/parastaseis-docs (no astro:assets processing for PDFs),
+      // so the frontmatter value is a site-absolute path like
+      // /parastaseis-docs/<slug>/article.pdf.
+      dimosieumata: cmsRows(
+        ["file"],
+        z.object({
+          file: z.string(),
+          title: z.string().optional(),
+          source: z.string().optional(),
+          date: z.string().optional(),
+        }),
+      ),
       seoDescription: z.string().optional(),
       seoImage: image().optional(),
       draft: z.boolean().default(false),
