@@ -4,6 +4,9 @@ import { Image } from "astro:assets";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import SectionTitle from "../components/SectionTitle.astro";
 import Breadcrumbs from "../components/Breadcrumbs.astro";
+import StreamPlayer from "../components/StreamPlayer.astro";
+import TrailerFacade from "../components/TrailerFacade.astro";
+import { isBunnyVideo, toBunnyId, toYouTubeId } from "../utils/media";
 import istoria from "../assets/istoria.jpg";
 import {
   getLocaleFromUrl,
@@ -23,7 +26,14 @@ const Content = rendered?.Content;
 
 // "On this page" rail: h2 headings of the entry. Slugs come from the same
 // markdown pipeline as the rendered headings, so anchors always match.
-const sections = (rendered?.headings ?? []).filter((h) => h.depth === 2);
+// The interviews block is rendered by this component (not markdown), so
+// its entry is appended here whenever a video is present.
+const sections = [
+  ...(rendered?.headings ?? []).filter((h) => h.depth === 2),
+  ...(entry && entry.data.syneunteixeisVideo.length > 0
+    ? [{ depth: 2, slug: "syneunteixeis", text: t("page.istoria.interviews") }]
+    : []),
+];
 ---
 
 <BaseLayout
@@ -80,6 +90,52 @@ const sections = (rendered?.headings ?? []).filter((h) => h.depth === 2);
           </div>
         ) : (
           <p class="text-zinc-600">{t("page.istoria.empty")}</p>
+        )
+      }
+
+      {
+        /* Συνεντεύξεις: videos about the group itself (Bunny Stream or
+          YouTube, auto-detected per row), after the long-form text so the
+          prose flow and the TOC rail stay untouched. */
+      }
+      {
+        entry && entry.data.syneunteixeisVideo.length > 0 && (
+          <section
+            id="syneunteixeis"
+            class="mt-12 scroll-mt-22"
+            aria-label={t("page.istoria.interviews")}
+          >
+            <h2 class="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-950/60">
+              {t("page.istoria.interviews")}
+            </h2>
+            <div class="mt-4 space-y-8">
+              {entry.data.syneunteixeisVideo.map((v) => (
+                <div>
+                  {v.title && (
+                    <p class="mb-3 text-sm font-semibold text-zinc-950">
+                      {v.title}
+                      {v.date && (
+                        <span class="ml-2 font-normal text-zinc-950/50">
+                          {v.date}
+                        </span>
+                      )}
+                    </p>
+                  )}
+                  {isBunnyVideo(v.video) ? (
+                    <StreamPlayer
+                      videoId={toBunnyId(v.video)}
+                      title={`${v.title ?? t("page.istoria.interviews")} — ${t("page.istoria.heading")}`}
+                    />
+                  ) : (
+                    <TrailerFacade
+                      youtubeId={toYouTubeId(v.video)}
+                      title={`${v.title ?? t("page.istoria.interviews")} — ${t("page.istoria.heading")}`}
+                    />
+                  )}
+                </div>
+              ))}
+            </div>
+          </section>
         )
       }
     </div>

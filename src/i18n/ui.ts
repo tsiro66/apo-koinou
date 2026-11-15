@@ -75,6 +75,7 @@ export const ui = {
     "page.istoria.image_alt":
       "Το σύνολο της θεατρικής ομάδας «Από Κοινού» στη σκηνή.",
     "page.istoria.caption": "Το σύνολο της ομάδας στη σκηνή.",
+    "page.istoria.interviews": "Συνεντεύξεις",
     "page.istoria.toc": "Σε αυτή τη σελίδα",
     "page.istoria.empty": "Δεν υπάρχουν καταχωρημένα ορόσημα.",
     "page.epikoinonia.title": "Επικοινωνία",
@@ -221,6 +222,7 @@ export const ui = {
       "From 2015 to today — how the group was born, how it works, and what it has staged.",
     "page.istoria.image_alt": "The full «Από Κοινού» theater company on stage.",
     "page.istoria.caption": "The full company on stage.",
+    "page.istoria.interviews": "Interviews",
     "page.istoria.toc": "On this page",
     "page.istoria.empty": "No milestones recorded yet.",
     "page.epikoinonia.title": "Contact",

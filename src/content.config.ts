@@ -238,6 +238,17 @@ const istoriaCollection = defineCollection({
   schema: z.object({
     title: z.string(),
     seoDescription: z.string().optional(),
+    // Συνεντεύξεις/βίντεο γύρω από την ομάδα — Bunny Stream GUID/embed
+    // link ή YouTube link/ID (auto-detected at render time via
+    // utils/media), rendered by sections/History.astro.
+    syneunteixeisVideo: cmsRows(
+      ["video"],
+      z.object({
+        video: z.string(),
+        title: z.string().optional(),
+        date: z.string().optional(),
+      }),
+    ),
   }),
 });
 

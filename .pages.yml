@@ -416,6 +416,27 @@ content:
       - name: body
         label: Κείμενο
         type: rich-text
+      - name: syneunteixeisVideo
+        label: Συνεντεύξεις (βίντεο)
+        type: object
+        description: Βίντεο (συνέντευξη, παρουσίαση κ.λπ.) για την ιστορία της ομάδας — YouTube ή Bunny Stream.
+        list:
+          collapsible:
+            collapsed: true
+        fields:
+          - name: video
+            label: Βίντεο (YouTube ή Bunny)
+            type: string
+            required: true
+            description: Το link ή το ID του YouTube βίντεο (π.χ. https://youtu.be/dQw4w9WgXcQ ή dQw4w9WgXcQ) Ή το ID/embed link βίντεο από το Bunny Stream dashboard (π.χ. 22279b7d-56b3-4628-98f5-b773282dfbeb). Συμπληρώστε το ένα ή το άλλο.
+          - name: title
+            label: Τίτλος
+            type: string
+            description: Προαιρετικά — π.χ. «Συνέντευξη για τα 10 χρόνια της ομάδας».
+          - name: date
+            label: Ημερομηνία
+            type: string
+            description: Προαιρετικά — ελεύθερο κείμενο, π.χ. «Μάρτιος 2026».
   - name: syllogi
     label: Συλλογή
     path: src/content/syllogi
