@@ -19,26 +19,42 @@ const t = useTranslations(locale);
 
 // Long-form history content lives in the `istoria` collection (Greek
 // only): src/content/istoria/istoria.md. The EN page renders the same
-// Greek entry until a translation is added.
-const entry = await getEntry("istoria", "istoria");
-const rendered = entry ? await render(entry) : null;
-const Content = rendered?.Content;
+// Greek entries until a translation is added.
+//
+// The interviews block sits *inside* the article — after the intro
+// section ("Ποιοι είμαστε"), before the next h2. The istoria-split
+// loader (content.config.ts) already splits the single CMS-edited file
+// at the second `## ` heading, so this page just renders the two
+// entries with the interviews block between them — fully static HTML,
+// no DOM reordering. With fewer than two h2s the tail entry is empty
+// and the whole body renders as one block, interviews after it.
+const head = await getEntry("istoria", "istoria-head");
+const tail = await getEntry("istoria", "istoria-tail");
+const hasInterviews =
+  head !== undefined && head.data.syneunteixeisVideo.length > 0;
 
-// "On this page" rail: h2 headings of the entry. Slugs come from the same
-// markdown pipeline as the rendered headings, so anchors always match.
-// The interviews block is rendered by this component (not markdown), so
-// its entry is appended here whenever a video is present.
+const renderedHead = head ? await render(head) : null;
+const renderedTail = tail && tail.body?.trim() ? await render(tail) : null;
+const ContentHead = renderedHead?.Content;
+const ContentTail = renderedTail?.Content;
+
+// "On this page" rail: h2 headings of both chunks, in DOM order. Slugs
+// come from the same markdown pipeline as the rendered headings, so
+// anchors always match. The interviews block is rendered by this
+// component (not markdown), so its entry is spliced in whenever a video
+// is present.
 const sections = [
-  ...(rendered?.headings ?? []).filter((h) => h.depth === 2),
-  ...(entry && entry.data.syneunteixeisVideo.length > 0
+  ...(renderedHead?.headings ?? []).filter((h) => h.depth === 2),
+  ...(hasInterviews
     ? [{ depth: 2, slug: "syneunteixeis", text: t("page.istoria.interviews") }]
     : []),
+  ...(renderedTail?.headings ?? []).filter((h) => h.depth === 2),
 ];
 ---
 
 <BaseLayout
   title={t("page.istoria.title")}
-  description={entry?.data.seoDescription ?? t("page.istoria.intro")}
+  description={head?.data.seoDescription ?? t("page.istoria.intro")}
   canonicalPath="/istoria"
 >
   <div class="mx-auto max-w-6xl">
@@ -84,9 +100,9 @@ const sections = [
   >
     <div class="min-w-0 max-w-3xl">
       {
-        Content ? (
+        ContentHead ? (
           <div class="prose">
-            <Content />
+            <ContentHead />
           </div>
         ) : (
           <p class="text-zinc-600">{t("page.istoria.empty")}</p>
@@ -95,11 +111,11 @@ const sections = [
 
       {
         /* Συνεντεύξεις: videos about the group itself (Bunny Stream or
-          YouTube, auto-detected per row), after the long-form text so the
-          prose flow and the TOC rail stay untouched. */
+          YouTube, auto-detected per row), between the intro section and
+          the rest of the article. */
       }
       {
-        entry && entry.data.syneunteixeisVideo.length > 0 && (
+        head && head.data.syneunteixeisVideo.length > 0 && (
           <section
             id="syneunteixeis"
             class="mt-12 scroll-mt-22"
@@ -109,7 +125,7 @@ const sections = [
               {t("page.istoria.interviews")}
             </h2>
             <div class="mt-4 space-y-8">
-              {entry.data.syneunteixeisVideo.map((v) => (
+              {head.data.syneunteixeisVideo.map((v) => (
                 <div>
                   {v.title && (
                     <p class="mb-3 text-sm font-semibold text-zinc-950">
@@ -136,6 +152,14 @@ const sections = [
               ))}
             </div>
           </section>
+        )
+      }
+
+      {
+        ContentTail && (
+          <div class="prose mt-12">
+            <ContentTail />
+          </div>
         )
       }
     </div>

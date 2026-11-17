@@ -1,6 +1,9 @@
 import { defineCollection, z } from "astro:content";
-import { glob } from "astro/loaders";
+import { glob, type Loader } from "astro/loaders";
 import type { ZodObject, ZodRawShape } from "astro/zod";
+import fs from "node:fs";
+import { fileURLToPath } from "node:url";
+import { parse as parseYaml } from "yaml";
 
 // ───────────────────────────────────────────────────────────────────────────
 // Παραστάσεις (Productions)
@@ -233,8 +236,79 @@ const neaCollection = defineCollection({
 // One Markdown file: src/content/istoria/istoria.md, rendered by
 // sections/History.astro. Managed by the client through Pages CMS.
 // ───────────────────────────────────────────────────────────────────────────
+/**
+ * Splits the single istoria.md source into two entries at the second
+ * `## ` heading, so sections/History.astro can render the interviews block
+ * *inside* the article — after the intro section ("Ποιοι είμαστε"), before
+ * the rest — while the client keeps editing one file in the CMS. Astro's
+ * render() compiles an entry's markdown once (keyed by id), so the page
+ * cannot slice an already-rendered body; emitting two entries instead lets
+ * each chunk go through the standard markdown pipeline (prose, heading
+ * slugs, astro:assets) exactly like a glob-loaded entry.
+ */
+const istoriaSplitLoader = (): Loader => ({
+  name: "istoria-split",
+  async load({ store, watcher, parseData, renderMarkdown, generateDigest }) {
+    const fileUrl = new URL("./content/istoria/istoria.md", import.meta.url);
+    const filePath = fileURLToPath(fileUrl);
+    // The data store requires paths relative to the project root.
+    const relPath = "src/content/istoria/istoria.md";
+    watcher?.add(filePath); // re-run the loader on change in dev
+    const raw = fs.readFileSync(filePath, "utf8");
+
+    // Frontmatter stays with both entries (the page consumes the head
+    // entry's data; the tail entry keeps it for schema uniformity).
+    const fm = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+    const rawData = (fm ? parseYaml(fm[1]) : {}) as Record<string, unknown>;
+    const body = fm ? raw.slice(fm[0].length) : raw;
+
+    const h2s = [...body.matchAll(/^## /gm)];
+    const splitAt =
+      h2s.length >= 2 ? (h2s[1].index ?? body.length) : body.length;
+    const headBody = body.slice(0, splitAt);
+    const tailBody = body.slice(splitAt);
+
+    // Render each chunk through the standard markdown pipeline (same
+    // slugs/prose/astro:assets handling as glob-loaded entries) and
+    // validate the frontmatter through the collection schema.
+    const data = await parseData({
+      id: "istoria-head",
+      data: rawData,
+      filePath: relPath,
+    });
+    const renderedHead = await renderMarkdown(headBody, { fileURL: fileUrl });
+    const renderedTail =
+      tailBody.trim() !== ""
+        ? await renderMarkdown(tailBody, { fileURL: fileUrl })
+        : undefined;
+
+    store.set({
+      id: "istoria-head",
+      data,
+      body: headBody,
+      filePath: relPath,
+      digest: generateDigest(raw),
+      rendered: renderedHead,
+      assetImports: renderedHead.metadata?.imagePaths,
+    });
+    store.set({
+      id: "istoria-tail",
+      data,
+      body: tailBody,
+      filePath: relPath,
+      digest: generateDigest(raw),
+      ...(renderedTail
+        ? {
+            rendered: renderedTail,
+            assetImports: renderedTail.metadata?.imagePaths,
+          }
+        : {}),
+    });
+  },
+});
+
 const istoriaCollection = defineCollection({
-  loader: glob({ pattern: "*.md", base: "./src/content/istoria" }),
+  loader: istoriaSplitLoader(),
   schema: z.object({
     title: z.string(),
     seoDescription: z.string().optional(),
