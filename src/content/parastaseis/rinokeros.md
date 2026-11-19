@@ -126,6 +126,9 @@ syneunteixeisAudio:
   - audio: /syneunteixeis/rinokeros/peloponnisos-fm-syneunteksi.mp3
     title: Συνέντευξη Peloponnisos FM 103.9
     date: Μάιος 2026
+  - audio: /syneunteixeis/rinokeros/radio-gamma-94fm-syneunteksi.mp3
+    title: Συνέντευξη Radio Gamma 94FM
+    date: Νοέμβριος 2026
 kritikes:
   - source: Xristina Kokkota
     text: >-
