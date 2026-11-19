@@ -16,6 +16,8 @@ interface Props {
   /** Locale-neutral path; prefixed with /en automatically for the EN variant. */
   canonicalPath?: string;
   type?: "website" | "article";
+  /** Forwarded to SEO: suppress indexing (404 pages). */
+  noindex?: boolean;
   /** Page manages its own vertical padding (full-bleed hero/bands). */
   flush?: boolean;
 }
@@ -27,6 +29,7 @@ const {
   imageHeight,
   canonicalPath,
   type,
+  noindex,
   flush,
 } = Astro.props;
 const locale = getLocaleFromUrl(Astro.url);
@@ -51,6 +54,7 @@ const t = useTranslations(locale);
       imageHeight={imageHeight}
       canonicalPath={canonicalPath}
       type={type}
+      noindex={noindex}
     />
   </head>
   <body class="flex min-h-screen flex-col bg-zinc-50 text-zinc-950">

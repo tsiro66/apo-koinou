@@ -13,6 +13,8 @@ interface Props {
   /** Locale-neutral path; SEO prefixes it for the EN canonical & alternates. */
   canonicalPath?: string;
   type?: "website" | "article";
+  /** Suppress indexing entirely (404 pages etc.). */
+  noindex?: boolean;
 }
 
 const {
@@ -23,6 +25,7 @@ const {
   imageHeight,
   canonicalPath = "/",
   type = "website",
+  noindex = false,
 } = Astro.props;
 
 const locale = getLocaleFromUrl(Astro.url);
@@ -30,10 +33,13 @@ const brand = BRAND[locale];
 
 // hreflang alternates. el = default (no prefix), en = /en prefix.
 // canonicalPath is locale-neutral; prefix with /en for the EN variant.
+// Cloudflare Pages serves directory pages at the trailing-slash URL
+// ("/repertorio" 308s to "/repertorio/"), and Google discards canonicals
+// that redirect — so canonical/og:url/hreflang must use the slash form.
 const base = canonicalPath === "/" ? "" : canonicalPath.replace(/\/$/, "");
 const alternates = [
-  { code: "el", path: base || "/" },
-  { code: "en", path: base === "" ? "/en" : `/en${base}` },
+  { code: "el", path: base === "" ? "/" : `${base}/` },
+  { code: "en", path: base === "" ? "/en/" : `/en${base}/` },
 ];
 
 const selfPath = locale === "en" ? alternates[1].path : alternates[0].path;
@@ -48,6 +54,7 @@ const desc = description ?? brand.description;
 <!-- Primary meta -->
 <title>{fullTitle}</title>
 <meta name="description" content={desc} />
+{noindex && <meta name="robots" content="noindex" />}
 <link rel="canonical" href={canonical} />
 
 <!-- Open Graph -->

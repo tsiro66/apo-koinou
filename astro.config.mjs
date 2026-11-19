@@ -128,13 +128,20 @@ function pruneUnreferencedOriginals() {
 // https://astro.build/config
 export default defineConfig({
   site: "https://apo-koinou.com",
-  integrations: [sitemap(), pruneUnreferencedOriginals()],
+  // Cloudflare Pages serves directory pages at "/page/" and 308-redirects
+  // the slashless form; canonicals and links must match the served form.
+  trailingSlash: "always",
+  integrations: [
+    // 404 pages must never appear in the sitemap.
+    sitemap({ filter: (page) => !page.includes("/404") }),
+    pruneUnreferencedOriginals(),
+  ],
   // The programme page was renamed to repertoire (Ρεπερτόριο); keep old
   // links and sitemap entries working. Static builds emit meta-refresh
   // HTML pages for these.
   redirects: {
-    "/programma": "/repertorio",
-    "/en/programma": "/en/repertorio",
+    "/programma": "/repertorio/",
+    "/en/programma": "/en/repertorio/",
   },
   // Fetch internal pages before the click so ClientRouter swaps instantly.
   // All links are few and pages are small static HTML, so viewport is safe.

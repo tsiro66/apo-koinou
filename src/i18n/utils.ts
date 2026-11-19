@@ -49,11 +49,16 @@ export function neutralPath(url: URL): string {
   return p;
 }
 
-/** Map a locale-neutral path to a localized URL for the given locale. */
+/**
+ * Map a locale-neutral path to a localized URL for the given locale.
+ * Emits trailing-slash URLs ("/nea/", "/en/nea/") matching what Cloudflare
+ * Pages actually serves — the slashless form 308-redirects, and linking to
+ * redirecting URLs made Google flag pages as duplicate-without-canonical.
+ */
 export function localizedPath(path: string, locale: Locale): string {
   const clean = path === "/" ? "" : path.replace(/\/$/, "");
-  if (locale === "en") return clean === "" ? "/en" : `/en${clean}`;
-  return clean === "" ? "/" : clean;
+  if (locale === "en") return clean === "" ? "/en/" : `/en${clean}/`;
+  return clean === "" ? "/" : `${clean}/`;
 }
 
 /** Opposite of the active locale, for the switcher's "other" link. */
