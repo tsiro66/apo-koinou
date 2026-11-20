@@ -147,6 +147,10 @@ syneunteixeisVideo:
   - video: https://www.youtube.com/watch?v=c1k-I7am0G0
     title: Συνέντευξη στο IONIAN TV
     date: Απρίλιος 2024
+syneunteixeisAudio:
+  - audio: /syneunteixeis/autoxeiras/radio-gamma-94fm-syneunteksi.mp3
+    title: Συνέντευξη Radio Gamma 94FM
+    date: Νοέμβριος 2026
 carousel: false
 draft: false
 ---
