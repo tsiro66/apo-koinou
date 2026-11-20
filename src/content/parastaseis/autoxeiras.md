@@ -150,7 +150,7 @@ syneunteixeisVideo:
 syneunteixeisAudio:
   - audio: /syneunteixeis/autoxeiras/radio-gamma-94fm-syneunteksi.mp3
     title: Συνέντευξη Radio Gamma 94FM
-    date: Νοέμβριος 2026
+    date: Απρίλιος 2024
 carousel: false
 draft: false
 ---
