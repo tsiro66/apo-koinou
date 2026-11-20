@@ -149,7 +149,7 @@ syneunteixeisVideo:
     date: Απρίλιος 2024
 syneunteixeisAudio:
   - audio: /syneunteixeis/autoxeiras/radio-gamma-94fm-syneunteksi.mp3
-    title: Συνέντευξη Radio Gamma 94FM
+    title: Συνέντευξη Ράδιο Γάμμα 94FM
     date: Απρίλιος 2024
 carousel: false
 draft: false
