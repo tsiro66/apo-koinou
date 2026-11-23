@@ -318,7 +318,7 @@ exports στο route discovery — γι' αυτό το αρχείο εξάγει
 - [x] Πρόσβαση πελάτη — Μέρος Α.4 (επιλογή Γ: σελίδα `/upload` πίσω από Access)
 - [x] Repo αλλαγές (.pages.yml, 5 URLs, διαγραφή public/syneunteixeis, odigies-cms.md) — Μέρος Δ
 - [x] Σελίδα ανεβάσματος `/upload` (functions/upload.ts) + τοπικές δοκιμές — Μέρος Ε
-- [ ] R2 binding `BUCKET` = apokoinou-media στο Pages project — Μέρος Ε
-- [ ] Cloudflare Access app για `apo-koinou.com/upload*` (email OTP) — Μέρος Ε
-- [ ] End-to-end δοκιμή ανεβάσματος στην παραγωγή — Μέρος Ε
+- [x] R2 binding `BUCKET` = apokoinou-media στο Pages project — Μέρος Ε
+- [x] Cloudflare Access app για `apo-koinou.com/upload*` (email OTP) — Μέρος Ε
+- [x] End-to-end δοκιμή ανεβάσματος στην παραγωγή — Μέρος Ε (media.apo-koinou.com/epistrofh/test.mp3, 200 + audio/mpeg)
 - [ ] Αποστολή του «Μέρους Γ» στον πελάτη
