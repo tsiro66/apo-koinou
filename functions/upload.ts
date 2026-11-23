@@ -12,9 +12,9 @@
 //   2. Cloudflare Access application for apo-koinou.com/upload* with an
 //      email-OTP policy for the client's address. Access gates the page
 //      and every POST at the edge before this code even runs.
-//   3. Optional: Pages env var UPLOAD_PASSWORD — fallback auth (Bearer)
-//      for testing outside Access (wrangler dev, curl). The page has a
-//      matching optional password field.
+//   3. Optional: Pages env var UPLOAD_PASSWORD — fallback auth (Bearer
+//      header) for curl/wrangler-dev testing outside Access. The page
+//      itself has no password UI — end users only ever see Access.
 //
 // Cache rule: files are NEVER overwritten in place — a replacement gets a
 // new filename (-v2). Enforced below by refusing duplicate keys.
@@ -252,8 +252,6 @@ export async function onRequestGet(
   }
   .ok-sub { margin: 1rem 0 0; font-size: .85rem; color: rgba(250,250,250,.55); }
   .ok-sub a { color: #c25908; }
-  .pw-wrap { margin: -.5rem 0 1.5rem; font-size: .85rem; color: rgba(250,250,250,.5); }
-  .pw-wrap input { margin-bottom: 0; }
 </style>
 </head>
 <body>
@@ -271,11 +269,6 @@ ${options}
   <div id="custom-wrap" hidden>
     <label class="lbl" for="custom">Όνομα φακέλου (slug)</label>
     <input type="text" id="custom" autocomplete="off" placeholder="π.χ. neon-theama">
-  </div>
-
-  <div class="pw-wrap">
-    <label class="lbl" for="pw">Κωδικός (προαιρετικό — μόνο αν σου έχει δοθεί)</label>
-    <input type="text" id="pw" autocomplete="off" placeholder="κενό αν συνδέεσαι με Cloudflare Access">
   </div>
 
   <div id="drop" class="drop">
@@ -315,7 +308,6 @@ ${options}
   var folder = document.getElementById("folder");
   var customWrap = document.getElementById("custom-wrap");
   var custom = document.getElementById("custom");
-  var pw = document.getElementById("pw");
   var fileinfo = document.getElementById("fileinfo");
   var preview = document.getElementById("key-preview");
   var bar = document.getElementById("bar");
@@ -444,7 +436,6 @@ ${options}
 
     var xhr = new XMLHttpRequest();
     xhr.open("POST", "/upload");
-    if (pw.value) xhr.setRequestHeader("Authorization", "Bearer " + pw.value);
     xhr.upload.addEventListener("progress", function (e) {
       if (!e.lengthComputable) return;
       var p = Math.round((e.loaded / e.total) * 100);
@@ -487,7 +478,7 @@ ${options}
       navigator.clipboard.writeText(text).then(done, done);
     } else { done(); }
     function done() {
-      copyBtn.textContent = "Αντέγραψε ✓";
+      copyBtn.textContent = "Αντιγράφηκε ✓";
       setTimeout(function () { copyBtn.textContent = "Αντιγραφή URL"; }, 2000);
     }
   });
@@ -527,7 +518,7 @@ export async function onRequestPost(
     return json(
       {
         error:
-          "Απαιτείται σύνδεση. Άνοιξε τη σελίδα μέσω του συνδέσμου σου (Cloudflare Access) — ή, αν σου έχει δοθεί κωδικός, γράψε τον στο πεδίο «Κωδικός».",
+          "Δεν είστε συνδεδεμένοι. Άνοιξε ξανά τη σελίδα από την αρχή (Cloudflare Access) και δοκίμασε πάλι.",
       },
       401,
     );

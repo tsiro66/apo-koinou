@@ -259,7 +259,8 @@ custom domain του R2 μένει κανονικά στο `.com`.
     ελέγχει μόνο την παρουσία του `Cf-Access-Jwt-Assertion` (το edge είναι το
     πραγματικό φίλτρο· βαθιά validated του JWT παραλείπεται συνειδητά). Fallback:
     αν υπάρχει το env var `UPLOAD_PASSWORD`, δέχεται `Authorization: Bearer <κωδικός>`
-    (χρήσιμο για δοκιμές εκτός Access — η σελίδα έχει και προαιρετικό πεδίο «Κωδικός»).
+    (χρήσιμο για δοκιμές εκτός Access — μόνο για curl/wrangler dev· η σελίδα δεν έχει
+    πεδίο κωδικού, οι χρήστες βλέπουν μόνο το Access).
   - **Επικύρωση:** μόνο `.mp3` / `.pdf`, έως **99 MB** (δωρεάν plan body cap), όνομα
     μόνο με μικρά λατινικά, αριθμούς και παύλες (κενά/underlines → παύλες, ελληνικά →
     **απόρριψη**, όχι μεταγραμματισμός), φάκελος αυστηρά slug-pattern (όχι traversal).
@@ -293,7 +294,9 @@ slug — επικυρώνεται εξίσου server-side).
 ```sh
 pnpm run build
 pnpm dlx wrangler pages dev dist --r2 BUCKET --binding UPLOAD_PASSWORD=devpass
-# → http://localhost:8788/upload  (login με κωδικό devpass στο πεδίο «Κωδικός»)
+# Η σελίδα δεν στέλνει κωδικό — για δοκιμή του POST από τερματικό:
+# curl -X POST http://localhost:8788/upload -H 'Authorization: Bearer devpass' \
+#      -F folder=rinokeros -F file=@arxeio.mp3
 ```
 
 Δοκιμασμένο τοπικά: 401 χωρίς/με λάθος κωδικό, 400 σε ελληνικό όνομα (χωρίς
