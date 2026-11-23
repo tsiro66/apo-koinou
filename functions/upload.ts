@@ -6,7 +6,9 @@
 //
 // Setup done in the Cloudflare dashboard (NOT in this repo):
 //   1. Pages project → Settings → Functions → R2 binding: BUCKET =
-//      "apo-koinou-media".
+//      "apokoinou-media" (το πραγματικό όνομα του bucket — χωρίς παύλα).
+//      Το όνομα του bucket φαίνεται μόνο εδώ· δημόσια σερβίρεται πάντα μέσω
+//      media.apo-koinou.com.
 //   2. Cloudflare Access application for apo-koinou.com/upload* with an
 //      email-OTP policy for the client's address. Access gates the page
 //      and every POST at the edge before this code even runs.

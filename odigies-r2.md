@@ -6,7 +6,7 @@
 > ακόμη και αν παρακάμψουμε το CMS, ένα πιο μεγάλο mp3 θα «έσπαγε» όλο το deploy.
 >
 > **Η λύση:** Τα μεγάλα αρχεία ανεβάζονται σε ένα **Cloudflare R2 bucket**
-> (`apo-koinou-media` — 10 GB δωρεάν, μηδενική χρέωση για κίνηση δεδομένων/egress)
+> (`apokoinou-media` — 10 GB δωρεάν, μηδενική χρέωση για κίνηση δεδομένων/egress)
 > και το Pages CMS κρατάει απλώς το **URL** του αρχείου. Το site τα σερβίρει από
 > εκεί — καμία αλλαγή στους players/viewers. Το bucket είναι γενικής χρήσης:
 > σήμερα mp3 συνεντεύξεων, αύριο π.χ. PDF δημοσιευμάτων — γι' αυτό και το όνομα.
@@ -34,7 +34,10 @@
 ### 2. Δημιουργία του bucket
 
 1. Στο R2: **Create bucket**.
-2. **Bucket name:** `apo-koinou-media`
+2. **Bucket name:** `apokoinou-media`
+   *(στην πράξη δημιουργήθηκε έτσι — χωρίς την παύλα. Το όνομα είναι καθαρά εσωτερικό:
+   φαίνεται μόνο στο dashboard/bindings· ο κόσμος βλέπει πάντα το
+   `media.apo-koinou.com`.)*
    (το όνομα δεν αλλάζει ποτέ μετά τη δημιουργία — γι' αυτό γενική ονομασία, όχι
    «audio»)
 3. **Location:** Automatic (ή EU — αδιάφορο πρακτικά για κείμενο/ήχο).
@@ -117,7 +120,7 @@ custom domain του R2 μένει κανονικά στο `.com`.
    πλέον bytes, οπότε το 413 εξαφανίζεται.
 
 > **Μελλοντικά αρχεία (π.χ. PDF):** η ίδια λογική ισχύει για οποιοδήποτε μεγάλο
-> αρχείο — νέος φάκελος μέσα στο `apo-koinou-media`, ανέβασμα εκεί, επικόλληση URL
+> αρχείο — νέος φάκελος μέσα στο `apokoinou-media`, ανέβασμα εκεί, επικόλληση URL
 > στο αντίστοιχο πεδίο του CMS (το πεδίο των δημοσιευμάτων/dimosieumata γίνεται
 > με τον ίδιο τρόπο σε επόμενο βήμα).
 
@@ -267,7 +270,8 @@ custom domain του R2 μένει κανονικά στο `.com`.
 **Setup στο dashboard (μία φορά, το κάνεις εσύ):**
 
 1. **R2 binding:** Pages project → Settings → Functions → **R2 bindings** → Add:
-   Variable name `BUCKET`, bucket `apo-koinou-media`. (Χωρίς αυτό, το POST απαντά 500
+   Variable name `BUCKET`, bucket `apokoinou-media` (Settings → Bindings στο Pages
+   project). (Χωρίς αυτό, το POST απαντά 500
    με μήνυμα ότι λείπει το binding.)
 2. **Cloudflare Access:** Zero Trust → **Access → Applications → Add an application →
    Self-hosted**: Application domain `apo-koinou.com`, path `upload*`. Policy «Allow»,
@@ -309,12 +313,12 @@ exports στο route discovery — γι' αυτό το αρχείο εξάγει
 ## Checklist συνόψισης
 
 - [x] Ενεργοποίηση R2 (+ κάρτα) — Μέρος Α.1
-- [x] Bucket `apo-koinou-media` — Μέρος Α.2
+- [x] Bucket `apokoinou-media` — Μέρος Α.2
 - [x] Custom domain `media.apo-koinou.com` + δοκιμή — Μέρος Α.3
 - [x] Πρόσβαση πελάτη — Μέρος Α.4 (επιλογή Γ: σελίδα `/upload` πίσω από Access)
 - [x] Repo αλλαγές (.pages.yml, 5 URLs, διαγραφή public/syneunteixeis, odigies-cms.md) — Μέρος Δ
 - [x] Σελίδα ανεβάσματος `/upload` (functions/upload.ts) + τοπικές δοκιμές — Μέρος Ε
-- [ ] R2 binding `BUCKET` = apo-koinou-media στο Pages project — Μέρος Ε
+- [ ] R2 binding `BUCKET` = apokoinou-media στο Pages project — Μέρος Ε
 - [ ] Cloudflare Access app για `apo-koinou.com/upload*` (email OTP) — Μέρος Ε
 - [ ] End-to-end δοκιμή ανεβάσματος στην παραγωγή — Μέρος Ε
 - [ ] Αποστολή του «Μέρους Γ» στον πελάτη
