@@ -47,6 +47,8 @@ gallery:
   - ../../assets/parastaseis/epistrofh/DSC06447.jpg
   - ../../assets/parastaseis/epistrofh/DSC06458.jpg
   - ../../assets/parastaseis/epistrofh/DSC06468.jpg
+syneunteixeisAudio:
+  - audio: https://media.apo-koinou.com/epistrofh/test.mp3
 carousel: true
 draft: false
 ---
