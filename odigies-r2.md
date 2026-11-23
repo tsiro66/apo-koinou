@@ -207,7 +207,7 @@ custom domain του R2 μένει κανονικά στο `.com`.
    (Θα ελέγξω αν η βιβλιοθήκη `syneunteixeis-media` χρησιμοποιείται από άλλα πεδία
    πριν τη διαγράψω από το `.pages.yml`.)
 
-2. **Μετοίκηση των 4 υπαρχόντων ηχογραφήσεων** (ανέβασμα στο R2 με τους ίδιους
+2. **Μετοίκηση των 5 υπαρχόντων ηχογραφήσεων** (ανέβασμα στο R2 με τους ίδιους
    φακέλους/ονόματα, ενημέρωση frontmatter):
 
    | Αρχείο στο repo | Νέο R2 key | Πεδίο σε |
@@ -215,6 +215,7 @@ custom domain του R2 μένει κανονικά στο `.com`.
    | `public/syneunteixeis/anoixta/maxfm-syneunteksi.mp3` (21.5 MB) | `anoixta/maxfm-syneunteksi.mp3` | `anoixta.md` |
    | `public/syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3` (15.8 MB) | `rinokeros/maxfm-syneunteksi-v3.mp3` | `rinokeros.md` |
    | `public/syneunteixeis/rinokeros/peloponnisos-fm-syneunteksi.mp3` (22.6 MB) | `rinokeros/peloponnisos-fm-syneunteksi.mp3` | `rinokeros.md` |
+   | `public/syneunteixeis/rinokeros/radio-gamma-94fm-syneunteksi.mp3` (21.8 MB) | `rinokeros/radio-gamma-94fm-syneunteksi.mp3` | `rinokeros.md` |
    | `public/syneunteixeis/autoxeiras/radio-gamma-94fm-syneunteksi.mp3` (18.7 MB) | `autoxeiras/radio-gamma-94fm-syneunteksi.mp3` | `autoxeiras.md` |
 
    Κάθε τιμή `audio:` γίνεται `https://media.apo-koinou.com/<key>`. Ο player

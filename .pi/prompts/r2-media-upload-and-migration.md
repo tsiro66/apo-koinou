@@ -30,18 +30,19 @@ plan this prompt summarizes. Do both tasks in order; each ships separately
   renders `<audio src>` with whatever string the frontmatter holds, so it
   already accepts full cross-origin URLs. **No player changes needed.**
 
-## Current state of the 4 recordings (all still in-repo)
+## Current state of the 5 recordings (all still in-repo)
 
 | File in repo | Target R2 key | Frontmatter field to update |
 | --- | --- | --- |
 | `public/syneunteixeis/anoixta/maxfm-syneunteksi.mp3` | `anoixta/maxfm-syneunteksi.mp3` | `src/content/parastaseis/anoixta.md` |
 | `public/syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3` | `rinokeros/maxfm-syneunteksi-v3.mp3` | `src/content/parastaseis/rinokeros.md` |
 | `public/syneunteixeis/rinokeros/peloponnisos-fm-syneunteksi.mp3` | `rinokeros/peloponnisos-fm-syneunteksi.mp3` | `src/content/parastaseis/rinokeros.md` |
+| `public/syneunteixeis/rinokeros/radio-gamma-94fm-syneunteksi.mp3` | `rinokeros/radio-gamma-94fm-syneunteksi.mp3` | `src/content/parastaseis/rinokeros.md` |
 | `public/syneunteixeis/autoxeiras/radio-gamma-94fm-syneunteksi.mp3` | `autoxeiras/radio-gamma-94fm-syneunteksi.mp3` | `src/content/parastaseis/autoxeiras.md` |
 
 ## Task 1 — Migration (odigies-r2.md Μέρος Δ)
 
-1. **Verify uploads exist first**: the user must upload the 4 files to R2 (via
+1. **Verify uploads exist first**: the user must upload the 5 files to R2 (via
    dashboard or ask them). Before touching frontmatter, `curl -sI` each target
    URL (`https://media.apo-koinou.com/<key>`) and require HTTP 200. If any
    404s, stop and ask the user to upload them.
