@@ -1,6 +1,6 @@
 # Pages CMS configuration — https://pages.cms
 # Repo: tsiro66/apo-koinou (branch: master)
-# config-rev: 10 (nudge CMS config cache; audio field is now an R2 URL string — the CMS no longer uploads mp3s)
+# config-rev: 11 (nudge CMS config cache; audio flow points at the /upload page)
 #
 # Entries live in Astro Content Collections (src/content/*) and images in
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
@@ -168,7 +168,7 @@ content:
       - name: syneunteixeisAudio
         label: Συνεντεύξεις (ήχος)
         type: object
-        description: "Ηχογραφημένες συνεντεύξεις / ραδιοφωνικές εκπομπές. Το mp3 δεν ανεβαίνει πια μέσα από το CMS (όριο μεγέθους): στείλτε το αρχείο στον διαχειριστή, που το ανεβάζει στο Cloudflare, και επικολλήστε εδώ το URL που θα σας δώσει."
+        description: "Ηχογραφημένες συνεντεύξεις / ραδιοφωνικές εκπομπές. Ανεβάστε πρώτα το mp3 από τη σελίδα ανεβάσματος (https://apo-koinou.com/upload) και επικολλήστε εδώ το URL που θα σας δώσει."
         list:
           collapsible:
             collapsed: true

@@ -20,6 +20,9 @@ pnpm-debug.log*
 # macOS-specific files
 .DS_Store
 
+# wrangler local dev state (pages dev R2 sim etc.)
+.wrangler/
+
 # jetbrains setting folder
 .idea/
 a.out
