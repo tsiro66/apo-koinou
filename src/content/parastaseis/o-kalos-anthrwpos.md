@@ -63,6 +63,10 @@ program:
   - ../../assets/parastaseis/o-kalos-anthrwpos/program2.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program3.jpg
   - ../../assets/parastaseis/o-kalos-anthrwpos/program4.jpg
+syneunteixeisAudio:
+  - audio: https://media.apo-koinou.com/o-kalos-anthrwpos/o-kalos-srereo-1.mp3
+    title: Συνέντευξη Ράδιο Γάμμα 94FM
+    date: Μάιος 2023
 carousel: true
 draft: false
 ---
