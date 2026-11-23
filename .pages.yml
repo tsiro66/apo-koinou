@@ -1,6 +1,6 @@
 # Pages CMS configuration — https://pages.cms
 # Repo: tsiro66/apo-koinou (branch: master)
-# config-rev: 9 (nudge CMS config cache; PDF press clippings regrouped under Συνεντεύξεις as «Κείμενο»)
+# config-rev: 10 (nudge CMS config cache; audio field is now an R2 URL string — the CMS no longer uploads mp3s)
 #
 # Entries live in Astro Content Collections (src/content/*) and images in
 # src/assets/* (astro:assets). Frontmatter image paths are stored relative
@@ -35,15 +35,6 @@ media:
     label: Εικόνες νέων
     input: src/assets/nea
     output: ../../assets/nea
-    rename: safe
-  - name: syneunteixeis-media
-    label: Ήχοι συνεντεύξεων
-    input: public/syneunteixeis
-    # Audio needs no astro:assets processing — files live in public/
-    # and the absolute output path is stored as-is in the frontmatter
-    # (e.g. /syneunteixeis/glaros/radio.mp3). Editors upload per play:
-    # navigate into the play's subfolder first.
-    output: /syneunteixeis
     rename: safe
   - name: logos-media
     label: Λογότυπα
@@ -177,17 +168,16 @@ content:
       - name: syneunteixeisAudio
         label: Συνεντεύξεις (ήχος)
         type: object
-        description: Ηχογραφημένες συνεντεύξεις / ραδιοφωνικές εκπομπές. Ανεβάστε πρώτα το αρχείο στη βιβλιοθήκη «Ήχοι συνεντεύξεων», μέσα στον φάκελο της παράστασης.
+        description: "Ηχογραφημένες συνεντεύξεις / ραδιοφωνικές εκπομπές. Το mp3 δεν ανεβαίνει πια μέσα από το CMS (όριο μεγέθους): στείλτε το αρχείο στον διαχειριστή, που το ανεβάζει στο Cloudflare, και επικολλήστε εδώ το URL που θα σας δώσει."
         list:
           collapsible:
             collapsed: true
         fields:
           - name: audio
-            label: Αρχείο ήχου
-            type: file
+            label: URL ήχου (από το R2)
+            type: string
             required: true
-            options:
-              media: syneunteixeis-media
+            description: "Ολόκληρο το URL του αρχείου, π.χ. https://media.apo-koinou.com/rinokeros/maxfm-syneunteksi.mp3"
           - name: title
             label: Τίτλος
             type: string

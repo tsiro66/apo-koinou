@@ -213,12 +213,12 @@ custom domain του R2 μένει κανονικά στο `.com`.
    | Αρχείο στο repo | Νέο R2 key | Πεδίο σε |
    | --- | --- | --- |
    | `public/syneunteixeis/anoixta/maxfm-syneunteksi.mp3` (21.5 MB) | `anoixta/maxfm-syneunteksi.mp3` | `anoixta.md` |
-   | `public/syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3` (15.8 MB) | `rinokeros/maxfm-syneunteksi-v3.mp3` | `rinokeros.md` |
+   | `public/syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3` (15.8 MB) | `rinokeros/maxfm-syneunteksi.mp3` (ανέβηκε χωρίς το `-v3` — φρέσκος bucket, καθαρό όνομα) | `rinokeros.md` |
    | `public/syneunteixeis/rinokeros/peloponnisos-fm-syneunteksi.mp3` (22.6 MB) | `rinokeros/peloponnisos-fm-syneunteksi.mp3` | `rinokeros.md` |
    | `public/syneunteixeis/rinokeros/radio-gamma-94fm-syneunteksi.mp3` (21.8 MB) | `rinokeros/radio-gamma-94fm-syneunteksi.mp3` | `rinokeros.md` |
    | `public/syneunteixeis/autoxeiras/radio-gamma-94fm-syneunteksi.mp3` (18.7 MB) | `autoxeiras/radio-gamma-94fm-syneunteksi.mp3` | `autoxeiras.md` |
 
-   Κάθε τιμή `audio:` γίνεται `https://media.apo-koinou.com/<key>`. Ο player
+   Κάθε τιμή `audio:` έγινε `https://media.apo-koinou.com/<key>`. Ο player
    (`InterviewAudio.astro`) δέχεται ήδη οποιοδήποτε URL — καμία αλλαγή κώδικα.
 
 3. **Διαγραφή** του `public/syneunteixeis/` από το repo (τα αρχεία ζουν πια στο R2)
@@ -231,9 +231,9 @@ custom domain του R2 μένει κανονικά στο `.com`.
 
 ## Checklist συνόψισης
 
-- [ ] Ενεργοποίηση R2 (+ κάρτα) — Μέρος Α.1
-- [ ] Bucket `apo-koinou-media` — Μέρος Α.2
-- [ ] Custom domain `media.apo-koinou.com` + δοκιμή — Μέρος Α.3
+- [x] Ενεργοποίηση R2 (+ κάρτα) — Μέρος Α.1
+- [x] Bucket `apo-koinou-media` — Μέρος Α.2
+- [x] Custom domain `media.apo-koinou.com` + δοκιμή — Μέρος Α.3
 - [ ] Πρόσβαση πελάτη (invite ή δικό σου ανέβασμα) — Μέρος Α.4
-- [ ] Repo αλλαγές (.pages.yml, 4 URLs, διαγραφή public/syneunteixeis, odigies-cms.md) — Μέρος Δ
+- [x] Repo αλλαγές (.pages.yml, 5 URLs, διαγραφή public/syneunteixeis, odigies-cms.md) — Μέρος Δ
 - [ ] Αποστολή του «Μέρους Γ» στον πελάτη

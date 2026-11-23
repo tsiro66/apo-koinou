@@ -120,13 +120,13 @@ syneunteixeisVideo:
     title: Συνέντευξη στην εκπομπή Metropolis του IONIAN TV
     date: Μάιος 2026
 syneunteixeisAudio:
-  - audio: /syneunteixeis/rinokeros/maxfm-syneunteksi-v3.mp3
+  - audio: https://media.apo-koinou.com/rinokeros/maxfm-syneunteksi.mp3
     title: Συνέντευξη MaxFM 93.4
     date: Μάιος 2026
-  - audio: /syneunteixeis/rinokeros/peloponnisos-fm-syneunteksi.mp3
+  - audio: https://media.apo-koinou.com/rinokeros/peloponnisos-fm-syneunteksi.mp3
     title: Συνέντευξη Peloponnisos FM 103.9
     date: Μάιος 2026
-  - audio: /syneunteixeis/rinokeros/radio-gamma-94fm-syneunteksi.mp3
+  - audio: https://media.apo-koinou.com/rinokeros/radio-gamma-94fm-syneunteksi.mp3
     title: Συνέντευξη Radio Gamma 94FM
     date: Μάιος 2026
 kritikes:

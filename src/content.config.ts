@@ -119,9 +119,11 @@ const parastaseisCollection = defineCollection({
           date: z.string().optional(),
         }),
       ),
-      // Voice recordings: audio lives in public/syneunteixeis (no
-      // astro:assets processing for mp3s) — the frontmatter value is a
-      // site-absolute path like /syneunteixeis/<slug>/file.mp3.
+      // Voice recordings: mp3s live in the R2 bucket behind
+      // media.apo-koinou.com (the 25 MiB static-asset cap rules out
+      // public/) — the frontmatter value is the full URL, e.g.
+      // https://media.apo-koinou.com/<play-slug>/<file>.mp3. The
+      // custom player passes it straight to <audio src>.
       syneunteixeisAudio: cmsRows(
         ["audio"],
         z.object({

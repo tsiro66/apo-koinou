@@ -121,7 +121,7 @@ gallery:
   - ../../assets/parastaseis/panta-anoixta/vlp6839.jpg
   - ../../assets/parastaseis/panta-anoixta/vlp6875.jpg
 syneunteixeisAudio:
-  - audio: /syneunteixeis/anoixta/maxfm-syneunteksi.mp3
+  - audio: https://media.apo-koinou.com/anoixta/maxfm-syneunteksi.mp3
     title: Συνέντευξη MaxFM 93.4
     date: Μάιος 2026
 carousel: false
